@@ -9,6 +9,7 @@
 <v t="vitalije.20180822151714.2"><vh>Start</vh>
 <v t="vitalije.20180822175121.1"><vh>@edit mkdocs.yml</vh></v>
 <v t="vitalije.20180822175420.1"><vh>@edit .gitignore</vh></v>
+<v t="vitalije.20180822184227.1"><vh>@edit .travis.yml</vh></v>
 <v t="vitalije.20180822173307.1"><vh>@settings</vh>
 <v t="vitalije.20180822171822.1"><vh>@button make-md @key=Alt-4</vh>
 <v t="vitalije.20180822171822.2"><vh>hl</vh></v>
