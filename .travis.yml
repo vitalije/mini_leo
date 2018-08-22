@@ -1,10 +1,14 @@
 # Config file for automatic testing at travis-ci.org
+matrix:
+  include:
 
-language: python
-python:
-  - 3.6
-rust:
-  - stable
+    - language: python
+      python: 3.6
+
+    - language: rust
+      rust:
+        - stable
+
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
 
