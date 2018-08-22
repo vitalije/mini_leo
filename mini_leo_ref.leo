@@ -73,6 +73,9 @@
 <v t="vitalije.20180822171159.1"><vh>md:docs/authors.md</vh>
 <v t="vitalije.20180822170856.2"></v>
 </v>
+<v t="vitalije.20180822182319.1"><vh>md:docs/readme.md</vh>
+<v t="vitalije.20180822170827.2"></v>
+</v>
 </v>
 </vnodes>
 <tnodes>
@@ -347,5 +350,6 @@ def getf(fname):
     g.es('wrote', fname, len(s), 'bytes')
 </t>
 <t tx="vitalije.20180822173307.1"></t>
+<t tx="vitalije.20180822182319.1"></t>
 </tnodes>
 </leo_file>
