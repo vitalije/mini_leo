@@ -100,3 +100,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+# backup files
+*.*~
+mini_leo_work.leo

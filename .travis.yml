@@ -22,7 +22,7 @@ deploy:
   distributions: sdist bdist_wheel
   user: vitalije
   password:
-    secure: PLEASE_REPLACE_ME
+    secure:  "k4nVOlvPjeB8i4PpSIJAcGLRQBHN5Qlxo36AGoFdAnX11qnIoXdbAZAZSbJJCUmqRXoCa56aRMTItQpq9W6epcECkEwoiu29L2Be6REksrFTFeuahCEAOGWtM2Ynpk07Rf6AxNth70J+IowYpsixZ7fLS2Q02jUOYYnpytRF+icT5+CsmuKGdOXCLvlIUe9geY+JnUEOKsfVgr2e5uOZHItxxmHZx0BB5RyGcZogUmKiTuAxpB8EfudNucyaRLFFtIfmZonx0wCZJ+RqbA040XLJHAWdoEuL2P7HPIqbklMYgOfk6579EVzHSJXa/N6wKaDXeHb8SWpWX/1iy4ef6AW1VEipqJxIZEBiFT26zfVcXY7HboQ5xjskml4y/V1XOdYZZ4lYL9uZ4kxt9cSEy0wvpLOSdksZRS2jgmvmaLIlPZD8x1V3T6PnuhH7aLIBNMcuAXI0xyQR1xHArK3sb9OKsx4krLn8Zq9x4+QmLNN+Gk5g2Hb3Sa6vQL3LEB0dk6SF1QHVBqpDaYr4QL57xqxsfjFq3PaleDTGvd2Pno5h3d5TIwgGf72j0IEhCpLqESBvNMbucxg4cH1ZqmUoaRQJOHdtOz9BoG8QnhHVUxG1iSoMUi8rCiDPYGGfLrE+7B5pZVG0Z7cqHxsU/Y0N47GTz9Gutzx5ibYnfAr+2+4="
   on:
     tags: true
     repo: vitalije/mini_leo
