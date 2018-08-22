@@ -118,7 +118,7 @@ project template.
 </t>
 <t tx="vitalije.20180822170856.1"></t>
 <t tx="vitalije.20180822170856.2"></t>
-<t tx="vitalije.20180822170856.3">-   Vitalije Milosevic &lt;vitalije (at) kviziracija.net&gt;
+<t tx="vitalije.20180822170856.3">-   Vitalije Milosevic _`&lt;vitalije (at) kviziracija.net&gt;`_
 </t>
 <t tx="vitalije.20180822170856.4">None yet. Why not be the first?
 </t>

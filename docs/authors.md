@@ -6,7 +6,7 @@
 ## Development Lead
 
 
--   Vitalije Milosevic <vitalije (at) kviziracija.net>
+-   Vitalije Milosevic _`<vitalije (at) kviziracija.net>`_
 
 
 ## Contributors
