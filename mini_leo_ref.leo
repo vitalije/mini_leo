@@ -7,6 +7,7 @@
 <find_panel_settings/>
 <vnodes>
 <v t="vitalije.20180822151714.2"><vh>Start</vh>
+<v t="vitalije.20180822200821.1"><vh>to clean</vh></v>
 <v t="vitalije.20180822175121.1"><vh>@edit mkdocs.yml</vh></v>
 <v t="vitalije.20180822175420.1"><vh>@edit .gitignore</vh></v>
 <v t="vitalije.20180822184227.1"><vh>@edit .travis.yml</vh></v>
@@ -22,7 +23,12 @@
 </v>
 </v>
 </v>
-<v t="vitalije.20180822183813.1"><vh>@file setup.py</vh></v>
+<v t="vitalije.20180822200124.1"><vh>@clean mini_leo/__init__.py</vh></v>
+<v t="vitalije.20180822200508.1"><vh>@clean mini_leo/cli.py</vh>
+<v t="vitalije.20180822200550.2"><vh>main (cli.py)</vh></v>
+</v>
+<v t="vitalije.20180822200526.1"><vh>@clean mini_leo/mini_leo.py</vh></v>
+<v t="vitalije.20180822183813.1"><vh>@clean setup.py</vh></v>
 <v t="vitalije.20180822170827.1"><vh>md:README.md</vh>
 <v t="vitalije.20180822170827.2"><vh>Mini Leo</vh>
 <v t="vitalije.20180822170827.3"><vh>Features</vh></v>
@@ -355,5 +361,96 @@ def getf(fname):
 </t>
 <t tx="vitalije.20180822173307.1"></t>
 <t tx="vitalije.20180822182319.1"></t>
+<t tx="vitalije.20180822183813.1">@first #!/usr/bin/env python
+@first # -*- coding: utf-8 -*-
+"""The setup script."""
+
+@language python
+@tabwidth -4
+
+from setuptools import setup, find_packages
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.md') as history_file:
+    history = history_file.read()
+
+requirements = ['Click&gt;=6.0', ]
+
+setup_requirements = ['pytest-runner', ]
+
+test_requirements = ['pytest', ]
+
+setup(
+    author="Vitalije Milosevic",
+    author_email='vitalije@kviziracija.net',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+    ],
+    description="A minimal version of Leo editor.",
+    entry_points={
+        'console_scripts': [
+            'mini_leo=mini_leo.cli:main',
+        ],
+    },
+    install_requires=requirements,
+    license="MIT license",
+    long_description=readme + '\n\n' + history,
+    include_package_data=True,
+    keywords='mini_leo',
+    name='mini_leo',
+    packages=find_packages(include=['mini_leo']),
+    setup_requires=setup_requirements,
+    test_suite='tests',
+    tests_require=test_requirements,
+    url='https://github.com/vitalije/mini_leo',
+    version='0.1.0',
+    zip_safe=False,
+)
+</t>
+<t tx="vitalije.20180822200124.1">@first # -*- coding: utf-8 -*-
+"""Top-level package for Mini Leo."""
+@language python
+@tabwidth -4
+
+__author__ = """Vitalije Milosevic"""
+__email__ = 'vitalije@kviziracija.net'
+__version__ = '0.1.0'
+</t>
+<t tx="vitalije.20180822200508.1">@first # -*- coding: utf-8 -*-
+"""Console script for mini_leo."""
+import sys
+import click
+@language python
+@tabwidth -4
+@others
+if __name__ == "__main__":
+    sys.exit(main())  # pragma: no cover
+</t>
+<t tx="vitalije.20180822200526.1">@first # -*- coding: utf-8 -*-
+"""Main module."""
+@others
+@language python
+@tabwidth -4
+</t>
+<t tx="vitalije.20180822200550.2">@click.command()
+def main(args=None):
+    """Console script for mini_leo."""
+    click.echo("Replace this message by putting your code into "
+               "mini_leo.cli.main")
+    click.echo("See click documentation at http://click.pocoo.org/")
+    return 0
+</t>
+<t tx="vitalije.20180822200821.1">for v in c.all_unique_nodes():
+    if v.h.startswith('@file '):
+        v.h = v.h.replace('@file ', '@clean ')
+</t>
 </tnodes>
 </leo_file>

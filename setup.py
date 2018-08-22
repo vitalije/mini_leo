@@ -1,13 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#@+leo-ver=5-thin
-#@+node:vitalije.20180822183813.1: * @file setup.py
-#@@first
-#@@first
-
-#@+others
-#@+node:vitalije.20180822183827.1: ** Declarations (setup.py)
 """The setup script."""
+
 
 from setuptools import setup, find_packages
 
@@ -55,7 +49,3 @@ setup(
     version='0.1.0',
     zip_safe=False,
 )
-#@-others
-#@@language python
-#@@tabwidth -4
-#@-leo
