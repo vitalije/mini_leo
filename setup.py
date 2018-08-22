@@ -6,19 +6,6 @@
 #@@first
 
 #@+others
-#@+node:vitalije.20180822184624.1: ** @edit MANIFEST.in
-#@@nocolor
-include AUTHORS.md
-include CONTRIBUTING.md
-include HISTORY.md
-include LICENSE
-include README.md
-
-recursive-include tests *
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
-
-recursive-include docs *.md *.jpg *.png *.gif
 #@+node:vitalije.20180822183827.1: ** Declarations (setup.py)
 """The setup script."""
 

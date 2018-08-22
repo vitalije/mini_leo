@@ -10,6 +10,8 @@
 <v t="vitalije.20180822175121.1"><vh>@edit mkdocs.yml</vh></v>
 <v t="vitalije.20180822175420.1"><vh>@edit .gitignore</vh></v>
 <v t="vitalije.20180822184227.1"><vh>@edit .travis.yml</vh></v>
+<v t="vitalije.20180822184624.1"><vh>@edit MANIFEST.in</vh></v>
+<v t="vitalije.20180822185454.1"><vh>@auto tox.ini</vh></v>
 <v t="vitalije.20180822173307.1"><vh>@settings</vh>
 <v t="vitalije.20180822171822.1"><vh>@button make-md @key=Alt-4</vh>
 <v t="vitalije.20180822171822.2"><vh>hl</vh></v>
