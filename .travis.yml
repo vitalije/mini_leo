@@ -6,10 +6,8 @@ language: python
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-    - pip install -U tox-travis
-    - mkdir -p ~/rust-installer
-    - curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
-    - sh ~/rust-installer/rustup.sh --prefix=~/rust --spec=stable --disable-sudo -y
+  - pip install -U tox-travis
+  - sh rust-installer.sh
 
 # Command to run tests, e.g. python setup.py test
 script: tox
