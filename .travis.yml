@@ -8,7 +8,7 @@ python: 3.6
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
   - sh rust-installer.sh
-  - ls ~/rust/
+  - ls ~/rust/bin
   - pip install -U tox-travis
 
 # Command to run tests, e.g. python setup.py test
