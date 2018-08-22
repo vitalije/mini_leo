@@ -45,6 +45,11 @@
 <v t="vitalije.20180822170901.12"><vh>Deploying</vh></v>
 </v>
 </v>
+<v t="vitalije.20180822170949.1"><vh>md:HISTORY.md</vh>
+<v t="vitalije.20180822170949.2"><vh>History</vh>
+<v t="vitalije.20180822170949.3"><vh>0.1.0 (2018-08-22)</vh></v>
+</v>
+</v>
 <v t="vitalije.20180822171411.1"><vh>md:docs/contributing.md</vh>
 <v t="vitalije.20180822171411.2"><vh>Contributing</vh>
 <v t="vitalije.20180822171411.3"><vh>Types of Contributions</vh>
@@ -58,11 +63,6 @@
 <v t="vitalije.20180822171411.10"><vh>Pull Request Guidelines</vh></v>
 <v t="vitalije.20180822171411.11"><vh>Tips</vh></v>
 <v t="vitalije.20180822171411.12"><vh>Deploying</vh></v>
-</v>
-</v>
-<v t="vitalije.20180822170949.1"><vh>md:HISTORY.md</vh>
-<v t="vitalije.20180822170949.2"><vh>History</vh>
-<v t="vitalije.20180822170949.3"><vh>0.1.0 (2018-08-22)</vh></v>
 </v>
 </v>
 <v t="vitalije.20180822171443.1"><vh>md:docs/history.md</vh>
@@ -137,10 +137,7 @@ project template.
 </t>
 <t tx="vitalije.20180822170856.4">None yet. Why not be the first?
 </t>
-<t tx="vitalije.20180822170901.1">::: {.highlight}
-shell
-:::
-</t>
+<t tx="vitalije.20180822170901.1"></t>
 <t tx="vitalije.20180822170901.10">Before you submit a pull request, check that it meets these guidelines:
 
 1.  The pull request should include tests.
@@ -247,15 +244,14 @@ development.
 <t tx="vitalije.20180822170949.3">-   First release on PyPI.
 </t>
 <t tx="vitalije.20180822171037.1"></t>
-<t tx="vitalije.20180822171037.2">::: {.toctree}
-readme installation usage modules contributing authors history
-:::
-
+<t tx="vitalije.20180822171037.2">- [Read me](/README.md)
+- [Instalation](installation.md)
+- [Usage](usage.md)
+- [Contributing](contributing.md)
+- [Authors](authors.md)
+- [History](history.md)
 </t>
-<t tx="vitalije.20180822171107.1">::: {.highlight}
-shell
-:::
-</t>
+<t tx="vitalije.20180822171107.1"></t>
 <t tx="vitalije.20180822171107.2"></t>
 <t tx="vitalije.20180822171107.3">To install Mini Leo, run this command in your terminal:
 
@@ -303,10 +299,7 @@ $ python setup.py install
 </t>
 <t tx="vitalije.20180822171159.4">None yet. Why not be the first?
 </t>
-<t tx="vitalije.20180822171411.1">::: {.highlight}
-shell
-:::
-</t>
+<t tx="vitalije.20180822171411.1"></t>
 <t tx="vitalije.20180822171411.10">Before you submit a pull request, check that it meets these guidelines:
 
 1.  The pull request should include tests.

@@ -2,9 +2,11 @@
 # Welcome to Mini Leo\'s documentation!
 
 
-::: {.toctree}
-readme installation usage modules contributing authors history
-:::
-
+- [Read me](/README.md)
+- [Instalation](installation.md)
+- [Usage](usage.md)
+- [Contributing](contributing.md)
+- [Authors](authors.md)
+- [History](history.md)
 
 
