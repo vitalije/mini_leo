@@ -1,0 +1,5 @@
+site_name: Mini Leo
+site_dir: site
+repo_url: https://github.com/vitalije/mini_leo
+theme:
+    name: 'rtd-dropdown'
