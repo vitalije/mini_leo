@@ -19,6 +19,7 @@
 </v>
 </v>
 </v>
+<v t="vitalije.20180822183813.1"><vh>@file setup.py</vh></v>
 <v t="vitalije.20180822170827.1"><vh>md:README.md</vh>
 <v t="vitalije.20180822170827.2"><vh>Mini Leo</vh>
 <v t="vitalije.20180822170827.3"><vh>Features</vh></v>
