@@ -6,24 +6,477 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="vitalije.20180822151714.2"><vh>About</vh>
-<v t="vitalije.20180822161901.1"><vh>@auto-rst README.rst</vh></v>
-<v t="vitalije.20180822161858.1"><vh>@auto-rst CONTRIBUTING.rst</vh></v>
-<v t="vitalije.20180822161857.1"><vh>@auto-rst AUTHORS.rst</vh></v>
-<v t="vitalije.20180822161900.2"><vh>@auto-rst HISTORY.rst</vh></v>
-<v t="vitalije.20180822162557.1"><vh>Docs</vh>
-<v t="vitalije.20180822161859.3"><vh>@auto-rst docs/index.rst</vh></v>
-<v t="vitalije.20180822161859.5"><vh>@auto-rst docs/readme.rst</vh></v>
-<v t="vitalije.20180822161859.4"><vh>@auto-rst docs/installation.rst</vh></v>
-<v t="vitalije.20180822161900.1"><vh>@auto-rst docs/usage.rst</vh></v>
-<v t="vitalije.20180822161859.1"><vh>@auto-rst docs/contributing.rst</vh></v>
-<v t="vitalije.20180822161858.2"><vh>@auto-rst docs/authors.rst</vh></v>
-<v t="vitalije.20180822161859.2"><vh>@auto-rst docs/history.rst</vh></v>
+<v t="vitalije.20180822151714.2"><vh>Start</vh>
+<v t="vitalije.20180822173307.1"><vh>@settings</vh>
+<v t="vitalije.20180822171822.1"><vh>@button make-md @key=Alt-4</vh>
+<v t="vitalije.20180822171822.2"><vh>hl</vh></v>
+<v t="vitalije.20180822171822.3"><vh>mdlines</vh></v>
+<v t="vitalije.20180822171822.4"><vh>getf</vh></v>
+<v t="vitalije.20180822171822.5"><vh>putf</vh></v>
+<v t="vitalije.20180822171822.6"><vh>obradi</vh></v>
+</v>
+</v>
+</v>
+<v t="vitalije.20180822170827.1"><vh>md:README.md</vh>
+<v t="vitalije.20180822170827.2"><vh>Mini Leo</vh>
+<v t="vitalije.20180822170827.3"><vh>Features</vh></v>
+<v t="vitalije.20180822170827.4"><vh>Credits</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822164726.1"><vh>Doc</vh>
+<v t="vitalije.20180822170856.1"><vh>md:AUTHORS.md</vh>
+<v t="vitalije.20180822170856.2"><vh>Credits</vh>
+<v t="vitalije.20180822170856.3"><vh>Development Lead</vh></v>
+<v t="vitalije.20180822170856.4"><vh>Contributors</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822170901.1"><vh>md:CONTRIBUTING.md</vh>
+<v t="vitalije.20180822170901.2"><vh>Contributing</vh>
+<v t="vitalije.20180822170901.3"><vh>Types of Contributions</vh>
+<v t="vitalije.20180822170901.4"><vh>Report Bugs</vh></v>
+<v t="vitalije.20180822170901.5"><vh>Fix Bugs</vh></v>
+<v t="vitalije.20180822170901.6"><vh>Implement Features</vh></v>
+<v t="vitalije.20180822170901.7"><vh>Write Documentation</vh></v>
+<v t="vitalije.20180822170901.8"><vh>Submit Feedback</vh></v>
+</v>
+<v t="vitalije.20180822170901.9"><vh>Get Started!</vh></v>
+<v t="vitalije.20180822170901.10"><vh>Pull Request Guidelines</vh></v>
+<v t="vitalije.20180822170901.11"><vh>Tips</vh></v>
+<v t="vitalije.20180822170901.12"><vh>Deploying</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822171411.1"><vh>md:docs/contributing.md</vh>
+<v t="vitalije.20180822171411.2"><vh>Contributing</vh>
+<v t="vitalije.20180822171411.3"><vh>Types of Contributions</vh>
+<v t="vitalije.20180822171411.4"><vh>Report Bugs</vh></v>
+<v t="vitalije.20180822171411.5"><vh>Fix Bugs</vh></v>
+<v t="vitalije.20180822171411.6"><vh>Implement Features</vh></v>
+<v t="vitalije.20180822171411.7"><vh>Write Documentation</vh></v>
+<v t="vitalije.20180822171411.8"><vh>Submit Feedback</vh></v>
+</v>
+<v t="vitalije.20180822171411.9"><vh>Get Started!</vh></v>
+<v t="vitalije.20180822171411.10"><vh>Pull Request Guidelines</vh></v>
+<v t="vitalije.20180822171411.11"><vh>Tips</vh></v>
+<v t="vitalije.20180822171411.12"><vh>Deploying</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822170949.1"><vh>md:HISTORY.md</vh>
+<v t="vitalije.20180822170949.2"><vh>History</vh>
+<v t="vitalije.20180822170949.3"><vh>0.1.0 (2018-08-22)</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822171443.1"><vh>md:docs/history.md</vh>
+<v t="vitalije.20180822171443.2"><vh>History</vh>
+<v t="vitalije.20180822171443.3"><vh>0.1.0 (2018-08-22)</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822171037.1"><vh>md:docs/index.md</vh>
+<v t="vitalije.20180822171037.2"><vh>Welcome to Mini Leo\'s documentation!</vh></v>
+</v>
+<v t="vitalije.20180822171107.1"><vh>md:docs/installation.md</vh>
+<v t="vitalije.20180822171107.2"><vh>Installation</vh>
+<v t="vitalije.20180822171107.3"><vh>Stable release</vh></v>
+<v t="vitalije.20180822171107.4"><vh>From sources</vh></v>
+</v>
+</v>
+<v t="vitalije.20180822171113.1"><vh>md:docs/usage.md</vh>
+<v t="vitalije.20180822171129.1"><vh>Usage</vh></v>
+</v>
+<v t="vitalije.20180822171159.1"><vh>md:docs/authors.md</vh>
+<v t="vitalije.20180822171159.2"><vh>Credits</vh>
+<v t="vitalije.20180822171159.3"><vh>Development Lead</vh></v>
+<v t="vitalije.20180822171159.4"><vh>Contributors</vh></v>
+</v>
 </v>
 </v>
 </vnodes>
 <tnodes>
 <t tx="vitalije.20180822151714.2">A minimal version of Leo editor</t>
-<t tx="vitalije.20180822162557.1"></t>
+<t tx="vitalije.20180822164726.1">s = '''AUTHORS.md
+CONTRIBUTING.md
+HISTORY.md
+README.md
+index.md
+installation.md
+usage.md
+docs/authors.md
+docs/contributing.md
+docs/history.md
+docs/index.md
+docs/installation.md
+docs/readme.md
+docs/usage.md'''.split('\n')
+for x in s:
+    p1 = p.insertAsLastChild()
+    p1.h = 'md:%s'%x
+    p1.b = open(x, 'rt', encoding='utf8').read()
+
+c.redraw()</t>
+<t tx="vitalije.20180822170827.1"></t>
+<t tx="vitalije.20180822170827.2">[![image](https://img.shields.io/pypi/v/mini_leo.svg)](https://pypi.python.org/pypi/mini_leo)
+
+[![image](https://img.shields.io/travis/vitalije/mini_leo.svg)](https://travis-ci.org/vitalije/mini_leo)
+
+[![Documentation Status](https://readthedocs.org/projects/mini-leo/badge/?version=latest)](https://mini-leo.readthedocs.io/en/latest/?badge=latest)
+
+A minimal version of Leo editor.
+
+-   Free software: MIT license
+-   Documentation: &lt;https://mini-leo.readthedocs.io&gt;.
+</t>
+<t tx="vitalije.20180822170827.3">-   TODO
+</t>
+<t tx="vitalije.20180822170827.4">This package was created with
+[Cookiecutter](https://github.com/audreyr/cookiecutter) and the
+[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
+project template.
+</t>
+<t tx="vitalije.20180822170856.1"></t>
+<t tx="vitalije.20180822170856.2"></t>
+<t tx="vitalije.20180822170856.3">-   Vitalije Milosevic \&lt;&lt;vitalije@kviziracija.net&gt;\&gt;
+</t>
+<t tx="vitalije.20180822170856.4">None yet. Why not be the first?
+</t>
+<t tx="vitalije.20180822170901.1">::: {.highlight}
+shell
+:::
+</t>
+<t tx="vitalije.20180822170901.10">Before you submit a pull request, check that it meets these guidelines:
+
+1.  The pull request should include tests.
+2.  If the pull request adds functionality, the docs should be updated.
+    Put your new functionality into a function with a docstring, and add
+    the feature to the list in README.rst.
+3.  The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and
+    for PyPy. Check
+    &lt;https://travis-ci.org/vitalije/mini_leo/pull_requests&gt; and make
+    sure that the tests pass for all supported Python versions.
+</t>
+<t tx="vitalije.20180822170901.11">To run a subset of tests:
+
+    $ py.test tests.test_mini_leo
+</t>
+<t tx="vitalije.20180822170901.12">A reminder for the maintainers on how to deploy. Make sure all your
+changes are committed (including an entry in HISTORY.rst). Then run:
+
+    $ bumpversion patch # possible: major / minor / patch
+    $ git push
+    $ git push --tags
+
+Travis will then deploy to PyPI if tests pass.
+</t>
+<t tx="vitalije.20180822170901.2">Contributions are welcome, and they are greatly appreciated! Every
+little bit helps, and credit will always be given.
+
+You can contribute in many ways:
+</t>
+<t tx="vitalije.20180822170901.3"></t>
+<t tx="vitalije.20180822170901.4">Report bugs at &lt;https://github.com/vitalije/mini_leo/issues&gt;.
+
+If you are reporting a bug, please include:
+
+-   Your operating system name and version.
+-   Any details about your local setup that might be helpful in
+    troubleshooting.
+-   Detailed steps to reproduce the bug.
+</t>
+<t tx="vitalije.20180822170901.5">Look through the GitHub issues for bugs. Anything tagged with \"bug\"
+and \"help wanted\" is open to whoever wants to implement it.
+</t>
+<t tx="vitalije.20180822170901.6">Look through the GitHub issues for features. Anything tagged with
+\"enhancement\" and \"help wanted\" is open to whoever wants to
+implement it.
+</t>
+<t tx="vitalije.20180822170901.7">Mini Leo could always use more documentation, whether as part of the
+official Mini Leo docs, in docstrings, or even on the web in blog posts,
+articles, and such.
+</t>
+<t tx="vitalije.20180822170901.8">The best way to send feedback is to file an issue at
+&lt;https://github.com/vitalije/mini_leo/issues&gt;.
+
+If you are proposing a feature:
+
+-   Explain in detail how it would work.
+-   Keep the scope as narrow as possible, to make it easier to
+    implement.
+-   Remember that this is a volunteer-driven project, and that
+    contributions are welcome :)
+</t>
+<t tx="vitalije.20180822170901.9">Ready to contribute? Here\'s how to set up mini\_leo for local
+development.
+
+1.  Fork the mini\_leo repo on GitHub.
+2.  Clone your fork locally:
+
+        $ git clone git@github.com:your_name_here/mini_leo.git
+
+3.  Install your local copy into a virtualenv. Assuming you have
+    virtualenvwrapper installed, this is how you set up your fork for
+    local development:
+
+        $ mkvirtualenv mini_leo
+        $ cd mini_leo/
+        $ python setup.py develop
+
+4.  Create a branch for local development:
+
+        $ git checkout -b name-of-your-bugfix-or-feature
+
+    Now you can make your changes locally.
+
+5.  When you\'re done making changes, check that your changes pass
+    flake8 and the tests, including testing other Python versions with
+    tox:
+
+        $ flake8 mini_leo tests
+        $ python setup.py test or py.test
+        $ tox
+
+    To get flake8 and tox, just pip install them into your virtualenv.
+
+6.  Commit your changes and push your branch to GitHub:
+
+        $ git add .
+        $ git commit -m "Your detailed description of your changes."
+        $ git push origin name-of-your-bugfix-or-feature
+
+7.  Submit a pull request through the GitHub website.
+</t>
+<t tx="vitalije.20180822170949.1"></t>
+<t tx="vitalije.20180822170949.2"></t>
+<t tx="vitalije.20180822170949.3">-   First release on PyPI.
+</t>
+<t tx="vitalije.20180822171037.1"></t>
+<t tx="vitalije.20180822171037.2">::: {.toctree}
+readme installation usage modules contributing authors history
+:::
+
+</t>
+<t tx="vitalije.20180822171107.1">::: {.highlight}
+shell
+:::
+</t>
+<t tx="vitalije.20180822171107.2"></t>
+<t tx="vitalije.20180822171107.3">To install Mini Leo, run this command in your terminal:
+
+``` {.sourceCode .console}
+$ pip install mini_leo
+```
+
+This is the preferred method to install Mini Leo, as it will always
+install the most recent stable release.
+
+If you don\'t have [pip](https://pip.pypa.io) installed, this [Python
+installation
+guide](http://docs.python-guide.org/en/latest/starting/installation/)
+can guide you through the process.
+</t>
+<t tx="vitalije.20180822171107.4">The sources for Mini Leo can be downloaded from the [Github
+repo](https://github.com/vitalije/mini_leo).
+
+You can either clone the public repository:
+
+``` {.sourceCode .console}
+$ git clone git://github.com/vitalije/mini_leo
+```
+
+Or download the
+[tarball](https://github.com/vitalije/mini_leo/tarball/master):
+
+``` {.sourceCode .console}
+$ curl  -OL https://github.com/vitalije/mini_leo/tarball/master
+```
+
+Once you have a copy of the source, you can install it with:
+
+``` {.sourceCode .console}
+$ python setup.py install
+```
+</t>
+<t tx="vitalije.20180822171113.1"></t>
+<t tx="vitalije.20180822171129.1">To use Mini Leo in a project:
+
+    import mini_leo</t>
+<t tx="vitalije.20180822171159.1"></t>
+<t tx="vitalije.20180822171159.2"></t>
+<t tx="vitalije.20180822171159.3">-   Vitalije Milosevic \&lt;&lt;vitalije@kviziracija.net&gt;\&gt;
+</t>
+<t tx="vitalije.20180822171159.4">None yet. Why not be the first?
+</t>
+<t tx="vitalije.20180822171411.1">::: {.highlight}
+shell
+:::
+</t>
+<t tx="vitalije.20180822171411.10">Before you submit a pull request, check that it meets these guidelines:
+
+1.  The pull request should include tests.
+2.  If the pull request adds functionality, the docs should be updated.
+    Put your new functionality into a function with a docstring, and add
+    the feature to the list in README.rst.
+3.  The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and
+    for PyPy. Check
+    &lt;https://travis-ci.org/vitalije/mini_leo/pull_requests&gt; and make
+    sure that the tests pass for all supported Python versions.
+</t>
+<t tx="vitalije.20180822171411.11">To run a subset of tests:
+
+    $ py.test tests.test_mini_leo
+</t>
+<t tx="vitalije.20180822171411.12">A reminder for the maintainers on how to deploy. Make sure all your
+changes are committed (including an entry in HISTORY.rst). Then run:
+
+    $ bumpversion patch # possible: major / minor / patch
+    $ git push
+    $ git push --tags
+
+Travis will then deploy to PyPI if tests pass.
+</t>
+<t tx="vitalije.20180822171411.2">Contributions are welcome, and they are greatly appreciated! Every
+little bit helps, and credit will always be given.
+
+You can contribute in many ways:
+</t>
+<t tx="vitalije.20180822171411.3"></t>
+<t tx="vitalije.20180822171411.4">Report bugs at &lt;https://github.com/vitalije/mini_leo/issues&gt;.
+
+If you are reporting a bug, please include:
+
+-   Your operating system name and version.
+-   Any details about your local setup that might be helpful in
+    troubleshooting.
+-   Detailed steps to reproduce the bug.
+</t>
+<t tx="vitalije.20180822171411.5">Look through the GitHub issues for bugs. Anything tagged with \"bug\"
+and \"help wanted\" is open to whoever wants to implement it.
+</t>
+<t tx="vitalije.20180822171411.6">Look through the GitHub issues for features. Anything tagged with
+\"enhancement\" and \"help wanted\" is open to whoever wants to
+implement it.
+</t>
+<t tx="vitalije.20180822171411.7">Mini Leo could always use more documentation, whether as part of the
+official Mini Leo docs, in docstrings, or even on the web in blog posts,
+articles, and such.
+</t>
+<t tx="vitalije.20180822171411.8">The best way to send feedback is to file an issue at
+&lt;https://github.com/vitalije/mini_leo/issues&gt;.
+
+If you are proposing a feature:
+
+-   Explain in detail how it would work.
+-   Keep the scope as narrow as possible, to make it easier to
+    implement.
+-   Remember that this is a volunteer-driven project, and that
+    contributions are welcome :)
+</t>
+<t tx="vitalije.20180822171411.9">Ready to contribute? Here\'s how to set up mini\_leo for local
+development.
+
+1.  Fork the mini\_leo repo on GitHub.
+2.  Clone your fork locally:
+
+        $ git clone git@github.com:your_name_here/mini_leo.git
+
+3.  Install your local copy into a virtualenv. Assuming you have
+    virtualenvwrapper installed, this is how you set up your fork for
+    local development:
+
+        $ mkvirtualenv mini_leo
+        $ cd mini_leo/
+        $ python setup.py develop
+
+4.  Create a branch for local development:
+
+        $ git checkout -b name-of-your-bugfix-or-feature
+
+    Now you can make your changes locally.
+
+5.  When you\'re done making changes, check that your changes pass
+    flake8 and the tests, including testing other Python versions with
+    tox:
+
+        $ flake8 mini_leo tests
+        $ python setup.py test or py.test
+        $ tox
+
+    To get flake8 and tox, just pip install them into your virtualenv.
+
+6.  Commit your changes and push your branch to GitHub:
+
+        $ git add .
+        $ git commit -m "Your detailed description of your changes."
+        $ git push origin name-of-your-bugfix-or-feature
+
+7.  Submit a pull request through the GitHub website.
+</t>
+<t tx="vitalije.20180822171443.1"></t>
+<t tx="vitalije.20180822171443.2"></t>
+<t tx="vitalije.20180822171443.3">-   First release on PyPI.
+</t>
+<t tx="vitalije.20180822171822.1">import subprocess
+import re
+import shutil
+import os
+pat = re.compile(r'^(\s*)LEOGNX:(.+)$')
+c.frame.log.selectTab('Log')
+c.frame.log.clearLog()
+@others
+px = c.rootPosition()
+seen = set()
+while px:
+    if px.gnx in seen:
+        px.moveToNodeAfterTree()
+        continue
+    seen.add(px.gnx)
+    if px.h.startswith('md:'):
+        obradi(px)
+        px.moveToNodeAfterTree()
+    else:
+        px.moveToThreadNext()
+</t>
+<t tx="vitalije.20180822171822.2">def hl(p, lev):
+    return '#' * (lev) + ' ' + p.h + '\n'</t>
+<t tx="vitalije.20180822171822.3">def mdlines(p, lev=0):
+    if lev &gt; 0 and not p.b.startswith('#'):
+        yield hl(p, lev)
+        yield ''
+    for line in p.b.splitlines(False):
+        m = pat.match(line)
+        if m:
+            v = c.fileCommands.gnxDict.get(m.group(2))
+            if not v:
+                g.es('gnx not found:[%s]'%m.group(2))
+            else:
+                for x in v.b.splitlines(False):
+                    yield m.group(1) + x
+            continue
+        yield line
+    yield ''
+    for p1 in p.children():
+        yield from mdlines(p1, lev + 1)
+    yield ''</t>
+<t tx="vitalije.20180822171822.4">_CACHE_ = {}
+def getf(fname):
+    if fname in _CACHE_:
+        return _CACHE_[fname]
+    if not g.os_path_exists(fname): return ''
+    with open(fname, 'rt') as inpt:
+        s = inpt.read()
+        _CACHE_[fname] = s
+        return s
+</t>
+<t tx="vitalije.20180822171822.5">def putf(fname, cnt):
+    if cnt == getf(fname):
+        return False
+    with open(fname, 'wb') as out:
+        out.write(cnt.encode('utf-8'))
+        _CACHE_[fname] = cnt
+        return True</t>
+<t tx="vitalije.20180822171822.6">def obradi(p):
+    fname = g.os_path_join(c.openDirectory, p.h[3:].strip())
+    s = '\n'.join(mdlines(p))
+    putf(fname, s)
+    g.es('wrote', fname, len(s), 'bytes')
+</t>
+<t tx="vitalije.20180822173307.1"></t>
 </tnodes>
 </leo_file>
