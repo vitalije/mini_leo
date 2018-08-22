@@ -11,11 +11,23 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', ]
+requirements = ['Click>=6.0', 'milksnake']
 
-setup_requirements = ['pytest-runner', ]
-
+setup_requirements = ['pytest-runner', 'milksnake']
 test_requirements = ['pytest', ]
+def build_native(spec):
+    # build a native rust library
+    build = spec.add_external_build(
+        cmd=['cargo', 'build', '--release'],
+        path='./rust'
+    )
+
+    spec.add_cffi_module(
+        module_path='mini_leo._native',
+        dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
+        header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
+        rtld_flags=['NOW', 'NODELETE']
+    )
 
 setup(
     author="Vitalije Milosevic",
@@ -48,4 +60,7 @@ setup(
     url='https://github.com/vitalije/mini_leo',
     version='0.1.0',
     zip_safe=False,
+    platforms='any',
+    milksnake_tasks = [build_native]
 )
+

@@ -103,3 +103,4 @@ ENV/
 # backup files
 *.*~
 mini_leo_work.leo
+rust/Cargo.lock
