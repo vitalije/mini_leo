@@ -1,5 +1,5 @@
-!Dummy chapter
-==============
+@rst-no-head
+============
 
 .. highlight:: shell
 
