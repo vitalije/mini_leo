@@ -56,9 +56,7 @@
 <v t="vitalije.20180822171411.2"></v>
 </v>
 <v t="vitalije.20180822171443.1"><vh>md:docs/history.md</vh>
-<v t="vitalije.20180822171443.2"><vh>History</vh>
-<v t="vitalije.20180822171443.3"><vh>0.1.0 (2018-08-22)</vh></v>
-</v>
+<v t="vitalije.20180822170949.2"></v>
 </v>
 <v t="vitalije.20180822171037.1"><vh>md:docs/index.md</vh>
 <v t="vitalije.20180822171037.2"><vh>Welcome to Mini Leo's documentation!</vh></v>
@@ -73,10 +71,7 @@
 <v t="vitalije.20180822171129.1"><vh>Usage</vh></v>
 </v>
 <v t="vitalije.20180822171159.1"><vh>md:docs/authors.md</vh>
-<v t="vitalije.20180822171159.2"><vh>Credits</vh>
-<v t="vitalije.20180822171159.3"><vh>Development Lead</vh></v>
-<v t="vitalije.20180822171159.4"><vh>Contributors</vh></v>
-</v>
+<v t="vitalije.20180822170856.2"></v>
 </v>
 </v>
 </vnodes>
@@ -182,11 +177,6 @@ $ python setup.py install
 
     import mini_leo</t>
 <t tx="vitalije.20180822171159.1"></t>
-<t tx="vitalije.20180822171159.2"></t>
-<t tx="vitalije.20180822171159.3">-   Vitalije Milosevic \&lt;&lt;vitalije@kviziracija.net&gt;\&gt;
-</t>
-<t tx="vitalije.20180822171159.4">None yet. Why not be the first?
-</t>
 <t tx="vitalije.20180822171411.1"></t>
 <t tx="vitalije.20180822171411.10">Before you submit a pull request, check that it meets these guidelines:
 
@@ -290,9 +280,6 @@ development.
 7.  Submit a pull request through the GitHub website.
 </t>
 <t tx="vitalije.20180822171443.1"></t>
-<t tx="vitalije.20180822171443.2"></t>
-<t tx="vitalije.20180822171443.3">-   First release on PyPI.
-</t>
 <t tx="vitalije.20180822171822.1">import subprocess
 import re
 import shutil
@@ -313,6 +300,7 @@ while px:
         px.moveToNodeAfterTree()
     else:
         px.moveToThreadNext()
+c.updateRefLeoFile()
 </t>
 <t tx="vitalije.20180822171822.2">def hl(p, lev):
     return '#' * (lev) + ' ' + p.h + '\n'</t>
