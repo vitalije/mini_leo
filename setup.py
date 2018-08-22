@@ -18,7 +18,7 @@ test_requirements = ['pytest', ]
 def build_native(spec):
     # build a native rust library
     build = spec.add_external_build(
-        cmd=['cargo', 'build', '--release'],
+        cmd=['~/.cargo/bin/cargo', 'build', '--release'],
         path='rust'
     )
 
