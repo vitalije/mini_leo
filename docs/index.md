@@ -1,5 +1,5 @@
 
-# Welcome to Mini Leo\'s documentation!
+# Welcome to Mini Leo's documentation!
 
 
 - [Read me](/README.md)

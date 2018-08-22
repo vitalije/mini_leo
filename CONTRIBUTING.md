@@ -27,15 +27,15 @@ If you are reporting a bug, please include:
 ### Fix Bugs
 
 
-Look through the GitHub issues for bugs. Anything tagged with \"bug\"
-and \"help wanted\" is open to whoever wants to implement it.
+Look through the GitHub issues for bugs. Anything tagged with "bug"
+and "help wanted" is open to whoever wants to implement it.
 
 
 ### Implement Features
 
 
 Look through the GitHub issues for features. Anything tagged with
-\"enhancement\" and \"help wanted\" is open to whoever wants to
+"enhancement" and "help wanted" is open to whoever wants to
 implement it.
 
 
@@ -66,10 +66,10 @@ If you are proposing a feature:
 ## Get Started!
 
 
-Ready to contribute? Here\'s how to set up mini\_leo for local
+Ready to contribute? Here's how to set up mini_leo for local
 development.
 
-1.  Fork the mini\_leo repo on GitHub.
+1.  Fork the mini_leo repo on GitHub.
 2.  Clone your fork locally:
 
         $ git clone git@github.com:your_name_here/mini_leo.git
@@ -88,7 +88,7 @@ development.
 
     Now you can make your changes locally.
 
-5.  When you\'re done making changes, check that your changes pass
+5.  When you're done making changes, check that your changes pass
     flake8 and the tests, including testing other Python versions with
     tox:
 
