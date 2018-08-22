@@ -7,6 +7,8 @@
 <find_panel_settings/>
 <vnodes>
 <v t="vitalije.20180822151714.2"><vh>Start</vh>
+<v t="vitalije.20180822175121.1"><vh>@edit mkdocs.yml</vh></v>
+<v t="vitalije.20180822175420.1"><vh>@edit .gitignore</vh></v>
 <v t="vitalije.20180822173307.1"><vh>@settings</vh>
 <v t="vitalije.20180822171822.1"><vh>@button make-md @key=Alt-4</vh>
 <v t="vitalije.20180822171822.2"><vh>hl</vh></v>
@@ -121,7 +123,7 @@ project template.
 </t>
 <t tx="vitalije.20180822170856.1"></t>
 <t tx="vitalije.20180822170856.2"></t>
-<t tx="vitalije.20180822170856.3">-   Vitalije Milosevic \&lt;&lt;vitalije@kviziracija.net&gt;\&gt;
+<t tx="vitalije.20180822170856.3">-   Vitalije Milosevic &lt;vitalije (at) kviziracija.net&gt;
 </t>
 <t tx="vitalije.20180822170856.4">None yet. Why not be the first?
 </t>
@@ -131,8 +133,7 @@ project template.
 <t tx="vitalije.20180822170949.3">-   First release on PyPI.
 </t>
 <t tx="vitalije.20180822171037.1"></t>
-<t tx="vitalije.20180822171037.2">- [Read me](/README.md)
-- [Instalation](installation.md)
+<t tx="vitalije.20180822171037.2">- [Instalation](installation.md)
 - [Usage](usage.md)
 - [Contributing](contributing.md)
 - [Authors](authors.md)
@@ -142,14 +143,14 @@ project template.
 <t tx="vitalije.20180822171107.2"></t>
 <t tx="vitalije.20180822171107.3">To install Mini Leo, run this command in your terminal:
 
-``` {.sourceCode .console}
+```shell
 $ pip install mini_leo
 ```
 
 This is the preferred method to install Mini Leo, as it will always
 install the most recent stable release.
 
-If you don\'t have [pip](https://pip.pypa.io) installed, this [Python
+If you don't have [pip](https://pip.pypa.io) installed, this [Python
 installation
 guide](http://docs.python-guide.org/en/latest/starting/installation/)
 can guide you through the process.
@@ -159,20 +160,20 @@ repo](https://github.com/vitalije/mini_leo).
 
 You can either clone the public repository:
 
-``` {.sourceCode .console}
+```shell
 $ git clone git://github.com/vitalije/mini_leo
 ```
 
 Or download the
 [tarball](https://github.com/vitalije/mini_leo/tarball/master):
 
-``` {.sourceCode .console}
+```shell
 $ curl  -OL https://github.com/vitalije/mini_leo/tarball/master
 ```
 
 Once you have a copy of the source, you can install it with:
 
-``` {.sourceCode .console}
+```shell
 $ python setup.py install
 ```
 </t>
