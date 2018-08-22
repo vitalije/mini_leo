@@ -28,7 +28,15 @@
 <v t="vitalije.20180822200550.2"><vh>main (cli.py)</vh></v>
 </v>
 <v t="vitalije.20180822200526.1"><vh>@clean mini_leo/mini_leo.py</vh></v>
-<v t="vitalije.20180822183813.1"><vh>@clean setup.py</vh></v>
+<v t="vitalije.20180822183813.1"><vh>@clean setup.py</vh>
+<v t="vitalije.20180822204146.1"><vh>build_native</vh></v>
+<v t="vitalije.20180822204202.1"><vh>setup</vh></v>
+</v>
+<v t="vitalije.20180822204714.1"><vh>RUST</vh>
+<v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
+<v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
+<v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
+</v>
 <v t="vitalije.20180822170827.1"><vh>md:README.md</vh>
 <v t="vitalije.20180822170827.2"><vh>Mini Leo</vh>
 <v t="vitalije.20180822170827.3"><vh>Features</vh></v>
@@ -376,49 +384,19 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = ['Click&gt;=6.0', ]
+requirements = ['Click&gt;=6.0', 'milksnake']
 
-setup_requirements = ['pytest-runner', ]
-
+setup_requirements = ['pytest-runner', 'milksnake']
 test_requirements = ['pytest', ]
-
-setup(
-    author="Vitalije Milosevic",
-    author_email='vitalije@kviziracija.net',
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-    ],
-    description="A minimal version of Leo editor.",
-    entry_points={
-        'console_scripts': [
-            'mini_leo=mini_leo.cli:main',
-        ],
-    },
-    install_requires=requirements,
-    license="MIT license",
-    long_description=readme + '\n\n' + history,
-    include_package_data=True,
-    keywords='mini_leo',
-    name='mini_leo',
-    packages=find_packages(include=['mini_leo']),
-    setup_requires=setup_requirements,
-    test_suite='tests',
-    tests_require=test_requirements,
-    url='https://github.com/vitalije/mini_leo',
-    version='0.1.0',
-    zip_safe=False,
-)
+@others
 </t>
 <t tx="vitalije.20180822200124.1">@first # -*- coding: utf-8 -*-
 """Top-level package for Mini Leo."""
 @language python
 @tabwidth -4
+from mini_leo._native import ffi, lib
+def test():
+    return lib.a_function_from_rust()
 
 __author__ = """Vitalije Milosevic"""
 __email__ = 'vitalije@kviziracija.net'
@@ -452,5 +430,81 @@ def main(args=None):
     if v.h.startswith('@file '):
         v.h = v.h.replace('@file ', '@clean ')
 </t>
+<t tx="vitalije.20180822204146.1">def build_native(spec):
+    # build a native rust library
+    build = spec.add_external_build(
+        cmd=['cargo', 'build', '--release'],
+        path='rust'
+    )
+
+    spec.add_cffi_module(
+        module_path='mini_leo._native',
+        dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
+        header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
+        rtld_flags=['NOW', 'NODELETE']
+    )</t>
+<t tx="vitalije.20180822204202.1">setup(
+    author="Vitalije Milosevic",
+    author_email='vitalije@kviziracija.net',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+    ],
+    description="A minimal version of Leo editor.",
+    entry_points={
+        'console_scripts': [
+            'mini_leo=mini_leo.cli:main',
+        ],
+    },
+    install_requires=requirements,
+    license="MIT license",
+    long_description=readme + '\n\n' + history,
+    include_package_data=True,
+    keywords='mini_leo',
+    name='mini_leo',
+    packages=find_packages(include=['mini_leo']),
+    setup_requires=setup_requirements,
+    test_suite='tests',
+    tests_require=test_requirements,
+    url='https://github.com/vitalije/mini_leo',
+    version='0.1.0',
+    zip_safe=False,
+    platforms='any',
+    milksnake_tasks = [build_native]
+)</t>
+<t tx="vitalije.20180822204714.1">@path rust</t>
+<t tx="vitalije.20180822204724.1">#[no_mangle]
+pub unsafe extern "C" fn a_function_from_rust() -&gt; i32 {
+    42
+}</t>
+<t tx="vitalije.20180822204947.1">[package]
+name = "mini_leo"
+version = "0.1.0"
+build = "build.rs"
+
+[lib]
+name = "mini_leo"
+crate-type = ["cdylib"]
+
+[build-dependencies]
+cbindgen = "0.5.2"
+</t>
+<t tx="vitalije.20180822205209.1">extern crate cbindgen;
+
+use std::env;
+
+fn main() {
+  let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+  let mut config: cbindgen::Config = Default::default();
+  config.language = cbindgen::Language::C;
+  cbindgen::generate_with_config(&amp;crate_dir, config)
+    .unwrap()
+    .write_to_file("target/mini_leo.h");
+}</t>
 </tnodes>
 </leo_file>
