@@ -1,0 +1,29 @@
+[tool]
+
+[tool.enscons]
+name = "mini_leo"
+version = "0.1.0"
+description = "A minimal version of Leo editor."
+classifiers = ["Development Status :: 2 - Pre-Alpha",
+               "Intended Audience :: Developers",
+               "License :: OSI Approved :: MIT License",
+               "Natural Language :: English",
+               "Programming Language :: Python :: 3",
+               "Programming Language :: Python :: 3.6",
+               "Programming Language :: Python :: 3.7"]
+keywords = ["mini_leo"]
+author = "Vitalije Milosevic"
+author_email = "vitalije@kviziracija.net"
+url = "https://github.com/vitalije/mini_leo"
+license = "MIT license"
+install_requires = ["Click>=6.0", "milksnake"]
+tests_require = ["pytest"]
+long_description = "\n# Mini Leo\n\n\n[![image](https://img.shields.io/pypi/v/mini_leo.svg)](https://pypi.python.org/pypi/mini_leo)\n\n[![image](https://img.shields.io/travis/vitalije/mini_leo.svg)](https://travis-ci.org/vitalije/mini_leo)\n\n[![Documentation Status](https://readthedocs.org/projects/mini-leo/badge/?version=latest)](https://mini-leo.readthedocs.io/en/latest/?badge=latest)\n\nA minimal version of Leo editor.\n\n-   Free software: MIT license\n-   Documentation: <https://mini-leo.readthedocs.io>.\n\n## Features\n\n\n-   TODO\n\n\n## Credits\n\n\nThis package was created with\n[Cookiecutter](https://github.com/audreyr/cookiecutter) and the\n[audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)\nproject template.\n\n\n\n\n\n\n# History\n\n\n\n## 0.1.0 (2018-08-22)\n\n\n-   First release on PyPI.\n\n\n\n"
+packages = ["mini_leo"]
+src_root = ""
+
+[tool.enscons.entry_points]
+console_scripts = ["mini_leo=mini_leo.cli:main"]
+
+[build-system]
+requires = ["pytoml>=0.1", "enscons"]

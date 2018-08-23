@@ -12,6 +12,11 @@
 <v t="vitalije.20180822175420.1"><vh>@edit .gitignore</vh></v>
 <v t="vitalije.20180822184227.1"><vh>@edit .travis.yml</vh></v>
 <v t="vitalije.20180822184624.1"><vh>@edit MANIFEST.in</vh></v>
+<v t="vitalije.20180823001012.1"><vh>@clean rust-installer.sh</vh></v>
+<v t="vitalije.20180823103429.1"><vh>@edit setup.cfg</vh></v>
+<v t="vitalije.20180823104438.1"><vh>@edit SConstruct</vh></v>
+<v t="vitalije.20180823104449.1"><vh>@edit pyproject.toml</vh></v>
+<v t="vitalije.20180823132035.1"><vh>@edit requirements_dev.txt</vh></v>
 <v t="vitalije.20180822185454.1"><vh>@auto tox.ini</vh></v>
 <v t="vitalije.20180822173307.1"><vh>@settings</vh>
 <v t="vitalije.20180822171822.1"><vh>@button make-md @key=Alt-4</vh>
@@ -506,5 +511,10 @@ fn main() {
     .unwrap()
     .write_to_file("target/mini_leo.h");
 }</t>
+<t tx="vitalije.20180823001012.1">#!/bin/bash
+mkdir -p ~/rust-installer
+curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
+sh ~/rust-installer/rustup.sh --prefix=~/rust --spec=stable --disable-sudo -y
+</t>
 </tnodes>
 </leo_file>

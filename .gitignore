@@ -104,3 +104,5 @@ ENV/
 *.*~
 mini_leo_work.leo
 rust/Cargo.lock
+.sconsign.dblite.p3
+mini_leo.dll
