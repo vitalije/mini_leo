@@ -35,6 +35,7 @@ env.Command(
         chdir="rust"
         )
 print('='*30, 'target/release', '='*30)
+print(os.getcwd())
 print('\n'.join(os.listdir('/home/travis/build/vitalije/rust/target/release')))
 print('='*30, 'rust/target/', '='*30)
 # Copy compiled library into base directory
