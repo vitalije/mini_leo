@@ -9,6 +9,7 @@ cache: cargo
 install:
   - sh rust-installer.sh
   - pip install -U tox-travis
+  - pip install enscons
 
 # Command to run tests, e.g. python setup.py test
 script:
