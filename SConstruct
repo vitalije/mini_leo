@@ -25,7 +25,7 @@ env = Environment(tools=['default', 'packaging', enscons.generate],
 py_source = Glob('mini_leo\\*.py')
 
 rust_libname = 'mini_leo' + env['SHLIBSUFFIX']
-rust_lib = 'rust/target/release/' + rust_libname
+rust_lib = '../rust/target/release/' + rust_libname
 
 # Build rust
 env.Command(
@@ -35,7 +35,7 @@ env.Command(
         chdir="rust"
         )
 print('='*30, 'target/release', '='*30)
-print('\n'.join(os.listdir('/home/travis/build/vitalije/mini_leo/rust/target/release')))
+print('\n'.join(os.listdir('/home/travis/build/vitalije/rust/target/release')))
 print('='*30, 'rust/target/', '='*30)
 # Copy compiled library into base directory
 local_rust = env.Command(
