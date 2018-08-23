@@ -25,7 +25,7 @@ env = Environment(tools=['default', 'packaging', enscons.generate],
 py_source = Glob('mini_leo\\*.py')
 
 rust_libname = 'mini_leo' + env['SHLIBSUFFIX']
-rust_lib = '../rust/target/release/' + rust_libname
+rust_lib = 'rust/target/release/' + rust_libname
 
 # Build rust
 env.Command(
@@ -34,17 +34,11 @@ env.Command(
         action="cargo build --release", 
         chdir="rust"
         )
-print('='*30, 'target/release', '='*30)
-print(os.getcwd())
-print('\n'.join(os.listdir('/home/travis/build/vitalije/mini_leo/')))
-print('='*30, 'rust/target/', '='*30)
-print('\n'.join(os.listdir('/home/travis/build/vitalije/mini_leo/rust')))
-print('='*30, 'rust/target/', '='*30)
 # Copy compiled library into base directory
 local_rust = env.Command(
         target=rust_libname,
         source=rust_lib,
-        action='ls rust/')#Copy('$TARGET', '$SOURCE'))
+        action='ls rust/target/release')#Copy('$TARGET', '$SOURCE'))
 
 local_rust_h = ['rust/target/mini_leo.h']
 wheelfiles = env.Whl('platlib', py_source + local_rust + local_rust_h, root='')
