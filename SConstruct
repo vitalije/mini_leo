@@ -44,7 +44,7 @@ print('='*30, 'rust/target/', '='*30)
 local_rust = env.Command(
         target=rust_libname,
         source=rust_lib,
-        action=Copy('$TARGET', '$SOURCE'))
+        action='ls rust/')#Copy('$TARGET', '$SOURCE'))
 
 local_rust_h = ['rust/target/mini_leo.h']
 wheelfiles = env.Whl('platlib', py_source + local_rust + local_rust_h, root='')
