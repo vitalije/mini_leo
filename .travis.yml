@@ -14,7 +14,6 @@ install:
 # Command to run tests, e.g. python setup.py test
 script:
   - python -m SCons
-  - python setup.py install
   - tox
 
 # Assuming you have installed the travis-ci CLI tool, after you
