@@ -34,7 +34,9 @@ env.Command(
         action="cargo build --release", 
         chdir="rust"
         )
-
+print('='*30, 'target/release', '='*30)
+print('\n'.join(os.listdir('rust/target/release')))
+print('='*30, 'target/release', '='*30)
 # Copy compiled library into base directory
 local_rust = env.Command(
         target=rust_libname,
