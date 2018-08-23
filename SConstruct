@@ -35,8 +35,8 @@ env.Command(
         chdir="rust"
         )
 print('='*30, 'target/release', '='*30)
-print('\n'.join(os.listdir('rust/target/release')))
-print('='*30, '/home/travis/build/vitalije/mini_leo/rust/target/', '='*30)
+print('\n'.join(os.listdir('/home/travis/build/vitalije/mini_leo/rust/target/release')))
+print('='*30, 'rust/target/', '='*30)
 # Copy compiled library into base directory
 local_rust = env.Command(
         target=rust_libname,
