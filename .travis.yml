@@ -14,7 +14,8 @@ install:
 # Command to run tests, e.g. python setup.py test
 script:
   - python -m SCons
-  - tox
+  - ls dist/
+  - tox --installpkg=$(ls dist/mini_leo-0.1.0.*64.zip)
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
