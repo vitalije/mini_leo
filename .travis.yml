@@ -15,7 +15,7 @@ install:
 script:
   - python -m SCons
   - python -c "import os;print('\n'.join(os.listdir('dist')))"
-  - tox --installpkg=$(ls dist/mini_leo-0.1.0.*64.zip)
+  - tox --installpkg=dist/mini_leo-0.1.0-cp36-cp36m-linux_x86_64.whl
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
