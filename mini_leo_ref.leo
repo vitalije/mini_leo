@@ -447,7 +447,9 @@ def main(args=None):
         dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
         header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
         rtld_flags=['NOW', 'NODELETE']
-    )</t>
+    )
+
+</t>
 <t tx="vitalije.20180822204202.1">setup(
     author="Vitalije Milosevic",
     author_email='vitalije@kviziracija.net',
@@ -481,12 +483,16 @@ def main(args=None):
     zip_safe=False,
     platforms='any',
     milksnake_tasks = [build_native]
-)</t>
+)
+
+</t>
 <t tx="vitalije.20180822204714.1">@path rust</t>
 <t tx="vitalije.20180822204724.1">#[no_mangle]
 pub unsafe extern "C" fn a_function_from_rust() -&gt; i32 {
     42
-}</t>
+}
+
+</t>
 <t tx="vitalije.20180822204947.1">[package]
 name = "mini_leo"
 version = "0.1.0"
@@ -510,7 +516,9 @@ fn main() {
   cbindgen::generate_with_config(&amp;crate_dir, config)
     .unwrap()
     .write_to_file("target/mini_leo.h");
-}</t>
+}
+
+</t>
 <t tx="vitalije.20180823001012.1">#!/bin/bash
 mkdir -p ~/rust-installer
 curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
