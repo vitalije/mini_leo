@@ -16,7 +16,7 @@ script:
 #  - python -m SCons
   - python setup.py bdist_wheel
   - python -c "import os;print('\n'.join(os.listdir('dist')))"
-  - 
+  - tox
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
