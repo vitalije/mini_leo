@@ -4,7 +4,8 @@
 
 
 from setuptools import setup, find_packages
-
+import os
+cargobin = os.path.expanduser('~/.cargo/bin/cargo')
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
@@ -18,7 +19,7 @@ test_requirements = ['pytest', ]
 def build_native(spec):
     # build a native rust library
     build = spec.add_external_build(
-        cmd=['~/.cargo/bin/cargo', 'build', '--release'],
+        cmd=[cargobin, 'build', '--release'],
         path='rust'
     )
 
