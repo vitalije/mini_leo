@@ -18,8 +18,8 @@ env = Environment(tools=['default', 'packaging', enscons.generate],
 # Add extra 'purelib' files or package_data here.
 py_source = Glob('mini_leo/*.py')
 
-rust_libname = 'mini_leo' + env['SHLIBSUFFIX']
-rust_lib = 'rust/target/release/' + env['SHLIBPREFIX'] + rust_libname
+rust_libname = 'mini_leo${SHLIBSUFFIX}'
+rust_lib = 'rust/target/release/${SHLIBPREFIX}' + rust_libname
 
 # Build rust
 env.Command(
