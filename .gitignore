@@ -103,6 +103,10 @@ ENV/
 # backup files
 *.*~
 mini_leo_work.leo
+mini_leo.leo
 rust/Cargo.lock
 .sconsign.dblite.p3
 mini_leo.dll
+mini_leo/_native.py
+mini_leo/_native__ffi.py
+pip-wheel-metadata/
