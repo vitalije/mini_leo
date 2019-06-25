@@ -41,7 +41,6 @@
 </v>
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
 <v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
-<v t="vitalije.20190625092304.1"><vh>newHeadline</vh></v>
 <v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
 <v t="vitalije.20190622142851.1"><vh>@clean src/bin/server.rs</vh>
 <v t="vitalije.20190622150400.1"><vh>uses...</vh></v>
@@ -60,15 +59,12 @@
 <v t="vitalije.20190622191207.1"><vh>@clean src/bin/leoxml.rs</vh>
 <v t="vitalije.20190622192134.1"><vh>parse_config_from_cmdline</vh></v>
 <v t="vitalije.20190622192739.1"><vh>Error</vh></v>
-<v t="vitalije.20190624115402.1"><vh>izostavi</vh>
-<v t="vitalije.20190624085814.1"><vh>XmlSadrzaj</vh></v>
-<v t="vitalije.20190624085740.1"><vh>iter_root</vh></v>
-<v t="vitalije.20190624085757.1"><vh>get_bodies</vh></v>
-<v t="vitalije.20190624092344.1"><vh>v_gnx_h_children</vh></v>
-<v t="vitalije.20190624115456.1"><vh>main2</vh></v>
+<v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
+<v t="vitalije.20190625102142.1"><vh>constants ...</vh></v>
 </v>
-<v t="vitalije.20190625101104.1"><vh>b64 ints</vh></v>
-<v t="vitalije.20190625101129.1"><vh>LevGnx</vh></v>
+<v t="vitalije.20190625101129.1"><vh>LevGnx</vh>
+<v t="vitalije.20190625102834.1"><vh>LevGnxUtils implementation</vh></v>
+</v>
 <v t="vitalije.20190625101210.1"><vh>_test_levgnx</vh></v>
 <v t="vitalije.20190625101337.1"><vh>_test_parse_leoxml</vh></v>
 </v>
@@ -821,14 +817,11 @@ error_type! {
 <t tx="vitalije.20190622191207.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
 extern crate xml;
-// extern crate sxd_document;
 extern crate clap;
 #[macro_use]
 extern crate error_type;
 use std::collections::HashMap;
 use clap::App;
-//use sxd_document::parser::parse;
-//use sxd_document::dom::{Document, Element, Text, ChildOfElement, ChildOfRoot};
 use xml::reader::{ParserConfig, XmlEvent};
 
 fn parser_config() -&gt; ParserConfig {
@@ -885,109 +878,6 @@ error_type! {
         ParseInt(std::num::ParseIntError) { },
     }
 }</t>
-<t tx="vitalije.20190624085740.1">fn iter_root&lt;'a&gt;(doc:&amp;'a Document) -&gt; Vec&lt;XmlSadrzaj&lt;'a&gt;&gt; {
-  let mut res:Vec&lt;XmlSadrzaj&gt; = Vec::new();
-  fn dump_e&lt;'a&gt;(e:&amp;Element&lt;'a&gt;, res:&amp;mut Vec&lt;XmlSadrzaj&lt;'a&gt;&gt;) {
-    res.push(XmlSadrzaj::E(*e));
-    for e1 in e.children().iter() {
-        match e1 {
-          ChildOfElement::Element(e2) =&gt; dump_e(e2, res),
-          ChildOfElement::Text(t) =&gt; res.push(XmlSadrzaj::T(*t)),
-          _ =&gt; ()
-        }
-    }
-  };
-  for e in doc.root().children().iter() {
-    match e {
-      ChildOfRoot::Element(e1) =&gt; dump_e(&amp;e1, &amp;mut res),
-      _ =&gt; ()
-    }
-  }
-  res
-}</t>
-<t tx="vitalije.20190624085757.1">fn get_bodies&lt;'a&gt;(doc:&amp;'a Document) -&gt; HashMap&lt;String, String&gt; {
-  let mut h:HashMap&lt;String, String&gt; = HashMap::new();
-  let mut k = String::new();
-  let mut b = String::new();
-  for v in iter_root(doc) {
-    match v {
-      XmlSadrzaj::E(e) if e.name().local_part() == "t" =&gt; {
-        if !k.is_empty() {
-          h.insert(k.clone(), b.clone());
-        }
-        b.clear();
-        k.clear();
-        if let Some(a) = e.attribute("tx") {
-          k.push_str(a.value());
-        }
-      },
-      XmlSadrzaj::T(t) if !k.is_empty() =&gt; {
-        b.push_str(t.text());
-      },
-      _ =&gt; if !k.is_empty() {
-        h.insert(k.clone(), b.clone());
-        k.clear();
-      }
-    }
-  }
-  h
-}</t>
-<t tx="vitalije.20190624085814.1">enum XmlSadrzaj&lt;'a&gt; {
-  E(Element&lt;'a&gt;),
-  T(Text&lt;'a&gt;)
-}</t>
-<t tx="vitalije.20190624092344.1">fn v_gnx_h_children&lt;'a&gt;(e:&amp;'a Element) -&gt; (String, String, String) {
-  let gnx = if let Some(x) = e.attribute("t") {
-      String::from(x.value())
-    } else {
-      String::new()
-  };
-  let mut name = String::new();
-  let mut children = String::new();
-  let mut h = String::new();
-  for e1 in e.children().iter() {
-    match e1 {
-      ChildOfElement::Element(e2) =&gt; {
-        name.clear();
-        name.push_str(e2.name().local_part());
-        if name == "v" {
-          if let Some(x) = e2.attribute("t") {
-            children.push_str(x.value());
-            children.push(' ');
-          }
-        }
-      },
-      ChildOfElement::Text(t) if name == "vh" =&gt; {
-        h.push_str(t.text())
-      },
-      _ =&gt; ()
-    }
-  }
-  children.pop();
-  (gnx, h, children)
-}</t>
-<t tx="vitalije.20190624115402.1">/*
-@others
-*/</t>
-<t tx="vitalije.20190624115456.1">fn main2() {
-  let fname = parse_config_from_cmdline().unwrap();
-  let f = File::open(&amp;fname).unwrap();
-  let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&amp;mut buf).unwrap();
-  match parse(&amp;buf) {
-    Ok(doc) =&gt; {
-      println!("uspesno parsiran xml");
-      let document = doc.as_document();
-      let bodies = get_bodies(&amp;document);
-      for (k, v) in bodies {
-        println!("------------{}--{}chars-----------------", k, v.len());
-        println!("{}======================================", v);
-      }
-    },
-    _ =&gt; println!("greska u parsiranju")
-  }
-}</t>
 <t tx="vitalije.20190625073241.1">we need:
     - list of known gnxes
     - stack of parent gnxes
@@ -1014,58 +904,7 @@ Known facts:
     3. when we receive StartElement(t) clear bodybuf and set bodygnx to be tx attribute
     4. when we receive EndElement(t) update h_b map bodygnx -&gt; b=bodybuf
     </t>
-<t tx="vitalije.20190625092304.1">chars = [-1, -1, -1, -1, -1, -1, -1, -1,   -1, -1, -1, -1, -1, -1, -1, -1,
-    -1, -1, -1, -1, -1, -1, -1, -1,   -1, -1, -1, -1, -1, -1, -1, -1,
-    -1, -1, -1, -1, -1, -1, -1, -1,   -1, -1, -1, -1, -1, -1, -1, -1,
-     0,  1,  2,  3,  4,  5,  6,  7,    8,  9, -1, -1, -1, -1, -1, -1,
-    -1, 10, 11, 12, 13, 14, 15, 16,   17, 18, 19, 20, 21, 22, 23, 24,
-    25, 26, 27, 28, 29, 30, 31, 32,   33, 34, 35, -1, -1, -1, -1, 36,
-    -1, 37, 38, 39, 40, 41, 42, 43,   44, 45, 46, 47, 48, 49, 50, 51,
-    52, 53, 54, 55, 56, 57, 58, 59,   60, 61, 62, -1, -1, -1, 63, -1]
-s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~"
-res = []
-res2 = []
-for i in range(128):
-    if i % 8 == 0:
-        res.append("\n  ")
-        if i &lt; 64: res2.append("\n  ")
-    if i &lt; 64:
-        res2.append("%r, "%s[i])
-    a = chr(i)
-    j = s.find(a)
-    if j &lt; 0:
-        res.append("255u8, ")
-    else:
-        res.append("%3du8, "%j)
-p.b += "[%s]"%("".join(res2))</t>
-<t tx="vitalije.20190625101104.1">const B64DIGITS:[char;64] = [
-  '0', '1', '2', '3', '4', '5', '6', '7',
-  '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
-  'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-  'W', 'X', 'Y', 'Z', '_', 'a', 'b', 'c',
-  'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-  'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-  't', 'u', 'v', 'w', 'x', 'y', 'z', '~'
-];
-const B64VALUES:[u8; 128] = [
-  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-    0u8,   1u8,   2u8,   3u8,   4u8,   5u8,   6u8,   7u8,
-    8u8,   9u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
-  255u8,  10u8,  11u8,  12u8,  13u8,  14u8,  15u8,  16u8,
-   17u8,  18u8,  19u8,  20u8,  21u8,  22u8,  23u8,  24u8,
-   25u8,  26u8,  27u8,  28u8,  29u8,  30u8,  31u8,  32u8,
-   33u8,  34u8,  35u8, 255u8, 255u8, 255u8, 255u8,  36u8,
-  255u8,  37u8,  38u8,  39u8,  40u8,  41u8,  42u8,  43u8,
-   44u8,  45u8,  46u8,  47u8,  48u8,  49u8,  50u8,  51u8,
-   52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
-   60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
-];
+<t tx="vitalije.20190625101104.1">/// converts integer to String in base 64
 fn b64str(n:u32) -&gt; String {
   if n == 0 {
     String::from("0")
@@ -1079,6 +918,8 @@ fn b64str(n:u32) -&gt; String {
     res
   }
 }
+
+/// converts base 64 str to u32
 fn b64int(a:&amp;str) -&gt; u32 {
   let mut res = 0_u32;
   for i in a.bytes() {
@@ -1090,37 +931,32 @@ fn b64int(a:&amp;str) -&gt; u32 {
 }</t>
 <t tx="vitalije.20190625101129.1">type LevGnx = u32;
 pub trait LevGnxUtils {
+
+  /// returns level of this object
   fn level(&amp;self) -&gt; u8;
+
+  /// returns ignx of this object
   fn ignx(&amp;self) -&gt; u32;
+
+  /// increments level of this object
   fn inc(&amp;mut self);
+
+  /// decrements level of this object
   fn dec(&amp;mut self);
+
+  /// changes the level of this object for given delta d
   fn shift(&amp;mut self, d: i8);
+
+  /// sets ignx of this object to given value
   fn set_ignx(&amp;mut self, ignx:u32);
+
+  /// converts this object into ascii representation (4 ascii letters)
   fn to_str(&amp;self) -&gt; String;
+
+  /// creates object from its String representation
   fn from_str(a:&amp;str) -&gt; Self;
 }
-
-impl LevGnxUtils for LevGnx {
-  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 18) &amp; 63) as u8}
-  fn ignx(&amp;self) -&gt; u32 {(*self) &amp; 0x3ffffu32}
-  fn inc(&amp;mut self) {*self += 0x4ffffu32;}
-  fn dec(&amp;mut self) {if *self &gt; 0x3ffff {*self -= 0x4ffffu32;}}
-  fn shift(&amp;mut self, d: i8) {
-    let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
-    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { ((lev as u32) &lt;&lt; 18)};
-  }
-  fn set_ignx(&amp;mut self, ignx:u32) {
-    *self = (*self &amp; 0xfc0000) | ignx;
-  }
-  fn to_str(&amp;self) -&gt; String {
-    let mut res = b64str(*self);
-    while res.len() &lt; 4 {res.insert(0, '0');}
-    res
-  }
-  fn from_str(a:&amp;str) -&gt; LevGnx {
-    b64int(&amp;a[..4]) as LevGnx
-  }
-}</t>
+</t>
 <t tx="vitalije.20190625101210.1">fn _test_levgnx() {
   let mut a:LevGnx = 23;
   println!("Ignx {}", a.ignx());
@@ -1172,6 +1008,63 @@ impl LevGnxUtils for LevGnx {
       },
       _ =&gt; ()
     }
+  }
+}</t>
+<t tx="vitalije.20190625102142.1">const B64DIGITS:[char;64] = [
+  '0', '1', '2', '3', '4', '5', '6', '7',
+  '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+  'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+  'W', 'X', 'Y', 'Z', '_', 'a', 'b', 'c',
+  'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+  'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+  't', 'u', 'v', 'w', 'x', 'y', 'z', '~'
+];
+const B64VALUES:[u8; 128] = [
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+    0u8,   1u8,   2u8,   3u8,   4u8,   5u8,   6u8,   7u8,
+    8u8,   9u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8,  10u8,  11u8,  12u8,  13u8,  14u8,  15u8,  16u8,
+   17u8,  18u8,  19u8,  20u8,  21u8,  22u8,  23u8,  24u8,
+   25u8,  26u8,  27u8,  28u8,  29u8,  30u8,  31u8,  32u8,
+   33u8,  34u8,  35u8, 255u8, 255u8, 255u8, 255u8,  36u8,
+  255u8,  37u8,  38u8,  39u8,  40u8,  41u8,  42u8,  43u8,
+   44u8,  45u8,  46u8,  47u8,  48u8,  49u8,  50u8,  51u8,
+   52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
+   60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
+];</t>
+<t tx="vitalije.20190625102834.1">impl LevGnxUtils for LevGnx {
+
+  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 18) &amp; 63) as u8}
+
+  fn ignx(&amp;self) -&gt; u32 {(*self) &amp; 0x3ffffu32}
+
+  fn inc(&amp;mut self) {*self += 0x4ffffu32;}
+
+  fn dec(&amp;mut self) {if *self &gt; 0x3ffff {*self -= 0x4ffffu32;}}
+
+  fn shift(&amp;mut self, d: i8) {
+    let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
+    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { ((lev as u32) &lt;&lt; 18)};
+  }
+
+  fn set_ignx(&amp;mut self, ignx:u32) {
+    *self = (*self &amp; 0xfc0000) | ignx;
+  }
+
+  fn to_str(&amp;self) -&gt; String {
+    let mut res = b64str(*self);
+    while res.len() &lt; 4 {res.insert(0, '0');}
+    res
+  }
+
+  fn from_str(a:&amp;str) -&gt; LevGnx {
+    b64int(&amp;a[..4]) as LevGnx
   }
 }</t>
 </tnodes>

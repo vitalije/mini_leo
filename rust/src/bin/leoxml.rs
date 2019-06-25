@@ -1,12 +1,9 @@
 extern crate xml;
-// extern crate sxd_document;
 extern crate clap;
 #[macro_use]
 extern crate error_type;
 use std::collections::HashMap;
 use clap::App;
-//use sxd_document::parser::parse;
-//use sxd_document::dom::{Document, Element, Text, ChildOfElement, ChildOfRoot};
 use xml::reader::{ParserConfig, XmlEvent};
 
 fn parser_config() -> ParserConfig {
@@ -47,108 +44,31 @@ error_type! {
         ParseInt(std::num::ParseIntError) { },
     }
 }
-/*
-enum XmlSadrzaj<'a> {
-  E(Element<'a>),
-  T(Text<'a>)
+/// converts integer to String in base 64
+fn b64str(n:u32) -> String {
+  if n == 0 {
+    String::from("0")
+  } else {
+    let mut res = String::new();
+    let mut _n = n;
+    while _n > 0 {
+      res.insert(0, B64DIGITS[(_n & 63) as usize]);
+      _n = _n >> 6;
+    }
+    res
+  }
 }
-fn iter_root<'a>(doc:&'a Document) -> Vec<XmlSadrzaj<'a>> {
-  let mut res:Vec<XmlSadrzaj> = Vec::new();
-  fn dump_e<'a>(e:&Element<'a>, res:&mut Vec<XmlSadrzaj<'a>>) {
-    res.push(XmlSadrzaj::E(*e));
-    for e1 in e.children().iter() {
-        match e1 {
-          ChildOfElement::Element(e2) => dump_e(e2, res),
-          ChildOfElement::Text(t) => res.push(XmlSadrzaj::T(*t)),
-          _ => ()
-        }
-    }
-  };
-  for e in doc.root().children().iter() {
-    match e {
-      ChildOfRoot::Element(e1) => dump_e(&e1, &mut res),
-      _ => ()
-    }
+
+/// converts base 64 str to u32
+fn b64int(a:&str) -> u32 {
+  let mut res = 0_u32;
+  for i in a.bytes() {
+    let k = B64VALUES[(i & 127) as usize];
+    if k == 255 { break }
+    res = (res << 6) + (k as u32);
   }
   res
 }
-fn get_bodies<'a>(doc:&'a Document) -> HashMap<String, String> {
-  let mut h:HashMap<String, String> = HashMap::new();
-  let mut k = String::new();
-  let mut b = String::new();
-  for v in iter_root(doc) {
-    match v {
-      XmlSadrzaj::E(e) if e.name().local_part() == "t" => {
-        if !k.is_empty() {
-          h.insert(k.clone(), b.clone());
-        }
-        b.clear();
-        k.clear();
-        if let Some(a) = e.attribute("tx") {
-          k.push_str(a.value());
-        }
-      },
-      XmlSadrzaj::T(t) if !k.is_empty() => {
-        b.push_str(t.text());
-      },
-      _ => if !k.is_empty() {
-        h.insert(k.clone(), b.clone());
-        k.clear();
-      }
-    }
-  }
-  h
-}
-fn v_gnx_h_children<'a>(e:&'a Element) -> (String, String, String) {
-  let gnx = if let Some(x) = e.attribute("t") {
-      String::from(x.value())
-    } else {
-      String::new()
-  };
-  let mut name = String::new();
-  let mut children = String::new();
-  let mut h = String::new();
-  for e1 in e.children().iter() {
-    match e1 {
-      ChildOfElement::Element(e2) => {
-        name.clear();
-        name.push_str(e2.name().local_part());
-        if name == "v" {
-          if let Some(x) = e2.attribute("t") {
-            children.push_str(x.value());
-            children.push(' ');
-          }
-        }
-      },
-      ChildOfElement::Text(t) if name == "vh" => {
-        h.push_str(t.text())
-      },
-      _ => ()
-    }
-  }
-  children.pop();
-  (gnx, h, children)
-}
-fn main2() {
-  let fname = parse_config_from_cmdline().unwrap();
-  let f = File::open(&fname).unwrap();
-  let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&mut buf).unwrap();
-  match parse(&buf) {
-    Ok(doc) => {
-      println!("uspesno parsiran xml");
-      let document = doc.as_document();
-      let bodies = get_bodies(&document);
-      for (k, v) in bodies {
-        println!("------------{}--{}chars-----------------", k, v.len());
-        println!("{}======================================", v);
-      }
-    },
-    _ => println!("greska u parsiranju")
-  }
-}
-*/
 const B64DIGITS:[char;64] = [
   '0', '1', '2', '3', '4', '5', '6', '7',
   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
@@ -177,57 +97,58 @@ const B64VALUES:[u8; 128] = [
    52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
    60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
 ];
-fn b64str(n:u32) -> String {
-  if n == 0 {
-    String::from("0")
-  } else {
-    let mut res = String::new();
-    let mut _n = n;
-    while _n > 0 {
-      res.insert(0, B64DIGITS[(_n & 63) as usize]);
-      _n = _n >> 6;
-    }
-    res
-  }
-}
-fn b64int(a:&str) -> u32 {
-  let mut res = 0_u32;
-  for i in a.bytes() {
-    let k = B64VALUES[(i & 127) as usize];
-    if k == 255 { break }
-    res = (res << 6) + (k as u32);
-  }
-  res
-}
 type LevGnx = u32;
 pub trait LevGnxUtils {
+
+  /// returns level of this object
   fn level(&self) -> u8;
+
+  /// returns ignx of this object
   fn ignx(&self) -> u32;
+
+  /// increments level of this object
   fn inc(&mut self);
+
+  /// decrements level of this object
   fn dec(&mut self);
+
+  /// changes the level of this object for given delta d
   fn shift(&mut self, d: i8);
+
+  /// sets ignx of this object to given value
   fn set_ignx(&mut self, ignx:u32);
+
+  /// converts this object into ascii representation (4 ascii letters)
   fn to_str(&self) -> String;
+
+  /// creates object from its String representation
   fn from_str(a:&str) -> Self;
 }
-
 impl LevGnxUtils for LevGnx {
+
   fn level(&self) -> u8 {(((*self) >> 18) & 63) as u8}
+
   fn ignx(&self) -> u32 {(*self) & 0x3ffffu32}
+
   fn inc(&mut self) {*self += 0x4ffffu32;}
+
   fn dec(&mut self) {if *self > 0x3ffff {*self -= 0x4ffffu32;}}
+
   fn shift(&mut self, d: i8) {
     let lev = ((*self >> 18) & 63) as i8 + d;
     *self = (*self & 0x3ffff) | if lev <= 0 { 0 } else { ((lev as u32) << 18)};
   }
+
   fn set_ignx(&mut self, ignx:u32) {
     *self = (*self & 0xfc0000) | ignx;
   }
+
   fn to_str(&self) -> String {
     let mut res = b64str(*self);
     while res.len() < 4 {res.insert(0, '0');}
     res
   }
+
   fn from_str(a:&str) -> LevGnx {
     b64int(&a[..4]) as LevGnx
   }
