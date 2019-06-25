@@ -9,3 +9,26 @@ crate-type = ["cdylib"]
 
 [build-dependencies]
 cbindgen = "0.5.2"
+
+[dependencies]
+clap = "2.33.0"
+error-type = "0.1.2"
+futures = "0.1.27"
+http = "0.1.17"
+hyper = "0.12"
+mime = "0.3.13"
+tokio-fs = "0.1.6"
+tokio-io = "0.1.12"
+xml-rs = "0.8.0"
+#sxd-document = "0.3.2"
+#threadpool = "1.7.1"
+#net2 = "0.2.33"
+#libc = "0.2.58"
+
+[[bin]]
+name = "server"
+path = "src/bin/server.rs"
+
+[[bin]]
+name = "leoxml"
+path = "src/bin/leoxml.rs"

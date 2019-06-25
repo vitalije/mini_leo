@@ -40,9 +40,40 @@
 <v t="vitalije.20180822204202.1"><vh>setup</vh></v>
 </v>
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
+<v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
+<v t="vitalije.20190625092304.1"><vh>newHeadline</vh></v>
 <v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
-<v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
+<v t="vitalije.20190622142851.1"><vh>@clean src/bin/server.rs</vh>
+<v t="vitalije.20190622150400.1"><vh>uses...</vh></v>
+<v t="vitalije.20190622150335.1"><vh>main</vh></v>
+<v t="vitalije.20190622150604.1"><vh>run</vh></v>
+<v t="vitalije.20190622151201.1"><vh>Config</vh></v>
+<v t="vitalije.20190622151325.1"><vh>parse_config_from_cmdline</vh></v>
+<v t="vitalije.20190622153123.1"><vh>serve</vh></v>
+<v t="vitalije.20190622153141.1"><vh>read_file</vh></v>
+<v t="vitalije.20190622153151.1"><vh>handle_io_error</vh></v>
+<v t="vitalije.20190622153201.1"><vh>file_path_mime</vh></v>
+<v t="vitalije.20190622153212.1"><vh>local_path_for_request</vh></v>
+<v t="vitalije.20190622153221.1"><vh>internal_server_error</vh></v>
+<v t="vitalije.20190622153236.1"><vh>Error</vh></v>
+</v>
+<v t="vitalije.20190622191207.1"><vh>@clean src/bin/leoxml.rs</vh>
+<v t="vitalije.20190622192134.1"><vh>parse_config_from_cmdline</vh></v>
+<v t="vitalije.20190622192739.1"><vh>Error</vh></v>
+<v t="vitalije.20190624115402.1"><vh>izostavi</vh>
+<v t="vitalije.20190624085814.1"><vh>XmlSadrzaj</vh></v>
+<v t="vitalije.20190624085740.1"><vh>iter_root</vh></v>
+<v t="vitalije.20190624085757.1"><vh>get_bodies</vh></v>
+<v t="vitalije.20190624092344.1"><vh>v_gnx_h_children</vh></v>
+<v t="vitalije.20190624115456.1"><vh>main2</vh></v>
+</v>
+<v t="vitalije.20190625101104.1"><vh>b64 ints</vh></v>
+<v t="vitalije.20190625101129.1"><vh>LevGnx</vh></v>
+<v t="vitalije.20190625101210.1"><vh>_test_levgnx</vh></v>
+<v t="vitalije.20190625101337.1"><vh>_test_parse_leoxml</vh></v>
+</v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
+<v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
 </v>
 <v t="vitalije.20180822170827.1"><vh>md:README.md</vh>
 <v t="vitalije.20180822170827.2"><vh>Mini Leo</vh>
@@ -509,7 +540,29 @@ crate-type = ["cdylib"]
 
 [build-dependencies]
 cbindgen = "0.5.2"
-</t>
+
+[dependencies]
+clap = "2.33.0"
+error-type = "0.1.2"
+futures = "0.1.27"
+http = "0.1.17"
+hyper = "0.12"
+mime = "0.3.13"
+tokio-fs = "0.1.6"
+tokio-io = "0.1.12"
+xml-rs = "0.8.0"
+#sxd-document = "0.3.2"
+#threadpool = "1.7.1"
+#net2 = "0.2.33"
+#libc = "0.2.58"
+
+[[bin]]
+name = "server"
+path = "src/bin/server.rs"
+
+[[bin]]
+name = "leoxml"
+path = "src/bin/leoxml.rs"</t>
 <t tx="vitalije.20180822205209.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">extern crate cbindgen;
 
 use std::env;
@@ -569,5 +622,557 @@ def test_command_line_interface():
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
 </t>
+<t tx="vitalije.20190622142851.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+extern crate hyper;
+#[macro_use]
+extern crate error_type;
+
+extern crate futures;
+extern crate clap;
+// extern crate tokio_fs;
+@others
+</t>
+<t tx="vitalije.20190622150335.1">fn main() {
+  if let Err(e) = run() {
+    println!("Error: {}", e.description());
+  }
+}
+</t>
+<t tx="vitalije.20190622150400.1">use clap::App;
+
+use futures::{future::Either};
+
+use hyper::{header, Body, Request, Response, Server};
+use hyper::rt::Future;
+use hyper::service::service_fn;
+
+use hyper::http::status::StatusCode;
+
+use std::{
+  error::Error as StdError,
+  io,
+  net::SocketAddr,
+  path::{Path, PathBuf}
+};</t>
+<t tx="vitalije.20190622150604.1">fn run() -&gt; Result&lt;(), Error&gt; {
+  let config = parse_config_from_cmdline()?;
+  let Config {addr, root_dir, .. } = config;
+  let server = Server::bind(&amp;addr)
+    .serve(move || {
+      let root_dir = root_dir.clone();
+      service_fn(move |req| serve(req, &amp;root_dir.clone()))
+    })
+    .map_err(|e| {
+      println!("There was an error: {}", e);
+    });
+
+  hyper::rt::run(server);
+  Ok(())
+}</t>
+<t tx="vitalije.20190622151201.1">#[derive(Clone)]
+struct Config {
+  addr: SocketAddr,
+  root_dir: PathBuf,
+  file_name: PathBuf
+}</t>
+<t tx="vitalije.20190622151325.1">fn parse_config_from_cmdline() -&gt; Result&lt;Config, Error&gt; {
+  let matches = App::new("Leo server")
+    .version(env!("CARGO_PKG_VERSION"))
+    .about("Server that serves Leo outline and its external files")
+    .args_from_usage(
+      "&lt;FILE&gt; 'leo outline file'
+       [ADDR] -a --addr=[ADDR] 'sets the IP:PORT combination (default \"127.0.0.1:4000\")'"
+    ).get_matches();
+  let addr = matches.value_of("ADDR").unwrap_or("127.0.0.1:4000");
+  let fname_arg = matches.value_of("FILE").unwrap();
+  let fname_a = std::env::current_dir()?.with_file_name(fname_arg);
+  let fname_b = Path::new(fname_arg);
+
+  let root_dir = if fname_b.is_relative() {
+    fname_a.parent().unwrap()
+  } else {
+    fname_b.parent().unwrap()
+  };
+
+  let file_name = root_dir.join(fname_b.file_name().unwrap());
+  println!("file: [{}]", file_name.display());
+  println!("root_dir: [{}]", root_dir.display());
+  println!("addr: [{}]", addr);
+  Ok(Config {
+    addr: addr.parse()?,
+    root_dir: PathBuf::from(root_dir),
+    file_name: file_name
+  })
+}
+</t>
+<t tx="vitalije.20190622153123.1">// The function that returns a future of http responses for each hyper Request
+// that is received. Errors are turned into an Error response (404 or 500).
+fn serve(
+    req: Request&lt;Body&gt;,
+    root_dir: &amp;PathBuf,
+) -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
+    let uri_path = req.uri().path();
+    if let Some(path) = local_path_for_request(&amp;uri_path, root_dir) {
+        Either::A(tokio_fs::file::File::open(path.clone()).then(
+            move |open_result| match open_result {
+                Ok(file) =&gt; Either::A(read_file(file, path)),
+                Err(e) =&gt; Either::B(handle_io_error(e)),
+            },
+        ))
+    } else {
+        Either::B(internal_server_error())
+    }
+}</t>
+<t tx="vitalije.20190622153141.1">// Read the file completely and construct a 200 response with that file as
+// the body of the response.
+fn read_file&lt;'a&gt;(
+    file: tokio_fs::File,
+    path: PathBuf,
+) -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
+    let buf: Vec&lt;u8&gt; = Vec::new();
+    tokio_io::io::read_to_end(file, buf)
+        .map_err(Error::Io)
+        .and_then(move |(_, buf)| {
+            let mime_type = file_path_mime(&amp;path);
+            Response::builder()
+                .status(StatusCode::OK)
+                .header(header::CONTENT_LENGTH, buf.len() as u64)
+                .header(header::CONTENT_TYPE, mime_type.as_ref())
+                .body(Body::from(buf))
+                .map_err(Error::from)
+        })
+}</t>
+<t tx="vitalije.20190622153151.1">// Handle the one special io error (file not found) by returning a 404, otherwise
+// return a 500
+fn handle_io_error(error: io::Error) -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
+    match error.kind() {
+        io::ErrorKind::NotFound =&gt; Either::A(futures::future::result(
+            Response::builder()
+                .status(StatusCode::NOT_FOUND)
+                .body(Body::empty())
+                .map_err(Error::from),
+        )),
+        _ =&gt; Either::B(internal_server_error()),
+    }
+}</t>
+<t tx="vitalije.20190622153201.1">fn file_path_mime(file_path: &amp;Path) -&gt; mime::Mime {
+    let mime_type = match file_path.extension().and_then(std::ffi::OsStr::to_str) {
+        Some("html") =&gt; mime::TEXT_HTML,
+        Some("css") =&gt; mime::TEXT_CSS,
+        Some("js") =&gt; mime::TEXT_JAVASCRIPT,
+        Some("jpg") =&gt; mime::IMAGE_JPEG,
+        Some("png") =&gt; mime::IMAGE_PNG,
+        Some("svg") =&gt; mime::IMAGE_SVG,
+        Some("wasm") =&gt; "application/wasm".parse::&lt;mime::Mime&gt;().unwrap(),
+        _ =&gt; mime::TEXT_PLAIN,
+    };
+    mime_type
+}</t>
+<t tx="vitalije.20190622153212.1">fn local_path_for_request(request_path: &amp;str, root_dir: &amp;Path) -&gt; Option&lt;PathBuf&gt; {
+    // This is equivalent to checking for hyper::RequestUri::AbsoluteUri
+    if !request_path.starts_with("/") {
+        return None;
+    }
+    // Trim off the url parameters starting with '?'
+    let end = request_path.find('?').unwrap_or(request_path.len());
+    let request_path = &amp;request_path[0..end];
+
+    // Append the requested path to the root directory
+    let mut path = root_dir.to_owned();
+    if request_path.starts_with('/') {
+        path.push(&amp;request_path[1..]);
+    } else {
+        return None;
+    }
+
+    // Maybe turn directory requests into index.html requests
+    if request_path.ends_with('/') {
+        path.push("index.html");
+    }
+
+    Some(path)
+}</t>
+<t tx="vitalije.20190622153221.1">fn internal_server_error() -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
+    futures::future::result(
+        Response::builder()
+            .status(StatusCode::INTERNAL_SERVER_ERROR)
+            .header(header::CONTENT_LENGTH, 0)
+            .body(Body::empty()),
+    )
+    .map_err(Error::from)
+}</t>
+<t tx="vitalije.20190622153236.1">// The custom Error type that encapsulates all the possible errors
+// that can occur in this crate. This macro defines it and
+// automatically creates Display, Error, and From implementations for
+// all the variants.
+error_type! {
+    #[derive(Debug)]
+    enum Error {
+        Io(io::Error) { },
+        HttpError(http::Error) { },
+        AddrParse(std::net::AddrParseError) { },
+        Std(Box&lt;StdError + Send + Sync&gt;) {
+            desc (e) e.description();
+        },
+        ParseInt(std::num::ParseIntError) { },
+    }
+}</t>
+<t tx="vitalije.20190622191207.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+extern crate xml;
+// extern crate sxd_document;
+extern crate clap;
+#[macro_use]
+extern crate error_type;
+use std::collections::HashMap;
+use clap::App;
+//use sxd_document::parser::parse;
+//use sxd_document::dom::{Document, Element, Text, ChildOfElement, ChildOfRoot};
+use xml::reader::{ParserConfig, XmlEvent};
+
+fn parser_config() -&gt; ParserConfig {
+  ParserConfig::new()
+      .cdata_to_characters(true)
+      .whitespace_to_characters(true)
+}
+
+use std::{
+  error::Error as StdError,
+  io,
+  io::{Read, BufReader},
+  fs::File,
+  path::{PathBuf}
+};
+@others
+/*
+struct Vnode {
+  gnx: String,
+  h: String,
+  b: String,
+  flags: u16
+}
+*/
+
+fn main() {
+  let fname = parse_config_from_cmdline().unwrap();
+  _test_parse_leoxml(fname);
+  _test_levgnx()
+}</t>
+<t tx="vitalije.20190622192134.1">fn parse_config_from_cmdline() -&gt; Result&lt;PathBuf, Error&gt; {
+  let matches = App::new("Leo server")
+    .version(env!("CARGO_PKG_VERSION"))
+    .about("Server that serves Leo outline and its external files")
+    .args_from_usage(
+      "&lt;FILE&gt; 'leo outline file'"
+    ).get_matches();
+  Ok(PathBuf::from(matches.value_of("FILE").unwrap()))
+}
+</t>
+<t tx="vitalije.20190622192739.1">// The custom Error type that encapsulates all the possible errors
+// that can occur in this crate. This macro defines it and
+// automatically creates Display, Error, and From implementations for
+// all the variants.
+error_type! {
+    #[derive(Debug)]
+    enum Error {
+        Io(io::Error) { },
+        HttpError(http::Error) { },
+        AddrParse(std::net::AddrParseError) { },
+        Std(Box&lt;StdError + Send + Sync&gt;) {
+            desc (e) e.description();
+        },
+        ParseInt(std::num::ParseIntError) { },
+    }
+}</t>
+<t tx="vitalije.20190624085740.1">fn iter_root&lt;'a&gt;(doc:&amp;'a Document) -&gt; Vec&lt;XmlSadrzaj&lt;'a&gt;&gt; {
+  let mut res:Vec&lt;XmlSadrzaj&gt; = Vec::new();
+  fn dump_e&lt;'a&gt;(e:&amp;Element&lt;'a&gt;, res:&amp;mut Vec&lt;XmlSadrzaj&lt;'a&gt;&gt;) {
+    res.push(XmlSadrzaj::E(*e));
+    for e1 in e.children().iter() {
+        match e1 {
+          ChildOfElement::Element(e2) =&gt; dump_e(e2, res),
+          ChildOfElement::Text(t) =&gt; res.push(XmlSadrzaj::T(*t)),
+          _ =&gt; ()
+        }
+    }
+  };
+  for e in doc.root().children().iter() {
+    match e {
+      ChildOfRoot::Element(e1) =&gt; dump_e(&amp;e1, &amp;mut res),
+      _ =&gt; ()
+    }
+  }
+  res
+}</t>
+<t tx="vitalije.20190624085757.1">fn get_bodies&lt;'a&gt;(doc:&amp;'a Document) -&gt; HashMap&lt;String, String&gt; {
+  let mut h:HashMap&lt;String, String&gt; = HashMap::new();
+  let mut k = String::new();
+  let mut b = String::new();
+  for v in iter_root(doc) {
+    match v {
+      XmlSadrzaj::E(e) if e.name().local_part() == "t" =&gt; {
+        if !k.is_empty() {
+          h.insert(k.clone(), b.clone());
+        }
+        b.clear();
+        k.clear();
+        if let Some(a) = e.attribute("tx") {
+          k.push_str(a.value());
+        }
+      },
+      XmlSadrzaj::T(t) if !k.is_empty() =&gt; {
+        b.push_str(t.text());
+      },
+      _ =&gt; if !k.is_empty() {
+        h.insert(k.clone(), b.clone());
+        k.clear();
+      }
+    }
+  }
+  h
+}</t>
+<t tx="vitalije.20190624085814.1">enum XmlSadrzaj&lt;'a&gt; {
+  E(Element&lt;'a&gt;),
+  T(Text&lt;'a&gt;)
+}</t>
+<t tx="vitalije.20190624092344.1">fn v_gnx_h_children&lt;'a&gt;(e:&amp;'a Element) -&gt; (String, String, String) {
+  let gnx = if let Some(x) = e.attribute("t") {
+      String::from(x.value())
+    } else {
+      String::new()
+  };
+  let mut name = String::new();
+  let mut children = String::new();
+  let mut h = String::new();
+  for e1 in e.children().iter() {
+    match e1 {
+      ChildOfElement::Element(e2) =&gt; {
+        name.clear();
+        name.push_str(e2.name().local_part());
+        if name == "v" {
+          if let Some(x) = e2.attribute("t") {
+            children.push_str(x.value());
+            children.push(' ');
+          }
+        }
+      },
+      ChildOfElement::Text(t) if name == "vh" =&gt; {
+        h.push_str(t.text())
+      },
+      _ =&gt; ()
+    }
+  }
+  children.pop();
+  (gnx, h, children)
+}</t>
+<t tx="vitalije.20190624115402.1">/*
+@others
+*/</t>
+<t tx="vitalije.20190624115456.1">fn main2() {
+  let fname = parse_config_from_cmdline().unwrap();
+  let f = File::open(&amp;fname).unwrap();
+  let mut buf_reader = BufReader::new(f);
+  let mut buf = String::new();
+  buf_reader.read_to_string(&amp;mut buf).unwrap();
+  match parse(&amp;buf) {
+    Ok(doc) =&gt; {
+      println!("uspesno parsiran xml");
+      let document = doc.as_document();
+      let bodies = get_bodies(&amp;document);
+      for (k, v) in bodies {
+        println!("------------{}--{}chars-----------------", k, v.len());
+        println!("{}======================================", v);
+      }
+    },
+    _ =&gt; println!("greska u parsiranju")
+  }
+}</t>
+<t tx="vitalije.20190625073241.1">we need:
+    - list of known gnxes
+    - stack of parent gnxes
+    - list of pairs (level, gnx)
+    - map gnx -&gt; list of direct child gnxes
+    - map gnx -&gt; (h, b)
+
+type 
+
+struct LeoXmlTracker {
+    index: Vec&lt;String&gt;,
+    ancestors: Vec&lt;String&gt;,
+    outline: Vec&lt;u32&gt;
+}
+
+Known facts:
+    1. when we receive Characters(t) event and last started element is vh,
+       then we have h for the last gnx in the outline
+    2. when we receive StartElement(v) we should:
+        2.1 add its t attribute and level
+            to the list of pairs (level, gnx)
+        2.2 add its t attribute to children of its parent gnx
+        2.3 if it is clone, we should add all its subtree to the outline list
+    3. when we receive StartElement(t) clear bodybuf and set bodygnx to be tx attribute
+    4. when we receive EndElement(t) update h_b map bodygnx -&gt; b=bodybuf
+    </t>
+<t tx="vitalije.20190625092304.1">chars = [-1, -1, -1, -1, -1, -1, -1, -1,   -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1,   -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1,   -1, -1, -1, -1, -1, -1, -1, -1,
+     0,  1,  2,  3,  4,  5,  6,  7,    8,  9, -1, -1, -1, -1, -1, -1,
+    -1, 10, 11, 12, 13, 14, 15, 16,   17, 18, 19, 20, 21, 22, 23, 24,
+    25, 26, 27, 28, 29, 30, 31, 32,   33, 34, 35, -1, -1, -1, -1, 36,
+    -1, 37, 38, 39, 40, 41, 42, 43,   44, 45, 46, 47, 48, 49, 50, 51,
+    52, 53, 54, 55, 56, 57, 58, 59,   60, 61, 62, -1, -1, -1, 63, -1]
+s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~"
+res = []
+res2 = []
+for i in range(128):
+    if i % 8 == 0:
+        res.append("\n  ")
+        if i &lt; 64: res2.append("\n  ")
+    if i &lt; 64:
+        res2.append("%r, "%s[i])
+    a = chr(i)
+    j = s.find(a)
+    if j &lt; 0:
+        res.append("255u8, ")
+    else:
+        res.append("%3du8, "%j)
+p.b += "[%s]"%("".join(res2))</t>
+<t tx="vitalije.20190625101104.1">const B64DIGITS:[char;64] = [
+  '0', '1', '2', '3', '4', '5', '6', '7',
+  '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+  'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+  'W', 'X', 'Y', 'Z', '_', 'a', 'b', 'c',
+  'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+  'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+  't', 'u', 'v', 'w', 'x', 'y', 'z', '~'
+];
+const B64VALUES:[u8; 128] = [
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+    0u8,   1u8,   2u8,   3u8,   4u8,   5u8,   6u8,   7u8,
+    8u8,   9u8, 255u8, 255u8, 255u8, 255u8, 255u8, 255u8,
+  255u8,  10u8,  11u8,  12u8,  13u8,  14u8,  15u8,  16u8,
+   17u8,  18u8,  19u8,  20u8,  21u8,  22u8,  23u8,  24u8,
+   25u8,  26u8,  27u8,  28u8,  29u8,  30u8,  31u8,  32u8,
+   33u8,  34u8,  35u8, 255u8, 255u8, 255u8, 255u8,  36u8,
+  255u8,  37u8,  38u8,  39u8,  40u8,  41u8,  42u8,  43u8,
+   44u8,  45u8,  46u8,  47u8,  48u8,  49u8,  50u8,  51u8,
+   52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
+   60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
+];
+fn b64str(n:u32) -&gt; String {
+  if n == 0 {
+    String::from("0")
+  } else {
+    let mut res = String::new();
+    let mut _n = n;
+    while _n &gt; 0 {
+      res.insert(0, B64DIGITS[(_n &amp; 63) as usize]);
+      _n = _n &gt;&gt; 6;
+    }
+    res
+  }
+}
+fn b64int(a:&amp;str) -&gt; u32 {
+  let mut res = 0_u32;
+  for i in a.bytes() {
+    let k = B64VALUES[(i &amp; 127) as usize];
+    if k == 255 { break }
+    res = (res &lt;&lt; 6) + (k as u32);
+  }
+  res
+}</t>
+<t tx="vitalije.20190625101129.1">type LevGnx = u32;
+pub trait LevGnxUtils {
+  fn level(&amp;self) -&gt; u8;
+  fn ignx(&amp;self) -&gt; u32;
+  fn inc(&amp;mut self);
+  fn dec(&amp;mut self);
+  fn shift(&amp;mut self, d: i8);
+  fn set_ignx(&amp;mut self, ignx:u32);
+  fn to_str(&amp;self) -&gt; String;
+  fn from_str(a:&amp;str) -&gt; Self;
+}
+
+impl LevGnxUtils for LevGnx {
+  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 18) &amp; 63) as u8}
+  fn ignx(&amp;self) -&gt; u32 {(*self) &amp; 0x3ffffu32}
+  fn inc(&amp;mut self) {*self += 0x4ffffu32;}
+  fn dec(&amp;mut self) {if *self &gt; 0x3ffff {*self -= 0x4ffffu32;}}
+  fn shift(&amp;mut self, d: i8) {
+    let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
+    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { ((lev as u32) &lt;&lt; 18)};
+  }
+  fn set_ignx(&amp;mut self, ignx:u32) {
+    *self = (*self &amp; 0xfc0000) | ignx;
+  }
+  fn to_str(&amp;self) -&gt; String {
+    let mut res = b64str(*self);
+    while res.len() &lt; 4 {res.insert(0, '0');}
+    res
+  }
+  fn from_str(a:&amp;str) -&gt; LevGnx {
+    b64int(&amp;a[..4]) as LevGnx
+  }
+}</t>
+<t tx="vitalije.20190625101210.1">fn _test_levgnx() {
+  let mut a:LevGnx = 23;
+  println!("Ignx {}", a.ignx());
+  println!("level {}", a.level());
+  a.inc();
+  println!("level {}", a.level());
+  a.shift(5i8);
+  println!("level {}", a.level());
+  a.dec();
+  println!("level {}", a.level());
+  println!("levgnx {}", LevGnx::from_str("01234").to_str());
+}</t>
+<t tx="vitalije.20190625101337.1">fn _test_parse_leoxml(fname:PathBuf) {
+  let f = File::open(&amp;fname).unwrap();
+  let mut buf_reader = BufReader::new(f);
+  let mut buf = String::new();
+  buf_reader.read_to_string(&amp;mut buf).unwrap();
+  let config = parser_config();
+  let reader = config.create_reader(buf.as_bytes());
+  let mut gnx2h:HashMap&lt;String, String&gt; = HashMap::new();
+  let mut names:Vec&lt;String&gt; = Vec::new();
+  let mut gnxes:Vec&lt;String&gt; = Vec::new();
+  let mut txt = String::new();
+  let mut lev = 0;
+  let s_lev = String::from("...............................................................");
+  for xe in reader.into_iter() {
+    match xe {
+      Ok(XmlEvent::StartElement { name, attributes, ..}) =&gt; {
+        let n = name.local_name;
+        names.push(n.clone());
+        if n == "v" {
+          lev += 1;
+          gnxes.push(attributes[0].value.clone());
+        } else if n == "vnodes" {
+          lev=0;
+        }
+        txt.clear();
+      },
+      Ok(XmlEvent::Characters(t)) =&gt; txt.push_str(&amp;t),
+      Ok(XmlEvent::EndElement{..}) =&gt; {
+        let n = names.pop().unwrap();
+        if n == "vh" {
+          let x = gnxes.pop().unwrap();
+          println!("{}{}:{}", s_lev.get(0..lev * 2).unwrap(), txt, x);
+          gnx2h.insert(x , txt.clone());
+        } else if n == "v" {
+          lev -= 1;
+        }
+      },
+      _ =&gt; ()
+    }
+  }
+}</t>
 </tnodes>
 </leo_file>
