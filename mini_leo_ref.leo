@@ -42,6 +42,11 @@
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
 <v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
 <v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
+<v t="vitalije.20190625192155.1"><vh>@clean parsing/src/lib.rs</vh>
+<v t="vitalije.20190626141051.1"><vh>rpartition</vh></v>
+<v t="vitalije.20190626141101.1"><vh>ldf_header</vh></v>
+</v>
+<v t="vitalije.20190625205715.1"><vh>@clean src/main.rs</vh></v>
 <v t="vitalije.20190622142851.1"><vh>@clean src/bin/server.rs</vh>
 <v t="vitalije.20190622150400.1"><vh>uses...</vh></v>
 <v t="vitalije.20190622150335.1"><vh>main</vh></v>
@@ -65,6 +70,18 @@
 <v t="vitalije.20190625101129.1"><vh>LevGnx</vh>
 <v t="vitalije.20190625102834.1"><vh>LevGnxUtils implementation</vh></v>
 </v>
+<v t="vitalije.20190625110116.1"><vh>Outline</vh>
+<v t="vitalije.20190625114447.1"><vh>implementation Outline Ops</vh>
+<v t="vitalije.20190625121525.1"><vh>has</vh></v>
+<v t="vitalije.20190625121531.1"><vh>find</vh></v>
+<v t="vitalije.20190625121537.1"><vh>subtree</vh></v>
+<v t="vitalije.20190625121544.1"><vh>add_node</vh></v>
+<v t="vitalije.20190625122338.1"><vh>parent_index</vh></v>
+<v t="vitalije.20190625145720.1"><vh>subtree_size</vh></v>
+<v t="vitalije.20190625145812.1"><vh>child_index</vh></v>
+</v>
+</v>
+<v t="vitalije.20190625161035.1"><vh>VData</vh></v>
 <v t="vitalije.20190625101210.1"><vh>_test_levgnx</vh></v>
 <v t="vitalije.20190625101337.1"><vh>_test_parse_leoxml</vh></v>
 </v>
@@ -547,6 +564,8 @@ mime = "0.3.13"
 tokio-fs = "0.1.6"
 tokio-io = "0.1.12"
 xml-rs = "0.8.0"
+nom = "5.0.0"
+parsing = {path="parsing", version="0.1.0"}
 #sxd-document = "0.3.2"
 #threadpool = "1.7.1"
 #net2 = "0.2.33"
@@ -558,7 +577,11 @@ path = "src/bin/server.rs"
 
 [[bin]]
 name = "leoxml"
-path = "src/bin/leoxml.rs"</t>
+path = "src/bin/leoxml.rs"
+
+[[bin]]
+name = "test"
+path = "src/main.rs"</t>
 <t tx="vitalije.20180822205209.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">extern crate cbindgen;
 
 use std::env;
@@ -838,19 +861,19 @@ use std::{
   path::{PathBuf}
 };
 @others
-/*
-struct Vnode {
-  gnx: String,
-  h: String,
-  b: String,
-  flags: u16
-}
-*/
 
 fn main() {
   let fname = parse_config_from_cmdline().unwrap();
-  _test_parse_leoxml(fname);
-  _test_levgnx()
+  let (o, nodes) = _test_parse_leoxml(fname);
+  let s_lev = ".............................................................";
+  for x in o {
+    let lev = 2 * x.level() as usize;
+    let ignx = x.ignx() as usize;
+    let h = &amp;nodes[ignx].h;
+    let sz = nodes[ignx].b.len();
+    println!("{}{}:[{}]", &amp;s_lev[..lev], h, sz);
+  }
+  _test_levgnx();
 }</t>
 <t tx="vitalije.20190622192134.1">fn parse_config_from_cmdline() -&gt; Result&lt;PathBuf, Error&gt; {
   let matches = App::new("Leo server")
@@ -969,29 +992,41 @@ pub trait LevGnxUtils {
   println!("level {}", a.level());
   println!("levgnx {}", LevGnx::from_str("01234").to_str());
 }</t>
-<t tx="vitalije.20190625101337.1">fn _test_parse_leoxml(fname:PathBuf) {
+<t tx="vitalije.20190625101337.1">fn _test_parse_leoxml(fname:PathBuf) -&gt; (Outline, Vec&lt;VData&gt;) {
   let f = File::open(&amp;fname).unwrap();
   let mut buf_reader = BufReader::new(f);
   let mut buf = String::new();
   buf_reader.read_to_string(&amp;mut buf).unwrap();
   let config = parser_config();
   let reader = config.create_reader(buf.as_bytes());
-  let mut gnx2h:HashMap&lt;String, String&gt; = HashMap::new();
+  let mut nodes:Vec&lt;VData&gt; = Vec::new();
+  nodes.push(VData::new("hidden-root-vnode-gnx"));
+  let mut gnx2i:HashMap&lt;String, usize&gt; = HashMap::new();
   let mut names:Vec&lt;String&gt; = Vec::new();
-  let mut gnxes:Vec&lt;String&gt; = Vec::new();
+  let mut last_gnx = String::new();
   let mut txt = String::new();
-  let mut lev = 0;
-  let s_lev = String::from("...............................................................");
+  let mut lev = 0u8;
+  let mut gnxcount:usize = 1;
+  let mut outline:Outline = vec![0u32];
   for xe in reader.into_iter() {
     match xe {
       Ok(XmlEvent::StartElement { name, attributes, ..}) =&gt; {
         let n = name.local_name;
         names.push(n.clone());
         if n == "v" {
-          lev += 1;
-          gnxes.push(attributes[0].value.clone());
+          last_gnx.clear();
+          last_gnx.push_str(&amp;attributes[0].value);
+          let v = VData::new(&amp;last_gnx);
+          let ignx = gnx2i.entry(v.gnx.clone()).or_insert(gnxcount);
+          lev += 1u8;
+          outline.add_node(lev, *ignx as u32);
+          nodes.push(v);
+          gnxcount += 1;
         } else if n == "vnodes" {
           lev=0;
+        } else if n == "t" {
+          last_gnx.clear();
+          last_gnx.push_str(&amp;attributes[0].value);
         }
         txt.clear();
       },
@@ -999,16 +1034,21 @@ pub trait LevGnxUtils {
       Ok(XmlEvent::EndElement{..}) =&gt; {
         let n = names.pop().unwrap();
         if n == "vh" {
-          let x = gnxes.pop().unwrap();
-          println!("{}{}:{}", s_lev.get(0..lev * 2).unwrap(), txt, x);
-          gnx2h.insert(x , txt.clone());
+          if let Some(i) = gnx2i.get(&amp;last_gnx) {
+            nodes[*i].h.push_str(&amp;txt)
+          }
         } else if n == "v" {
           lev -= 1;
+        } else if n == "t" {
+          if let Some(i) = gnx2i.get(&amp;last_gnx) {
+            nodes[*i].b.push_str(&amp;txt);
+          }
         }
       },
       _ =&gt; ()
     }
   }
+  (outline, nodes)
 }</t>
 <t tx="vitalije.20190625102142.1">const B64DIGITS:[char;64] = [
   '0', '1', '2', '3', '4', '5', '6', '7',
@@ -1066,6 +1106,197 @@ const B64VALUES:[u8; 128] = [
   fn from_str(a:&amp;str) -&gt; LevGnx {
     b64int(&amp;a[..4]) as LevGnx
   }
+}</t>
+<t tx="vitalije.20190625110116.1">type Outline = Vec&lt;LevGnx&gt;;
+
+pub trait OutlineOps {
+  /// returns true if this outline conains a node with given ignx
+  fn has(&amp;self, ignx:u32) -&gt; bool;
+
+  /// returns the index of the first node with the given ignx
+  /// if the node can't be found returns -1
+  fn find(&amp;self, ignx:u32) -&gt; i64;
+
+  /// returns suboutline of the node with the given ignx
+  /// if such a node dosen't exist returns an empty outline
+  fn subtree(&amp;self, ignx:u32) -&gt; Self;
+
+  /// appends a node with the given ignx at the given level.
+  /// Returns true if the node is clone and its subtree has been added too;
+  /// otherwise returns false.
+  fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; bool;
+
+  /// returns the index of the parent node
+  fn parent_index(&amp;self, i: usize) -&gt; usize;
+
+  /// returns the size of the subtree starting at given index
+  fn subtree_size(&amp;self, i:usize) -&gt; usize;
+
+  /// Given the node located at the given outline index i
+  /// this method returns the child index that this node
+  /// has in its parent's list of children
+  fn child_index(&amp;self, i:usize) -&gt; usize;
+
+}
+</t>
+<t tx="vitalije.20190625114447.1">impl OutlineOps for Outline {
+  @others
+}</t>
+<t tx="vitalije.20190625121525.1">fn has(&amp;self, ignx:u32) -&gt; bool { self.find(ignx) &gt; -1}</t>
+<t tx="vitalije.20190625121531.1">fn find(&amp;self, ignx:u32) -&gt; i64 {
+  let mut i = 0i64;
+  for x in self {
+    if (x &amp; 0x3ffff) == ignx {return i}
+    i += 1;
+  }
+  -1
+}</t>
+<t tx="vitalije.20190625121537.1">fn subtree(&amp;self, ignx:u32) -&gt; Outline {
+  let mut res:Outline = Vec::new();
+  let j = self.find(ignx);
+  if j &lt; 0 { return res }
+  let mut i = j as usize;
+  let z = self[i];
+  let zlev:u8 = z.level();
+  let delta:i8 = -(zlev as i8);
+  res.push(z.ignx());
+  let n = self.len();
+  while i + 1 &lt; n {
+    i += 1;
+    let mut z = self[i];
+    if z.level() &lt;= zlev { break };
+    z.shift(delta);
+    res.push(z);
+  }
+  res
+}</t>
+<t tx="vitalije.20190625121544.1">fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; bool {
+  let max_level:u8 = match self.last() {
+    Some(z) =&gt; z.level() + 1,
+    None =&gt; 0
+  };
+  if level &gt; max_level {
+    panic!("trying to add a node to level {} when max_level is {}", level, max_level);
+  }
+  let st = self.subtree(ignx);
+  if st.is_empty() {
+    self.push(((level as u32) &lt;&lt; 18) | ignx);
+    false
+  } else {
+    for x in st {
+      let mut z = x;
+      z.shift(level as i8);
+      self.push(z);
+    }
+    true
+  }
+}</t>
+<t tx="vitalije.20190625122338.1">fn parent_index(&amp;self, i: usize) -&gt; usize {
+  return match self.get(i) {
+    Some(z) =&gt; if z.level() &lt; 2 {
+        0
+      } else {
+        let mut j = i - 1;
+        let lev = z.level() - 1;
+        while self[j].level() != lev {j -= 1}
+        j
+      },
+    None =&gt; 0
+  }
+}</t>
+<t tx="vitalije.20190625145720.1">fn subtree_size(&amp;self, i:usize) -&gt; usize {
+  let z:u32 = self[i] &amp; 0xffc_0000;
+  for (j, x) in self[i..].iter().enumerate() {
+    if z &gt; *x {return j + 1}
+  }
+  self.len() - i
+}</t>
+<t tx="vitalije.20190625145812.1">fn child_index(&amp;self, i:usize) -&gt; usize {
+  let pi = self.parent_index(i);
+  let mut n:usize = 0;
+  let lev = self[i].level();
+  for z in &amp;self[pi..i] {
+    if z.level() == lev {n += 1}
+  }
+  n
+}
+</t>
+<t tx="vitalije.20190625161035.1">struct VData {
+  gnx: String,
+  h: String,
+  b: String,
+  flags: u16
+}
+pub trait VDataOps {
+  fn new(gnx:&amp;str) -&gt; Self;
+  fn is_expanded(&amp;self) -&gt; bool;
+}
+impl VDataOps for VData {
+  fn new(_gnx:&amp;str) -&gt; VData {
+    VData {
+      gnx: String::from(_gnx),
+      h:String::new(),
+      b:String::new(),
+      flags:0
+    }
+  }
+  fn is_expanded(&amp;self) -&gt; bool {self.flags &amp; 1 == 1}
+}</t>
+<t tx="vitalije.20190625192155.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+extern crate nom;
+use nom::{
+  IResult,
+  bytes::complete::take_until, //{is_not, is_a, tag, take, take_until, take_while},
+  // character::complete::{none_of, one_of, line_ending, char as pchar},
+  sequence::pair, //{tuple, pair, preceded},
+  //branch::alt,
+  // multi::{many_till},
+  combinator::map,
+  //error::ErrorKind
+
+};
+@others
+</t>
+<t tx="vitalije.20190625205715.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+extern crate parsing;
+use parsing::{ldf_header, rpartition};
+
+fn main() {
+
+  let data = include_bytes!("/tmp/leoGlobals.py"); // or take any other Leo external file
+  let datastr = std::str::from_utf8(data).unwrap();
+  let res = ldf_header(datastr);
+  match res {
+    Ok((_, (flines, st, en))) =&gt; {
+      println!("flines[{}]\nstart=[{}]\nend=[{}]", flines, st, en);
+    },
+    Err(_) =&gt; println!("greska u parsiranju")
+  }
+  let (a, b, c) = rpartition("proba", "c");
+  println!("a:[{}], b:[{}], c:[{}]", a, b, c);
+}</t>
+<t tx="vitalije.20190626141051.1">pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
+  match input.rfind(sep) {
+    Some(i) =&gt; {
+      let j = i + sep.len();
+      (&amp;input[..i], &amp;input[i..j], &amp;input[j..])
+    },
+    None =&gt; {
+      let i = input.len() - 1;
+      (&amp;input, &amp;input[i..i], &amp;input[i..i])
+    }
+  }
+}</t>
+<t tx="vitalije.20190626141101.1">pub fn ldf_header(input:&amp;str) -&gt;  IResult&lt;&amp;str, (&amp;str, &amp;str, &amp;str)&gt; {
+  let w1 = take_until("@+leo-ver=5-thin");
+  let w2 = pair(w1, take_until("\n"));
+  let w3 = map(w2, |(a, b)| {
+    let (f, _, st) = rpartition(a, "\n");
+    (f, st, &amp;b[16..])
+  });
+  w3(input)
 }</t>
 </tnodes>
 </leo_file>
