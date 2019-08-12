@@ -2,6 +2,7 @@
 name = "mini_leo"
 version = "0.1.0"
 build = "build.rs"
+edition = "2018"
 
 [lib]
 name = "mini_leo"
@@ -21,11 +22,13 @@ tokio-fs = "0.1.6"
 tokio-io = "0.1.12"
 xml-rs = "0.8.0"
 nom = "5.0.0"
-parsing = {path="parsing", version="0.1.0"}
 #sxd-document = "0.3.2"
 #threadpool = "1.7.1"
 #net2 = "0.2.33"
 #libc = "0.2.58"
+[dependencies.pyo3]
+version = "0.7.0"
+features = ["extension-module"]
 
 [[bin]]
 name = "server"
@@ -38,3 +41,7 @@ path = "src/bin/leoxml.rs"
 [[bin]]
 name = "test"
 path = "src/main.rs"
+
+[[bin]]
+name = "bmark"
+path = "src/bin/bmark.rs"

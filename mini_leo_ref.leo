@@ -41,12 +41,81 @@
 </v>
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
 <v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
-<v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
-<v t="vitalije.20190625192155.1"><vh>@clean parsing/src/lib.rs</vh>
-<v t="vitalije.20190626141051.1"><vh>rpartition</vh></v>
+<v t="vitalije.20190702085616.1"><vh>rust attick</vh>
+<v t="vitalije.20190701152643.1"><vh>main2</vh></v>
 <v t="vitalije.20190626141101.1"><vh>ldf_header</vh></v>
 </v>
-<v t="vitalije.20190625205715.1"><vh>@clean src/main.rs</vh></v>
+<v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
+<v t="vitalije.20190702073134.1"><vh>@clean src/model.rs</vh>
+<v t="vitalije.20190625101129.1"><vh>LevGnx</vh>
+<v t="vitalije.20190702093107.1"><vh>LevGnx implementation</vh></v>
+</v>
+<v t="vitalije.20190625110116.1"><vh>Outline</vh>
+<v t="vitalije.20190702093035.1"><vh>Outline implementation</vh>
+<v t="vitalije.20190625121525.1"><vh>has</vh></v>
+<v t="vitalije.20190625121531.1"><vh>find</vh></v>
+<v t="vitalije.20190625121537.1"><vh>subtree</vh></v>
+<v t="vitalije.20190625121544.1"><vh>add_node</vh></v>
+<v t="vitalije.20190625122338.1"><vh>parent_index</vh></v>
+<v t="vitalije.20190625145720.1"><vh>subtree_size</vh></v>
+<v t="vitalije.20190625145812.1"><vh>child_index</vh></v>
+</v>
+</v>
+<v t="vitalije.20190702100427.1"><vh>gnx_index</vh></v>
+<v t="vitalije.20190625161035.1"><vh>VData</vh></v>
+</v>
+<v t="vitalije.20190702073410.1"><vh>@clean src/utils.rs</vh>
+<v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
+<v t="vitalije.20190625102142.1"><vh>constants ...</vh></v>
+</v>
+<v t="vitalije.20190626141051.1"><vh>rpartition</vh></v>
+<v t="vitalije.20190702085650.1"><vh>tests</vh>
+<v t="vitalije.20190630113842.1"><vh>test_rpartition</vh></v>
+</v>
+</v>
+<v t="vitalije.20190625192155.1"><vh>@clean src/parsing.rs</vh>
+<v t="vitalije.20190630112527.1"><vh>test</vh>
+<v t="vitalije.20190630151934.1"><vh>test_handle_level_stars</vh></v>
+</v>
+<v t="vitalije.20190630144259.1"><vh>LdfParseState</vh></v>
+<v t="vitalije.20190630144250.1"><vh>handle_line</vh>
+<v t="vitalije.20190630155031.1"><vh>helpers...</vh>
+<v t="vitalije.20190630145512.1"><vh>afterws</vh></v>
+<v t="vitalije.20190630145518.1"><vh>tonl</vh></v>
+<v t="vitalije.20190630150332.1"><vh>tocolon</vh></v>
+<v t="vitalije.20190630153727.1"><vh>tocloseref</vh></v>
+<v t="vitalije.20190701152016.1"><vh>to_start_of_bytes</vh></v>
+<v t="vitalije.20190630145524.1"><vh>afternl</vh></v>
+<v t="vitalije.20190630154640.1"><vh>push_body_line</vh></v>
+</v>
+<v t="vitalije.20190630154632.1"><vh>handle_leo_line</vh>
+<v t="vitalije.20190630152746.1"><vh>check_at_plus_node</vh>
+<v t="vitalije.20190630151224.1"><vh>handle_level_stars</vh></v>
+</v>
+<v t="vitalije.20190630154729.1"><vh>check_at_minus_others</vh></v>
+<v t="vitalije.20190630154919.1"><vh>check_at_minus_ref</vh></v>
+<v t="vitalije.20190630154613.1"><vh>check_at_plus_ref</vh></v>
+<v t="vitalije.20190630154620.1"><vh>check_at_plus_others</vh></v>
+<v t="vitalije.20190701193905.1"><vh>check_at_plus_all</vh></v>
+<v t="vitalije.20190701194037.1"><vh>check_at_minus_all</vh></v>
+<v t="vitalije.20190630192319.1"><vh>check_leo_directives</vh></v>
+<v t="vitalije.20190701194331.1"><vh>check_at_verbatim</vh></v>
+<v t="vitalije.20190701195722.1"><vh>check_at_raw</vh></v>
+<v t="vitalije.20190630192331.1"><vh>check_ignored_sentinels</vh></v>
+<v t="vitalije.20190701145231.1"><vh>check_at_first</vh></v>
+<v t="vitalije.20190701145239.1"><vh>check_at_plus_at</vh></v>
+</v>
+</v>
+<v t="vitalije.20190630160440.1"><vh>handle_leo_header</vh></v>
+<v t="vitalije.20190630155744.1"><vh>ldf_parse</vh></v>
+<v t="vitalije.20190702104313.1"><vh>from_derived_file_content</vh></v>
+</v>
+<v t="vitalije.20190625205715.1"><vh>@clean src/main.rs</vh>
+<v t="vitalije.20190701173234.1"><vh>pr_linebuf</vh></v>
+</v>
+<v t="vitalije.20190702113135.1"><vh>@clean src/bin/bmark.rs</vh>
+<v t="vitalije.20190702113251.1"><vh>benchmark</vh></v>
+</v>
 <v t="vitalije.20190622142851.1"><vh>@clean src/bin/server.rs</vh>
 <v t="vitalije.20190622150400.1"><vh>uses...</vh></v>
 <v t="vitalije.20190622150335.1"><vh>main</vh></v>
@@ -64,24 +133,6 @@
 <v t="vitalije.20190622191207.1"><vh>@clean src/bin/leoxml.rs</vh>
 <v t="vitalije.20190622192134.1"><vh>parse_config_from_cmdline</vh></v>
 <v t="vitalije.20190622192739.1"><vh>Error</vh></v>
-<v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
-<v t="vitalije.20190625102142.1"><vh>constants ...</vh></v>
-</v>
-<v t="vitalije.20190625101129.1"><vh>LevGnx</vh>
-<v t="vitalije.20190625102834.1"><vh>LevGnxUtils implementation</vh></v>
-</v>
-<v t="vitalije.20190625110116.1"><vh>Outline</vh>
-<v t="vitalije.20190625114447.1"><vh>implementation Outline Ops</vh>
-<v t="vitalije.20190625121525.1"><vh>has</vh></v>
-<v t="vitalije.20190625121531.1"><vh>find</vh></v>
-<v t="vitalije.20190625121537.1"><vh>subtree</vh></v>
-<v t="vitalije.20190625121544.1"><vh>add_node</vh></v>
-<v t="vitalije.20190625122338.1"><vh>parent_index</vh></v>
-<v t="vitalije.20190625145720.1"><vh>subtree_size</vh></v>
-<v t="vitalije.20190625145812.1"><vh>child_index</vh></v>
-</v>
-</v>
-<v t="vitalije.20190625161035.1"><vh>VData</vh></v>
 <v t="vitalije.20190625101210.1"><vh>_test_levgnx</vh></v>
 <v t="vitalije.20190625101337.1"><vh>_test_parse_leoxml</vh></v>
 </v>
@@ -146,6 +197,7 @@
 <v t="vitalije.20180822170827.2"></v>
 </v>
 </v>
+<v t="vitalije.20190702171525.1"><vh>Benchmark results</vh></v>
 </vnodes>
 <tnodes>
 <t tx="vitalije.20180822151714.2">A minimal version of Leo editor</t>
@@ -168,7 +220,8 @@ for x in s:
     p1.h = 'md:%s'%x
     p1.b = open(x, 'rt', encoding='utf8').read()
 
-c.redraw()</t>
+c.redraw()
+</t>
 <t tx="vitalije.20180822170827.1"></t>
 <t tx="vitalije.20180822170827.2">[![image](https://img.shields.io/pypi/v/mini_leo.svg)](https://pypi.python.org/pypi/mini_leo)
 
@@ -536,16 +589,38 @@ def main(args=None):
 
 </t>
 <t tx="vitalije.20180822204714.1">@path rust</t>
-<t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#[no_mangle]
-pub unsafe extern "C" fn a_function_from_rust() -&gt; i32 {
-    42
+<t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">mod model;
+mod utils;
+mod parsing;
+
+pub use crate::parsing::{ldf_parse,from_derived_file_content};
+pub use crate::utils::{b64int, b64str, rpartition};
+pub use crate::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps};
+use pyo3::prelude::*;
+use pyo3::{wrap_pyfunction};
+use pyo3::type_object::PyTypeObject;
+#[pyfunction]
+pub fn a_function_from_rust() -&gt; PyResult&lt;i32&gt; {
+    Ok(42)
 }
 
-</t>
+#[pymodule]
+fn _minileo(py: Python, m:&amp;PyModule) -&gt; PyResult&lt;()&gt; {
+    /// creates outline from str
+    #[pyfn(m, "outline_from_str")]
+    fn outline_from_string(py: Python, txt:&amp;str) -&gt; PyResult&lt;(Outline, Vec&lt;VData&gt;)&gt; {
+        let (o, nodes) = from_derived_file_content(txt);
+        Ok((o, nodes))
+    }
+    m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
+    m.add("VData", &lt;VData as PyTypeObject&gt;::type_object())?;
+    Ok(())
+}</t>
 <t tx="vitalije.20180822204947.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">[package]
 name = "mini_leo"
 version = "0.1.0"
 build = "build.rs"
+edition = "2018"
 
 [lib]
 name = "mini_leo"
@@ -565,11 +640,13 @@ tokio-fs = "0.1.6"
 tokio-io = "0.1.12"
 xml-rs = "0.8.0"
 nom = "5.0.0"
-parsing = {path="parsing", version="0.1.0"}
 #sxd-document = "0.3.2"
 #threadpool = "1.7.1"
 #net2 = "0.2.33"
 #libc = "0.2.58"
+[dependencies.pyo3]
+version = "0.7.0"
+features = ["extension-module"]
 
 [[bin]]
 name = "server"
@@ -581,7 +658,11 @@ path = "src/bin/leoxml.rs"
 
 [[bin]]
 name = "test"
-path = "src/main.rs"</t>
+path = "src/main.rs"
+
+[[bin]]
+name = "bmark"
+path = "src/bin/bmark.rs"</t>
 <t tx="vitalije.20180822205209.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">extern crate cbindgen;
 
 use std::env;
@@ -839,10 +920,15 @@ error_type! {
 }</t>
 <t tx="vitalije.20190622191207.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
+
+#[path="../model.rs"]
+mod model;
+
 extern crate xml;
 extern crate clap;
 #[macro_use]
 extern crate error_type;
+use crate::model::{VData, LevGnx, LevGnxOps, Outline, OutlineOps};
 use std::collections::HashMap;
 use clap::App;
 use xml::reader::{ParserConfig, XmlEvent};
@@ -928,7 +1014,7 @@ Known facts:
     4. when we receive EndElement(t) update h_b map bodygnx -&gt; b=bodybuf
     </t>
 <t tx="vitalije.20190625101104.1">/// converts integer to String in base 64
-fn b64str(n:u32) -&gt; String {
+pub fn b64str(n:u32) -&gt; String {
   if n == 0 {
     String::from("0")
   } else {
@@ -943,7 +1029,7 @@ fn b64str(n:u32) -&gt; String {
 }
 
 /// converts base 64 str to u32
-fn b64int(a:&amp;str) -&gt; u32 {
+pub fn b64int(a:&amp;str) -&gt; u32 {
   let mut res = 0_u32;
   for i in a.bytes() {
     let k = B64VALUES[(i &amp; 127) as usize];
@@ -952,9 +1038,8 @@ fn b64int(a:&amp;str) -&gt; u32 {
   }
   res
 }</t>
-<t tx="vitalije.20190625101129.1">type LevGnx = u32;
-pub trait LevGnxUtils {
-
+<t tx="vitalije.20190625101129.1">pub type LevGnx = u32;
+pub trait LevGnxOps {
   /// returns level of this object
   fn level(&amp;self) -&gt; u8;
 
@@ -977,7 +1062,7 @@ pub trait LevGnxUtils {
   fn to_str(&amp;self) -&gt; String;
 
   /// creates object from its String representation
-  fn from_str(a:&amp;str) -&gt; Self;
+  fn from_str(a:&amp;str) -&gt; LevGnx;
 }
 </t>
 <t tx="vitalije.20190625101210.1">fn _test_levgnx() {
@@ -1078,36 +1163,7 @@ const B64VALUES:[u8; 128] = [
    52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
    60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
 ];</t>
-<t tx="vitalije.20190625102834.1">impl LevGnxUtils for LevGnx {
-
-  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 18) &amp; 63) as u8}
-
-  fn ignx(&amp;self) -&gt; u32 {(*self) &amp; 0x3ffffu32}
-
-  fn inc(&amp;mut self) {*self += 0x4ffffu32;}
-
-  fn dec(&amp;mut self) {if *self &gt; 0x3ffff {*self -= 0x4ffffu32;}}
-
-  fn shift(&amp;mut self, d: i8) {
-    let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
-    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { ((lev as u32) &lt;&lt; 18)};
-  }
-
-  fn set_ignx(&amp;mut self, ignx:u32) {
-    *self = (*self &amp; 0xfc0000) | ignx;
-  }
-
-  fn to_str(&amp;self) -&gt; String {
-    let mut res = b64str(*self);
-    while res.len() &lt; 4 {res.insert(0, '0');}
-    res
-  }
-
-  fn from_str(a:&amp;str) -&gt; LevGnx {
-    b64int(&amp;a[..4]) as LevGnx
-  }
-}</t>
-<t tx="vitalije.20190625110116.1">type Outline = Vec&lt;LevGnx&gt;;
+<t tx="vitalije.20190625110116.1">pub type Outline = Vec&lt;u32&gt;;
 
 pub trait OutlineOps {
   /// returns true if this outline conains a node with given ignx
@@ -1119,7 +1175,7 @@ pub trait OutlineOps {
 
   /// returns suboutline of the node with the given ignx
   /// if such a node dosen't exist returns an empty outline
-  fn subtree(&amp;self, ignx:u32) -&gt; Self;
+  fn subtree(&amp;self, ignx:u32) -&gt; Outline;
 
   /// appends a node with the given ignx at the given level.
   /// Returns true if the node is clone and its subtree has been added too;
@@ -1139,11 +1195,11 @@ pub trait OutlineOps {
 
 }
 </t>
-<t tx="vitalije.20190625114447.1">impl OutlineOps for Outline {
-  @others
-}</t>
-<t tx="vitalije.20190625121525.1">fn has(&amp;self, ignx:u32) -&gt; bool { self.find(ignx) &gt; -1}</t>
-<t tx="vitalije.20190625121531.1">fn find(&amp;self, ignx:u32) -&gt; i64 {
+<t tx="vitalije.20190625121525.1">/// returns true if this outline conains a node with given ignx
+fn has(&amp;self, ignx:u32) -&gt; bool { self.find(ignx) &gt; -1}</t>
+<t tx="vitalije.20190625121531.1">/// returns the index of the first node with the given ignx
+/// if the node can't be found returns -1
+fn find(&amp;self, ignx:u32) -&gt; i64 {
   let mut i = 0i64;
   for x in self {
     if (x &amp; 0x3ffff) == ignx {return i}
@@ -1151,7 +1207,9 @@ pub trait OutlineOps {
   }
   -1
 }</t>
-<t tx="vitalije.20190625121537.1">fn subtree(&amp;self, ignx:u32) -&gt; Outline {
+<t tx="vitalije.20190625121537.1">/// returns suboutline of the node with the given ignx
+/// if such a node dosen't exist returns an empty outline
+fn subtree(&amp;self, ignx:u32) -&gt; Outline {
   let mut res:Outline = Vec::new();
   let j = self.find(ignx);
   if j &lt; 0 { return res }
@@ -1170,7 +1228,10 @@ pub trait OutlineOps {
   }
   res
 }</t>
-<t tx="vitalije.20190625121544.1">fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; bool {
+<t tx="vitalije.20190625121544.1">/// appends a node with the given ignx at the given level.
+/// Returns true if the node is clone and its subtree has been added too;
+/// otherwise returns false.
+fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; bool {
   let max_level:u8 = match self.last() {
     Some(z) =&gt; z.level() + 1,
     None =&gt; 0
@@ -1191,7 +1252,8 @@ pub trait OutlineOps {
     true
   }
 }</t>
-<t tx="vitalije.20190625122338.1">fn parent_index(&amp;self, i: usize) -&gt; usize {
+<t tx="vitalije.20190625122338.1">/// returns the index of the parent node
+fn parent_index(&amp;self, i: usize) -&gt; usize {
   return match self.get(i) {
     Some(z) =&gt; if z.level() &lt; 2 {
         0
@@ -1204,14 +1266,18 @@ pub trait OutlineOps {
     None =&gt; 0
   }
 }</t>
-<t tx="vitalije.20190625145720.1">fn subtree_size(&amp;self, i:usize) -&gt; usize {
+<t tx="vitalije.20190625145720.1">/// returns the size of the subtree starting at given index
+fn subtree_size(&amp;self, i:usize) -&gt; usize {
   let z:u32 = self[i] &amp; 0xffc_0000;
   for (j, x) in self[i..].iter().enumerate() {
     if z &gt; *x {return j + 1}
   }
   self.len() - i
 }</t>
-<t tx="vitalije.20190625145812.1">fn child_index(&amp;self, i:usize) -&gt; usize {
+<t tx="vitalije.20190625145812.1">/// Given the node located at the given outline index i
+/// this method returns the child index that this node
+/// has in its parent's list of children
+fn child_index(&amp;self, i:usize) -&gt; usize {
   let pi = self.parent_index(i);
   let mut n:usize = 0;
   let lev = self[i].level();
@@ -1221,62 +1287,77 @@ pub trait OutlineOps {
   n
 }
 </t>
-<t tx="vitalije.20190625161035.1">struct VData {
-  gnx: String,
-  h: String,
-  b: String,
-  flags: u16
+<t tx="vitalije.20190625161035.1">#[pyclass]
+pub struct VData {
+  #[pyo3(get, set)]
+  pub gnx: String,
+  #[pyo3(get, set)]
+  pub h: String,
+  #[pyo3(get, set)]
+  pub b: String,
+  #[pyo3(get, set)]
+  pub flags: u16
 }
-pub trait VDataOps {
-  fn new(gnx:&amp;str) -&gt; Self;
-  fn is_expanded(&amp;self) -&gt; bool;
+
+#[pymethods]
+impl VData {
+  #[new]
+  fn pynew(obj: &amp;PyRawObject, _gnx:&amp;str) {
+    obj.init(VData::new(_gnx));
+  }
 }
-impl VDataOps for VData {
-  fn new(_gnx:&amp;str) -&gt; VData {
+impl VData {
+  pub fn new(_gnx:&amp;str) -&gt; VData {
     VData {
       gnx: String::from(_gnx),
       h:String::new(),
       b:String::new(),
-      flags:0
+      flags:1
     }
   }
-  fn is_expanded(&amp;self) -&gt; bool {self.flags &amp; 1 == 1}
+  pub fn is_expanded(&amp;self) -&gt; bool {self.flags &amp; 1 == 1}
 }</t>
 <t tx="vitalije.20190625192155.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
-extern crate nom;
-use nom::{
-  IResult,
-  bytes::complete::take_until, //{is_not, is_a, tag, take, take_until, take_while},
-  // character::complete::{none_of, one_of, line_ending, char as pchar},
-  sequence::pair, //{tuple, pair, preceded},
-  //branch::alt,
-  // multi::{many_till},
-  combinator::map,
-  //error::ErrorKind
-
-};
+use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps};
 @others
 </t>
 <t tx="vitalije.20190625205715.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
-extern crate parsing;
-use parsing::{ldf_header, rpartition};
+extern crate nom;
+mod parsing;
+mod model;
+use std::env::args;
+use parsing::{ldf_parse,from_derived_file_content};
+use std::io;
+use std::io::prelude::*;
+use std::fs::File;
+@others
 
-fn main() {
-
-  let data = include_bytes!("/tmp/leoGlobals.py"); // or take any other Leo external file
-  let datastr = std::str::from_utf8(data).unwrap();
-  let res = ldf_header(datastr);
-  match res {
-    Ok((_, (flines, st, en))) =&gt; {
-      println!("flines[{}]\nstart=[{}]\nend=[{}]", flines, st, en);
-    },
-    Err(_) =&gt; println!("greska u parsiranju")
+fn main() -&gt; io::Result&lt;()&gt;{
+  let mut buffer = String::new();
+  let mut kind:usize = 0;
+  for (i, a) in args().enumerate() {
+    if i == 1 {
+      let f = File::open(a)?;
+      let mut reader = io::BufReader::new(f);
+      buffer.clear();
+      reader.read_to_string(&amp;mut buffer)?;
+    } else if i == 2 {
+      kind = a.parse().expect("Not a number");
+    }
   }
-  let (a, b, c) = rpartition("proba", "c");
-  println!("a:[{}], b:[{}], c:[{}]", a, b, c);
-}</t>
+  if kind == 0 {
+    pr_ldf(&amp;buffer);
+  } else {
+    let (o, nodes) = from_derived_file_content(&amp;buffer);
+    if let Some(v) = nodes.get(kind) {
+      println!("head:{}\ngnx:{}\nbody:{}", v.h, v.gnx, v.b);
+    }
+  }
+  Ok(())
+}
+</t>
 <t tx="vitalije.20190626141051.1">pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
   match input.rfind(sep) {
     Some(i) =&gt; {
@@ -1289,7 +1370,20 @@ fn main() {
     }
   }
 }</t>
-<t tx="vitalije.20190626141101.1">pub fn ldf_header(input:&amp;str) -&gt;  IResult&lt;&amp;str, (&amp;str, &amp;str, &amp;str)&gt; {
+<t tx="vitalije.20190626141101.1">/*
+extern crate nom;
+use nom::{
+  IResult,
+  bytes::complete::take_until, //{is_not, is_a, tag, take, take_until, take_while},
+  // character::complete::{none_of, one_of, line_ending, char as pchar},
+  sequence::pair, //{tuple, pair, preceded},
+  //branch::alt,
+  // multi::{many_till},
+  combinator::map,
+  //error::ErrorKind
+};
+
+pub fn ldf_header(input:&amp;str) -&gt;  IResult&lt;&amp;str, (&amp;str, &amp;str, &amp;str)&gt; {
   let w1 = take_until("@+leo-ver=5-thin");
   let w2 = pair(w1, take_until("\n"));
   let w3 = map(w2, |(a, b)| {
@@ -1297,6 +1391,694 @@ fn main() {
     (f, st, &amp;b[16..])
   });
   w3(input)
+}
+*/</t>
+<t tx="vitalije.20190630112527.1">#[cfg(test)]
+mod tests {
+  @others
 }</t>
+<t tx="vitalije.20190630113842.1">#[test]
+fn test_rpartition() {
+  let s = "asepbsepc";
+  let res = super::rpartition(s, "sep");
+  assert_eq!(res, ("asepb", "sep", "c"));
+  let res2 = super::rpartition(s, "d");
+  assert_eq!(res2, ("asepbsepc", "", ""));
+  let res3 = super::rpartition(s, "a");
+  assert_eq!(res3, ("", "a", "sepbsepc"));
+}</t>
+<t tx="vitalije.20190630144250.1">type NodesBuf = Vec&lt;(usize, usize, usize, usize, usize)&gt;;
+type LinesBuf = Vec&lt;(usize, usize, usize, Option&lt;(&amp;'static str, &amp;'static str)&gt;)&gt;;
+
+/// handles a line in derived file
+/// if it is ordinary line appends its start, end to the
+/// current body
+/// else if it is special leo sentinel
+/// handles it by changing state or adding a node
+fn handle_line&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf){
+  let i0 = state.ind;
+  let a = afterws(state.buf, i0);
+
+  if state.buf[a..].starts_with(state.st.as_bytes()) &amp;&amp;
+    state.buf[(a + state.st.len())] == b'@' {
+      // it is a leo sentinel
+      state.ind = a + state.st.len() + 1;
+      if state.in_all {
+        handle_leo_line_in_all(state, nodes, lines)
+      } else {
+        handle_leo_line(state, a - i0, nodes, lines)
+      }
+  } else {
+    state.ind = afternl(state.buf, a);
+    if state.in_doc {
+      let a = i0 + state.st.len() + 1;
+      let b = state.ind - 1 - state.en.len();
+      push_body_line(state, a, b, Some(("", "\n")), lines);
+    } else {
+      let a = state.ind;
+      push_body_line(state, i0, a, None, lines);
+    }
+  }
+}
+</t>
+<t tx="vitalije.20190630144259.1">struct LdfParseState&lt;'a&gt; {
+  ind:usize,
+  st:&amp;'a str,
+  en:&amp;'a str,
+  buf:&amp;'a [u8],
+  indents: Vec&lt;usize&gt;,
+  mark:usize,
+  in_doc:bool,
+  path: Vec&lt;usize&gt;,
+  first_start: usize,
+  first_end: usize,
+  last_start: usize,
+  // in_raw:bool,
+  in_all:bool
+}</t>
+<t tx="vitalije.20190630145512.1">fn afterws(buf:&amp;[u8], i:usize) -&gt; usize {
+  let mut j = i;
+  let n = buf.len() - 1;
+  while j &lt; n &amp;&amp; buf[j] == b' ' {
+    j += 1;
+  }
+  j
+}</t>
+<t tx="vitalije.20190630145518.1">fn tonl(buf:&amp;[u8], i:usize) -&gt; usize {
+  let mut j = i;
+  let n = buf.len() - 1;
+  while j &lt; n &amp;&amp; buf[j] != b'\n' {
+    j += 1;
+  }
+  j
+}</t>
+<t tx="vitalije.20190630145524.1">fn afternl(buf:&amp;[u8], i:usize) -&gt; usize { tonl(buf, i) + 1}</t>
+<t tx="vitalije.20190630150332.1">fn tocolon(buf:&amp;[u8], i:usize) -&gt; usize {
+  let mut j = i;
+  let n = buf.len() - 1;
+  while j &lt; n &amp;&amp; buf[j] != b':' {
+    j += 1;
+  }
+  j
+}
+// fn aftercolon(buf:&amp;[u8], i:usize) -&gt; usize { tocolon(buf, i) + 1 }</t>
+<t tx="vitalije.20190630151224.1">fn handle_level_stars(buf:&amp;[u8], i:usize) -&gt; (usize, usize) {
+  if buf[i + 1] == b'*' {
+    // i - star; i + 1 star; i + 2 space
+    (2, i + 3)
+  } else if buf[i + 1] == b' ' {
+    (1, i + 2)
+  } else {
+    let mut j = i + 1;
+    let mut k = 0;
+    while buf[j] != b'*' {
+      k = 10 * k + ((buf[j] - b'0') as usize);
+      j += 1;
+    }
+    (k, j + 2)
+  }
+}</t>
+<t tx="vitalije.20190630151934.1">#[test]
+fn test_handle_level_stars() {
+  let s = b"#@+node:ekr.20050208101229: ** &lt;&lt; imports  (leoGlobals)";
+  assert_eq!(super::handle_level_stars(s, 28), (2, 31));
+  let s = b"#@+node:ekr.20050208101229: *4* &lt;&lt; imports  (leoGlobals)";
+  assert_eq!(super::handle_level_stars(s, 28), (4, 32));
+  let s = b"#@+node:ekr.20050208101229: *14* &lt;&lt; imports  (leoGlobals)";
+  assert_eq!(super::handle_level_stars(s, 28), (14, 33));
+  let s = b"#@+node:ekr.20050208101229: * &lt;&lt; imports  (leoGlobals)";
+  assert_eq!(super::handle_level_stars(s, 28), (1, 30))
+}</t>
+<t tx="vitalije.20190630152746.1">fn check_at_plus_node&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       nodes:&amp;mut NodesBuf,
+                       _lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"+node:") {
+    let a = i0 + 6;
+    let b = tocolon(state.buf, a);
+    let (lev, c) = handle_level_stars(state.buf, b + 2);
+    let d = tonl(state.buf, c);
+    nodes.push((lev, a, b, c, d - state.en.len()));
+    if let Some(ni) = state.path.last_mut() {
+      *ni = nodes.len();
+    }
+    state.ind = d + 1;
+    state.in_doc = false;
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190630153727.1">fn tocloseref(buf:&amp;[u8], i:usize) -&gt; usize {
+  let mut j = i;
+  let n = buf.len() - 1;
+  while j &lt; n &amp;&amp; !buf[j..].starts_with(b"&gt;&gt;") {
+    j += 1;
+  }
+  j
+}
+// fn aftercloseref(buf:&amp;[u8], i:usize) -&gt; usize { tocloseref(buf, i) + 2 }</t>
+<t tx="vitalije.20190630154613.1">fn check_at_plus_ref&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       ws:usize,
+                       nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"+&lt;&lt;") {
+    let a = i0 + 1;
+    let b = tocloseref(state.buf, a + 2);
+    let ni = *(state.path.last().unwrap());
+    let wi = *(state.indents.last().unwrap());
+    let d = a - 2 - state.st.len();
+    let c = d - ws + wi;
+    lines.push((ni, c, d, None));
+    lines.push((ni, a, b + 2, None));
+    state.indents.push(ws);
+    state.path.push(0);
+    state.ind = afterws(state.buf, afternl(state.buf, state.ind));
+    check_at_plus_node(state, nodes, lines);
+    state.in_doc = false;
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190630154620.1">fn check_at_plus_others&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       ws:usize,
+                       nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"+others") {
+    let i1 = i0 - state.st.len() - 1 - ws;
+    push_body_line(state, i1, i1 + ws, Some(("", "@others\n")), lines);
+    state.indents.push(ws);
+    state.path.push(0);
+    state.ind = afterws(state.buf, afternl(state.buf, state.ind));
+    check_at_plus_node(state, nodes, lines);
+    state.in_doc = false;
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190630154632.1">fn handle_leo_line&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       ws:usize,
+                       nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf){
+  let _ =  check_at_plus_node(state, nodes, lines)
+        || check_at_plus_others(state, ws, nodes, lines)
+        || check_at_plus_ref(state, ws, nodes, lines)
+        || check_at_minus_others(state, nodes, lines)
+        || check_at_minus_ref(state, nodes, lines)
+        || check_at_plus_at(state, lines)
+        || check_at_plus_all(state, ws, nodes, lines)
+        || check_at_first(state, lines)
+        || check_at_verbatim(state, lines)
+        || check_at_raw(state, lines)
+        || check_leo_directives(state, ws, lines)
+        || check_ignored_sentinels(state)
+        || unknown_leo_sentinel(state);
+}
+fn handle_leo_line_in_all&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf){
+   let _ = false
+        || check_at_verbatim(state, lines)
+        || check_at_plus_node(state, nodes, lines)
+        || check_at_minus_all(state, nodes, lines);
+}
+fn unknown_leo_sentinel(state:&amp;LdfParseState) -&gt; bool {
+  let a = state.ind - 2;
+  let b = tonl(state.buf, a);
+  let _s = std::str::from_utf8(&amp;state.buf[a..b]).unwrap();
+  //println!("unknown leo sentinel:[{}] at index:{}", _s, state.ind);
+  false //panic!("error");
+}
+</t>
+<t tx="vitalije.20190630154640.1">fn push_body_line&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+  a: usize,
+  b: usize,
+  e: Option&lt;(&amp;'static str, &amp;'static str)&gt;,
+  lines:&amp;mut LinesBuf) {
+  if a &gt; b {panic!("push_body_line a &gt; b {} &gt; {}", a, b);}
+  let ni = *state.path.last().unwrap();
+  let wi = *state.indents.last().unwrap();
+  if b - a == 1 {
+    lines.push((ni, a, b, e))
+  } else {
+    lines.push((ni, a + wi, b, e))
+  }
+}</t>
+<t tx="vitalije.20190630154729.1">fn check_at_minus_others&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       _nodes:&amp;mut NodesBuf,
+                       _lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"-others") {
+    state.ind = afternl(state.buf, i0 + 7);
+    state.path.pop();
+    state.indents.pop();
+    state.in_doc = false;
+    true
+  } else {
+    false
+  }
+}
+</t>
+<t tx="vitalije.20190630154919.1">fn check_at_minus_ref&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       _nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"-&lt;&lt;") {
+    let i1 = afternl(state.buf, i0 + 4);
+    let i2 = afterws(state.buf, i1);
+    let i3 = i2 + state.st.len();
+    state.path.pop();
+    state.indents.pop();
+    let ni = state.path.last().unwrap();
+    if state.buf[i2..].starts_with(state.st.as_bytes()) &amp;&amp;
+      state.buf[i3..].starts_with(b"@afterref") {
+      let i4 = afternl(state.buf, i3 + 9); // after sentinel
+      let i5 = afternl(state.buf, i4); // line of text
+      lines.push((*ni, i4, i5, None));
+      state.ind = i5;
+    } else {
+      lines.push((*ni, i1 - 1,  i1, None));
+      state.ind = i1;
+    }
+    state.in_doc = false;
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190630155031.1"></t>
+<t tx="vitalije.20190630155744.1">pub fn ldf_parse&lt;'a&gt;(txt:&amp;'a str) -&gt; (NodesBuf, LinesBuf, usize, usize) {
+  let mut nodes:NodesBuf = vec![(0,0,0,0,0)];
+  let mut lines:LinesBuf = Vec::new();
+  let mut state = handle_leo_header(txt);
+  let n = txt.len();
+  while state.ind &lt; n {
+    if is_at_minus_leo(&amp;mut state) &amp;&amp; !state.in_all{ break }
+    handle_line(&amp;mut state, &amp;mut nodes, &amp;mut lines)
+  }
+  (nodes, lines, state.first_end, state.last_start)
+}
+fn is_at_minus_leo&lt;'a&gt;(state:&amp;mut LdfParseState) -&gt; bool {
+  let a = state.ind;
+  let b = state.ind + state.st.len();
+  if state.buf[a..].starts_with(state.st.as_bytes()) &amp;&amp; state.buf[b..].starts_with(b"@-leo") {
+    state.last_start = afternl(state.buf, b + 5);
+    state.ind = state.last_start;
+    true
+  } else { false}
+}
+</t>
+<t tx="vitalije.20190630160440.1">fn handle_leo_header&lt;'a&gt;(txt:&amp;'a str) -&gt; LdfParseState&lt;'a&gt; {
+  let mut state = LdfParseState {
+    ind: 0,
+    st: "",
+    en: "",
+    buf: txt.as_bytes(),
+    indents: vec![0],
+    mark:0,
+    in_doc: false,
+    path: vec![0],
+    first_start:0,
+    first_end: 0,
+    last_start:txt.len(),
+    in_all:false,
+    // in_raw:false
+  };
+  let n = txt.len();
+  while state.ind &lt; n {
+    if state.buf[state.ind] == b'\n' {
+      state.ind += 1;
+      state.mark = state.ind;
+    } else if state.buf[state.ind..].starts_with(b"@+leo-ver=5-thin") {
+      state.first_end = state.mark;
+      state.st = &amp;txt[state.mark..state.ind];
+      let a = state.ind + 16;
+      state.ind = tonl(state.buf, a);
+      state.en = &amp;txt[a..state.ind];
+      state.ind += 1;
+      break;
+    } else {
+      state.ind += 1;
+    }
+  }
+  state
+}</t>
+<t tx="vitalije.20190630192319.1">fn check_leo_directives(state:&amp;mut LdfParseState, ws:usize, lines:&amp;mut LinesBuf) -&gt; bool {
+  if state.buf[state.ind] == b'@' {
+    if state.buf[state.ind..].starts_with(b"@c") || state.buf[state.ind..].starts_with(b"@code") {
+      state.in_doc = false;
+    }
+    let c = tonl(state.buf, state.ind);
+    let a = state.ind - ws;
+    let b = c - state.en.len();
+    push_body_line(state, a, b, Some(("", "\n")), lines);
+    state.ind = c + 1;
+    true
+  } else { false }
+}</t>
+<t tx="vitalije.20190630192331.1">fn check_ignored_sentinels(state:&amp;mut LdfParseState) -&gt; bool {
+  let a = state.buf[state.ind..].starts_with(b"@first")
+      ||  state.buf[state.ind..].starts_with(b"@first")
+      ||  state.buf[state.ind..].starts_with(b"@first")
+      ||  state.buf[state.ind..].starts_with(b"@first");
+  if a {
+    state.ind = afternl(state.buf, state.ind);
+  }
+  a
+}</t>
+<t tx="vitalije.20190701145231.1">fn check_at_first&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;, lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"@first"){
+    let i = state.first_start;
+    let j = afternl(state.buf, i);
+    state.first_start = j;
+    lines.push((2, i, j, Some(("@first ", ""))));
+    state.ind = afternl(state.buf, i0 + 6);
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190701145239.1">fn check_at_plus_at&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;, lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  let f1 = state.buf[i0..].starts_with(b"+at");
+  let f2 = state.buf[i0..].starts_with(b"+doc");
+  if f1 || f2 {
+    let a = if f1 { i0 + 3} else {i0 + 4};
+    let f3 = state.en.len() &gt; 0 &amp;&amp; state.buf[a..].starts_with(state.en.as_bytes());
+    let f4 = state.en.len() == 0 &amp;&amp; state.buf[a] == b'\n';
+    let ni = *(state.path.last().unwrap());
+    if f3 || f4 {
+      let opt = if f1 { Some(("@", "")) } else { Some(("@doc", "")) };
+      let b = a + state.en.len();
+      push_body_line(state, b, b + 1, opt, lines);
+      state.ind = b + 1;
+    } else {
+      let opt = if f1 { Some(("@ ", "\n")) } else { Some(("@doc ", "\n")) };
+      let b = tonl(state.buf, a) - state.en.len();
+      lines.push((ni, a + 1, b, opt));
+      state.ind = b + 1;
+    }
+    if state.en.len() != 0 {
+      let wi = state.indents.last().unwrap();
+      let mut a = afternl(state.buf, state.ind) + wi;
+      let mut i = a;
+      while !state.buf[i..].starts_with(state.en.as_bytes()) {
+        if state.buf[i] == b'\n' {
+          lines.push((ni, a, i+1, None));
+          i += wi + 1;
+          a = i;
+        } else {
+          i += 1;
+        }
+      }
+      state.ind = afternl(state.buf, i);
+      state.in_doc = false;
+    } else {
+      state.in_doc = true;
+    }
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190701152016.1">/* fn to_start_of_bytes(buf:&amp;[u8], i:usize, s:&amp;[u8]) -&gt; usize {
+  let mut j = i;
+  let n = buf.len() - 1;
+  while j &lt; n &amp;&amp; !buf[j..].starts_with(s) {
+    j += 1;
+  }
+  j
+}
+*/</t>
+<t tx="vitalije.20190701152643.1">fn main2(data:&amp;[u8], nt:usize) {
+  let datastr = std::str::from_utf8(data).unwrap();
+  let (nodes, lines, _first_end, _last_start) = ldf_parse(datastr);
+  let mut s = String::new();
+  for (ni, a, b, e) in lines {
+    if ni == nt + 1 {
+      match e {
+        Some((pref, suf)) =&gt; {
+         s.push_str(pref);
+          s.push_str(&amp;datastr[a..b]);
+          s.push_str(suf);
+        },
+        None =&gt; s.push_str(&amp;datastr[a..b])
+      }
+    }
+  }
+  if let Some((_lev, _a, _b, c, d)) = nodes.get(nt) {
+    println!("{}", &amp;datastr[*c..*d]);
+    println!("{}", s);
+  } else {
+    println!("unknown node {}", nt);
+  }
+}
+
+</t>
+<t tx="vitalije.20190701173234.1">type BufNode = (usize, usize, usize, usize, usize);
+type BufLine = (usize, usize, usize, Option&lt;(&amp;'static str, &amp;'static str)&gt;);
+
+fn pr_bufline(s:&amp;BufLine) {
+  let (ni, a, b, op) = *s;
+  let pref_suf = match op {
+    Some((pref, suf)) =&gt;  format!("\"{}\", \"{}\"", pref.escape_debug(), suf.escape_debug()),
+    _ =&gt; String::from("null, null")
+  };
+  print!("[{}, {}, {}, {}]", ni, a, b, &amp;pref_suf);
+}
+fn pr_bufnode(s:&amp;BufNode) {
+  let (a, b, c, d, e) = *s;
+  print!("[{}, {}, {}, {}, {}]", a, b, c, d, e);
+}
+fn pr_ldf(datastr:&amp;str) {
+  let (nodes, lines, _first_end, _last_start) = ldf_parse(datastr);
+  println!("{}\n \"nodes\": [", "{");
+  let n = nodes.len() - 1;
+  for (i, x) in nodes.iter().enumerate() {
+    print!("    ");
+    pr_bufnode(x);
+    if i != n {println!(",")}
+  }
+  println!("],\n  \"lines\": [");
+  let n = lines.len() - 1;
+  for (i, x) in lines.iter().enumerate() {
+    print!("    ");
+    pr_bufline(x);
+    if i != n {println!(",")}
+  }
+  println!("]\n{}", "}");
+}</t>
+<t tx="vitalije.20190701193905.1">fn check_at_plus_all&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       ws:usize,
+                       nodes:&amp;mut NodesBuf,
+                       lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"+all") {
+    let i1 = i0 - state.st.len() - 1 - ws;
+    push_body_line(state, i1, i1 + ws, Some(("", "@all\n")), lines);
+    state.indents.push(ws);
+    state.path.push(0);
+    state.ind = afterws(state.buf, afternl(state.buf, state.ind));
+    check_at_plus_node(state, nodes, lines);
+    state.in_doc = false;
+    state.in_all = true;
+    true
+  } else {
+    false
+  }
+}</t>
+<t tx="vitalije.20190701194037.1">fn check_at_minus_all&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
+                       _nodes:&amp;mut NodesBuf,
+                       _lines:&amp;mut LinesBuf) -&gt; bool {
+  let i0 = state.ind;
+  if state.buf[i0..].starts_with(b"-all") {
+    state.ind = afternl(state.buf, i0 + 4);
+    state.path.pop();
+    state.indents.pop();
+    state.in_doc = false;
+    state.in_all = false;
+    true
+  } else {
+    false
+  }
+}
+</t>
+<t tx="vitalije.20190701194331.1">fn check_at_verbatim(state:&amp;mut LdfParseState, lines:&amp;mut LinesBuf) -&gt; bool {
+  if state.buf[state.ind..].starts_with(b"verbatim") {
+    let a = afternl(state.buf, state.ind + 8);
+    let b = afternl(state.buf, a);
+    let ni = *(state.path.last().unwrap());
+    lines.push((ni, a, b, None));
+    state.ind = b;
+    true
+  } else { false }
+}</t>
+<t tx="vitalije.20190701195722.1">fn check_at_raw(state:&amp;mut LdfParseState, lines:&amp;mut LinesBuf) -&gt; bool {
+  if state.buf[state.ind..].starts_with(b"verbatim") {
+    let a = afternl(state.buf, state.ind + 9);
+    let b = afternl(state.buf, a);
+    let ni = *(state.path.last().unwrap());
+    lines.push((ni, a, b, None));
+    state.ind = b;
+    true
+  } else { false }
+}</t>
+<t tx="vitalije.20190702073134.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+#[path="utils.rs"]
+mod utils;
+use self::utils::{b64str, b64int};
+use std::collections::HashMap;
+use pyo3::prelude::*;
+@others
+</t>
+<t tx="vitalije.20190702073410.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+@others
+</t>
+<t tx="vitalije.20190702085616.1"></t>
+<t tx="vitalije.20190702085650.1">#[cfg(test)]
+mod tests {
+  @others
+}</t>
+<t tx="vitalije.20190702093035.1">impl OutlineOps for Outline {
+  @others
+}
+</t>
+<t tx="vitalije.20190702093107.1">impl LevGnxOps for LevGnx {
+
+  /// returns level of this object
+  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 18) &amp; 63) as u8}
+
+  /// returns ignx of this object
+  fn ignx(&amp;self) -&gt; u32 {(*self) &amp; 0x3ffffu32}
+
+  /// increments level of this object
+  fn inc(&amp;mut self) {*self += 0x4ffffu32;}
+
+  /// decrements level of this object
+  fn dec(&amp;mut self) {if *self &gt; 0x3ffff {*self -= 0x4ffffu32;}}
+
+  /// changes the level of this object for given delta d
+  fn shift(&amp;mut self, d: i8) {
+    let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
+    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { ((lev as u32) &lt;&lt; 18)};
+  }
+
+  /// sets ignx of this object to given value
+  fn set_ignx(&amp;mut self, ignx:u32) {
+    *self = (*self &amp; 0xfc0000) | ignx;
+  }
+
+  /// converts this object into ascii representation (4 ascii letters)
+  fn to_str(&amp;self) -&gt; String {
+    let mut res = b64str(*self);
+    while res.len() &lt; 4 {res.insert(0, '0');}
+    res
+  }
+
+  /// creates object from its String representation
+  fn from_str(a:&amp;str) -&gt; LevGnx {
+    b64int(&amp;a[..4]) as LevGnx
+  }
+}</t>
+<t tx="vitalije.20190702100427.1">/// returns a map of ignx -&gt; gnx
+fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;u32, String&gt; {
+  let mut res = HashMap::new();
+  for (i, x) in nodes.iter().enumerate() {
+    res.insert(i as u32, x.gnx.clone());
+  }
+  res
+}</t>
+<t tx="vitalije.20190702104313.1">pub fn from_derived_file_content(content:&amp;str) -&gt; (Outline, Vec&lt;VData&gt;) {
+  let mut nodes = Vec::new();
+  let mut outline = Vec::new();
+  let (vnodes, lines, _, _) = ldf_parse(content);
+  let mut i:u32 = 0;
+  // TOOD: consider changing ldf_parse to skip root node in its output nodes
+  // if it skips root node, in the following loop we won't have to check if lev &gt; 0
+  // and root node can be inserted in nodes before loop
+  for (lev, a, b, c, d) in vnodes {
+    if lev &gt; 0 {
+      let mut v = VData::new(&amp;content[a..b]);
+      v.h.push_str(&amp;content[c..d]);
+      nodes.push(v);
+      let mut x:LevGnx = i;
+      x.shift(lev as i8);
+      outline.push(x);
+    } else {
+      let mut v = VData::new("hidden-root-vnode-gnx");
+      v.h.push_str("&lt;hidden root vnode&gt;");
+      nodes.push(v)
+    }
+    i += 1;
+  }
+  for (i, a, b, op) in lines {
+    let mut v = nodes.get_mut(i-1).unwrap();
+    match op {
+      Some((pref, suf)) =&gt; {
+        v.b.push_str(pref);
+        v.b.push_str(&amp;content[a..b]);
+        v.b.push_str(suf);
+      },
+      _ =&gt; v.b.push_str(&amp;content[a..b])
+    }
+  }
+  (outline, nodes)
+}</t>
+<t tx="vitalije.20190702113135.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+#[path="../parsing.rs"]
+mod parsing;
+use std::env::args;
+use parsing::{ldf_parse,from_derived_file_content};
+use std::io;
+use std::io::prelude::*;
+use std::fs::File;
+@others
+use std::time::{Instant};
+fn main() -&gt; io::Result&lt;()&gt; {
+  let mut buffer = String::new();
+  for (i, a) in args().enumerate() {
+    if i == 1 {
+      let f = File::open(a)?;
+      let mut reader = io::BufReader::new(f);
+      buffer.clear();
+      reader.read_to_string(&amp;mut buffer)?;
+    }
+  }
+  benchmark(&amp;buffer);
+  Ok(())
+}
+</t>
+<t tx="vitalije.20190702113251.1">fn benchmark(datastr:&amp;str) {
+  let mut n = 0;
+  let t1 = Instant::now();
+  for i in 0..100 {
+     let (o, nodes) = from_derived_file_content(datastr);
+     n += o.len() + nodes.len();
+  }
+  if n &lt; 100 {println!("less than 100 lines and nodes")}
+  println!("{} ms", t1.elapsed().as_millis());
+}</t>
+<t tx="vitalije.20190702171525.1">Python 3.7.0 (default, Jun 28 2018, 13:15:42) 
+[GCC 7.2.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; def f():
+...     with open('leo/test/activeUnitTests.txt', 'r') as inp:
+...       s = inp.read()
+...       return _minileo.outline_from_str(s)
+... 
+&gt;&gt;&gt; import _minileo
+&gt;&gt;&gt; import timeit
+&gt;&gt;&gt; print(timeit.timeit(f, number=100)/100*1000, 'ms')
+6.344196610007202 ms</t>
 </tnodes>
 </leo_file>
