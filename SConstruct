@@ -18,6 +18,7 @@ env = Environment(tools=['default', 'packaging', enscons.generate],
                   PACKAGE_METADATA=metadata,
                   WHEEL_TAG=full_tag,
                   ROOT_IS_PURELIB=full_tag.endswith('-any'),
+                  PYTHON_SYS_EXECUTABLE=sys.executable,
                   ENV=os.environ)
 
 # Only *.py is included automatically by setup2toml.
