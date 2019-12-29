@@ -251,25 +251,25 @@ pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> V
     } else if let Some(i) = v.b.find("\n@path ") {
       partition(&v.b[i+7..], "\n").0.trim()
     } else {""};
+
+    if lev < stack.len() { stack.drain(lev+1..); }
+
     let mut nf = stack[stack.len() - 1].clone();
-    while lev > stack.len() {
-      stack.pop().unwrap();
-      nf = stack[stack.len() - 1].clone();
+    if np.len() > 0 {
+      nf.push(np);
     }
-    if np.len() > 0 {nf.push(np);}
     stack.push(nf);
     if v.h.starts_with("@file ") {
       let fname = v.h[6..].trim();
       let p = stack[stack.len() - 1].join(fname);
       match p.canonicalize() {
         Ok(x) => res.push((x.to_string_lossy().to_string(), i)),
-        Err(e) => res.push((p.to_string_lossy().to_string(), i))
+        Err(e) => {println!("canonicalize error:{}[{:?}]", e, p);res.push((p.to_string_lossy().to_string(), i))}
       }
     }
   }
   res
 }
-
 pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>) {
   let mut catalog:HashMap<&str, (usize, usize)> = HashMap::new();
   for (i, x) in trees.iter().enumerate() {
@@ -280,29 +280,42 @@ pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>)
       catalog.insert(gnx, (i, ignx));
     }
   }
+  let vclone = |v:&VData| {
+    let gnx = v.gnx.as_str();
+    let (i, j) = catalog.get(gnx).unwrap();
+    trees[*i].1[*j].clone()
+  };
   let (o1, v1) = &trees[0];
-  let mut outline = Vec::new();
-  let mut vnodes = v1.clone();
+  let mut outline = vec![o1[0]];
+  let mut vnodes:Vec<VData> = v1.iter().map(vclone).collect();
   let mut real_start = 0;
-  let mut ignxes = gnx_index(&vnodes);
+  let mut i = trees.len();
+  let mut ignxes = gnx_index(&v1);
   for (o, n) in trees.iter().rev() {
-    if ptr::eq(o, o1) {
+    i -= 1;
+    if i == 0 {
       real_start = outline.len();
-    }
-    for v in n {
-      let gnx = v.gnx.as_str();
-      if !ignxes.contains_key(gnx) {
-        let ii = ignxes.len() as u32;
-        ignxes.insert(gnx, ii);
-        vnodes.push(v.clone());
+      for x in o.iter().skip(1) {
+        let gnx = n[x.ignx() as usize].gnx.as_str();
+        let ii = ignxes.get(gnx).unwrap();
+        outline.add_node(x.level(), *ii);
+      }
+    } else {
+      for v in n.iter() {
+        let gnx = v.gnx.as_str();
+        if !ignxes.contains_key(gnx) {
+          let ii = ignxes.len() as u32;
+          ignxes.insert(gnx, ii);
+          vnodes.push(vclone(v));
+        }
+      }
+      for x in o {
+        let gnx = n[x.ignx() as usize].gnx.as_str();
+        let ii = ignxes.get(gnx).unwrap();
+        outline.add_node(x.level(), *ii);
       }
     }
-    for x in o {
-      let gnx = n[x.ignx() as usize].gnx.as_str();
-      let ii = ignxes.get(gnx).unwrap();
-      outline.add_node(x.level(), *ii);
-    }
   }
-  outline.drain(0..real_start);
-  (outline, vnodes.to_vec())
+  outline.drain(1..real_start);
+  (outline, vnodes)
 }

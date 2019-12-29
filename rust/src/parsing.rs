@@ -1,4 +1,4 @@
-use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps};
+use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, combine_trees, find_derived_files};
 //use xml::reader::{ParserConfig, XmlEvent};
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
@@ -8,6 +8,7 @@ use std::{
   error::Error as StdError,
   io,
   io::{Read, BufReader},
+  fs,
   fs::File,
   path::{PathBuf},
   collections::{HashMap}
@@ -275,8 +276,11 @@ fn check_at_plus_others<'a>(state:&mut LdfParseState<'a>,
                        lines:&mut LinesBuf) -> bool {
   let i0 = state.ind;
   if state.buf[i0..].starts_with(b"+others") {
+    let j = afternl(state.buf, i0 + 7);
     let i1 = i0 - state.st.len() - 1 - ws;
-    push_body_line(state, i1, i1 + ws, Some(("", "@others\n")), lines);
+    push_body_line(state, i1, i1 + ws, Some(("", "@others")), lines);
+    let ni = *state.path.last().unwrap();
+    lines.push((ni, i0 + 7, j, None));
     state.indents.push(ws);
     state.path.push(0);
     state.ind = afterws(state.buf, afternl(state.buf, state.ind));
@@ -595,4 +599,20 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
     }
   }
   (outline, nodes)
+}
+pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {
+  let pbuf = fs::canonicalize(fname)?;
+  let xmlcont = fs::read_to_string(pbuf.as_path())?;
+  let mut trees = Vec::new();
+  let (outline, vnodes) = from_leo_content(xmlcont.as_str());
+  let folder = pbuf.parent().unwrap();
+  for (f,_) in find_derived_files(folder.to_str().unwrap(), &outline, &vnodes) {
+    if let Ok(cont) = fs::read_to_string(f.as_str()) {
+      trees.push(from_derived_file_content(cont.as_str()));
+    } else {
+      println!("file not found: [{}]", f.as_str());
+    }
+  }
+  trees.insert(0, (outline, vnodes));
+  Ok(combine_trees(&trees))
 }

@@ -4,7 +4,7 @@ mod parsing;
 use std::collections::HashMap;
 use std::sync::{Mutex};
 pub use crate::parsing::{ldf_parse,from_derived_file_content, from_derived_file,
-                         from_leo_file, from_leo_content};
+                         from_leo_file, from_leo_content, load_with_external_files};
 pub use crate::utils::{b64int, b64str};
 pub use crate::model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, find_derived_files};
 use pyo3::prelude::*;
@@ -101,6 +101,23 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
         let mut m = TREES.lock().unwrap();
         let tid = m.len();
         m.insert(tid, t);
+        Ok(tid)
+    }
+    #[pyfn(m, "load_leo")]
+    fn load_leo(_py: Python, fname:&str) -> PyResult<usize> {
+        let tid = match load_with_external_files(fname) {
+            Ok((outline, nodes)) => {
+                let t = Tree {outline, nodes};
+                let mut m = TREES.lock().unwrap();
+                let tid = m.len();
+                m.insert(tid, t);
+                tid
+            },
+            Err(e) => {
+                println!("{}", e);
+                0
+            }
+        };
         Ok(tid)
     }
     #[pyfn(m, "node_at")]
