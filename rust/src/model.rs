@@ -1,8 +1,10 @@
 #[path="utils.rs"]
 mod utils;
-use self::utils::{b64str, b64int};
+use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
+use std::path::{PathBuf};
+use std::ptr;
 pub type LevGnx = u32;
 pub trait LevGnxOps {
   /// returns level of this object
@@ -191,10 +193,10 @@ impl OutlineOps for Outline {
   }
 }
 /// returns a map of ignx -> gnx
-fn gnx_index(nodes:&Vec<VData>) -> HashMap<u32, String> {
+pub fn gnx_index(nodes:&Vec<VData>) -> HashMap<&str, u32> {
   let mut res = HashMap::new();
   for (i, x) in nodes.iter().enumerate() {
-    res.insert(i as u32, x.gnx.clone());
+    res.insert(x.gnx.as_str(), i as u32);
   }
   res
 }
@@ -226,5 +228,81 @@ impl VData {
       flags:1
     }
   }
+  pub fn clone(&self) -> VData {
+    VData {
+      gnx: self.gnx.clone(),
+      h: self.h.clone(),
+      b: self.b.clone(),
+      flags: self.flags
+    }
+  }
   pub fn is_expanded(&self) -> bool {self.flags & 1 == 1}
+}
+pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  let mut stack = vec![PathBuf::from(folder)];
+  let mut res = Vec::new();
+  for (i, x) in outline.iter().enumerate() {
+    let lev = x.level() as usize;
+    let v = &nodes[x.ignx() as usize];
+    let np = if v.h.starts_with("@path ") {
+      &v.h[6..].trim()
+    } else if v.b.starts_with("@path ") {
+      partition(&v.b[6..], "\n").0.trim()
+    } else if let Some(i) = v.b.find("\n@path ") {
+      partition(&v.b[i+7..], "\n").0.trim()
+    } else {""};
+    let mut nf = stack[stack.len() - 1].clone();
+    while lev > stack.len() {
+      stack.pop().unwrap();
+      nf = stack[stack.len() - 1].clone();
+    }
+    if np.len() > 0 {nf.push(np);}
+    stack.push(nf);
+    if v.h.starts_with("@file ") {
+      let fname = v.h[6..].trim();
+      let p = stack[stack.len() - 1].join(fname);
+      match p.canonicalize() {
+        Ok(x) => res.push((x.to_string_lossy().to_string(), i)),
+        Err(e) => res.push((p.to_string_lossy().to_string(), i))
+      }
+    }
+  }
+  res
+}
+
+pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>) {
+  let mut catalog:HashMap<&str, (usize, usize)> = HashMap::new();
+  for (i, x) in trees.iter().enumerate() {
+    let (o, n) = x;
+    for y in o.iter() {
+      let ignx = y.ignx() as usize;
+      let gnx = n[ignx].gnx.as_str();
+      catalog.insert(gnx, (i, ignx));
+    }
+  }
+  let (o1, v1) = &trees[0];
+  let mut outline = Vec::new();
+  let mut vnodes = v1.clone();
+  let mut real_start = 0;
+  let mut ignxes = gnx_index(&vnodes);
+  for (o, n) in trees.iter().rev() {
+    if ptr::eq(o, o1) {
+      real_start = outline.len();
+    }
+    for v in n {
+      let gnx = v.gnx.as_str();
+      if !ignxes.contains_key(gnx) {
+        let ii = ignxes.len() as u32;
+        ignxes.insert(gnx, ii);
+        vnodes.push(v.clone());
+      }
+    }
+    for x in o {
+      let gnx = n[x.ignx() as usize].gnx.as_str();
+      let ii = ignxes.get(gnx).unwrap();
+      outline.add_node(x.level(), *ii);
+    }
+  }
+  outline.drain(0..real_start);
+  (outline, vnodes.to_vec())
 }

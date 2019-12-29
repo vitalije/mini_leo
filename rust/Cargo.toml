@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 cbindgen = "0.5.2"
 
 [dependencies]
+lazy_static = "1.4.0"
 clap = "2.33.0"
 error-type = "0.1.2"
 futures = "0.1.27"
@@ -21,13 +22,14 @@ mime = "0.3.13"
 tokio-fs = "0.1.6"
 tokio-io = "0.1.12"
 xml-rs = "0.8.0"
+quick-xml = "0.17.1"
 nom = "5.0.0"
 #sxd-document = "0.3.2"
 #threadpool = "1.7.1"
 #net2 = "0.2.33"
 #libc = "0.2.58"
 [dependencies.pyo3]
-version = "0.7.0"
+version = "0.8.4"
 features = ["extension-module"]
 
 [[bin]]

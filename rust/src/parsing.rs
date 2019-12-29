@@ -1,4 +1,18 @@
 use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps};
+//use xml::reader::{ParserConfig, XmlEvent};
+use quick_xml::Reader as XmlReader;
+use quick_xml::events::Event;
+use quick_xml::events::attributes::Attributes;
+
+use std::{
+  error::Error as StdError,
+  io,
+  io::{Read, BufReader},
+  fs::File,
+  path::{PathBuf},
+  collections::{HashMap}
+};
+
 #[cfg(test)]
 mod tests {
   #[test]
@@ -461,12 +475,19 @@ fn is_at_minus_leo<'a>(state:&mut LdfParseState) -> bool {
     true
   } else { false}
 }
+pub fn from_derived_file(fname:PathBuf) -> Result<(Outline, Vec<VData>), io::Error> {
+  let f = File::open(&fname)?;
+  let mut buf_reader = BufReader::new(f);
+  let mut buf = String::new();
+  buf_reader.read_to_string(&mut buf)?;
+  Ok(from_derived_file_content(&buf))
+}
 pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
   let mut nodes = Vec::new();
   let mut outline = Vec::new();
   let (vnodes, lines, _, _) = ldf_parse(content);
   let mut i:u32 = 0;
-  // TOOD: consider changing ldf_parse to skip root node in its output nodes
+  // TODO: consider changing ldf_parse to skip root node in its output nodes
   // if it skips root node, in the following loop we won't have to check if lev > 0
   // and root node can be inserted in nodes before loop
   for (lev, a, b, c, d) in vnodes {
@@ -485,7 +506,7 @@ pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
     i += 1;
   }
   for (i, a, b, op) in lines {
-    let mut v = nodes.get_mut(i-1).unwrap();
+    let v = nodes.get_mut(i-1).unwrap();
     match op {
       Some((pref, suf)) => {
         v.b.push_str(pref);
@@ -493,6 +514,84 @@ pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
         v.b.push_str(suf);
       },
       _ => v.b.push_str(&content[a..b])
+    }
+  }
+  (outline, nodes)
+}
+/*
+fn parser_config() -> ParserConfig {
+  ParserConfig::new()
+      .cdata_to_characters(true)
+      .whitespace_to_characters(true)
+}
+*/
+pub fn from_leo_file(fname:PathBuf) -> Result<(Outline, Vec<VData>), io::Error> {
+  let f = File::open(&fname)?;
+  let mut buf_reader = BufReader::new(f);
+  let mut buf = String::new();
+  buf_reader.read_to_string(&mut buf)?;
+  Ok(from_leo_content(&buf))
+}
+pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
+  //let config = parser_config();
+  //let reader = config.create_reader(buf.as_bytes());
+  let mut reader = XmlReader::from_str(buf);
+  let mut nodes:Vec<VData> = Vec::new();
+  nodes.push(VData::new("hidden-root-vnode-gnx"));
+  let mut gnx2i:HashMap<String, usize> = HashMap::new();
+  let mut last_gnx = String::new();
+  let mut txt = String::new();
+  let mut lev = 0u8;
+  let mut gnxcount:usize = 1;
+  let mut outline:Outline = vec![0u32];
+  loop {
+    let mut xmlbuf = Vec::new();
+    let getattr = |k:&[u8], attrs:Attributes, rr| {
+      for x in attrs {
+        let a = x.unwrap();
+        if a.key == k {
+          return a.unescape_and_decode_value(rr).unwrap();
+        }
+      }
+      panic!("missing attribute:{:?}", k);
+    };
+    match reader.read_event(&mut xmlbuf) {
+      Ok(Event::Start(ref e)) => {
+        let n = e.local_name();
+        if n == b"v" {
+          last_gnx.clear();
+          last_gnx.push_str(&getattr(b"t", e.attributes(), &reader));
+          let v = VData::new(&last_gnx);
+          let ignx = gnx2i.entry(v.gnx.clone()).or_insert(gnxcount);
+          lev += 1u8;
+          outline.add_node(lev, *ignx as u32);
+          nodes.push(v);
+          gnxcount += 1;
+        } else if n == b"vnodes" {
+          lev=0;
+        } else if n == b"t" {
+          last_gnx.clear();
+          last_gnx.push_str(&getattr(b"tx", e.attributes(), &reader));
+        }
+        txt.clear();
+      },
+      Ok(Event::Text(e)) => txt.push_str(&e.unescape_and_decode(&reader).unwrap()),
+      Ok(Event::End(ref e)) => {
+        let n = e.local_name();
+        if n == b"vh" {
+          if let Some(i) = gnx2i.get(&last_gnx) {
+            nodes[*i].h.push_str(&txt)
+          }
+        } else if n == b"v" {
+          lev -= 1;
+        } else if n == b"t" {
+          if let Some(i) = gnx2i.get(&last_gnx) {
+            nodes[*i].b.push_str(&txt);
+          }
+        }
+      },
+      Ok(Event::Eof) => break,
+      _ => ()
     }
   }
   (outline, nodes)

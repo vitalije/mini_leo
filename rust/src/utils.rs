@@ -51,8 +51,22 @@ const B64VALUES:[u8; 128] = [
    52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
    60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
 ];
+/*
 pub fn rpartition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
   match input.rfind(sep) {
+    Some(i) => {
+      let j = i + sep.len();
+      (&input[..i], &input[i..j], &input[j..])
+    },
+    None => {
+      let i = input.len() - 1;
+      (&input, &input[i..i], &input[i..i])
+    }
+  }
+}
+*/
+pub fn partition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
+  match input.find(sep) {
     Some(i) => {
       let j = i + sep.len();
       (&input[..i], &input[i..j], &input[j..])

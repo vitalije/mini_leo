@@ -45,7 +45,21 @@
 <v t="vitalije.20190701152643.1"><vh>main2</vh></v>
 <v t="vitalije.20190626141101.1"><vh>ldf_header</vh></v>
 </v>
-<v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh></v>
+<v t="vitalije.20180822204724.1"><vh>@clean src/lib.rs</vh>
+<v t="vitalije.20191215163859.1"><vh>Tree, TreeIterator</vh></v>
+<v t="vitalije.20191215164034.1"><vh>TREES</vh></v>
+<v t="vitalije.20191215164048.1"><vh>module</vh>
+<v t="vitalije.20191215164104.1"><vh>outline_from_str</vh></v>
+<v t="vitalije.20191215182759.1"><vh>outline_from_file</vh></v>
+<v t="vitalije.20191215183645.1"><vh>outline_from_leo_file</vh></v>
+<v t="vitalije.20191215183719.1"><vh>outline_from_leo</vh></v>
+<v t="vitalije.20191215164111.1"><vh>node_at</vh></v>
+<v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
+<v t="vitalije.20191215194010.1"><vh>drop_tree</vh></v>
+<v t="vitalije.20191216171715.1"><vh>at_files</vh></v>
+<v t="vitalije.20191217044239.1"><vh>tree_len</vh></v>
+</v>
+</v>
 <v t="vitalije.20190702073134.1"><vh>@clean src/model.rs</vh>
 <v t="vitalije.20190625101129.1"><vh>LevGnx</vh>
 <v t="vitalije.20190702093107.1"><vh>LevGnx implementation</vh></v>
@@ -63,6 +77,9 @@
 </v>
 <v t="vitalije.20190702100427.1"><vh>gnx_index</vh></v>
 <v t="vitalije.20190625161035.1"><vh>VData</vh></v>
+<v t="vitalije.20191216165607.1"><vh>find_derived_files</vh>
+<v t="vitalije.20191216165649.1"><vh>adjust for @path</vh></v>
+</v>
 </v>
 <v t="vitalije.20190702073410.1"><vh>@clean src/utils.rs</vh>
 <v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
@@ -108,7 +125,11 @@
 </v>
 <v t="vitalije.20190630160440.1"><vh>handle_leo_header</vh></v>
 <v t="vitalije.20190630155744.1"><vh>ldf_parse</vh></v>
+<v t="vitalije.20191215182251.1"><vh>from_derived_file</vh></v>
 <v t="vitalije.20190702104313.1"><vh>from_derived_file_content</vh></v>
+<v t="vitalije.20191215181220.1"><vh>parser_config</vh></v>
+<v t="vitalije.20191215181042.1"><vh>from_leo_file</vh></v>
+<v t="vitalije.20191215182704.1"><vh>from_leo_content</vh></v>
 </v>
 <v t="vitalije.20190625205715.1"><vh>@clean src/main.rs</vh>
 <v t="vitalije.20190701173234.1"><vh>pr_linebuf</vh></v>
@@ -474,12 +495,10 @@ def getf(fname):
 </t>
 <t tx="vitalije.20180822173307.1"></t>
 <t tx="vitalije.20180822182319.1"></t>
-<t tx="vitalije.20180822183813.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@first #!/usr/bin/env python
-@first # -*- coding: utf-8 -*-
+<t tx="vitalije.20180822183813.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """The setup script."""
 
-@language python
-@tabwidth -4
 
 from setuptools import setup, find_packages
 import os
@@ -494,12 +513,58 @@ requirements = ['Click&gt;=6.0', 'milksnake']
 
 setup_requirements = ['pytest-runner', 'milksnake']
 test_requirements = ['pytest', ]
-@others
+def build_native(spec):
+    # build a native rust library
+    build = spec.add_external_build(
+        cmd=[cargobin, 'build', '--release'],
+        path='rust'
+    )
+
+    spec.add_cffi_module(
+        module_path='mini_leo._native',
+        dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
+        header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
+        rtld_flags=['NOW', 'NODELETE']
+    )
+
+setup(
+    author="Vitalije Milosevic",
+    author_email='vitalije@kviziracija.net',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+    ],
+    description="A minimal version of Leo editor.",
+    entry_points={
+        'console_scripts': [
+            'mini_leo=mini_leo.cli:main',
+        ],
+    },
+    install_requires=requirements,
+    license="MIT license",
+    long_description=readme + '\n\n' + history,
+    include_package_data=True,
+    keywords='mini_leo',
+    name='mini_leo',
+    packages=find_packages(include=['mini_leo']),
+    setup_requires=setup_requirements,
+    test_suite='tests',
+    tests_require=test_requirements,
+    url='https://github.com/vitalije/mini_leo',
+    version='0.1.0',
+    zip_safe=False,
+    platforms='any',
+    milksnake_tasks = [build_native]
+)
+
 </t>
-<t tx="vitalije.20180822200124.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@first # -*- coding: utf-8 -*-
+<t tx="vitalije.20180822200124.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e"># -*- coding: utf-8 -*-
 """Top-level package for Mini Leo."""
-@language python
-@tabwidth -4
 from mini_leo._native import ffi, lib
 def test():
     return lib.a_function_from_rust()
@@ -508,22 +573,23 @@ __author__ = """Vitalije Milosevic"""
 __email__ = 'vitalije@kviziracija.net'
 __version__ = '0.1.0'
 </t>
-<t tx="vitalije.20180822200508.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@first # -*- coding: utf-8 -*-
+<t tx="vitalije.20180822200508.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e"># -*- coding: utf-8 -*-
 """Console script for mini_leo."""
 import sys
 import click
 from mini_leo import test
-@language python
-@tabwidth -4
-@others
+@click.command()
+def main(args=None):
+    """Console script for mini_leo."""
+    #click.echo("See click documentation at http://click.pocoo.org/")
+    if test() != 42:
+        return 1
+    return 0
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
 </t>
-<t tx="vitalije.20180822200526.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@first # -*- coding: utf-8 -*-
+<t tx="vitalije.20180822200526.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e"># -*- coding: utf-8 -*-
 """Main module."""
-@others
-@language python
-@tabwidth -4
 </t>
 <t tx="vitalije.20180822200550.2">@click.command()
 def main(args=None):
@@ -592,30 +658,27 @@ def main(args=None):
 <t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">mod model;
 mod utils;
 mod parsing;
-
-pub use crate::parsing::{ldf_parse,from_derived_file_content};
-pub use crate::utils::{b64int, b64str, rpartition};
-pub use crate::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps};
+use std::collections::HashMap;
+use std::sync::{Mutex};
+pub use crate::parsing::{ldf_parse,from_derived_file_content, from_derived_file,
+                         from_leo_file, from_leo_content};
+pub use crate::utils::{b64int, b64str};
+pub use crate::model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, find_derived_files};
 use pyo3::prelude::*;
+use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};
 use pyo3::type_object::PyTypeObject;
+//use xml::reader::{ParserConfig, XmlEvent};
+use std::path::{PathBuf};
+#[macro_use]
+extern crate lazy_static;
+
 #[pyfunction]
 pub fn a_function_from_rust() -&gt; PyResult&lt;i32&gt; {
     Ok(42)
 }
-
-#[pymodule]
-fn _minileo(py: Python, m:&amp;PyModule) -&gt; PyResult&lt;()&gt; {
-    /// creates outline from str
-    #[pyfn(m, "outline_from_str")]
-    fn outline_from_string(py: Python, txt:&amp;str) -&gt; PyResult&lt;(Outline, Vec&lt;VData&gt;)&gt; {
-        let (o, nodes) = from_derived_file_content(txt);
-        Ok((o, nodes))
-    }
-    m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
-    m.add("VData", &lt;VData as PyTypeObject&gt;::type_object())?;
-    Ok(())
-}</t>
+@others
+</t>
 <t tx="vitalije.20180822204947.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">[package]
 name = "mini_leo"
 version = "0.1.0"
@@ -630,6 +693,7 @@ crate-type = ["cdylib"]
 cbindgen = "0.5.2"
 
 [dependencies]
+lazy_static = "1.4.0"
 clap = "2.33.0"
 error-type = "0.1.2"
 futures = "0.1.27"
@@ -639,13 +703,14 @@ mime = "0.3.13"
 tokio-fs = "0.1.6"
 tokio-io = "0.1.12"
 xml-rs = "0.8.0"
+quick-xml = "0.17.1"
 nom = "5.0.0"
 #sxd-document = "0.3.2"
 #threadpool = "1.7.1"
 #net2 = "0.2.33"
 #libc = "0.2.58"
 [dependencies.pyo3]
-version = "0.7.0"
+version = "0.8.4"
 features = ["extension-module"]
 
 [[bin]]
@@ -671,9 +736,10 @@ fn main() {
   let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
   let mut config: cbindgen::Config = Default::default();
   config.language = cbindgen::Language::C;
-  cbindgen::generate_with_config(&amp;crate_dir, config)
-    .unwrap()
-    .write_to_file("target/mini_leo.h");
+  match cbindgen::generate_with_config(&amp;crate_dir, config) {
+    Ok(x) =&gt; x.write_to_file("target/mini_leo.h"),
+    Err(e) =&gt; println!("Greska: {}", e)
+  }
 }
 
 </t>
@@ -1315,11 +1381,33 @@ impl VData {
       flags:1
     }
   }
+  pub fn clone(&amp;self) -&gt; VData {
+    VData {
+      gnx: self.gnx.clone(),
+      h: self.h.clone(),
+      b: self.b.clone(),
+      flags: self.flags
+    }
+  }
   pub fn is_expanded(&amp;self) -&gt; bool {self.flags &amp; 1 == 1}
 }</t>
 <t tx="vitalije.20190625192155.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
 use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps};
+//use xml::reader::{ParserConfig, XmlEvent};
+use quick_xml::Reader as XmlReader;
+use quick_xml::events::Event;
+use quick_xml::events::attributes::Attributes;
+
+use std::{
+  error::Error as StdError,
+  io,
+  io::{Read, BufReader},
+  fs::File,
+  path::{PathBuf},
+  collections::{HashMap}
+};
+
 @others
 </t>
 <t tx="vitalije.20190625205715.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
@@ -1358,7 +1446,8 @@ fn main() -&gt; io::Result&lt;()&gt;{
   Ok(())
 }
 </t>
-<t tx="vitalije.20190626141051.1">pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
+<t tx="vitalije.20190626141051.1">/*
+pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
   match input.rfind(sep) {
     Some(i) =&gt; {
       let j = i + sep.len();
@@ -1369,7 +1458,21 @@ fn main() -&gt; io::Result&lt;()&gt;{
       (&amp;input, &amp;input[i..i], &amp;input[i..i])
     }
   }
-}</t>
+}
+*/
+pub fn partition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
+  match input.find(sep) {
+    Some(i) =&gt; {
+      let j = i + sep.len();
+      (&amp;input[..i], &amp;input[i..j], &amp;input[j..])
+    },
+    None =&gt; {
+      let i = input.len() - 1;
+      (&amp;input, &amp;input[i..i], &amp;input[i..i])
+    }
+  }
+}
+</t>
 <t tx="vitalije.20190626141101.1">/*
 extern crate nom;
 use nom::{
@@ -1934,9 +2037,11 @@ fn pr_ldf(datastr:&amp;str) {
 @tabwidth -2
 #[path="utils.rs"]
 mod utils;
-use self::utils::{b64str, b64int};
+use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
+use std::path::{PathBuf};
+use std::ptr;
 @others
 </t>
 <t tx="vitalije.20190702073410.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
@@ -1990,10 +2095,10 @@ mod tests {
   }
 }</t>
 <t tx="vitalije.20190702100427.1">/// returns a map of ignx -&gt; gnx
-fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;u32, String&gt; {
+pub fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;&amp;str, u32&gt; {
   let mut res = HashMap::new();
   for (i, x) in nodes.iter().enumerate() {
-    res.insert(i as u32, x.gnx.clone());
+    res.insert(x.gnx.as_str(), i as u32);
   }
   res
 }</t>
@@ -2002,7 +2107,7 @@ fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;u32, String&gt; {
   let mut outline = Vec::new();
   let (vnodes, lines, _, _) = ldf_parse(content);
   let mut i:u32 = 0;
-  // TOOD: consider changing ldf_parse to skip root node in its output nodes
+  // TODO: consider changing ldf_parse to skip root node in its output nodes
   // if it skips root node, in the following loop we won't have to check if lev &gt; 0
   // and root node can be inserted in nodes before loop
   for (lev, a, b, c, d) in vnodes {
@@ -2021,7 +2126,7 @@ fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;u32, String&gt; {
     i += 1;
   }
   for (i, a, b, op) in lines {
-    let mut v = nodes.get_mut(i-1).unwrap();
+    let v = nodes.get_mut(i-1).unwrap();
     match op {
       Some((pref, suf)) =&gt; {
         v.b.push_str(pref);
@@ -2080,5 +2185,284 @@ Type "help", "copyright", "credits" or "license" for more information.
 &gt;&gt;&gt; import timeit
 &gt;&gt;&gt; print(timeit.timeit(f, number=100)/100*1000, 'ms')
 6.344196610007202 ms</t>
+<t tx="vitalije.20191215163859.1">struct Tree {
+    outline: Outline,
+    nodes: Vec&lt;VData&gt;,
+}
+#[pyclass]
+struct TreeIterator {
+    tree_id: usize,
+    index: usize
+}
+#[pyproto]
+impl PyIterProtocol for TreeIterator {
+    fn __iter__(slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Py&lt;TreeIterator&gt;&gt; {
+        Ok(slf.into())
+    }
+    fn __next__(mut slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
+        let m = TREES.lock().unwrap();
+        let res = m.get(&amp;slf.tree_id).map(|t|{
+            let n = t.outline.len();
+            if slf.index &lt; n {
+                let levgnx = t.outline[slf.index];
+                let i = levgnx.ignx() as usize;
+                Some((levgnx.level(), t.nodes[i].clone()))
+            } else {
+                None
+            }
+        });
+        slf.index += 1;
+        match res {
+            Some(Some(x)) =&gt; Ok(Some(x)),
+            _ =&gt; Ok(None)
+        }
+    }
+}</t>
+<t tx="vitalije.20191215164034.1">lazy_static! {
+    static ref TREES:Mutex&lt;Box&lt;HashMap&lt;usize,Tree&gt;&gt;&gt; = Mutex::new(Box::new(HashMap::new()));
+}
+</t>
+<t tx="vitalije.20191215164048.1">#[pymodule]
+fn _minileo(_py: Python, m:&amp;PyModule) -&gt; PyResult&lt;()&gt; {
+    /// creates outline from str
+    @others
+    m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
+    m.add("VData", &lt;VData as PyTypeObject&gt;::type_object())?;
+    Ok(())
+}</t>
+<t tx="vitalije.20191215164104.1">#[pyfn(m, "outline_from_str")]
+fn outline_from_string(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
+    let (outline, nodes) = from_derived_file_content(txt);
+    let t = Tree {outline, nodes};
+    let mut m = TREES.lock().unwrap();
+    let tid = m.len();
+    m.insert(tid, t);
+    Ok(tid)
+}</t>
+<t tx="vitalije.20191215164111.1">#[pyfn(m, "node_at")]
+fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
+    let res = TREES.lock().unwrap().get(&amp;tid).map(|t|{
+        let x = t.outline[i];
+        let v = t.nodes[x.ignx() as usize].clone();
+        (x.level(), v)
+    });
+    Ok(res)
+}</t>
+<t tx="vitalije.20191215164117.1">#[pyfn(m, "iternodes")]
+fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
+    Ok(TreeIterator {tree_id:tid, index:0})
+}</t>
+<t tx="vitalije.20191215181042.1">pub fn from_leo_file(fname:PathBuf) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
+  let f = File::open(&amp;fname)?;
+  let mut buf_reader = BufReader::new(f);
+  let mut buf = String::new();
+  buf_reader.read_to_string(&amp;mut buf)?;
+  Ok(from_leo_content(&amp;buf))
+}
+</t>
+<t tx="vitalije.20191215181220.1">/*
+fn parser_config() -&gt; ParserConfig {
+  ParserConfig::new()
+      .cdata_to_characters(true)
+      .whitespace_to_characters(true)
+}
+*/</t>
+<t tx="vitalije.20191215182251.1">pub fn from_derived_file(fname:PathBuf) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
+  let f = File::open(&amp;fname)?;
+  let mut buf_reader = BufReader::new(f);
+  let mut buf = String::new();
+  buf_reader.read_to_string(&amp;mut buf)?;
+  Ok(from_derived_file_content(&amp;buf))
+}</t>
+<t tx="vitalije.20191215182704.1">pub fn from_leo_content(buf:&amp;str) -&gt; (Outline, Vec&lt;VData&gt;) {
+  //let config = parser_config();
+  //let reader = config.create_reader(buf.as_bytes());
+  let mut reader = XmlReader::from_str(buf);
+  let mut nodes:Vec&lt;VData&gt; = Vec::new();
+  nodes.push(VData::new("hidden-root-vnode-gnx"));
+  let mut gnx2i:HashMap&lt;String, usize&gt; = HashMap::new();
+  let mut last_gnx = String::new();
+  let mut txt = String::new();
+  let mut lev = 0u8;
+  let mut gnxcount:usize = 1;
+  let mut outline:Outline = vec![0u32];
+  loop {
+    let mut xmlbuf = Vec::new();
+    let getattr = |k:&amp;[u8], attrs:Attributes, rr| {
+      for x in attrs {
+        let a = x.unwrap();
+        if a.key == k {
+          return a.unescape_and_decode_value(rr).unwrap();
+        }
+      }
+      panic!("missing attribute:{:?}", k);
+    };
+    match reader.read_event(&amp;mut xmlbuf) {
+      Ok(Event::Start(ref e)) =&gt; {
+        let n = e.local_name();
+        if n == b"v" {
+          last_gnx.clear();
+          last_gnx.push_str(&amp;getattr(b"t", e.attributes(), &amp;reader));
+          let v = VData::new(&amp;last_gnx);
+          let ignx = gnx2i.entry(v.gnx.clone()).or_insert(gnxcount);
+          lev += 1u8;
+          outline.add_node(lev, *ignx as u32);
+          nodes.push(v);
+          gnxcount += 1;
+        } else if n == b"vnodes" {
+          lev=0;
+        } else if n == b"t" {
+          last_gnx.clear();
+          last_gnx.push_str(&amp;getattr(b"tx", e.attributes(), &amp;reader));
+        }
+        txt.clear();
+      },
+      Ok(Event::Text(e)) =&gt; txt.push_str(&amp;e.unescape_and_decode(&amp;reader).unwrap()),
+      Ok(Event::End(ref e)) =&gt; {
+        let n = e.local_name();
+        if n == b"vh" {
+          if let Some(i) = gnx2i.get(&amp;last_gnx) {
+            nodes[*i].h.push_str(&amp;txt)
+          }
+        } else if n == b"v" {
+          lev -= 1;
+        } else if n == b"t" {
+          if let Some(i) = gnx2i.get(&amp;last_gnx) {
+            nodes[*i].b.push_str(&amp;txt);
+          }
+        }
+      },
+      Ok(Event::Eof) =&gt; break,
+      _ =&gt; ()
+    }
+  }
+  (outline, nodes)
+}</t>
+<t tx="vitalije.20191215182759.1">#[pyfn(m, "outline_from_file")]
+fn outline_from_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
+    match from_derived_file(PathBuf::from(txt)) {
+        Ok((outline, nodes)) =&gt; {
+            let t = Tree {outline, nodes};
+            let mut m = TREES.lock().unwrap();
+            let tid = m.len();
+            m.insert(tid, t);
+            Ok(tid)
+        },
+        Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
+    }
+}</t>
+<t tx="vitalije.20191215183645.1">#[pyfn(m, "outline_from_leo_file")]
+fn outline_from_leo_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
+    match from_leo_file(PathBuf::from(txt)) {
+        Ok((outline, nodes)) =&gt; {
+            let t = Tree {outline, nodes};
+            let mut m = TREES.lock().unwrap();
+            let tid = m.len();
+            m.insert(tid, t);
+            Ok(tid)
+        },
+        Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
+    }
+}</t>
+<t tx="vitalije.20191215183719.1">#[pyfn(m, "outline_from_leo_str")]
+fn outline_from_leo_str(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
+    let (outline, nodes) = from_leo_content(txt);
+    let t = Tree {outline, nodes};
+    let mut m = TREES.lock().unwrap();
+    let tid = m.len();
+    m.insert(tid, t);
+    Ok(tid)
+}</t>
+<t tx="vitalije.20191215194010.1">#[pyfn(m, "drop_tree")]
+fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
+    Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
+}</t>
+<t tx="vitalije.20191216165607.1">pub fn find_derived_files(folder:&amp;str, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
+  let mut stack = vec![PathBuf::from(folder)];
+  let mut res = Vec::new();
+  for (i, x) in outline.iter().enumerate() {
+    let lev = x.level() as usize;
+    let v = &amp;nodes[x.ignx() as usize];
+    @others
+    if v.h.starts_with("@file ") {
+      let fname = v.h[6..].trim();
+      let p = stack[stack.len() - 1].join(fname);
+      match p.canonicalize() {
+        Ok(x) =&gt; res.push((x.to_string_lossy().to_string(), i)),
+        Err(e) =&gt; res.push((p.to_string_lossy().to_string(), i))
+      }
+    }
+  }
+  res
+}
+
+pub fn combine_trees(trees:&amp;Vec&lt;(Outline, Vec&lt;VData&gt;)&gt;) -&gt; (Outline, Vec&lt;VData&gt;) {
+  let mut catalog:HashMap&lt;&amp;str, (usize, usize)&gt; = HashMap::new();
+  for (i, x) in trees.iter().enumerate() {
+    let (o, n) = x;
+    for y in o.iter() {
+      let ignx = y.ignx() as usize;
+      let gnx = n[ignx].gnx.as_str();
+      catalog.insert(gnx, (i, ignx));
+    }
+  }
+  let (o1, v1) = &amp;trees[0];
+  let mut outline = Vec::new();
+  let mut vnodes = v1.clone();
+  let mut real_start = 0;
+  let mut ignxes = gnx_index(&amp;vnodes);
+  for (o, n) in trees.iter().rev() {
+    if ptr::eq(o, o1) {
+      real_start = outline.len();
+    }
+    for v in n {
+      let gnx = v.gnx.as_str();
+      if !ignxes.contains_key(gnx) {
+        let ii = ignxes.len() as u32;
+        ignxes.insert(gnx, ii);
+        vnodes.push(v.clone());
+      }
+    }
+    for x in o {
+      let gnx = n[x.ignx() as usize].gnx.as_str();
+      let ii = ignxes.get(gnx).unwrap();
+      outline.add_node(x.level(), *ii);
+    }
+  }
+  outline.drain(0..real_start);
+  (outline, vnodes.to_vec())
+}</t>
+<t tx="vitalije.20191216165649.1">let np = if v.h.starts_with("@path ") {
+  &amp;v.h[6..].trim()
+} else if v.b.starts_with("@path ") {
+  partition(&amp;v.b[6..], "\n").0.trim()
+} else if let Some(i) = v.b.find("\n@path ") {
+  partition(&amp;v.b[i+7..], "\n").0.trim()
+} else {""};
+let mut nf = stack[stack.len() - 1].clone();
+while lev &gt; stack.len() {
+  stack.pop().unwrap();
+  nf = stack[stack.len() - 1].clone();
+}
+if np.len() &gt; 0 {nf.push(np);}
+stack.push(nf);</t>
+<t tx="vitalije.20191216171715.1">#[pyfn(m, "at_files")]
+fn at_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
+    match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+        find_derived_files(folder, &amp;t.outline, &amp;t.nodes)
+    }){
+        Some(x) =&gt; Ok(x),
+        None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    }
+}</t>
+<t tx="vitalije.20191217044239.1">#[pyfn(m, "tree_len")]
+fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
+    match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+        t.outline.len() - 1
+    }){
+        Some(x) =&gt; Ok(x),
+        None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    }
+}</t>
 </tnodes>
 </leo_file>
