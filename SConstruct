@@ -31,7 +31,7 @@ rust_lib = 'rust/target/release/' + env['SHLIBPREFIX'] + rust_libname
 env.Command(
         target=rust_lib,
         source=["rust/Cargo.toml", "rust/build.rs", "rust/src/lib.rs"],
-        action="~/.cargo/bin/cargo build --release", 
+        action="~/.cargo/bin/cargo build --lib --release", 
         chdir="rust"
         )
 # Copy compiled library into base directory
