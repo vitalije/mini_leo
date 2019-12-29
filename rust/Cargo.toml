@@ -31,7 +31,7 @@ nom = "5.0.0"
 [dependencies.pyo3]
 version = "0.8.4"
 features = ["extension-module"]
-
+additional_flags = ["--cfg=Py_3_7"]
 [[bin]]
 name = "server"
 path = "src/bin/server.rs"
