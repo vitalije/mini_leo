@@ -13,15 +13,15 @@ cbindgen = "0.5.2"
 
 [dependencies]
 lazy_static = "1.4.0"
-clap = "2.33.0"
-error-type = "0.1.2"
-futures = "0.1.27"
-http = "0.1.17"
-hyper = "0.12"
-mime = "0.3.13"
-tokio-fs = "0.1.6"
-tokio-io = "0.1.12"
-xml-rs = "0.8.0"
+#clap = "2.33.0"
+#error-type = "0.1.2"
+#futures = "0.1.27"
+#http = "0.1.17"
+#hyper = "0.12"
+#mime = "0.3.13"
+#tokio-fs = "0.1.6"
+#tokio-io = "0.1.12"
+#xml-rs = "0.8.0"
 quick-xml = "0.17.1"
 nom = "5.0.0"
 #sxd-document = "0.3.2"
@@ -31,7 +31,7 @@ nom = "5.0.0"
 [dependencies.pyo3]
 version = "0.8.4"
 features = ["extension-module"]
-additional_flags = ["--cfg=Py_3_7"]
+
 [[bin]]
 name = "server"
 path = "src/bin/server.rs"

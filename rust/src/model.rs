@@ -4,7 +4,6 @@ use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use std::path::{PathBuf};
-use std::ptr;
 pub type LevGnx = u32;
 pub trait LevGnxOps {
   /// returns level of this object

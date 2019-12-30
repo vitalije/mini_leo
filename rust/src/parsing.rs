@@ -1,11 +1,9 @@
 use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, combine_trees, find_derived_files};
-//use xml::reader::{ParserConfig, XmlEvent};
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
 use quick_xml::events::attributes::Attributes;
 
 use std::{
-  error::Error as StdError,
   io,
   io::{Read, BufReader},
   fs,
