@@ -37,7 +37,7 @@ env.Command(
         )
 # Copy compiled library into base directory
 local_rust = env.Command(
-        target=rust_libname,
+        target='_minileo' + env['SHLIBSUFFIX'],
         source=rust_lib,
         action=Copy('$TARGET', '$SOURCE'))
 

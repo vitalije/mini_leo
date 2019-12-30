@@ -19,7 +19,7 @@ test_requirements = ['pytest', ]
 def build_native(spec):
     # build a native rust library
     build = spec.add_external_build(
-        cmd=[cargobin, 'build', '--release'],
+        cmd=[cargobin, 'build', '--lib', '--release'],
         path='rust'
     )
 
@@ -29,7 +29,6 @@ def build_native(spec):
         header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
         rtld_flags=['NOW', 'NODELETE']
     )
-
 setup(
     author="Vitalije Milosevic",
     author_email='vitalije@kviziracija.net',

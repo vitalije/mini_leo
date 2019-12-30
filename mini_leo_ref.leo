@@ -37,8 +37,7 @@
 <v t="vitalije.20180822200526.1"><vh>@clean mini_leo/mini_leo.py</vh></v>
 <v t="vitalije.20190622133345.1"><vh>@clean tests/test_mini_leo.py</vh></v>
 <v t="vitalije.20180822183813.1"><vh>@clean setup.py</vh>
-<v t="vitalije.20180822204146.1"><vh>build_native</vh></v>
-<v t="vitalije.20180822204202.1"><vh>setup</vh></v>
+<v t="vitalije.20191230142308.1"><vh>build_native</vh></v>
 </v>
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
 <v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
@@ -517,20 +516,7 @@ requirements = ['Click&gt;=6.0', 'milksnake']
 
 setup_requirements = ['pytest-runner', 'milksnake']
 test_requirements = ['pytest', ]
-def build_native(spec):
-    # build a native rust library
-    build = spec.add_external_build(
-        cmd=[cargobin, 'build', '--release'],
-        path='rust'
-    )
-
-    spec.add_cffi_module(
-        module_path='mini_leo._native',
-        dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
-        header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
-        rtld_flags=['NOW', 'NODELETE']
-    )
-
+@others
 setup(
     author="Vitalije Milosevic",
     author_email='vitalije@kviziracija.net',
@@ -606,57 +592,6 @@ def main(args=None):
 <t tx="vitalije.20180822200821.1">for v in c.all_unique_nodes():
     if v.h.startswith('@file '):
         v.h = v.h.replace('@file ', '@clean ')
-</t>
-<t tx="vitalije.20180822204146.1">def build_native(spec):
-    # build a native rust library
-    build = spec.add_external_build(
-        cmd=[cargobin, 'build', '--release'],
-        path='rust'
-    )
-
-    spec.add_cffi_module(
-        module_path='mini_leo._native',
-        dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
-        header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
-        rtld_flags=['NOW', 'NODELETE']
-    )
-
-</t>
-<t tx="vitalije.20180822204202.1">setup(
-    author="Vitalije Milosevic",
-    author_email='vitalije@kviziracija.net',
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-    ],
-    description="A minimal version of Leo editor.",
-    entry_points={
-        'console_scripts': [
-            'mini_leo=mini_leo.cli:main',
-        ],
-    },
-    install_requires=requirements,
-    license="MIT license",
-    long_description=readme + '\n\n' + history,
-    include_package_data=True,
-    keywords='mini_leo',
-    name='mini_leo',
-    packages=find_packages(include=['mini_leo']),
-    setup_requires=setup_requirements,
-    test_suite='tests',
-    tests_require=test_requirements,
-    url='https://github.com/vitalije/mini_leo',
-    version='0.1.0',
-    zip_safe=False,
-    platforms='any',
-    milksnake_tasks = [build_native]
-)
-
 </t>
 <t tx="vitalije.20180822204714.1">@path rust</t>
 <t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">mod model;
@@ -2520,5 +2455,18 @@ fn load_leo(_py: Python, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
     };
     Ok(tid)
 }</t>
+<t tx="vitalije.20191230142308.1">def build_native(spec):
+    # build a native rust library
+    build = spec.add_external_build(
+        cmd=[cargobin, 'build', '--lib', '--release'],
+        path='rust'
+    )
+
+    spec.add_cffi_module(
+        module_path='mini_leo._native',
+        dylib=lambda: build.find_dylib('mini_leo', in_path='target/release'),
+        header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
+        rtld_flags=['NOW', 'NODELETE']
+    )</t>
 </tnodes>
 </leo_file>
