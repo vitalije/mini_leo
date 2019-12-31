@@ -1,0 +1,12 @@
+version: 0.1.{build}
+image: Visual Studio 2015
+shallow_clone: true
+clone_depth: 5
+environment:
+  PYTHON_VERSION: 3.7
+init:
+  - set PY_VER=%PYTHON_VERSION:.=%
+  - set PYTHON=C:\PYTHON%PY_VER%
+  - if %PLATFORM%==x64 (set PYTHON=%PYTHON%-x64)
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - python --version
