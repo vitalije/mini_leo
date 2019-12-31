@@ -5,10 +5,10 @@ clone_depth: 5
 environment:
   PYTHON_VERSION: 3.7
 init:
-  - set PYTHON=C:\PYTHON3.7
+  - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - ECHO %PATH%
-  - python3 --version
+  - python --version
 platform: x64
 build_script:
-   - python3 -V
+   - python -V
