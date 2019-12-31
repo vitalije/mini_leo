@@ -8,7 +8,7 @@ from distutils.util import get_platform
 PLATFORM = get_platform().replace('-', '_').replace('.', '_')
 def cargo_build():
     proc = subprocess.Popen('cargo build --lib --release',
-        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     [o, e] = proc.communicate()
     print(o.decode('utf8'))
     print(e.decode('utf8'))

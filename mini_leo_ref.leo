@@ -2489,7 +2489,7 @@ if __name__ == '__main__':
     make_wheel()</t>
 <t tx="vitalije.20191231152226.1">def cargo_build():
     proc = subprocess.Popen('cargo build --lib --release',
-        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     [o, e] = proc.communicate()
     print(o.decode('utf8'))
     print(e.decode('utf8'))
