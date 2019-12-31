@@ -6,6 +6,5 @@ environment:
   PYTHON_VERSION: 3.7
 init:
   - set PYTHON=C:\PYTHON3.7
-  - if %PLATFORM%==x64 (set PYTHON=%PYTHON%-x64)
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - python --version
