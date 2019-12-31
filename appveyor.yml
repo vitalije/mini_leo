@@ -7,4 +7,8 @@ environment:
 init:
   - set PYTHON=C:\PYTHON3.7
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - python --version
+  - ECHO %PATH%
+  - python3 --version
+platform: x64
+build_script:
+   - python3 -V
