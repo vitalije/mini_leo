@@ -2576,6 +2576,6 @@ platform: x64
 build_script:
   - python build_wheel.py
 artifacts:
-    - dist\mini_leo*.whl</t>
+    - path: dist\mini_leo*.whl</t>
 </tnodes>
 </leo_file>

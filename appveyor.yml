@@ -22,4 +22,4 @@ platform: x64
 build_script:
   - python build_wheel.py
 artifacts:
-    - dist\mini_leo*.whl
+    - path: dist\mini_leo*.whl
