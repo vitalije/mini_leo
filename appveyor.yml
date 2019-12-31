@@ -4,11 +4,16 @@ shallow_clone: true
 clone_depth: 5
 environment:
   PYTHON_VERSION: 3.7
+  RUSTUP_INSTALLER_ADDRES_X64: https://win.rustup.rs/x86_64
+  RUSTUP_INSTALLER_ADDRES_X32: https://win.rustup.rs/i686
 init:
   - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - ECHO %PATH%
   - python --version
+install:
+  - ps: (new-object net.webclient).DownloadFile('https://win.rustup.rs/x86_64', 'rustup-inst.exe')
+  - ps: msiexec /i rustup-inst.exe --default-toolchain nightly -y
 platform: x64
 build_script:
    - python -V
