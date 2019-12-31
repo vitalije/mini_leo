@@ -1,38 +1,27 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
-
 python: 3.7
 cache:
-    directories:
-        - "$HOME/.cargo"
-        - rust/target
+  directories:
+  - "$HOME/.cargo"
+  - rust/target
 env:
-    PATH:$HOME/.cargo/bin:$PATH
-    proba:
-        secure: "YSPBV6v3B3HUf9na1WPumCMl2j6cQ9l+xHGKl0XB5/iiyCQ9CGs+1hJTqjFDLAaA2Ko83Uly5dxaKjjgKRJwTUxZByVMAnntk64OEN5b6Pupaf8iy6V/oVweFyXeKfVUwXgQvECzlrxdKIpZOThouFShXEKwQ+S82ADePjY6bJb97d8+YiX8aDAnlEVpNaGBaukaeeMoiqHsc+ebMBC5Sr3mpeqEuE4lDf6s6e/bN8Shygs7gykuip24Od7cNtndPkapIFP2NQEHw9XFcOe/zsXCZnagDMFBgCJuvwtjzNFfRXRyZnqilbEXK92TkmAPytbJp4PgUd75RW6hr22Bd1bx2TfvAiWILqckcM/CcaCqaZmKaOBO0dJJMsrDBfqH+mieSsQ7wjHg7LawmN7ueSogx3wqOH1N880FiV7/KHzO0PDX16kKiI+H2G4jQ9/RBo9vgfQr6ycMHSvF6FGD3GicnmlWJLzH7XLShtQ+lfK6cJYzhpYXLOclIAC5nYHCT7HIzd/H9vd/R0KcUFrCPVDliUpEWAGw3K1ipK3/ok349B02TPgGLD7ASiJa3TraK+zCSlKeIr7D9MCV80zlUo3JPujvrsaWisqGQiwPbJjX3etRis8fLdvrI8aoCmVTZEKYc/S8z9x5DvhJdVXfdFpdzLZ8czq8dcvZiX/ZZhY="
-
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+  matrix:
+  - PATH:$HOME/.cargo/bin:$PATH
+  global:
+    secure: OeW+3+ROqErhUEO6IzMF/dYgYCSFlNW0qeZpp8JXP7SMkJob5xCpJn4ZnNKz9dVIoiL3VzY8/a+GpXghVSAnM2tC0HCLvOquw8nV4DQ7ON7LVj3lqr9GFB2rqiVlhkbYrsMfwWmhZ+fXFnGoapmNbj6dCLOwiY/s6VsmvQ87ioUniRwSF8SPMwX8dUBN8U3Npf//Iw/Qbd33uXDCEmxZKUsWrhroF8ZJ58Bnk/2EbWW7LD1N9wa7U2cLmEjw6aXAyTZMI2NZ9jITIYC3kH2C3ISVqcW2c2qz7WKbmM2wfXsdY3ivsrBRpW7kwQRZWlDO1Zmr1RXz0Q2tb4mb9bL+wEVXW53oyWmiEO1jbWYjic7SRtWjW2lMzSPe/U7/Kpt6sOJITOCZmoMwbXpQ4wyuHFTJgosOngN3LSPfRIhbqDwKRHoZ3Uc/U/QB+CTLpxhnc4XDSa5fp+Sh1efLZXSjH9rS0OINE7excLxhJYmCZwKDtE4V96HWRUXyBKM27lFqAYnNfS88gTS0ykP2gVan7AS9wxEYL/iY2tJoju37b9cR2qGv8CmVIpq+VNQ5gD+VbwFryDidv3WG3fr+X8A6hQsUZZ2DiYtcG/1cNa3KfVAGEScSYlIkk/ussaOEnQ8gTr3fSTKYpwvJAZEARH2l+dVAHKTnDr3KdTStRGPQdB0=
 install:
-  - sh rust-installer.sh
-  
-# Command to run tests, e.g. python setup.py test
+- sh rust-installer.sh
 script:
-  - export PATH=$HOME/.cargo/bin:$PATH
-  - echo $proba
-  - ls $HOME/.cargo/bin
-  - python build_wheel.py
-
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
+- export PATH=$HOME/.cargo/bin:$PATH
+- echo $PROBA
+- ls $HOME/.cargo/bin
+- python build_wheel.py
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: vitalije
   password:
-    secure:  "k4nVOlvPjeB8i4PpSIJAcGLRQBHN5Qlxo36AGoFdAnX11qnIoXdbAZAZSbJJCUmqRXoCa56aRMTItQpq9W6epcECkEwoiu29L2Be6REksrFTFeuahCEAOGWtM2Ynpk07Rf6AxNth70J+IowYpsixZ7fLS2Q02jUOYYnpytRF+icT5+CsmuKGdOXCLvlIUe9geY+JnUEOKsfVgr2e5uOZHItxxmHZx0BB5RyGcZogUmKiTuAxpB8EfudNucyaRLFFtIfmZonx0wCZJ+RqbA040XLJHAWdoEuL2P7HPIqbklMYgOfk6579EVzHSJXa/N6wKaDXeHb8SWpWX/1iy4ef6AW1VEipqJxIZEBiFT26zfVcXY7HboQ5xjskml4y/V1XOdYZZ4lYL9uZ4kxt9cSEy0wvpLOSdksZRS2jgmvmaLIlPZD8x1V3T6PnuhH7aLIBNMcuAXI0xyQR1xHArK3sb9OKsx4krLn8Zq9x4+QmLNN+Gk5g2Hb3Sa6vQL3LEB0dk6SF1QHVBqpDaYr4QL57xqxsfjFq3PaleDTGvd2Pno5h3d5TIwgGf72j0IEhCpLqESBvNMbucxg4cH1ZqmUoaRQJOHdtOz9BoG8QnhHVUxG1iSoMUi8rCiDPYGGfLrE+7B5pZVG0Z7cqHxsU/Y0N47GTz9Gutzx5ibYnfAr+2+4="
+    secure: k4nVOlvPjeB8i4PpSIJAcGLRQBHN5Qlxo36AGoFdAnX11qnIoXdbAZAZSbJJCUmqRXoCa56aRMTItQpq9W6epcECkEwoiu29L2Be6REksrFTFeuahCEAOGWtM2Ynpk07Rf6AxNth70J+IowYpsixZ7fLS2Q02jUOYYnpytRF+icT5+CsmuKGdOXCLvlIUe9geY+JnUEOKsfVgr2e5uOZHItxxmHZx0BB5RyGcZogUmKiTuAxpB8EfudNucyaRLFFtIfmZonx0wCZJ+RqbA040XLJHAWdoEuL2P7HPIqbklMYgOfk6579EVzHSJXa/N6wKaDXeHb8SWpWX/1iy4ef6AW1VEipqJxIZEBiFT26zfVcXY7HboQ5xjskml4y/V1XOdYZZ4lYL9uZ4kxt9cSEy0wvpLOSdksZRS2jgmvmaLIlPZD8x1V3T6PnuhH7aLIBNMcuAXI0xyQR1xHArK3sb9OKsx4krLn8Zq9x4+QmLNN+Gk5g2Hb3Sa6vQL3LEB0dk6SF1QHVBqpDaYr4QL57xqxsfjFq3PaleDTGvd2Pno5h3d5TIwgGf72j0IEhCpLqESBvNMbucxg4cH1ZqmUoaRQJOHdtOz9BoG8QnhHVUxG1iSoMUi8rCiDPYGGfLrE+7B5pZVG0Z7cqHxsU/Y0N47GTz9Gutzx5ibYnfAr+2+4=
   on:
     tags: true
     repo: vitalije/mini_leo
