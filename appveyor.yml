@@ -6,6 +6,9 @@ environment:
   PYTHON_VERSION: 3.7
   RUSTUP_INSTALLER_ADDRES_X64: https://win.rustup.rs/x86_64
   RUSTUP_INSTALLER_ADDRES_X32: https://win.rustup.rs/i686
+cache:
+  - %USERPROFILE%\.cargo
+  - rust\target
 init:
   - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
@@ -18,4 +21,6 @@ install:
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 platform: x64
 build_script:
-   - python -V
+   - chdir rust
+   - cargo build --lib --release
+   - dir target\release
