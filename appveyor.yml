@@ -12,8 +12,6 @@ cache:
 init:
   - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - dir C:\users\
-  - python --version
 install:
   - appveyor-retry appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init.exe -y --default-host=x86_64-pc-windows-msvc --profile=minimal --default-toolchain nightly

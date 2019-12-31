@@ -8,15 +8,10 @@ cache: cargo
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
   - sh rust-installer.sh
-  - pip install -U tox-travis
-  - pip install enscons
-
+  
 # Command to run tests, e.g. python setup.py test
 script:
-#  - python -m SCons
-  - python setup.py bdist_wheel
-  - python -c "import os;print('\n'.join(os.listdir('dist')))"
-  - tox
+  - python build_wheel.py
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
