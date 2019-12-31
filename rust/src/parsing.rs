@@ -613,14 +613,11 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
   (outline, nodes)
 }
 pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {
-  println!("fname[{:?}]", fname);
   let pbuf = fs::canonicalize(fname)?;
-  println!("canonicalize:{}", pbuf.to_str().unwrap_or("None"));
   let xmlcont = fs::read_to_string(pbuf.as_path())?;
   let mut trees = Vec::new();
   let (outline, vnodes) = from_leo_content(xmlcont.as_str());
   let folder = pbuf.parent().unwrap();
-  println!("parent:{}", pbuf.to_str().unwrap_or("None"));
   for (f,_) in find_derived_files(folder.to_str().unwrap(), &outline, &vnodes) {
     if let Ok(cont) = fs::read_to_string(f.as_str()) {
       trees.push(from_derived_file_content(cont.as_str()));

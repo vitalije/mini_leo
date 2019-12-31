@@ -618,6 +618,7 @@ use pyo3::{wrap_pyfunction};
 use pyo3::type_object::PyTypeObject;
 //use xml::reader::{ParserConfig, XmlEvent};
 use std::path::{Path};
+use std::env::current_dir;
 #[macro_use]
 extern crate lazy_static;
 
@@ -2191,6 +2192,14 @@ fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VDa
         (x.level(), v)
     });
     Ok(res)
+}
+#[pyfn(m, "curr_dir")]
+fn curr_dir(_py: Python) -&gt; PyResult&lt;Option&lt;String&gt;&gt; {
+    let x = match current_dir() {
+        Ok(x) =&gt; x.to_str().map(|x|x.to_string()),
+        Err(e) =&gt; {println!("Error:{}", e); None}
+    };
+    Ok(x)
 }</t>
 <t tx="vitalije.20191215164117.1">#[pyfn(m, "iternodes")]
 fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
@@ -2422,14 +2431,11 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
   (outline, vnodes)
 }</t>
 <t tx="vitalije.20191229171155.1">pub fn load_with_external_files(fname:&amp;str) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
-  println!("fname[{:?}]", fname);
   let pbuf = fs::canonicalize(fname)?;
-  println!("canonicalize:{}", pbuf.to_str().unwrap_or("None"));
   let xmlcont = fs::read_to_string(pbuf.as_path())?;
   let mut trees = Vec::new();
   let (outline, vnodes) = from_leo_content(xmlcont.as_str());
   let folder = pbuf.parent().unwrap();
-  println!("parent:{}", pbuf.to_str().unwrap_or("None"));
   for (f,_) in find_derived_files(folder.to_str().unwrap(), &amp;outline, &amp;vnodes) {
     if let Ok(cont) = fs::read_to_string(f.as_str()) {
       trees.push(from_derived_file_content(cont.as_str()));

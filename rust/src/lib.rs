@@ -13,6 +13,7 @@ use pyo3::{wrap_pyfunction};
 use pyo3::type_object::PyTypeObject;
 //use xml::reader::{ParserConfig, XmlEvent};
 use std::path::{Path};
+use std::env::current_dir;
 #[macro_use]
 extern crate lazy_static;
 
@@ -128,6 +129,14 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
             (x.level(), v)
         });
         Ok(res)
+    }
+    #[pyfn(m, "curr_dir")]
+    fn curr_dir(_py: Python) -> PyResult<Option<String>> {
+        let x = match current_dir() {
+            Ok(x) => x.to_str().map(|x|x.to_string()),
+            Err(e) => {println!("Error:{}", e); None}
+        };
+        Ok(x)
     }
     #[pyfn(m, "iternodes")]
     fn iternodes(_py:Python, tid:usize) -> PyResult<TreeIterator> {
