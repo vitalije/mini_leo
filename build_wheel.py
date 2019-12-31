@@ -71,6 +71,7 @@ def makeany_wheel(dllname, dllcont):
     zf.writestr(dinfo + 'RECORD', '\n'.join(buf).encode('utf8'))
     zf.close()
 if __name__ == '__main__':
+    cargo_build()
     if not os.path.exists('dist'):
         os.makedirs('dist')
     make_wheel()

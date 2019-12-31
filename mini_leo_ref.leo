@@ -2477,6 +2477,7 @@ from distutils.util import get_platform
 PLATFORM = get_platform().replace('-', '_').replace('.', '_')
 @others
 if __name__ == '__main__':
+    cargo_build()
     if not os.path.exists('dist'):
         os.makedirs('dist')
     make_wheel()</t>
