@@ -15,12 +15,9 @@ init:
   - dir C:\users\
   - python --version
 install:
-  - pip install requests
-  - python -c "import requests;s=requests.get('https://win.rustup.rs/x86_64').content;out=open('rustup-init.exe','wb');out.write(s)"
+  - appveyor-retry appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init.exe -y --default-host=x86_64-pc-windows-msvc --profile=minimal --default-toolchain nightly
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 platform: x64
 build_script:
-   - chdir rust
-   - cargo build --lib --release
-   - dir target\release
+  - python build_wheel.py

@@ -26,7 +26,6 @@
 <v t="vitalije.20180822171822.4"><vh>getf</vh></v>
 <v t="vitalije.20180822171822.5"><vh>putf</vh></v>
 <v t="vitalije.20180822171822.6"><vh>obradi</vh></v>
-<v t="vitalije.20190622132803.7"><vh>save_history</vh></v>
 </v>
 </v>
 </v>
@@ -38,6 +37,16 @@
 <v t="vitalije.20190622133345.1"><vh>@clean tests/test_mini_leo.py</vh></v>
 <v t="vitalije.20180822183813.1"><vh>@clean setup.py</vh>
 <v t="vitalije.20191230142308.1"><vh>build_native</vh></v>
+</v>
+<v t="vitalije.20191231151920.1"><vh>@clean build_wheel.py</vh>
+<v t="vitalije.20191231152226.1"><vh>cargo_build</vh></v>
+<v t="vitalije.20191231152252.1"><vh>METADATA</vh></v>
+<v t="vitalije.20191231152300.1"><vh>WHEEL</vh></v>
+<v t="vitalije.20191231153206.1"><vh>getversion</vh></v>
+<v t="vitalije.20191231155959.1"><vh>make_wheel</vh></v>
+<v t="vitalije.20191231160001.1"><vh>makelinux_wheel</vh></v>
+<v t="vitalije.20191231160004.1"><vh>makewin_wheel</vh></v>
+<v t="vitalije.20191231160008.1"><vh>makeany_wheel</vh></v>
 </v>
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
 <v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
@@ -451,7 +460,7 @@ while px:
         px.moveToThreadNext()
 c.save()
 c.fileCommands.save_ref()
-save_history()</t>
+</t>
 <t tx="vitalije.20180822171822.2">def hl(p, lev):
     return '#' * (lev) + ' ' + p.h + '\n'</t>
 <t tx="vitalije.20180822171822.3">def mdlines(p, lev=0):
@@ -686,10 +695,6 @@ fn main() {
 curl https://sh.rustup.rs -sSf -o /tmp/rustup.sh
 sh /tmp/rustup.sh --default-toolchain nightly -y
 </t>
-<t tx="vitalije.20190622132803.7">def save_history():
-    if hasattr(c, 'history'):
-        with open('/tmp/history-leo.dat', 'wb') as out:
-            pickle.dump([c.history, c.snaps], out)</t>
 <t tx="vitalije.20190622133345.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -2468,5 +2473,83 @@ fn load_leo(_py: Python, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
         header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
         rtld_flags=['NOW', 'NODELETE']
     )</t>
+<t tx="vitalije.20191231151920.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">import os
+import subprocess
+import zipfile
+import hashlib
+import base64
+import sys
+from distutils.util import get_platform
+PLATFORM = get_platform().replace('-', '_').replace('.', '_')
+@others
+if __name__ == '__main__':
+    if not os.path.exists('dist'):
+        os.makedirs('dist')
+    make_wheel()</t>
+<t tx="vitalije.20191231152226.1">def cargo_build():
+    proc = subprocess.Popen('cargo build --lib --release',
+        cwd='rust')
+    proc.wait()</t>
+<t tx="vitalije.20191231152252.1">METADATA = b'''
+Metadata-Version: 2.1
+Name: mini_leo
+Version: 0.1.0
+Summary: A minimal version of Leo editor.
+Home-page: https://github.com/vitalije/mini_leo
+Author: Vitalije Milosevic
+Author-email: vitalije@kviziracija.net
+License: MIT license
+Keywords: mini_leo
+Platform: any
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+'''.strip()
+</t>
+<t tx="vitalije.20191231152300.1">WHEEL = b'''
+Wheel-Version: 1.0
+Root-Is-Purelib: false
+Tag: cp3-none-%s
+'''%(PLATFORM.encode('utf8')).strip()
+</t>
+<t tx="vitalije.20191231153206.1">def getversion():
+    return METADATA.partition(b'\nVersion:')[2].strip().partition(b'\n')[0].decode('utf8')</t>
+<t tx="vitalije.20191231155959.1">def make_wheel():
+    if sys.platform == 'linux':
+        makelinux_wheel()
+    elif sys.platform == 'win32':
+        makewin_wheel()</t>
+<t tx="vitalije.20191231160001.1">def makelinux_wheel():
+    s = open('rust/target/release/libmini_leo.so', 'rb').read()
+    makeany_wheel('mini_leo/_minileo.so', s)</t>
+<t tx="vitalije.20191231160004.1">def makewin_wheel():
+    s = open('rust/target/release/mini_leo.dll', 'rb').read()
+    makeany_wheel('mini_leo/_minileo.pyd', s)</t>
+<t tx="vitalije.20191231160008.1">def makeany_wheel(dllname, dllcont):
+    ver = getversion()
+    zf = zipfile.ZipFile('dist/mini_leo-%s-cp3-none-%s.whl'%(ver, PLATFORM), 'w')
+    def fline(f, cont):
+        return '%s,sha256=%s,%d'%(
+                f,
+                base64.urlsafe_b64encode(hashlib.sha256(cont).digest()).rstrip(b'=').decode('utf8'),
+                len(cont)
+            )
+    buf = []
+    def addf(f, cont):
+        buf.append(fline(f, cont))
+        zf.writestr(f, cont)
+    addf(dllname, dllcont)
+    addf('mini_leo/__init__.py', open('mini_leo/__init__.py', 'rb').read())
+    dinfo = 'mini_leo-%s.dist-info/'%ver
+    addf(dinfo + 'METADATA', METADATA)
+    buf.append(dinfo + 'RECORD,,')
+    addf(dinfo + 'WHEEL', WHEEL)
+    zf.writestr(dinfo + 'RECORD', '\n'.join(buf).encode('utf8'))
+    zf.close()</t>
 </tnodes>
 </leo_file>
