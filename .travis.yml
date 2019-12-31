@@ -15,7 +15,8 @@ install:
   
 # Command to run tests, e.g. python setup.py test
 script:
-  - echo $PATH
+  - export PATH=$HOME/.cargo/bin:$PATH
+  - ls $HOME/.cargo/bin
   - python build_wheel.py
 
 # Assuming you have installed the travis-ci CLI tool, after you
