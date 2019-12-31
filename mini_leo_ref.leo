@@ -2510,11 +2510,9 @@ Classifier: Programming Language :: Python :: 3.7
 Classifier: Programming Language :: Python :: 3.8
 '''.strip()
 </t>
-<t tx="vitalije.20191231152300.1">WHEEL = b'''
-Wheel-Version: 1.0
+<t tx="vitalije.20191231152300.1">WHEEL = b'''Wheel-Version: 1.0
 Root-Is-Purelib: false
-Tag: py3-none-%s
-'''%(PLATFORM.encode('utf8')).strip()
+Tag: py3-none-%s'''%(PLATFORM.encode('utf8'))
 </t>
 <t tx="vitalije.20191231153206.1">def getversion():
     return METADATA.partition(b'\nVersion:')[2].strip().partition(b'\n')[0].decode('utf8')</t>
