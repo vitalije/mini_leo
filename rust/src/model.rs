@@ -238,7 +238,6 @@ impl VData {
   pub fn is_expanded(&self) -> bool {self.flags & 1 == 1}
 }
 pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
-  println!("find_derived_files[{}]", folder);
   let mut stack = vec![PathBuf::from(folder)];
   let mut res = Vec::new();
   for (i, x) in outline.iter().enumerate() {
@@ -256,7 +255,9 @@ pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> V
 
     let mut nf = stack[stack.len() - 1].clone();
     if np.len() > 0 {
-      nf.push(Path::new(np));
+      for x in np.split(|a|a == '/' || a == '\\') {
+        nf.push(x);
+      }
     }
     stack.push(nf);
     if v.h.starts_with("@file ") {

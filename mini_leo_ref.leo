@@ -618,7 +618,6 @@ use pyo3::{wrap_pyfunction};
 use pyo3::type_object::PyTypeObject;
 //use xml::reader::{ParserConfig, XmlEvent};
 use std::path::{Path};
-use std::env::current_dir;
 #[macro_use]
 extern crate lazy_static;
 
@@ -2193,14 +2192,7 @@ fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VDa
     });
     Ok(res)
 }
-#[pyfn(m, "curr_dir")]
-fn curr_dir(_py: Python) -&gt; PyResult&lt;Option&lt;String&gt;&gt; {
-    let x = match current_dir() {
-        Ok(x) =&gt; x.to_str().map(|x|x.to_string()),
-        Err(e) =&gt; {println!("Error:{}", e); None}
-    };
-    Ok(x)
-}</t>
+</t>
 <t tx="vitalije.20191215164117.1">#[pyfn(m, "iternodes")]
 fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
     Ok(TreeIterator {tree_id:tid, index:0})
@@ -2325,7 +2317,6 @@ fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
     Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
 }</t>
 <t tx="vitalije.20191216165607.1">pub fn find_derived_files(folder:&amp;str, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
-  println!("find_derived_files[{}]", folder);
   let mut stack = vec![PathBuf::from(folder)];
   let mut res = Vec::new();
   for (i, x) in outline.iter().enumerate() {
@@ -2355,7 +2346,9 @@ if lev &lt; stack.len() { stack.drain(lev+1..); }
 
 let mut nf = stack[stack.len() - 1].clone();
 if np.len() &gt; 0 {
-  nf.push(Path::new(np));
+  for x in np.split(|a|a == '/' || a == '\\') {
+    nf.push(x);
+  }
 }
 stack.push(nf);
 </t>
