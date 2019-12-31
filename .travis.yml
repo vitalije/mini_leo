@@ -9,6 +9,8 @@ cache:
         - rust/target
 env:
     PATH:$HOME/.cargo/bin:$PATH
+    proba:
+        secure: "Oz0cgpVxmsLAikhN5DCNfM6EZfkaDJQNDNDHGeZRjazRk5MCl56obvmzax6QD0Tth3kYFeb0DzYr/tNeRyfW5QUh2cHXu8FXChEhRzFtkUGTHBcQuvVLjxM5PmhOOYARKVkZ4ByaXeMprRP4O1+XV3bRuJuKQTFZPqkCrryvtM8fkqzW4H2if9Ww59rBzcMx5+YMEx9s0rP+KWRVgrrqzAz6NNfbPI52gXv5LEBalAB7hDsJkGLvnX0/DMus+ZQRovUofAmP8Juzh00V4ralSKn/Xthp/T0OfCSquHY73UWl/p2wmQD0bWSt1cZGzd+aCUmFycgqL5zZor/xfH2ZOXYHqrcgEMbJNGeY9FQgTk5l78eBBa1o21opURUD04XC4HTlf57V1pvQXXh40O68Iv8m6JbwbPCxJZk7jwvImo9SsG0v2GyKynikUjFjAtwdA9HQj4VGsS70H9l7tIXI/gtyzWOJSZhhAiNqnxv+iuv9bVeyBa06N1rQRab59CfgOh0abRnXgcmUT/MVJN74AoRW+cVQZih1X6gw+e7HAuPbzzprgMtQWdPspeHE140eV2IkaqQhARJvXHrfqh3d7B2jKxZGll4xfKa2vhDZ6UyZOFEgSd3yJ4/dn1g5M0B/WVvMijqXnHvXThahiNjpWmTBgi7OVz/2ubbSv3hsWoA="
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
   - sh rust-installer.sh
@@ -16,6 +18,7 @@ install:
 # Command to run tests, e.g. python setup.py test
 script:
   - export PATH=$HOME/.cargo/bin:$PATH
+  - echo $proba
   - ls $HOME/.cargo/bin
   - python build_wheel.py
 
