@@ -8,8 +8,11 @@ from distutils.util import get_platform
 PLATFORM = get_platform().replace('-', '_').replace('.', '_')
 def cargo_build():
     proc = subprocess.Popen('cargo build --lib --release',
-        cwd='rust')
-    proc.wait()
+        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    [o, e] = proc.communicate()
+    print(o)
+    print(e)
+    print("cargo finished")
 METADATA = b'''
 Metadata-Version: 2.1
 Name: mini_leo

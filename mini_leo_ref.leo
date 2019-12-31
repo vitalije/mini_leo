@@ -2482,8 +2482,11 @@ if __name__ == '__main__':
     make_wheel()</t>
 <t tx="vitalije.20191231152226.1">def cargo_build():
     proc = subprocess.Popen('cargo build --lib --release',
-        cwd='rust')
-    proc.wait()</t>
+        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    [o, e] = proc.communicate()
+    print(o)
+    print(e)
+    print("cargo finished")</t>
 <t tx="vitalije.20191231152252.1">METADATA = b'''
 Metadata-Version: 2.1
 Name: mini_leo
