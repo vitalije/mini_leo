@@ -48,6 +48,7 @@
 <v t="vitalije.20191231160004.1"><vh>makewin_wheel</vh></v>
 <v t="vitalije.20191231160008.1"><vh>makeany_wheel</vh></v>
 </v>
+<v t="vitalije.20191231162159.1"><vh>@clean appveyor.yml</vh></v>
 <v t="vitalije.20180822204714.1"><vh>RUST</vh>
 <v t="vitalije.20190625073241.1"><vh>parsing leo xml</vh></v>
 <v t="vitalije.20190702085616.1"><vh>rust attick</vh>
@@ -2551,5 +2552,30 @@ Tag: cp3-none-%s
     addf(dinfo + 'WHEEL', WHEEL)
     zf.writestr(dinfo + 'RECORD', '\n'.join(buf).encode('utf8'))
     zf.close()</t>
+<t tx="vitalije.20191231162159.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">version: 0.1.{build}
+image: Visual Studio 2015
+shallow_clone: true
+clone_depth: 5
+environment:
+  PYTHON_VERSION: 3.7
+  RUSTUP_INSTALLER_ADDRES_X64: https://win.rustup.rs/x86_64
+  RUSTUP_INSTALLER_ADDRES_X32: https://win.rustup.rs/i686
+cache:
+  - '%USERPROFILE%\.cargo\'
+  - 'rust\target\'
+init:
+  - set PYTHON=C:\PYTHON37-x64
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - dir C:\users\
+  - python --version
+install:
+  - appveyor-retry appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
+  - rustup-init.exe -y --default-host=x86_64-pc-windows-msvc --profile=minimal --default-toolchain nightly
+  - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
+platform: x64
+build_script:
+  - python build_wheel.py
+artifacts:
+    - dist\mini_leo*.whl</t>
 </tnodes>
 </leo_file>
