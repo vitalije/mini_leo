@@ -238,6 +238,7 @@ impl VData {
   pub fn is_expanded(&self) -> bool {self.flags & 1 == 1}
 }
 pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  println!("find_derived_files[{}]", folder);
   let mut stack = vec![PathBuf::from(folder)];
   let mut res = Vec::new();
   for (i, x) in outline.iter().enumerate() {

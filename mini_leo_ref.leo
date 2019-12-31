@@ -2316,6 +2316,7 @@ fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
     Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
 }</t>
 <t tx="vitalije.20191216165607.1">pub fn find_derived_files(folder:&amp;str, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
+  println!("find_derived_files[{}]", folder);
   let mut stack = vec![PathBuf::from(folder)];
   let mut res = Vec::new();
   for (i, x) in outline.iter().enumerate() {
