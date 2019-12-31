@@ -9,7 +9,7 @@ environment:
 init:
   - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - ECHO %PATH%
+  - ECHO %USER%
   - python --version
 install:
   - ps: (new-object net.webclient).DownloadFile('https://win.rustup.rs/x86_64', 'rustup-inst.exe')
