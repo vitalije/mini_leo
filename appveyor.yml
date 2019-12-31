@@ -14,7 +14,7 @@ init:
 install:
   - pip install requests
   - python -c "import requests;s=requests.get('https://win.rustup.rs/x86_64').content;out=open('rustup-inst.exe','wb');out.write(s)"
-  - rustup-inst.exe /h
+  - rustup-inst.exe install nightly
 platform: x64
 build_script:
    - python -V
