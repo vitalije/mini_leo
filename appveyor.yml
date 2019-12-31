@@ -9,11 +9,11 @@ environment:
 init:
   - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - ECHO %USER%
+  - dir C:\users\
   - python --version
 install:
   - ps: (new-object net.webclient).DownloadFile('https://win.rustup.rs/x86_64', 'rustup-inst.exe')
-  - ps: msiexec /i rustup-inst.exe --default-toolchain nightly -y
+  - rustup-inst.exe --default-toolchain nightly -y
 platform: x64
 build_script:
    - python -V
