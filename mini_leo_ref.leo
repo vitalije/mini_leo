@@ -2513,7 +2513,7 @@ Classifier: Programming Language :: Python :: 3.8
 <t tx="vitalije.20191231152300.1">WHEEL = b'''
 Wheel-Version: 1.0
 Root-Is-Purelib: false
-Tag: cp3-none-%s
+Tag: py3-none-%s
 '''%(PLATFORM.encode('utf8')).strip()
 </t>
 <t tx="vitalije.20191231153206.1">def getversion():
@@ -2531,7 +2531,7 @@ Tag: cp3-none-%s
     makeany_wheel('mini_leo/_minileo.pyd', s)</t>
 <t tx="vitalije.20191231160008.1">def makeany_wheel(dllname, dllcont):
     ver = getversion()
-    zf = zipfile.ZipFile('dist/mini_leo-%s-cp3-none-%s.whl'%(ver, PLATFORM), 'w')
+    zf = zipfile.ZipFile('dist/mini_leo-%s-py3-none-%s.whl'%(ver, PLATFORM), 'w')
     def fline(f, cont):
         return '%s,sha256=%s,%d'%(
                 f,

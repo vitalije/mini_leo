@@ -33,7 +33,7 @@ Classifier: Programming Language :: Python :: 3.8
 WHEEL = b'''
 Wheel-Version: 1.0
 Root-Is-Purelib: false
-Tag: cp3-none-%s
+Tag: py3-none-%s
 '''%(PLATFORM.encode('utf8')).strip()
 def getversion():
     return METADATA.partition(b'\nVersion:')[2].strip().partition(b'\n')[0].decode('utf8')
@@ -50,7 +50,7 @@ def makewin_wheel():
     makeany_wheel('mini_leo/_minileo.pyd', s)
 def makeany_wheel(dllname, dllcont):
     ver = getversion()
-    zf = zipfile.ZipFile('dist/mini_leo-%s-cp3-none-%s.whl'%(ver, PLATFORM), 'w')
+    zf = zipfile.ZipFile('dist/mini_leo-%s-py3-none-%s.whl'%(ver, PLATFORM), 'w')
     def fline(f, cont):
         return '%s,sha256=%s,%d'%(
                 f,
