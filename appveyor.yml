@@ -13,8 +13,9 @@ init:
   - python --version
 install:
   - pip install requests
-  - python -c "import requests;s=requests.get('https://win.rustup.rs/x86_64').content;out=open('rustup-inst.exe','wb');out.write(s)"
-  - rustup-inst.exe install nightly
+  - python -c "import requests;s=requests.get('https://win.rustup.rs/x86_64').content;out=open('rustup-init.exe','wb');out.write(s)"
+  - rustup-init.exe -y --default-host=x86_64-pc-windows-msvc --profile=minimal --default-toolchain nightly
+  - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 platform: x64
 build_script:
    - python -V
