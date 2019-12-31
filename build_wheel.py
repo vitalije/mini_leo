@@ -13,6 +13,13 @@ def cargo_build():
     print(o.decode('utf8'))
     print(e.decode('utf8'))
     print("cargo finished")
+def cargo_build2():
+    proc = subprocess.Popen('cargo build --lib',
+        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    [o, e] = proc.communicate()
+    print(o.decode('utf8'))
+    print(e.decode('utf8'))
+    print("cargo finished")
 METADATA = b'''
 Metadata-Version: 2.1
 Name: mini_leo
@@ -43,11 +50,22 @@ def make_wheel():
         makelinux_wheel()
     elif sys.platform == 'win32':
         makewin_wheel()
+def make_wheel2():
+    if sys.platform == 'linux':
+        makelinux_wheel2()
+    elif sys.platform == 'win32':
+        makewin_wheel2()
 def makelinux_wheel():
     s = open('rust/target/release/libmini_leo.so', 'rb').read()
     makeany_wheel('mini_leo/_minileo.so', s)
+def makelinux_wheel2():
+    s = open('rust/target/debug/libmini_leo.so', 'rb').read()
+    makeany_wheel('mini_leo/_minileo.so', s)
 def makewin_wheel():
     s = open('rust/target/release/mini_leo.dll', 'rb').read()
+    makeany_wheel('mini_leo/_minileo.pyd', s)
+def makewin_wheel2():
+    s = open('rust/target/debug/mini_leo.dll', 'rb').read()
     makeany_wheel('mini_leo/_minileo.pyd', s)
 def makeany_wheel(dllname, dllcont):
     ver = getversion()

@@ -618,8 +618,8 @@ pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io:
   let mut trees = Vec::new();
   let (outline, vnodes) = from_leo_content(xmlcont.as_str());
   let folder = pbuf.parent().unwrap();
-  for (f,_) in find_derived_files(folder.to_str().unwrap(), &outline, &vnodes) {
-    if let Ok(cont) = fs::read_to_string(f.as_str()) {
+  for (f,_) in find_derived_files(folder, &outline, &vnodes) {
+    if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
       trees.push(from_derived_file_content(cont.as_str()));
     } else {
       println!("file not found: [{}]", f.as_str());

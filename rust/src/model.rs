@@ -237,8 +237,8 @@ impl VData {
   }
   pub fn is_expanded(&self) -> bool {self.flags & 1 == 1}
 }
-pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
-  let mut stack = vec![PathBuf::from(folder)];
+pub fn find_derived_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  let mut stack = vec![folder.to_path_buf()];
   let mut res = Vec::new();
   for (i, x) in outline.iter().enumerate() {
     let lev = x.level() as usize;
@@ -261,12 +261,16 @@ pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> V
     }
     stack.push(nf);
     if v.h.starts_with("@file ") {
-      let fname = Path::new(v.h[6..].trim());
-      let p = stack[stack.len() - 1].join(fname);
-      match p.canonicalize() {
-        Ok(x) => res.push((x.to_string_lossy().to_string(), i)),
-        Err(e) => {println!("canonicalize error:{}[{:?}]", e, p);res.push((p.to_string_lossy().to_string(), i))}
+      let fname = v.h[6..].trim();
+      let mut p = stack[stack.len() - 1].clone();
+      for f in fname.split(|x|x == '\\'  || x == '/') {
+        if f == ".." {
+          p.pop();
+        } else {
+          p.push(f);
+        }
       }
+      res.push((p.to_str().unwrap().to_string(), i));
     }
   }
   res

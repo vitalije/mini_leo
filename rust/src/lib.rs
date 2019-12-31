@@ -140,7 +140,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
     #[pyfn(m, "at_files")]
     fn at_files(_py:Python, tid:usize, folder:&str) -> PyResult<Vec<(String, usize)>> {
         match TREES.lock().unwrap().get(&tid).map(|t|{
-            find_derived_files(folder, &t.outline, &t.nodes)
+            find_derived_files(&Path::new(folder), &t.outline, &t.nodes)
         }){
             Some(x) => Ok(x),
             None => Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
