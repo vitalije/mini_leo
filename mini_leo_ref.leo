@@ -138,6 +138,7 @@
 <v t="vitalije.20190630160440.1"><vh>handle_leo_header</vh></v>
 <v t="vitalije.20190630155744.1"><vh>ldf_parse</vh></v>
 <v t="vitalije.20191215182251.1"><vh>from_derived_file</vh></v>
+<v t="vitalije.20191231195159.1"><vh>read_file_as_in_linux</vh></v>
 <v t="vitalije.20190702104313.1"><vh>from_derived_file_content</vh></v>
 <v t="vitalije.20191215181220.1"><vh>parser_config</vh></v>
 <v t="vitalije.20191215181042.1"><vh>from_leo_file</vh></v>
@@ -616,7 +617,7 @@ use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};
 use pyo3::type_object::PyTypeObject;
 //use xml::reader::{ParserConfig, XmlEvent};
-use std::path::{PathBuf};
+use std::path::{Path};
 #[macro_use]
 extern crate lazy_static;
 
@@ -1346,7 +1347,7 @@ use std::{
   io::{Read, BufReader},
   fs,
   fs::File,
-  path::{PathBuf},
+  path::{Path},
   collections::{HashMap}
 };
 
@@ -1413,8 +1414,7 @@ pub fn partition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, 
       (&amp;input, &amp;input[i..i], &amp;input[i..i])
     }
   }
-}
-</t>
+}</t>
 <t tx="vitalije.20190626141101.1">/*
 extern crate nom;
 use nom::{
@@ -2196,12 +2196,9 @@ fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VDa
 fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
     Ok(TreeIterator {tree_id:tid, index:0})
 }</t>
-<t tx="vitalije.20191215181042.1">pub fn from_leo_file(fname:PathBuf) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
-  let f = File::open(&amp;fname)?;
-  let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&amp;mut buf)?;
-  Ok(from_leo_content(&amp;buf))
+<t tx="vitalije.20191215181042.1">pub fn from_leo_file(fname:&amp;Path) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
+  let s = read_file_as_in_linux(fname)?;
+  Ok(from_leo_content(s.as_str()))
 }</t>
 <t tx="vitalije.20191215181220.1">/*
 fn parser_config() -&gt; ParserConfig {
@@ -2210,31 +2207,13 @@ fn parser_config() -&gt; ParserConfig {
       .whitespace_to_characters(true)
 }
 */</t>
-<t tx="vitalije.20191215182251.1">pub fn from_derived_file(fname:PathBuf) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
-  let f = File::open(&amp;fname)?;
-  let mdata = f.metadata()?;
-  let sz = mdata.len() as usize;
-  let mut buf_reader = BufReader::new(f);
-  let mut buf = Vec::with_capacity(sz);
-  let mut lastchar = b' ';
-  for xr in buf_reader.bytes() {
-    let x = xr?;
-    if x == b'\r' {
-      if lastchar == b'\r' {
-        buf.push(b'\n');
-      }
-    } else {
-      buf.push(x);
-    }
-    lastchar = x;
-  }
-  let s = std::str::from_utf8(&amp;buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
-  //buf_reader.read_to_string(&amp;mut buf)?;
-  Ok(from_derived_file_content(s))
-}</t>
+<t tx="vitalije.20191215182251.1">pub fn from_derived_file(fname:&amp;Path) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
+  let s = read_file_as_in_linux(fname)?;
+  Ok(from_derived_file_content(s.as_str()))
+}
+
+</t>
 <t tx="vitalije.20191215182704.1">pub fn from_leo_content(buf:&amp;str) -&gt; (Outline, Vec&lt;VData&gt;) {
-  //let config = parser_config();
-  //let reader = config.create_reader(buf.as_bytes());
   let mut reader = XmlReader::from_str(buf);
   let mut nodes:Vec&lt;VData&gt; = Vec::new();
   nodes.push(VData::new("hidden-root-vnode-gnx"));
@@ -2298,7 +2277,7 @@ fn parser_config() -&gt; ParserConfig {
 }</t>
 <t tx="vitalije.20191215182759.1">#[pyfn(m, "outline_from_file")]
 fn outline_from_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    match from_derived_file(PathBuf::from(txt)) {
+    match from_derived_file(&amp;Path::new(txt)) {
         Ok((outline, nodes)) =&gt; {
             let t = Tree {outline, nodes};
             let mut m = TREES.lock().unwrap();
@@ -2311,7 +2290,7 @@ fn outline_from_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
 }</t>
 <t tx="vitalije.20191215183645.1">#[pyfn(m, "outline_from_leo_file")]
 fn outline_from_leo_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    match from_leo_file(PathBuf::from(txt)) {
+    match from_leo_file(&amp;Path::new(txt)) {
         Ok((outline, nodes)) =&gt; {
             let t = Tree {outline, nodes};
             let mut m = TREES.lock().unwrap();
@@ -2588,5 +2567,26 @@ build_script:
   - python build_wheel.py
 artifacts:
     - path: dist\mini_leo*.whl</t>
+<t tx="vitalije.20191231195159.1">fn read_file_as_in_linux(fname:&amp;Path) -&gt; Result&lt;String, io::Error&gt; {
+  let f = File::open(&amp;fname)?;
+  let mdata = f.metadata()?;
+  let sz = mdata.len() as usize;
+  let buf_reader = BufReader::new(f);
+  let mut buf = Vec::with_capacity(sz);
+  let mut lastchar = b' ';
+  for xr in buf_reader.bytes() {
+    let x = xr?;
+    if x == b'\r' {
+      if lastchar == b'\r' {
+        buf.push(b'\n');
+      }
+    } else {
+      buf.push(x);
+    }
+    lastchar = x;
+  }
+  let s = String::from_utf8(buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
+  Ok(s)
+}</t>
 </tnodes>
 </leo_file>

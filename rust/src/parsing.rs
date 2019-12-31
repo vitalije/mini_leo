@@ -8,7 +8,7 @@ use std::{
   io::{Read, BufReader},
   fs,
   fs::File,
-  path::{PathBuf},
+  path::{Path},
   collections::{HashMap}
 };
 
@@ -477,11 +477,16 @@ fn is_at_minus_leo<'a>(state:&mut LdfParseState) -> bool {
     true
   } else { false}
 }
-pub fn from_derived_file(fname:PathBuf) -> Result<(Outline, Vec<VData>), io::Error> {
+pub fn from_derived_file(fname:&Path) -> Result<(Outline, Vec<VData>), io::Error> {
+  let s = read_file_as_in_linux(fname)?;
+  Ok(from_derived_file_content(s.as_str()))
+}
+
+fn read_file_as_in_linux(fname:&Path) -> Result<String, io::Error> {
   let f = File::open(&fname)?;
   let mdata = f.metadata()?;
   let sz = mdata.len() as usize;
-  let mut buf_reader = BufReader::new(f);
+  let buf_reader = BufReader::new(f);
   let mut buf = Vec::with_capacity(sz);
   let mut lastchar = b' ';
   for xr in buf_reader.bytes() {
@@ -495,9 +500,8 @@ pub fn from_derived_file(fname:PathBuf) -> Result<(Outline, Vec<VData>), io::Err
     }
     lastchar = x;
   }
-  let s = std::str::from_utf8(&buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
-  //buf_reader.read_to_string(&mut buf)?;
-  Ok(from_derived_file_content(s))
+  let s = String::from_utf8(buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
+  Ok(s)
 }
 pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
   let mut nodes = Vec::new();
@@ -542,16 +546,11 @@ fn parser_config() -> ParserConfig {
       .whitespace_to_characters(true)
 }
 */
-pub fn from_leo_file(fname:PathBuf) -> Result<(Outline, Vec<VData>), io::Error> {
-  let f = File::open(&fname)?;
-  let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&mut buf)?;
-  Ok(from_leo_content(&buf))
+pub fn from_leo_file(fname:&Path) -> Result<(Outline, Vec<VData>), io::Error> {
+  let s = read_file_as_in_linux(fname)?;
+  Ok(from_leo_content(s.as_str()))
 }
 pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
-  //let config = parser_config();
-  //let reader = config.create_reader(buf.as_bytes());
   let mut reader = XmlReader::from_str(buf);
   let mut nodes:Vec<VData> = Vec::new();
   nodes.push(VData::new("hidden-root-vnode-gnx"));

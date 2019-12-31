@@ -12,7 +12,7 @@ use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};
 use pyo3::type_object::PyTypeObject;
 //use xml::reader::{ParserConfig, XmlEvent};
-use std::path::{PathBuf};
+use std::path::{Path};
 #[macro_use]
 extern crate lazy_static;
 
@@ -70,7 +70,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
     }
     #[pyfn(m, "outline_from_file")]
     fn outline_from_file(_py: Python, txt:&str) -> PyResult<usize> {
-        match from_derived_file(PathBuf::from(txt)) {
+        match from_derived_file(&Path::new(txt)) {
             Ok((outline, nodes)) => {
                 let t = Tree {outline, nodes};
                 let mut m = TREES.lock().unwrap();
@@ -83,7 +83,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
     }
     #[pyfn(m, "outline_from_leo_file")]
     fn outline_from_leo_file(_py: Python, txt:&str) -> PyResult<usize> {
-        match from_leo_file(PathBuf::from(txt)) {
+        match from_leo_file(&Path::new(txt)) {
             Ok((outline, nodes)) => {
                 let t = Tree {outline, nodes};
                 let mut m = TREES.lock().unwrap();
