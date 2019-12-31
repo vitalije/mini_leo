@@ -613,6 +613,7 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
   (outline, nodes)
 }
 pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {
+  println!("fname[{:?}]", fname);
   let pbuf = fs::canonicalize(fname)?;
   println!("canonicalize:{}", pbuf.to_str().unwrap_or("None"));
   let xmlcont = fs::read_to_string(pbuf.as_path())?;

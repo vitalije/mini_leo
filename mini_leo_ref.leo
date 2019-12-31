@@ -2422,6 +2422,7 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
   (outline, vnodes)
 }</t>
 <t tx="vitalije.20191229171155.1">pub fn load_with_external_files(fname:&amp;str) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
+  println!("fname[{:?}]", fname);
   let pbuf = fs::canonicalize(fname)?;
   println!("canonicalize:{}", pbuf.to_str().unwrap_or("None"));
   let xmlcont = fs::read_to_string(pbuf.as_path())?;
