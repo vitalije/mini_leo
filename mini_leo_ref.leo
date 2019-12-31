@@ -1985,7 +1985,7 @@ mod utils;
 use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
-use std::path::{PathBuf};
+use std::path::{PathBuf, Path};
 @others
 </t>
 <t tx="vitalije.20190702073410.1" icons="5d71007d7101285804000000747970657102580400000066696c657103680358620000002f6d656469612f766974616c696a652f686f6d6531312f766974616c696a652f70726f6772616d692f6c656f2d656469746f722f7472756e6b2d6769742f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e322e706e677104580700000072656c506174687105581a00000066696c655f69636f6e732f66696c655f636c65616e322e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
@@ -2212,10 +2212,25 @@ fn parser_config() -&gt; ParserConfig {
 */</t>
 <t tx="vitalije.20191215182251.1">pub fn from_derived_file(fname:PathBuf) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
   let f = File::open(&amp;fname)?;
+  let mdata = f.metadata()?;
+  let sz = mdata.len() as usize;
   let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&amp;mut buf)?;
-  Ok(from_derived_file_content(&amp;buf))
+  let mut buf = Vec::with_capacity(sz);
+  let mut lastchar = b' ';
+  for xr in buf_reader.bytes() {
+    let x = xr?;
+    if x == b'\r' {
+      if lastchar == b'\r' {
+        buf.push(b'\n');
+      }
+    } else {
+      buf.push(x);
+    }
+    lastchar = x;
+  }
+  let s = std::str::from_utf8(&amp;buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
+  //buf_reader.read_to_string(&amp;mut buf)?;
+  Ok(from_derived_file_content(s))
 }</t>
 <t tx="vitalije.20191215182704.1">pub fn from_leo_content(buf:&amp;str) -&gt; (Outline, Vec&lt;VData&gt;) {
   //let config = parser_config();
@@ -2329,7 +2344,7 @@ fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
     let v = &amp;nodes[x.ignx() as usize];
     @others
     if v.h.starts_with("@file ") {
-      let fname = v.h[6..].trim();
+      let fname = Path::new(v.h[6..].trim());
       let p = stack[stack.len() - 1].join(fname);
       match p.canonicalize() {
         Ok(x) =&gt; res.push((x.to_string_lossy().to_string(), i)),

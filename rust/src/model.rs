@@ -3,7 +3,7 @@ mod utils;
 use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
-use std::path::{PathBuf};
+use std::path::{PathBuf, Path};
 pub type LevGnx = u32;
 pub trait LevGnxOps {
   /// returns level of this object
@@ -259,7 +259,7 @@ pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> V
     }
     stack.push(nf);
     if v.h.starts_with("@file ") {
-      let fname = v.h[6..].trim();
+      let fname = Path::new(v.h[6..].trim());
       let p = stack[stack.len() - 1].join(fname);
       match p.canonicalize() {
         Ok(x) => res.push((x.to_string_lossy().to_string(), i)),

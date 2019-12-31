@@ -479,10 +479,25 @@ fn is_at_minus_leo<'a>(state:&mut LdfParseState) -> bool {
 }
 pub fn from_derived_file(fname:PathBuf) -> Result<(Outline, Vec<VData>), io::Error> {
   let f = File::open(&fname)?;
+  let mdata = f.metadata()?;
+  let sz = mdata.len() as usize;
   let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&mut buf)?;
-  Ok(from_derived_file_content(&buf))
+  let mut buf = Vec::with_capacity(sz);
+  let mut lastchar = b' ';
+  for xr in buf_reader.bytes() {
+    let x = xr?;
+    if x == b'\r' {
+      if lastchar == b'\r' {
+        buf.push(b'\n');
+      }
+    } else {
+      buf.push(x);
+    }
+    lastchar = x;
+  }
+  let s = std::str::from_utf8(&buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
+  //buf_reader.read_to_string(&mut buf)?;
+  Ok(from_derived_file_content(s))
 }
 pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
   let mut nodes = Vec::new();
