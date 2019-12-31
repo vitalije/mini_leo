@@ -255,7 +255,7 @@ pub fn find_derived_files(folder:&str, outline:&Outline, nodes:&Vec<VData>) -> V
 
     let mut nf = stack[stack.len() - 1].clone();
     if np.len() > 0 {
-      nf.push(np);
+      nf.push(Path::new(np));
     }
     stack.push(nf);
     if v.h.starts_with("@file ") {

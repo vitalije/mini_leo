@@ -2345,7 +2345,7 @@ if lev &lt; stack.len() { stack.drain(lev+1..); }
 
 let mut nf = stack[stack.len() - 1].clone();
 if np.len() &gt; 0 {
-  nf.push(np);
+  nf.push(Path::new(np));
 }
 stack.push(nf);
 </t>
