@@ -13,7 +13,7 @@ install:
 - sh rust-installer.sh
 script:
 - export PATH=$HOME/.cargo/bin:$PATH
-- echo $PROBA
+- python -c "import os;print(os.environ['PROBA'])"
 - ls $HOME/.cargo/bin
 - python build_wheel.py
 deploy:
