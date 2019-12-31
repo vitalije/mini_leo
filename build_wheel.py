@@ -10,8 +10,8 @@ def cargo_build():
     proc = subprocess.Popen('cargo build --lib --release',
         cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     [o, e] = proc.communicate()
-    print(o)
-    print(e)
+    print(o.decode('utf8'))
+    print(e.decode('utf8'))
     print("cargo finished")
 METADATA = b'''
 Metadata-Version: 2.1

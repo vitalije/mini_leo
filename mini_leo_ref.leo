@@ -2423,10 +2423,12 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
 }</t>
 <t tx="vitalije.20191229171155.1">pub fn load_with_external_files(fname:&amp;str) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
   let pbuf = fs::canonicalize(fname)?;
+  println!("canonicalize:{}", pbuf.to_str().unwrap_or("None"));
   let xmlcont = fs::read_to_string(pbuf.as_path())?;
   let mut trees = Vec::new();
   let (outline, vnodes) = from_leo_content(xmlcont.as_str());
   let folder = pbuf.parent().unwrap();
+  println!("parent:{}", pbuf.to_str().unwrap_or("None"));
   for (f,_) in find_derived_files(folder.to_str().unwrap(), &amp;outline, &amp;vnodes) {
     if let Ok(cont) = fs::read_to_string(f.as_str()) {
       trees.push(from_derived_file_content(cont.as_str()));
@@ -2485,8 +2487,8 @@ if __name__ == '__main__':
     proc = subprocess.Popen('cargo build --lib --release',
         cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     [o, e] = proc.communicate()
-    print(o)
-    print(e)
+    print(o.decode('utf8'))
+    print(e.decode('utf8'))
     print("cargo finished")</t>
 <t tx="vitalije.20191231152252.1">METADATA = b'''
 Metadata-Version: 2.1
