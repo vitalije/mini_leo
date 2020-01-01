@@ -7,14 +7,10 @@ cache:
 env:
   matrix:
   - PATH:$HOME/.cargo/bin:$PATH
-  global:
-    secure: OeW+3+ROqErhUEO6IzMF/dYgYCSFlNW0qeZpp8JXP7SMkJob5xCpJn4ZnNKz9dVIoiL3VzY8/a+GpXghVSAnM2tC0HCLvOquw8nV4DQ7ON7LVj3lqr9GFB2rqiVlhkbYrsMfwWmhZ+fXFnGoapmNbj6dCLOwiY/s6VsmvQ87ioUniRwSF8SPMwX8dUBN8U3Npf//Iw/Qbd33uXDCEmxZKUsWrhroF8ZJ58Bnk/2EbWW7LD1N9wa7U2cLmEjw6aXAyTZMI2NZ9jITIYC3kH2C3ISVqcW2c2qz7WKbmM2wfXsdY3ivsrBRpW7kwQRZWlDO1Zmr1RXz0Q2tb4mb9bL+wEVXW53oyWmiEO1jbWYjic7SRtWjW2lMzSPe/U7/Kpt6sOJITOCZmoMwbXpQ4wyuHFTJgosOngN3LSPfRIhbqDwKRHoZ3Uc/U/QB+CTLpxhnc4XDSa5fp+Sh1efLZXSjH9rS0OINE7excLxhJYmCZwKDtE4V96HWRUXyBKM27lFqAYnNfS88gTS0ykP2gVan7AS9wxEYL/iY2tJoju37b9cR2qGv8CmVIpq+VNQ5gD+VbwFryDidv3WG3fr+X8A6hQsUZZ2DiYtcG/1cNa3KfVAGEScSYlIkk/ussaOEnQ8gTr3fSTKYpwvJAZEARH2l+dVAHKTnDr3KdTStRGPQdB0=
 install:
 - sh rust-installer.sh
 script:
 - export PATH=$HOME/.cargo/bin:$PATH
-- python -c "import os;print(os.environ['PROBA']=='pro''ba')"
-- ls $HOME/.cargo/bin
 - python build_wheel.py
 deploy:
   provider: pypi
