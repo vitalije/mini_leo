@@ -69,7 +69,13 @@ fn handle_line<'a>(state:&mut LdfParseState<'a>,
     if state.in_doc {
       let a = i0 + state.st.len() + 1;
       let b = state.ind - 1 - state.en.len();
-      push_body_line(state, a, b, Some(("", "\n")), lines);
+      if a == b - state.indents.last().unwrap() + 1 {
+        // empty line in doc part doesn't start with `# `
+        // instead it is represented with just `#\n`
+        push_body_line(state, a, a+1, Some(("", "\n")), lines);
+      } else {
+        push_body_line(state, a, b, Some(("", "\n")), lines);
+      }
     } else {
       let a = state.ind;
       push_body_line(state, i0, a, None, lines);
@@ -131,6 +137,9 @@ fn push_body_line<'a>(state:&mut LdfParseState<'a>,
   if b - a == 1 {
     lines.push((ni, a, b, e))
   } else {
+    if a + wi > b {
+      panic!("push_body_line a + wi> b {} + {} > {}", a, wi, b);
+    }
     lines.push((ni, a + wi, b, e))
   }
 }

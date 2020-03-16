@@ -15,7 +15,7 @@ def cargo_build():
     print("cargo finished")
 def cargo_build2():
     proc = subprocess.Popen('cargo build --lib',
-        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cwd='rust', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     [o, e] = proc.communicate()
     print(o.decode('utf8'))
     print(e.decode('utf8'))
