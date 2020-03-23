@@ -1,12 +1,18 @@
+#[path="model.rs"]
 mod model;
+#[path="utils.rs"]
 mod utils;
+#[path="parsing.rs"]
 mod parsing;
+#[path="atclean.rs"]
+mod atclean;
 use std::collections::HashMap;
 use std::sync::{Mutex};
-pub use crate::parsing::{ldf_parse,from_derived_file_content, from_derived_file,
+pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                          from_leo_file, from_leo_content, load_with_external_files};
-pub use crate::utils::{b64int, b64str};
-pub use crate::model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, find_derived_files};
+pub use utils::{b64int, b64str};
+pub use model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, 
+find_derived_files};
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};

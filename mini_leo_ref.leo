@@ -588,17 +588,21 @@ def main(args=None):
         v.h = v.h.replace('@file ', '@clean ')
 </t>
 <t tx="vitalije.20180822204714.1">@path rust</t>
-<t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">mod model;
+<t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#[path="model.rs"]
+mod model;
+#[path="utils.rs"]
 mod utils;
+#[path="parsing.rs"]
 mod parsing;
+#[path="atclean.rs"]
+mod atclean;
 use std::collections::HashMap;
 use std::sync::{Mutex};
-pub use crate::parsing::{ldf_parse,from_derived_file_content, from_derived_file,
+pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                          from_leo_file, from_leo_content, load_with_external_files};
-pub use crate::utils::{b64int, b64str};
-pub use crate::model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, 
+pub use utils::{b64int, b64str};
+pub use model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, 
 find_derived_files};
-pub use crate::atclean;
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};
@@ -977,11 +981,10 @@ impl VData {
 }</t>
 <t tx="vitalije.20190625192155.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
-
-use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, 
+use crate::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, 
              extract_subtree, combine_trees, find_derived_files,
              find_clean_files, find_auto_files, find_edit_files};
-use super::atclean::update_atclean_tree;
+use crate::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
 use quick_xml::events::attributes::Attributes;
@@ -994,7 +997,6 @@ use std::{
   path::{Path},
   collections::{HashMap}
 };
-
 @others
 </t>
 <t tx="vitalije.20190626141051.1">/*
@@ -1567,7 +1569,7 @@ fn is_at_minus_leo&lt;'a&gt;(state:&amp;mut LdfParseState) -&gt; bool {
 @tabwidth -2
 #[path="utils.rs"]
 mod utils;
-use self::utils::{b64str, b64int, partition};
+use utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use std::path::{ Path};
@@ -2141,8 +2143,9 @@ artifacts:
 }</t>
 <t tx="vitalije.20200323074449.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
-use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, combine_trees, find_derived_files};
-@others</t>
+use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
+@others
+</t>
 <t tx="vitalije.20200323075415.1">pub fn find_any_file_nodes(
     folder:&amp;Path,
     outline:&amp;Outline,

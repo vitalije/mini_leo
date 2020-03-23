@@ -1,6 +1,6 @@
 #[path="utils.rs"]
 mod utils;
-use self::utils::{b64str, b64int, partition};
+use utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use std::path::{ Path};
@@ -29,6 +29,9 @@ pub trait LevGnxOps {
 
   /// creates object from its String representation
   fn from_str(a:&str) -> LevGnx;
+
+  /// creates object from level and ignx values
+  fn make(lev:u8, ignx:u32) -> Self;
 }
 impl LevGnxOps for LevGnx {
 
@@ -65,6 +68,11 @@ impl LevGnxOps for LevGnx {
   /// creates object from its String representation
   fn from_str(a:&str) -> LevGnx {
     b64int(&a[..4]) as LevGnx
+  }
+
+  /// creates object from level and ignx values
+  fn make(lev:u8, ignx:u32) -> Self {
+    ((lev as u32) << 18) | (ignx & 0x3ffff)
   }
 }
 pub type Outline = Vec<u32>;
@@ -237,7 +245,13 @@ impl VData {
   }
   pub fn is_expanded(&self) -> bool {self.flags & 1 == 1}
 }
-pub fn find_derived_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+pub fn find_any_file_nodes(
+    folder:&Path,
+    outline:&Outline,
+    nodes:&Vec<VData>,
+    kind:&str)
+     ->
+     Vec<(String, usize)> {
   let mut stack = vec![folder.to_path_buf()];
   let mut res = Vec::new();
   for (i, x) in outline.iter().enumerate() {
@@ -260,7 +274,7 @@ pub fn find_derived_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> 
       }
     }
     stack.push(nf);
-    if v.h.starts_with("@file ") {
+    if v.h.starts_with(kind) {
       let fname = v.h[6..].trim();
       let mut p = stack[stack.len() - 1].clone();
       for f in fname.split(|x|x == '\\'  || x == '/') {
@@ -274,6 +288,18 @@ pub fn find_derived_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> 
     }
   }
   res
+}
+pub fn find_derived_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  find_any_file_nodes(folder, outline, nodes, "@file ")
+}
+pub fn find_clean_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  find_any_file_nodes(folder, outline, nodes, "@clean ")
+}
+pub fn find_auto_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  find_any_file_nodes(folder, outline, nodes, "@auto ")
+}
+pub fn find_edit_files(folder:&Path, outline:&Outline, nodes:&Vec<VData>) -> Vec<(String, usize)> {
+  find_any_file_nodes(folder, outline, nodes, "@edit ")
 }
 pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>) {
   let mut catalog:HashMap<&str, (usize, usize)> = HashMap::new();
@@ -323,4 +349,26 @@ pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>)
   }
   outline.drain(1..real_start);
   (outline, vnodes)
+}
+pub fn extract_subtree(
+    outline:&Outline,
+    nodes:&Vec<VData>,
+    ni:usize) -> (Outline, Vec<VData>) {
+    let mut o = Vec::new();
+    let mut ind:LevGnx = 0;
+    let mut vs = Vec::new();
+    let zlev = outline[ni].level();
+    for lg in &outline[ni..] {
+      let lev = lg.level();
+      if ind == 0 || lev > zlev {
+        let ignx = lg.ignx();
+        let v = nodes[ignx as usize].clone();
+        o.push(LevGnx::make(lev-zlev, ind));
+        vs.push(v);
+        ind += 1;
+      } else {
+        break
+      }
+    }
+    (o, vs)
 }

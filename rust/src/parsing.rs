@@ -1,4 +1,7 @@
-use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, combine_trees, find_derived_files};
+use crate::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, 
+             extract_subtree, combine_trees, find_derived_files,
+             find_clean_files, find_auto_files, find_edit_files};
+use crate::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
 use quick_xml::events::attributes::Attributes;
@@ -11,7 +14,6 @@ use std::{
   path::{Path},
   collections::{HashMap}
 };
-
 #[cfg(test)]
 mod tests {
   #[test]
@@ -612,17 +614,54 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
   }
   (outline, nodes)
 }
+pub fn from_auto_content(v:&VData, cont:&str) -> (Outline, Vec<VData>) {
+  let mut v2 = v.clone();
+  v2.b.push_str("@nocolor\n");
+  v2.b.push_str(cont);
+  let nodes = vec![v2];
+  let outline = vec![0];
+  (outline, nodes)
+}
 pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {
   let pbuf = fs::canonicalize(fname)?;
   let xmlcont = fs::read_to_string(pbuf.as_path())?;
   let mut trees = Vec::new();
-  let (outline, vnodes) = from_leo_content(xmlcont.as_str());
+  let (outline, mut vnodes) = from_leo_content(xmlcont.as_str());
   let folder = pbuf.parent().unwrap();
+  let mut missing_files = Vec::new();
   for (f,_) in find_derived_files(folder, &outline, &vnodes) {
     if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
       trees.push(from_derived_file_content(cont.as_str()));
     } else {
-      println!("file not found: [{}]", f.as_str());
+      missing_files.push(f);
+    }
+  }
+  for (f, ni) in find_auto_files(folder, &outline, &vnodes) {
+    if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
+      for v in vnodes.get_mut(outline[ni as usize].ignx() as usize) {
+        trees.push(from_auto_content(v, cont.as_str()));
+      }
+    } else {
+      missing_files.push(f);
+    }
+  }
+  for (f, ni) in find_clean_files(folder, &outline, &vnodes) {
+    if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
+      let (subtree, mut subnodes) = extract_subtree(&outline, &vnodes, ni);
+      update_atclean_tree(&subtree, &mut subnodes, cont.as_str());
+      trees.push((subtree, subnodes));
+    } else {
+      missing_files.push(f);
+    }
+  }
+  for (f, ni) in find_edit_files(folder, &outline, &vnodes) {
+    if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
+      for v in vnodes.get_mut(outline[ni as usize].ignx() as usize) {
+        v.b.push_str("@nocolor\n");
+        v.b.push_str(cont.as_str());
+      }
+    } else {
+      missing_files.push(f);
     }
   }
   trees.insert(0, (outline, vnodes));
