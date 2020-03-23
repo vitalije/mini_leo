@@ -157,6 +157,7 @@
 </v>
 </v>
 <v t="vitalije.20200323074449.1"><vh>@clean src/atclean.rs</vh>
+<v t="vitalije.20200323101936.1"><vh>atclean_to_string</vh></v>
 <v t="vitalije.20200323085359.1"><vh>update_atclean_tree</vh></v>
 </v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
@@ -2252,11 +2253,20 @@ use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
     (o, vs)
 }</t>
 <t tx="vitalije.20200323085359.1">pub fn update_atclean_tree(outline:&amp;Outline, nodes:&amp;mut Vec&lt;VData&gt;, cont:&amp;str) {
-  let _v = nodes.get_mut(0);
-  if cont.len() == 0 || outline.len() == 0 {
-    for v in _v {
-      v.b.clear();
-    }
+  let oldtxt = atclean_to_string(outline, nodes, 0);
+  let v = nodes.get_mut(0).unwrap();
+  if cont.len() == 0 {
+    v.b.push_str(cont);
+  } else {
+    v.b.push_str(oldtxt.as_str());
+  }
+}
+</t>
+<t tx="vitalije.20200323101936.1">pub fn atclean_to_string(outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;, ni:usize) -&gt; String {
+  if nodes.len() &gt; 0 &amp;&amp; ni &lt; outline.len() {
+    String::new()
+  } else {
+    String::new()
   }
 }</t>
 </tnodes>

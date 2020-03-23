@@ -8,7 +8,7 @@ env:
   matrix:
   - PATH:$HOME/.cargo/bin:$PATH
 install:
-- sh rust-installer.sh
+- /bin/sh rust-installer.sh
 script:
 - export PATH=$HOME/.cargo/bin:$PATH
 - python build_wheel.py
