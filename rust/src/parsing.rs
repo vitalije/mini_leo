@@ -5,7 +5,7 @@ use quick_xml::events::attributes::Attributes;
 
 use std::{
   io,
-  io::{Read, BufReader},
+  io::{BufRead, BufReader},
   fs,
   fs::File,
   path::{Path},
@@ -496,21 +496,12 @@ fn read_file_as_in_linux(fname:&Path) -> Result<String, io::Error> {
   let mdata = f.metadata()?;
   let sz = mdata.len() as usize;
   let buf_reader = BufReader::new(f);
-  let mut buf = Vec::with_capacity(sz);
-  let mut lastchar = b' ';
-  for xr in buf_reader.bytes() {
-    let x = xr?;
-    if x == b'\r' {
-      if lastchar == b'\r' {
-        buf.push(b'\n');
-      }
-    } else {
-      buf.push(x);
-    }
-    lastchar = x;
+  let mut buf = String::with_capacity(sz);
+  for line in buf_reader.lines() {
+    buf.push_str(line?.as_str());
+    buf.push('\n');
   }
-  let s = String::from_utf8(buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
-  Ok(s)
+  Ok(buf)
 }
 pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
   let mut nodes = Vec::new();

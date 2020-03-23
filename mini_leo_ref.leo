@@ -460,8 +460,11 @@ while px:
         px.moveToNodeAfterTree()
     else:
         px.moveToThreadNext()
+c.frame.tree.clear_visual_icons('save1', {'c': c})
 c.save()
 c.fileCommands.save_ref()
+c.frame.tree.update_appearance('save1', {'c': c})
+c.frame.tree.update_appearance_idle('idle', {'c': c})
 </t>
 <t tx="vitalije.20180822171822.2">def hl(p, lev):
     return '#' * (lev) + ' ' + p.h + '\n'</t>
@@ -577,13 +580,7 @@ __version__ = '0.1.0'
 import sys
 import click
 from mini_leo import test
-@click.command()
-def main(args=None):
-    """Console script for mini_leo."""
-    #click.echo("See click documentation at http://click.pocoo.org/")
-    if test() != 42:
-        return 1
-    return 0
+@others
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
 </t>
@@ -1344,7 +1341,7 @@ use quick_xml::events::attributes::Attributes;
 
 use std::{
   io,
-  io::{Read, BufReader},
+  io::{BufRead, BufReader},
   fs,
   fs::File,
   path::{Path},
@@ -1403,6 +1400,7 @@ pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str,
   }
 }
 */
+#[allow(dead_code)] // used in model.rs
 pub fn partition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
   match input.find(sep) {
     Some(i) =&gt; {
@@ -1994,7 +1992,7 @@ mod utils;
 use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
-use std::path::{PathBuf, Path};
+use std::path::{ Path};
 @others
 </t>
 <t tx="vitalije.20190702073410.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
@@ -2027,7 +2025,7 @@ mod tests {
   /// changes the level of this object for given delta d
   fn shift(&amp;mut self, d: i8) {
     let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
-    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { ((lev as u32) &lt;&lt; 18)};
+    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { (lev as u32) &lt;&lt; 18};
   }
 
   /// sets ignx of this object to given value
@@ -2609,21 +2607,12 @@ artifacts:
   let mdata = f.metadata()?;
   let sz = mdata.len() as usize;
   let buf_reader = BufReader::new(f);
-  let mut buf = Vec::with_capacity(sz);
-  let mut lastchar = b' ';
-  for xr in buf_reader.bytes() {
-    let x = xr?;
-    if x == b'\r' {
-      if lastchar == b'\r' {
-        buf.push(b'\n');
-      }
-    } else {
-      buf.push(x);
-    }
-    lastchar = x;
+  let mut buf = String::with_capacity(sz);
+  for line in buf_reader.lines() {
+    buf.push_str(line?.as_str());
+    buf.push('\n');
   }
-  let s = String::from_utf8(buf).map_err(|e|io::Error::new(io::ErrorKind::InvalidData, e))?;
-  Ok(s)
+  Ok(buf)
 }</t>
 </tnodes>
 </leo_file>

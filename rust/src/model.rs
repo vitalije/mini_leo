@@ -3,7 +3,7 @@ mod utils;
 use self::utils::{b64str, b64int, partition};
 use std::collections::HashMap;
 use pyo3::prelude::*;
-use std::path::{PathBuf, Path};
+use std::path::{ Path};
 pub type LevGnx = u32;
 pub trait LevGnxOps {
   /// returns level of this object
@@ -47,7 +47,7 @@ impl LevGnxOps for LevGnx {
   /// changes the level of this object for given delta d
   fn shift(&mut self, d: i8) {
     let lev = ((*self >> 18) & 63) as i8 + d;
-    *self = (*self & 0x3ffff) | if lev <= 0 { 0 } else { ((lev as u32) << 18)};
+    *self = (*self & 0x3ffff) | if lev <= 0 { 0 } else { (lev as u32) << 18};
   }
 
   /// sets ignx of this object to given value

@@ -65,6 +65,7 @@ pub fn rpartition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
   }
 }
 */
+#[allow(dead_code)] // used in model.rs
 pub fn partition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
   match input.find(sep) {
     Some(i) => {
