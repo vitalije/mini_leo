@@ -88,10 +88,15 @@
 </v>
 <v t="vitalije.20190702100427.1"><vh>gnx_index</vh></v>
 <v t="vitalije.20190625161035.1"><vh>VData</vh></v>
-<v t="vitalije.20191216165607.1"><vh>find_derived_files</vh>
+<v t="vitalije.20200323075415.1"><vh>find_any_file_nodes</vh>
 <v t="vitalije.20191216165649.1"><vh>adjust for @path</vh></v>
 </v>
+<v t="vitalije.20191216165607.1"><vh>find_derived_files</vh></v>
+<v t="vitalije.20200323075434.1"><vh>find_clean_files</vh></v>
+<v t="vitalije.20200323075457.1"><vh>find_auto_files</vh></v>
+<v t="vitalije.20200323075523.1"><vh>find_edit_files</vh></v>
 <v t="vitalije.20191229164057.1"><vh>combine_trees</vh></v>
+<v t="vitalije.20200323085033.1"><vh>extract_subtree</vh></v>
 </v>
 <v t="vitalije.20190702073410.1"><vh>@clean src/utils.rs</vh>
 <v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
@@ -143,33 +148,16 @@
 <v t="vitalije.20191215181220.1"><vh>parser_config</vh></v>
 <v t="vitalije.20191215181042.1"><vh>from_leo_file</vh></v>
 <v t="vitalije.20191215182704.1"><vh>from_leo_content</vh></v>
-<v t="vitalije.20191229171155.1"><vh>load_with_external_files</vh></v>
+<v t="vitalije.20200323081335.1"><vh>from_auto_content</vh></v>
+<v t="vitalije.20191229171155.1"><vh>load_with_external_files</vh>
+<v t="vitalije.20200323075753.1"><vh>load derived files</vh></v>
+<v t="vitalije.20200323081110.1"><vh>load auto files</vh></v>
+<v t="vitalije.20200323075757.1"><vh>update clean files</vh></v>
+<v t="vitalije.20200323080552.1"><vh>update edit files</vh></v>
 </v>
-<v t="vitalije.20190625205715.1"><vh>@clean src/main.rs</vh>
-<v t="vitalije.20190701173234.1"><vh>pr_linebuf</vh></v>
 </v>
-<v t="vitalije.20190702113135.1"><vh>@clean src/bin/bmark.rs</vh>
-<v t="vitalije.20190702113251.1"><vh>benchmark</vh></v>
-</v>
-<v t="vitalije.20190622142851.1"><vh>@clean src/bin/server.rs</vh>
-<v t="vitalije.20190622150400.1"><vh>uses...</vh></v>
-<v t="vitalije.20190622150335.1"><vh>main</vh></v>
-<v t="vitalije.20190622150604.1"><vh>run</vh></v>
-<v t="vitalije.20190622151201.1"><vh>Config</vh></v>
-<v t="vitalije.20190622151325.1"><vh>parse_config_from_cmdline</vh></v>
-<v t="vitalije.20190622153123.1"><vh>serve</vh></v>
-<v t="vitalije.20190622153141.1"><vh>read_file</vh></v>
-<v t="vitalije.20190622153151.1"><vh>handle_io_error</vh></v>
-<v t="vitalije.20190622153201.1"><vh>file_path_mime</vh></v>
-<v t="vitalije.20190622153212.1"><vh>local_path_for_request</vh></v>
-<v t="vitalije.20190622153221.1"><vh>internal_server_error</vh></v>
-<v t="vitalije.20190622153236.1"><vh>Error</vh></v>
-</v>
-<v t="vitalije.20190622191207.1"><vh>@clean src/bin/leoxml.rs</vh>
-<v t="vitalije.20190622192134.1"><vh>parse_config_from_cmdline</vh></v>
-<v t="vitalije.20190622192739.1"><vh>Error</vh></v>
-<v t="vitalije.20190625101210.1"><vh>_test_levgnx</vh></v>
-<v t="vitalije.20190625101337.1"><vh>_test_parse_leoxml</vh></v>
+<v t="vitalije.20200323074449.1"><vh>@clean src/atclean.rs</vh>
+<v t="vitalije.20200323085359.1"><vh>update_atclean_tree</vh></v>
 </v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
 <v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
@@ -608,7 +596,9 @@ use std::sync::{Mutex};
 pub use crate::parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                          from_leo_file, from_leo_content, load_with_external_files};
 pub use crate::utils::{b64int, b64str};
-pub use crate::model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, find_derived_files};
+pub use crate::model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, 
+find_derived_files};
+pub use crate::atclean;
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};
@@ -657,22 +647,7 @@ nom = "5.0.0"
 [dependencies.pyo3]
 version = "0.8.4"
 features = ["extension-module"]
-
-[[bin]]
-name = "server"
-path = "src/bin/server.rs"
-
-[[bin]]
-name = "leoxml"
-path = "src/bin/leoxml.rs"
-
-[[bin]]
-name = "test"
-path = "src/main.rs"
-
-[[bin]]
-name = "bmark"
-path = "src/bin/bmark.rs"</t>
+</t>
 <t tx="vitalije.20180822205209.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">extern crate cbindgen;
 
 use std::env;
@@ -729,271 +704,6 @@ def test_command_line_interface():
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
 </t>
-<t tx="vitalije.20190622142851.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
-@tabwidth -2
-extern crate hyper;
-#[macro_use]
-extern crate error_type;
-
-extern crate futures;
-extern crate clap;
-// extern crate tokio_fs;
-@others
-</t>
-<t tx="vitalije.20190622150335.1">fn main() {
-  if let Err(e) = run() {
-    println!("Error: {}", e.description());
-  }
-}
-</t>
-<t tx="vitalije.20190622150400.1">use clap::App;
-
-use futures::{future::Either};
-
-use hyper::{header, Body, Request, Response, Server};
-use hyper::rt::Future;
-use hyper::service::service_fn;
-
-use hyper::http::status::StatusCode;
-
-use std::{
-  error::Error as StdError,
-  io,
-  net::SocketAddr,
-  path::{Path, PathBuf}
-};</t>
-<t tx="vitalije.20190622150604.1">fn run() -&gt; Result&lt;(), Error&gt; {
-  let config = parse_config_from_cmdline()?;
-  let Config {addr, root_dir, .. } = config;
-  let server = Server::bind(&amp;addr)
-    .serve(move || {
-      let root_dir = root_dir.clone();
-      service_fn(move |req| serve(req, &amp;root_dir.clone()))
-    })
-    .map_err(|e| {
-      println!("There was an error: {}", e);
-    });
-
-  hyper::rt::run(server);
-  Ok(())
-}</t>
-<t tx="vitalije.20190622151201.1">#[derive(Clone)]
-struct Config {
-  addr: SocketAddr,
-  root_dir: PathBuf,
-  file_name: PathBuf
-}</t>
-<t tx="vitalije.20190622151325.1">fn parse_config_from_cmdline() -&gt; Result&lt;Config, Error&gt; {
-  let matches = App::new("Leo server")
-    .version(env!("CARGO_PKG_VERSION"))
-    .about("Server that serves Leo outline and its external files")
-    .args_from_usage(
-      "&lt;FILE&gt; 'leo outline file'
-       [ADDR] -a --addr=[ADDR] 'sets the IP:PORT combination (default \"127.0.0.1:4000\")'"
-    ).get_matches();
-  let addr = matches.value_of("ADDR").unwrap_or("127.0.0.1:4000");
-  let fname_arg = matches.value_of("FILE").unwrap();
-  let fname_a = std::env::current_dir()?.with_file_name(fname_arg);
-  let fname_b = Path::new(fname_arg);
-
-  let root_dir = if fname_b.is_relative() {
-    fname_a.parent().unwrap()
-  } else {
-    fname_b.parent().unwrap()
-  };
-
-  let file_name = root_dir.join(fname_b.file_name().unwrap());
-  println!("file: [{}]", file_name.display());
-  println!("root_dir: [{}]", root_dir.display());
-  println!("addr: [{}]", addr);
-  Ok(Config {
-    addr: addr.parse()?,
-    root_dir: PathBuf::from(root_dir),
-    file_name: file_name
-  })
-}
-</t>
-<t tx="vitalije.20190622153123.1">// The function that returns a future of http responses for each hyper Request
-// that is received. Errors are turned into an Error response (404 or 500).
-fn serve(
-    req: Request&lt;Body&gt;,
-    root_dir: &amp;PathBuf,
-) -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
-    let uri_path = req.uri().path();
-    if let Some(path) = local_path_for_request(&amp;uri_path, root_dir) {
-        Either::A(tokio_fs::file::File::open(path.clone()).then(
-            move |open_result| match open_result {
-                Ok(file) =&gt; Either::A(read_file(file, path)),
-                Err(e) =&gt; Either::B(handle_io_error(e)),
-            },
-        ))
-    } else {
-        Either::B(internal_server_error())
-    }
-}</t>
-<t tx="vitalije.20190622153141.1">// Read the file completely and construct a 200 response with that file as
-// the body of the response.
-fn read_file&lt;'a&gt;(
-    file: tokio_fs::File,
-    path: PathBuf,
-) -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
-    let buf: Vec&lt;u8&gt; = Vec::new();
-    tokio_io::io::read_to_end(file, buf)
-        .map_err(Error::Io)
-        .and_then(move |(_, buf)| {
-            let mime_type = file_path_mime(&amp;path);
-            Response::builder()
-                .status(StatusCode::OK)
-                .header(header::CONTENT_LENGTH, buf.len() as u64)
-                .header(header::CONTENT_TYPE, mime_type.as_ref())
-                .body(Body::from(buf))
-                .map_err(Error::from)
-        })
-}</t>
-<t tx="vitalije.20190622153151.1">// Handle the one special io error (file not found) by returning a 404, otherwise
-// return a 500
-fn handle_io_error(error: io::Error) -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
-    match error.kind() {
-        io::ErrorKind::NotFound =&gt; Either::A(futures::future::result(
-            Response::builder()
-                .status(StatusCode::NOT_FOUND)
-                .body(Body::empty())
-                .map_err(Error::from),
-        )),
-        _ =&gt; Either::B(internal_server_error()),
-    }
-}</t>
-<t tx="vitalije.20190622153201.1">fn file_path_mime(file_path: &amp;Path) -&gt; mime::Mime {
-    let mime_type = match file_path.extension().and_then(std::ffi::OsStr::to_str) {
-        Some("html") =&gt; mime::TEXT_HTML,
-        Some("css") =&gt; mime::TEXT_CSS,
-        Some("js") =&gt; mime::TEXT_JAVASCRIPT,
-        Some("jpg") =&gt; mime::IMAGE_JPEG,
-        Some("png") =&gt; mime::IMAGE_PNG,
-        Some("svg") =&gt; mime::IMAGE_SVG,
-        Some("wasm") =&gt; "application/wasm".parse::&lt;mime::Mime&gt;().unwrap(),
-        _ =&gt; mime::TEXT_PLAIN,
-    };
-    mime_type
-}</t>
-<t tx="vitalije.20190622153212.1">fn local_path_for_request(request_path: &amp;str, root_dir: &amp;Path) -&gt; Option&lt;PathBuf&gt; {
-    // This is equivalent to checking for hyper::RequestUri::AbsoluteUri
-    if !request_path.starts_with("/") {
-        return None;
-    }
-    // Trim off the url parameters starting with '?'
-    let end = request_path.find('?').unwrap_or(request_path.len());
-    let request_path = &amp;request_path[0..end];
-
-    // Append the requested path to the root directory
-    let mut path = root_dir.to_owned();
-    if request_path.starts_with('/') {
-        path.push(&amp;request_path[1..]);
-    } else {
-        return None;
-    }
-
-    // Maybe turn directory requests into index.html requests
-    if request_path.ends_with('/') {
-        path.push("index.html");
-    }
-
-    Some(path)
-}</t>
-<t tx="vitalije.20190622153221.1">fn internal_server_error() -&gt; impl Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt; {
-    futures::future::result(
-        Response::builder()
-            .status(StatusCode::INTERNAL_SERVER_ERROR)
-            .header(header::CONTENT_LENGTH, 0)
-            .body(Body::empty()),
-    )
-    .map_err(Error::from)
-}</t>
-<t tx="vitalije.20190622153236.1">// The custom Error type that encapsulates all the possible errors
-// that can occur in this crate. This macro defines it and
-// automatically creates Display, Error, and From implementations for
-// all the variants.
-error_type! {
-    #[derive(Debug)]
-    enum Error {
-        Io(io::Error) { },
-        HttpError(http::Error) { },
-        AddrParse(std::net::AddrParseError) { },
-        Std(Box&lt;StdError + Send + Sync&gt;) {
-            desc (e) e.description();
-        },
-        ParseInt(std::num::ParseIntError) { },
-    }
-}</t>
-<t tx="vitalije.20190622191207.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
-@tabwidth -2
-
-#[path="../model.rs"]
-mod model;
-
-extern crate xml;
-extern crate clap;
-#[macro_use]
-extern crate error_type;
-use crate::model::{VData, LevGnx, LevGnxOps, Outline, OutlineOps};
-use std::collections::HashMap;
-use clap::App;
-use xml::reader::{ParserConfig, XmlEvent};
-
-fn parser_config() -&gt; ParserConfig {
-  ParserConfig::new()
-      .cdata_to_characters(true)
-      .whitespace_to_characters(true)
-}
-
-use std::{
-  error::Error as StdError,
-  io,
-  io::{Read, BufReader},
-  fs::File,
-  path::{PathBuf}
-};
-@others
-
-fn main() {
-  let fname = parse_config_from_cmdline().unwrap();
-  let (o, nodes) = _test_parse_leoxml(fname);
-  let s_lev = ".............................................................";
-  for x in o {
-    let lev = 2 * x.level() as usize;
-    let ignx = x.ignx() as usize;
-    let h = &amp;nodes[ignx].h;
-    let sz = nodes[ignx].b.len();
-    println!("{}{}:[{}]", &amp;s_lev[..lev], h, sz);
-  }
-  _test_levgnx();
-}</t>
-<t tx="vitalije.20190622192134.1">fn parse_config_from_cmdline() -&gt; Result&lt;PathBuf, Error&gt; {
-  let matches = App::new("Leo server")
-    .version(env!("CARGO_PKG_VERSION"))
-    .about("Server that serves Leo outline and its external files")
-    .args_from_usage(
-      "&lt;FILE&gt; 'leo outline file'"
-    ).get_matches();
-  Ok(PathBuf::from(matches.value_of("FILE").unwrap()))
-}
-</t>
-<t tx="vitalije.20190622192739.1">// The custom Error type that encapsulates all the possible errors
-// that can occur in this crate. This macro defines it and
-// automatically creates Display, Error, and From implementations for
-// all the variants.
-error_type! {
-    #[derive(Debug)]
-    enum Error {
-        Io(io::Error) { },
-        HttpError(http::Error) { },
-        AddrParse(std::net::AddrParseError) { },
-        Std(Box&lt;StdError + Send + Sync&gt;) {
-            desc (e) e.description();
-        },
-        ParseInt(std::num::ParseIntError) { },
-    }
-}</t>
 <t tx="vitalije.20190625073241.1">we need:
     - list of known gnxes
     - stack of parent gnxes
@@ -1070,78 +780,11 @@ pub trait LevGnxOps {
 
   /// creates object from its String representation
   fn from_str(a:&amp;str) -&gt; LevGnx;
+
+  /// creates object from level and ignx values
+  fn make(lev:u8, ignx:u32) -&gt; Self;
 }
 </t>
-<t tx="vitalije.20190625101210.1">fn _test_levgnx() {
-  let mut a:LevGnx = 23;
-  println!("Ignx {}", a.ignx());
-  println!("level {}", a.level());
-  a.inc();
-  println!("level {}", a.level());
-  a.shift(5i8);
-  println!("level {}", a.level());
-  a.dec();
-  println!("level {}", a.level());
-  println!("levgnx {}", LevGnx::from_str("01234").to_str());
-}</t>
-<t tx="vitalije.20190625101337.1">fn _test_parse_leoxml(fname:PathBuf) -&gt; (Outline, Vec&lt;VData&gt;) {
-  let f = File::open(&amp;fname).unwrap();
-  let mut buf_reader = BufReader::new(f);
-  let mut buf = String::new();
-  buf_reader.read_to_string(&amp;mut buf).unwrap();
-  let config = parser_config();
-  let reader = config.create_reader(buf.as_bytes());
-  let mut nodes:Vec&lt;VData&gt; = Vec::new();
-  nodes.push(VData::new("hidden-root-vnode-gnx"));
-  let mut gnx2i:HashMap&lt;String, usize&gt; = HashMap::new();
-  let mut names:Vec&lt;String&gt; = Vec::new();
-  let mut last_gnx = String::new();
-  let mut txt = String::new();
-  let mut lev = 0u8;
-  let mut gnxcount:usize = 1;
-  let mut outline:Outline = vec![0u32];
-  for xe in reader.into_iter() {
-    match xe {
-      Ok(XmlEvent::StartElement { name, attributes, ..}) =&gt; {
-        let n = name.local_name;
-        names.push(n.clone());
-        if n == "v" {
-          last_gnx.clear();
-          last_gnx.push_str(&amp;attributes[0].value);
-          let v = VData::new(&amp;last_gnx);
-          let ignx = gnx2i.entry(v.gnx.clone()).or_insert(gnxcount);
-          lev += 1u8;
-          outline.add_node(lev, *ignx as u32);
-          nodes.push(v);
-          gnxcount += 1;
-        } else if n == "vnodes" {
-          lev=0;
-        } else if n == "t" {
-          last_gnx.clear();
-          last_gnx.push_str(&amp;attributes[0].value);
-        }
-        txt.clear();
-      },
-      Ok(XmlEvent::Characters(t)) =&gt; txt.push_str(&amp;t),
-      Ok(XmlEvent::EndElement{..}) =&gt; {
-        let n = names.pop().unwrap();
-        if n == "vh" {
-          if let Some(i) = gnx2i.get(&amp;last_gnx) {
-            nodes[*i].h.push_str(&amp;txt)
-          }
-        } else if n == "v" {
-          lev -= 1;
-        } else if n == "t" {
-          if let Some(i) = gnx2i.get(&amp;last_gnx) {
-            nodes[*i].b.push_str(&amp;txt);
-          }
-        }
-      },
-      _ =&gt; ()
-    }
-  }
-  (outline, nodes)
-}</t>
 <t tx="vitalije.20190625102142.1">const B64DIGITS:[char;64] = [
   '0', '1', '2', '3', '4', '5', '6', '7',
   '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
@@ -1334,7 +977,11 @@ impl VData {
 }</t>
 <t tx="vitalije.20190625192155.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
 @tabwidth -2
-use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, combine_trees, find_derived_files};
+
+use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, 
+             extract_subtree, combine_trees, find_derived_files,
+             find_clean_files, find_auto_files, find_edit_files};
+use super::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
 use quick_xml::events::attributes::Attributes;
@@ -1349,42 +996,6 @@ use std::{
 };
 
 @others
-</t>
-<t tx="vitalije.20190625205715.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
-@tabwidth -2
-extern crate nom;
-mod parsing;
-mod model;
-use std::env::args;
-use parsing::{ldf_parse,from_derived_file_content};
-use std::io;
-use std::io::prelude::*;
-use std::fs::File;
-@others
-
-fn main() -&gt; io::Result&lt;()&gt;{
-  let mut buffer = String::new();
-  let mut kind:usize = 0;
-  for (i, a) in args().enumerate() {
-    if i == 1 {
-      let f = File::open(a)?;
-      let mut reader = io::BufReader::new(f);
-      buffer.clear();
-      reader.read_to_string(&amp;mut buffer)?;
-    } else if i == 2 {
-      kind = a.parse().expect("Not a number");
-    }
-  }
-  if kind == 0 {
-    pr_ldf(&amp;buffer);
-  } else {
-    let (o, nodes) = from_derived_file_content(&amp;buffer);
-    if let Some(v) = nodes.get(kind) {
-      println!("head:{}\ngnx:{}\nbody:{}", v.h, v.gnx, v.b);
-    }
-  }
-  Ok(())
-}
 </t>
 <t tx="vitalije.20190626141051.1">/*
 pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
@@ -1897,39 +1508,6 @@ fn is_at_minus_leo&lt;'a&gt;(state:&amp;mut LdfParseState) -&gt; bool {
 }
 
 </t>
-<t tx="vitalije.20190701173234.1">type BufNode = (usize, usize, usize, usize, usize);
-type BufLine = (usize, usize, usize, Option&lt;(&amp;'static str, &amp;'static str)&gt;);
-
-fn pr_bufline(s:&amp;BufLine) {
-  let (ni, a, b, op) = *s;
-  let pref_suf = match op {
-    Some((pref, suf)) =&gt;  format!("\"{}\", \"{}\"", pref.escape_debug(), suf.escape_debug()),
-    _ =&gt; String::from("null, null")
-  };
-  print!("[{}, {}, {}, {}]", ni, a, b, &amp;pref_suf);
-}
-fn pr_bufnode(s:&amp;BufNode) {
-  let (a, b, c, d, e) = *s;
-  print!("[{}, {}, {}, {}, {}]", a, b, c, d, e);
-}
-fn pr_ldf(datastr:&amp;str) {
-  let (nodes, lines, _first_end, _last_start) = ldf_parse(datastr);
-  println!("{}\n \"nodes\": [", "{");
-  let n = nodes.len() - 1;
-  for (i, x) in nodes.iter().enumerate() {
-    print!("    ");
-    pr_bufnode(x);
-    if i != n {println!(",")}
-  }
-  println!("],\n  \"lines\": [");
-  let n = lines.len() - 1;
-  for (i, x) in lines.iter().enumerate() {
-    print!("    ");
-    pr_bufline(x);
-    if i != n {println!(",")}
-  }
-  println!("]\n{}", "}");
-}</t>
 <t tx="vitalije.20190701193905.1">fn check_at_plus_all&lt;'a&gt;(state:&amp;mut LdfParseState&lt;'a&gt;,
                        ws:usize,
                        nodes:&amp;mut NodesBuf,
@@ -2044,6 +1622,11 @@ mod tests {
   fn from_str(a:&amp;str) -&gt; LevGnx {
     b64int(&amp;a[..4]) as LevGnx
   }
+
+  /// creates object from level and ignx values
+  fn make(lev:u8, ignx:u32) -&gt; Self {
+    ((lev as u32) &lt;&lt; 18) | (ignx &amp; 0x3ffff)
+  }
 }</t>
 <t tx="vitalije.20190702100427.1">/// returns a map of ignx -&gt; gnx
 pub fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;&amp;str, u32&gt; {
@@ -2088,41 +1671,6 @@ pub fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;&amp;str, u32&gt;
     }
   }
   (outline, nodes)
-}</t>
-<t tx="vitalije.20190702113135.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
-@tabwidth -2
-#[path="../parsing.rs"]
-mod parsing;
-use std::env::args;
-use parsing::{ldf_parse,from_derived_file_content};
-use std::io;
-use std::io::prelude::*;
-use std::fs::File;
-@others
-use std::time::{Instant};
-fn main() -&gt; io::Result&lt;()&gt; {
-  let mut buffer = String::new();
-  for (i, a) in args().enumerate() {
-    if i == 1 {
-      let f = File::open(a)?;
-      let mut reader = io::BufReader::new(f);
-      buffer.clear();
-      reader.read_to_string(&amp;mut buffer)?;
-    }
-  }
-  benchmark(&amp;buffer);
-  Ok(())
-}
-</t>
-<t tx="vitalije.20190702113251.1">fn benchmark(datastr:&amp;str) {
-  let mut n = 0;
-  let t1 = Instant::now();
-  for i in 0..100 {
-     let (o, nodes) = from_derived_file_content(datastr);
-     n += o.len() + nodes.len();
-  }
-  if n &lt; 100 {println!("less than 100 lines and nodes")}
-  println!("{} ms", t1.elapsed().as_millis());
 }</t>
 <t tx="vitalije.20190702171525.1">Python 3.7.0 (default, Jun 28 2018, 13:15:42) 
 [GCC 7.2.0] :: Anaconda, Inc. on linux
@@ -2324,27 +1872,9 @@ fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
     Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
 }</t>
 <t tx="vitalije.20191216165607.1">pub fn find_derived_files(folder:&amp;Path, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
-  let mut stack = vec![folder.to_path_buf()];
-  let mut res = Vec::new();
-  for (i, x) in outline.iter().enumerate() {
-    let lev = x.level() as usize;
-    let v = &amp;nodes[x.ignx() as usize];
-    @others
-    if v.h.starts_with("@file ") {
-      let fname = v.h[6..].trim();
-      let mut p = stack[stack.len() - 1].clone();
-      for f in fname.split(|x|x == '\\'  || x == '/') {
-        if f == ".." {
-          p.pop();
-        } else {
-          p.push(f);
-        }
-      }
-      res.push((p.to_str().unwrap().to_string(), i));
-    }
-  }
-  res
-}</t>
+  find_any_file_nodes(folder, outline, nodes, "@file ")
+}
+</t>
 <t tx="vitalije.20191216165649.1">let np = if v.h.starts_with("@path ") {
   &amp;v.h[6..].trim()
 } else if v.b.starts_with("@path ") {
@@ -2438,15 +1968,10 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
   let pbuf = fs::canonicalize(fname)?;
   let xmlcont = fs::read_to_string(pbuf.as_path())?;
   let mut trees = Vec::new();
-  let (outline, vnodes) = from_leo_content(xmlcont.as_str());
+  let (outline, mut vnodes) = from_leo_content(xmlcont.as_str());
   let folder = pbuf.parent().unwrap();
-  for (f,_) in find_derived_files(folder, &amp;outline, &amp;vnodes) {
-    if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
-      trees.push(from_derived_file_content(cont.as_str()));
-    } else {
-      println!("file not found: [{}]", f.as_str());
-    }
-  }
+  let mut missing_files = Vec::new();
+  @others
   trees.insert(0, (outline, vnodes));
   Ok(combine_trees(&amp;trees))
 }</t>
@@ -2613,6 +2138,123 @@ artifacts:
     buf.push('\n');
   }
   Ok(buf)
+}</t>
+<t tx="vitalije.20200323074449.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+@tabwidth -2
+use super::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, combine_trees, find_derived_files};
+@others</t>
+<t tx="vitalije.20200323075415.1">pub fn find_any_file_nodes(
+    folder:&amp;Path,
+    outline:&amp;Outline,
+    nodes:&amp;Vec&lt;VData&gt;,
+    kind:&amp;str)
+     -&gt;
+     Vec&lt;(String, usize)&gt; {
+  let mut stack = vec![folder.to_path_buf()];
+  let mut res = Vec::new();
+  for (i, x) in outline.iter().enumerate() {
+    let lev = x.level() as usize;
+    let v = &amp;nodes[x.ignx() as usize];
+    @others
+    if v.h.starts_with(kind) {
+      let fname = v.h[6..].trim();
+      let mut p = stack[stack.len() - 1].clone();
+      for f in fname.split(|x|x == '\\'  || x == '/') {
+        if f == ".." {
+          p.pop();
+        } else {
+          p.push(f);
+        }
+      }
+      res.push((p.to_str().unwrap().to_string(), i));
+    }
+  }
+  res
+}</t>
+<t tx="vitalije.20200323075434.1">pub fn find_clean_files(folder:&amp;Path, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
+  find_any_file_nodes(folder, outline, nodes, "@clean ")
+}
+</t>
+<t tx="vitalije.20200323075457.1">pub fn find_auto_files(folder:&amp;Path, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
+  find_any_file_nodes(folder, outline, nodes, "@auto ")
+}
+</t>
+<t tx="vitalije.20200323075523.1">pub fn find_edit_files(folder:&amp;Path, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
+  find_any_file_nodes(folder, outline, nodes, "@edit ")
+}
+</t>
+<t tx="vitalije.20200323075753.1">for (f,_) in find_derived_files(folder, &amp;outline, &amp;vnodes) {
+  if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
+    trees.push(from_derived_file_content(cont.as_str()));
+  } else {
+    missing_files.push(f);
+  }
+}</t>
+<t tx="vitalije.20200323075757.1">for (f, ni) in find_clean_files(folder, &amp;outline, &amp;vnodes) {
+  if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
+    let (subtree, mut subnodes) = extract_subtree(&amp;outline, &amp;vnodes, ni);
+    update_atclean_tree(&amp;subtree, &amp;mut subnodes, cont.as_str());
+    trees.push((subtree, subnodes));
+  } else {
+    missing_files.push(f);
+  }
+}</t>
+<t tx="vitalije.20200323080552.1">for (f, ni) in find_edit_files(folder, &amp;outline, &amp;vnodes) {
+  if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
+    for v in vnodes.get_mut(outline[ni as usize].ignx() as usize) {
+      v.b.push_str("@nocolor\n");
+      v.b.push_str(cont.as_str());
+    }
+  } else {
+    missing_files.push(f);
+  }
+}</t>
+<t tx="vitalije.20200323081110.1">for (f, ni) in find_auto_files(folder, &amp;outline, &amp;vnodes) {
+  if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
+    for v in vnodes.get_mut(outline[ni as usize].ignx() as usize) {
+      trees.push(from_auto_content(v, cont.as_str()));
+    }
+  } else {
+    missing_files.push(f);
+  }
+}</t>
+<t tx="vitalije.20200323081335.1">pub fn from_auto_content(v:&amp;VData, cont:&amp;str) -&gt; (Outline, Vec&lt;VData&gt;) {
+  let mut v2 = v.clone();
+  v2.b.push_str("@nocolor\n");
+  v2.b.push_str(cont);
+  let nodes = vec![v2];
+  let outline = vec![0];
+  (outline, nodes)
+}</t>
+<t tx="vitalije.20200323085033.1">pub fn extract_subtree(
+    outline:&amp;Outline,
+    nodes:&amp;Vec&lt;VData&gt;,
+    ni:usize) -&gt; (Outline, Vec&lt;VData&gt;) {
+    let mut o = Vec::new();
+    let mut ind:LevGnx = 0;
+    let mut vs = Vec::new();
+    let zlev = outline[ni].level();
+    for lg in &amp;outline[ni..] {
+      let lev = lg.level();
+      if ind == 0 || lev &gt; zlev {
+        let ignx = lg.ignx();
+        let v = nodes[ignx as usize].clone();
+        o.push(LevGnx::make(lev-zlev, ind));
+        vs.push(v);
+        ind += 1;
+      } else {
+        break
+      }
+    }
+    (o, vs)
+}</t>
+<t tx="vitalije.20200323085359.1">pub fn update_atclean_tree(outline:&amp;Outline, nodes:&amp;mut Vec&lt;VData&gt;, cont:&amp;str) {
+  let _v = nodes.get_mut(0);
+  if cont.len() == 0 || outline.len() == 0 {
+    for v in _v {
+      v.b.clear();
+    }
+  }
 }</t>
 </tnodes>
 </leo_file>

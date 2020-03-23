@@ -31,19 +31,3 @@ nom = "5.0.0"
 [dependencies.pyo3]
 version = "0.8.4"
 features = ["extension-module"]
-
-[[bin]]
-name = "server"
-path = "src/bin/server.rs"
-
-[[bin]]
-name = "leoxml"
-path = "src/bin/leoxml.rs"
-
-[[bin]]
-name = "test"
-path = "src/main.rs"
-
-[[bin]]
-name = "bmark"
-path = "src/bin/bmark.rs"
