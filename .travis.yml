@@ -5,7 +5,7 @@ cache:
   - "$HOME/.cargo"
   - rust/target
 env:
-  - PATH:$HOME/.cargo/bin:$PATH
+  - PATH=$HOME/.cargo/bin:$PATH
 install:
 - /bin/sh rust-installer.sh
 script:
