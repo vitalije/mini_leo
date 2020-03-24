@@ -2152,7 +2152,6 @@ def makewin_wheel2():
     zf.close()</t>
 <t tx="vitalije.20191231162159.1">version: 0.1.{build}
 image: Visual Studio 2015
-shallow_clone: true
 clone_depth: 5
 environment:
   PYTHON_VERSION: 3.7
