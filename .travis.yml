@@ -2,6 +2,7 @@ language: python
 python: 3.7
 cache:
   directories:
+  - "$HOME/.rustup"
   - "$HOME/.cargo"
   - rust/target
 env:
