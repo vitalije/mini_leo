@@ -2171,10 +2171,11 @@ install:
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 platform: x64
 build_script:
-  - chdir rust
-  - '%USERPROFILE%\.cargo\cargo.exe' build --lib --release
-  - chdir ..
-  - python build_wheel.py
+  - cmd: |
+        chdir rust
+        '%USERPROFILE%\.cargo\cargo.exe' build --lib --release
+        chdir ..
+        python build_wheel.py
 artifacts:
   - path: dist\mini_leo*.whl
 </t>
