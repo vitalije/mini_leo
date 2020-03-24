@@ -2161,6 +2161,7 @@ environment:
 cache:
   - '%USERPROFILE%\.cargo\'
   - 'rust\target\'
+  - '%USERPROFILE%\.rustup\'
 init:
   - set PYTHON=C:\PYTHON37-x64
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
@@ -2170,9 +2171,12 @@ install:
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 platform: x64
 build_script:
+  - chdir rust
+  - '%USERPROFILE%\.cargo\cargo.exe' build --lib --release
+  - chdir ..
   - python build_wheel.py
 artifacts:
-    - path: dist\mini_leo*.whl
+  - path: dist\mini_leo*.whl
 </t>
 <t tx="vitalije.20191231195159.1">fn read_file_as_in_linux(fname:&amp;Path) -&gt; Result&lt;String, io::Error&gt; {
   let f = File::open(&amp;fname)?;
