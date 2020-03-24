@@ -10,6 +10,8 @@ install:
 - /bin/sh rust-installer.sh
 script:
 - export PATH=$HOME/.cargo/bin:$PATH
+- cd rust
+- cargo build --lib --release
 - python build_wheel.py
 deploy:
   provider: pypi
