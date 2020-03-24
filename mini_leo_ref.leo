@@ -2476,7 +2476,10 @@ impl&lt;'a&gt; Iterator for AtCleanTree&lt;'a&gt; {
         // not others? it must be section reference
         let sname = extract_section_ref(t).unwrap();
         let before = t.find(sname).unwrap();
-        self.bi = before + sname.len();
+        let after = &amp;t[(before + sname.len())..];
+        if after.len() &gt; 0 {
+          self.bi -= after.len() + 1;
+        }
         let ti=Tree::new(self.o, self.vs);
         if let Some(ni) = ti.find_section(sname, self.ni) {
           self.children.insert(0, AtCleanTree::new(self.o, self.vs, ni, ind + self.ind));
