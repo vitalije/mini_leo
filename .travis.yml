@@ -12,6 +12,7 @@ script:
 - export PATH=$HOME/.cargo/bin:$PATH
 - cd rust
 - cargo build --lib --release
+- cd ..
 - python build_wheel.py
 deploy:
   provider: pypi
