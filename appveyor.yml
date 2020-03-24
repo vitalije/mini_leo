@@ -20,7 +20,7 @@ platform: x64
 build_script:
   - cmd: |
         chdir rust
-        '%USERPROFILE%\.cargo\cargo.exe' build --lib --release
+        cargo build --lib --release
         chdir ..
         python build_wheel.py
 artifacts:
