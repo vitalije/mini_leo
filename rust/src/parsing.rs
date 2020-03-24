@@ -1,5 +1,5 @@
 use crate::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, 
-             extract_subtree, combine_trees, find_derived_files,
+             combine_trees, find_derived_files,
              find_clean_files, find_auto_files, find_edit_files};
 use crate::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
@@ -616,10 +616,12 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
 }
 pub fn from_auto_content(v:&VData, cont:&str) -> (Outline, Vec<VData>) {
   let mut v2 = v.clone();
+  let mut v1 = VData::new("hidden-root-vnode-gnx");
+  v1.h.push_str("<hidden root vnode>");
   v2.b.push_str("@nocolor\n");
   v2.b.push_str(cont);
-  let nodes = vec![v2];
-  let outline = vec![0];
+  let nodes = vec![v1, v2];
+  let outline = vec![0, (1 << 18)|1];
   (outline, nodes)
 }
 pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {
@@ -645,13 +647,14 @@ pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io:
       missing_files.push(f);
     }
   }
-  for (f, ni) in find_clean_files(folder, &outline, &vnodes) {
-    if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
-      let (subtree, mut subnodes) = extract_subtree(&outline, &vnodes, ni);
-      update_atclean_tree(&subtree, &mut subnodes, cont.as_str());
-      trees.push((subtree, subnodes));
-    } else {
-      missing_files.push(f);
+  if false {
+    let cleanfs = find_clean_files(folder, &outline, &vnodes);
+    for (f, ni) in  cleanfs {
+      if let Ok(cont) = read_file_as_in_linux(&Path::new(&f)) {
+        update_atclean_tree(&outline, &mut vnodes, ni, cont.as_str());
+      } else {
+        missing_files.push(f);
+      }
     }
   }
   for (f, ni) in find_edit_files(folder, &outline, &vnodes) {
@@ -665,5 +668,10 @@ pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io:
     }
   }
   trees.insert(0, (outline, vnodes));
+  if missing_files.len() > 0 {
+    for x in missing_files {
+      print!("missing file:{}", &x);
+    }
+  }
   Ok(combine_trees(&trees))
 }

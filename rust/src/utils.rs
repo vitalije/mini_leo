@@ -51,7 +51,7 @@ const B64VALUES:[u8; 128] = [
    52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
    60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
 ];
-/*
+#[allow(dead_code)]
 pub fn rpartition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
   match input.rfind(sep) {
     Some(i) => {
@@ -64,8 +64,8 @@ pub fn rpartition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
     }
   }
 }
-*/
-#[allow(dead_code)] // used in model.rs
+
+#[allow(dead_code)]
 pub fn partition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
   match input.find(sep) {
     Some(i) => {
@@ -77,6 +77,48 @@ pub fn partition<'a>(input:&'a str, sep:&str) -> (&'a str, &'a str, &'a str) {
       (&input, &input[i..i], &input[i..i])
     }
   }
+}
+#[allow(dead_code)]
+pub fn extract_section_ref(x:&str) -> Option<&str> {
+    x.find("<<")
+      .map(|i|{
+        x.find(">>").map(|j|{(i, j)})
+      }).flatten()
+      .filter(|(i, j)|i + 3 < *j)
+      .map(|(i, j)| &x[i..j+2])
+}
+#[allow(dead_code)]
+pub fn is_directive(t:&str) -> bool {
+  t.starts_with("@language") ||
+  t.starts_with("@nocolor") ||
+  t.starts_with("@killcolor") ||
+  t.starts_with("@tabwidth") ||
+  t.starts_with("@beautify") ||
+  t.starts_with("@nobeautify") ||
+  t.starts_with("@killbeautify") ||
+  t.starts_with("@nopyflakes") ||
+  t.starts_with("@linending") ||
+  t.starts_with("@wrap") ||
+  t.starts_with("@nowrap") ||
+  t.starts_with("@encoding")
+}
+#[allow(dead_code)]
+pub fn is_special(t:&str) -> bool {
+  t.trim_start().starts_with("@others") || extract_section_ref(t).is_some()
+}
+#[allow(dead_code)]
+pub fn others_index(t:&str) -> usize {
+  if t.starts_with("@others") { return 0 }
+  for (i, _) in t.match_indices("@others") {
+    if let Some(j) = t[0..i].rfind('\n') {
+      return j;
+    }
+  }
+  t.len() + 100
+}
+#[allow(dead_code)]
+pub fn has_others(t:&str) -> bool {
+  others_index(t) < t.len()
 }
 #[cfg(test)]
 mod tests {

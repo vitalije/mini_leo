@@ -17,7 +17,7 @@
 <v t="vitalije.20180823104438.1"><vh>@edit SConstruct</vh></v>
 <v t="vitalije.20180823104449.1"><vh>@edit pyproject.toml</vh></v>
 <v t="vitalije.20180823132035.1"><vh>@edit requirements_dev.txt</vh></v>
-<v t="vitalije.20180822185454.1" descendentVnodeUnknownAttributes="7d710058010000003071017d7102580500000069636f6e7371035d71047d7105285804000000747970657106580400000066696c6571076807583a0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f6175746f2e706e677108580700000072656c506174687109581800000066696c655f69636f6e732f66696c655f6175746f2e706e67710a58050000007768657265710b580e0000006265666f7265486561646c696e65710c5807000000796f6666736574710d4b005807000000786f6666736574710e4b02580400000078706164710f4b0158020000006f6e71105805000000766e6f64657111580a00000076697375616c49636f6e71125801000000317113756173732e"><vh>@auto tox.ini</vh></v>
+<v t="vitalije.20180822185454.1"><vh>@auto tox.ini</vh></v>
 <v t="vitalije.20180822173307.1"><vh>@settings</vh>
 <v t="vitalije.20191229164032.1"><vh>@data extract-patterns</vh></v>
 <v t="vitalije.20180822171822.1"><vh>@button n-save @key=Ctrl-s</vh>
@@ -64,10 +64,16 @@
 <v t="vitalije.20191215183645.1"><vh>outline_from_leo_file</vh></v>
 <v t="vitalije.20191215183719.1"><vh>outline_from_leo</vh></v>
 <v t="vitalije.20191229172150.1"><vh>load_leo</vh></v>
+<v t="vitalije.20200324130742.1"><vh>extract_subtree</vh></v>
 <v t="vitalije.20191215164111.1"><vh>node_at</vh></v>
 <v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
 <v t="vitalije.20191215194010.1"><vh>drop_tree</vh></v>
 <v t="vitalije.20191216171715.1"><vh>at_files</vh></v>
+<v t="vitalije.20200324100844.1"><vh>auto_files</vh></v>
+<v t="vitalije.20200324100917.1"><vh>clean_files</vh></v>
+<v t="vitalije.20200324100938.1"><vh>edit_files</vh></v>
+<v t="vitalije.20200324094558.1"><vh>pyatclean_to_str</vh></v>
+<v t="vitalije.20200324130524.1"><vh>pyupdate_atclean</vh></v>
 <v t="vitalije.20191217044239.1"><vh>tree_len</vh></v>
 </v>
 </v>
@@ -97,12 +103,28 @@
 <v t="vitalije.20200323075523.1"><vh>find_edit_files</vh></v>
 <v t="vitalije.20191229164057.1"><vh>combine_trees</vh></v>
 <v t="vitalije.20200323085033.1"><vh>extract_subtree</vh></v>
+<v t="vitalije.20200323114517.1"><vh>TreeIterator</vh>
+<v t="vitalije.20200323141459.1"><vh>Tree</vh></v>
+<v t="vitalije.20200323141509.1"><vh>Tree impl</vh>
+<v t="vitalije.20200323141527.1"><vh>new</vh></v>
+<v t="vitalije.20200323141530.1"><vh>roots</vh></v>
+<v t="vitalije.20200323141537.1"><vh>skip</vh></v>
+<v t="vitalije.20200323141541.1"><vh>skip_sections</vh></v>
+<v t="vitalije.20200323141554.1"><vh>find_section</vh></v>
+<v t="vitalije.20200323141544.1"><vh>others</vh></v>
+</v>
+</v>
 </v>
 <v t="vitalije.20190702073410.1"><vh>@clean src/utils.rs</vh>
 <v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
 <v t="vitalije.20190625102142.1"><vh>constants ...</vh></v>
 </v>
 <v t="vitalije.20190626141051.1"><vh>rpartition</vh></v>
+<v t="vitalije.20200323152529.1"><vh>extract_section_ref</vh></v>
+<v t="vitalije.20200323154503.1"><vh>is_directive</vh></v>
+<v t="vitalije.20200324091357.1"><vh>is_special</vh></v>
+<v t="vitalije.20200324091401.1"><vh>others_index</vh></v>
+<v t="vitalije.20200324092152.1"><vh>has_others</vh></v>
 <v t="vitalije.20190702085650.1"><vh>tests</vh>
 <v t="vitalije.20190630113842.1"><vh>test_rpartition</vh></v>
 </v>
@@ -157,7 +179,9 @@
 </v>
 </v>
 <v t="vitalije.20200323074449.1"><vh>@clean src/atclean.rs</vh>
-<v t="vitalije.20200323101936.1"><vh>atclean_to_string</vh></v>
+<v t="vitalije.20200323101936.1"><vh>atclean_to_string</vh>
+<v t="vitalije.20200323150457.1"><vh>AtCleanTree iterator</vh></v>
+</v>
 <v t="vitalije.20200323085359.1"><vh>update_atclean_tree</vh></v>
 </v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
@@ -222,6 +246,11 @@
 </v>
 </v>
 <v t="vitalije.20190702171525.1"><vh>Benchmark results</vh></v>
+<v t="vitalije.20200324073138.1"><vh>atclean in python key=Alt-4</vh>
+<v t="vitalije.20200324073748.1"><vh>workdata</vh></v>
+<v t="vitalije.20200324074019.1"><vh>test_final</vh></v>
+<v t="vitalije.20200324074659.1"><vh>atothers_index</vh></v>
+</v>
 </vnodes>
 <tnodes>
 <t tx="vitalije.20180822151714.2">A minimal version of Leo editor</t>
@@ -501,7 +530,7 @@ def getf(fname):
 </t>
 <t tx="vitalije.20180822173307.1"></t>
 <t tx="vitalije.20180822182319.1"></t>
-<t tx="vitalije.20180822183813.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#!/usr/bin/env python
+<t tx="vitalije.20180822183813.1">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """The setup script."""
 
@@ -556,7 +585,7 @@ setup(
 )
 
 </t>
-<t tx="vitalije.20180822200124.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e"># -*- coding: utf-8 -*-
+<t tx="vitalije.20180822200124.1"># -*- coding: utf-8 -*-
 """Top-level package for Mini Leo."""
 from ._minileo import *
 
@@ -564,7 +593,7 @@ __author__ = """Vitalije Milosevic"""
 __email__ = 'vitalije@kviziracija.net'
 __version__ = '0.1.0'
 </t>
-<t tx="vitalije.20180822200508.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e"># -*- coding: utf-8 -*-
+<t tx="vitalije.20180822200508.1"># -*- coding: utf-8 -*-
 """Console script for mini_leo."""
 import sys
 import click
@@ -573,7 +602,7 @@ from mini_leo import test
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
 </t>
-<t tx="vitalije.20180822200526.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e"># -*- coding: utf-8 -*-
+<t tx="vitalije.20180822200526.1"># -*- coding: utf-8 -*-
 """Main module."""
 </t>
 <t tx="vitalije.20180822200550.2">@click.command()
@@ -589,7 +618,9 @@ def main(args=None):
         v.h = v.h.replace('@file ', '@clean ')
 </t>
 <t tx="vitalije.20180822204714.1">@path rust</t>
-<t tx="vitalije.20180822204724.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#[path="model.rs"]
+<t tx="vitalije.20180822204724.1">@language rust
+@tabwidth -2
+#[path="model.rs"]
 mod model;
 #[path="utils.rs"]
 mod utils;
@@ -600,10 +631,13 @@ mod atclean;
 use std::collections::HashMap;
 use std::sync::{Mutex};
 pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
-                         from_leo_file, from_leo_content, load_with_external_files};
+                  from_leo_file, from_leo_content, load_with_external_files};
+pub use atclean::{atclean_to_string, update_atclean_tree};
 pub use utils::{b64int, b64str};
-pub use model::{VData, Outline, LevGnx, LevGnxOps, gnx_index, 
-find_derived_files};
+pub use model::{VData, Outline, LevGnx, LevGnxOps, gnx_index,
+                find_derived_files, find_edit_files,
+                find_auto_files, find_clean_files,
+                extract_subtree};
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
 use pyo3::{wrap_pyfunction};
@@ -615,11 +649,11 @@ extern crate lazy_static;
 
 #[pyfunction]
 pub fn a_function_from_rust() -&gt; PyResult&lt;i32&gt; {
-    Ok(42)
+  Ok(42)
 }
 @others
 </t>
-<t tx="vitalije.20180822204947.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">[package]
+<t tx="vitalije.20180822204947.1">[package]
 name = "mini_leo"
 version = "0.1.0"
 build = "build.rs"
@@ -653,7 +687,7 @@ nom = "5.0.0"
 version = "0.8.4"
 features = ["extension-module"]
 </t>
-<t tx="vitalije.20180822205209.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">extern crate cbindgen;
+<t tx="vitalije.20180822205209.1">extern crate cbindgen;
 
 use std::env;
 
@@ -668,11 +702,11 @@ fn main() {
 }
 
 </t>
-<t tx="vitalije.20180823001012.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#!/bin/bash
+<t tx="vitalije.20180823001012.1">#!/bin/bash
 curl https://sh.rustup.rs -sSf -o /tmp/rustup.sh
 sh /tmp/rustup.sh --default-toolchain nightly -y
 </t>
-<t tx="vitalije.20190622133345.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">#!/usr/bin/env python
+<t tx="vitalije.20190622133345.1">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """Tests for `mini_leo` package."""
@@ -979,11 +1013,15 @@ impl VData {
     }
   }
   pub fn is_expanded(&amp;self) -&gt; bool {self.flags &amp; 1 == 1}
-}</t>
-<t tx="vitalije.20190625192155.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+  pub fn section_ref(&amp;self) -&gt; Option&lt;&amp;str&gt; {
+    extract_section_ref(self.h.as_str())
+  }
+}
+</t>
+<t tx="vitalije.20190625192155.1">@language rust
 @tabwidth -2
 use crate::model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, 
-             extract_subtree, combine_trees, find_derived_files,
+             combine_trees, find_derived_files,
              find_clean_files, find_auto_files, find_edit_files};
 use crate::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
@@ -1000,7 +1038,7 @@ use std::{
 };
 @others
 </t>
-<t tx="vitalije.20190626141051.1">/*
+<t tx="vitalije.20190626141051.1">#[allow(dead_code)]
 pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
   match input.rfind(sep) {
     Some(i) =&gt; {
@@ -1013,8 +1051,8 @@ pub fn rpartition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str,
     }
   }
 }
-*/
-#[allow(dead_code)] // used in model.rs
+
+#[allow(dead_code)]
 pub fn partition&lt;'a&gt;(input:&amp;'a str, sep:&amp;str) -&gt; (&amp;'a str, &amp;'a str, &amp;'a str) {
   match input.find(sep) {
     Some(i) =&gt; {
@@ -1566,17 +1604,17 @@ fn is_at_minus_leo&lt;'a&gt;(state:&amp;mut LdfParseState) -&gt; bool {
     true
   } else { false }
 }</t>
-<t tx="vitalije.20190702073134.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+<t tx="vitalije.20190702073134.1">@language rust
 @tabwidth -2
 #[path="utils.rs"]
 mod utils;
-use utils::{b64str, b64int, partition};
+use utils::{b64str, b64int, partition, extract_section_ref, has_others};
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use std::path::{ Path};
 @others
 </t>
-<t tx="vitalije.20190702073410.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+<t tx="vitalije.20190702073410.1">@language rust
 @tabwidth -2
 @others
 </t>
@@ -1687,73 +1725,74 @@ Type "help", "copyright", "credits" or "license" for more information.
 &gt;&gt;&gt; import timeit
 &gt;&gt;&gt; print(timeit.timeit(f, number=100)/100*1000, 'ms')
 6.344196610007202 ms</t>
-<t tx="vitalije.20191215163859.1">struct Tree {
-    outline: Outline,
-    nodes: Vec&lt;VData&gt;,
+<t tx="vitalije.20191215163859.1">pub struct Tree {
+  outline: Outline,
+  nodes: Vec&lt;VData&gt;,
 }
 #[pyclass]
 struct TreeIterator {
-    tree_id: usize,
-    index: usize
+  tree_id: usize,
+  index: usize
 }
 #[pyproto]
 impl PyIterProtocol for TreeIterator {
-    fn __iter__(slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Py&lt;TreeIterator&gt;&gt; {
-        Ok(slf.into())
+  fn __iter__(slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Py&lt;TreeIterator&gt;&gt; {
+    Ok(slf.into())
+  }
+  fn __next__(mut slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
+    let m = TREES.lock().unwrap();
+    let res = m.get(&amp;slf.tree_id).map(|t|{
+      let n = t.outline.len();
+      if slf.index &lt; n {
+        let levgnx = t.outline[slf.index];
+        let i = levgnx.ignx() as usize;
+        Some((levgnx.level(), t.nodes[i].clone()))
+      } else {
+        None
+      }
+    });
+    slf.index += 1;
+    match res {
+      Some(Some(x)) =&gt; Ok(Some(x)),
+      _ =&gt; Ok(None)
     }
-    fn __next__(mut slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
-        let m = TREES.lock().unwrap();
-        let res = m.get(&amp;slf.tree_id).map(|t|{
-            let n = t.outline.len();
-            if slf.index &lt; n {
-                let levgnx = t.outline[slf.index];
-                let i = levgnx.ignx() as usize;
-                Some((levgnx.level(), t.nodes[i].clone()))
-            } else {
-                None
-            }
-        });
-        slf.index += 1;
-        match res {
-            Some(Some(x)) =&gt; Ok(Some(x)),
-            _ =&gt; Ok(None)
-        }
-    }
+  }
 }</t>
 <t tx="vitalije.20191215164034.1">lazy_static! {
-    static ref TREES:Mutex&lt;Box&lt;HashMap&lt;usize,Tree&gt;&gt;&gt; = Mutex::new(Box::new(HashMap::new()));
+  static ref TREES:Mutex&lt;Box&lt;HashMap&lt;usize,Tree&gt;&gt;&gt; = Mutex::new(Box::new(HashMap::new()));
 }
 </t>
 <t tx="vitalije.20191215164048.1">#[pymodule]
 fn _minileo(_py: Python, m:&amp;PyModule) -&gt; PyResult&lt;()&gt; {
-    /// creates outline from str
-    @others
-    m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
-    m.add("VData", &lt;VData as PyTypeObject&gt;::type_object())?;
-    Ok(())
+  /// creates outline from str
+  @others
+  m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
+  m.add("VData", &lt;VData as PyTypeObject&gt;::type_object())?;
+  Ok(())
 }</t>
 <t tx="vitalije.20191215164104.1">#[pyfn(m, "outline_from_str")]
 fn outline_from_string(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    let (outline, nodes) = from_derived_file_content(txt);
-    let t = Tree {outline, nodes};
-    let mut m = TREES.lock().unwrap();
-    let tid = m.len();
-    m.insert(tid, t);
-    Ok(tid)
-}</t>
+  let (outline, nodes) = from_derived_file_content(txt);
+  let t = Tree {outline, nodes};
+  let mut m = TREES.lock().unwrap();
+  let tid = m.len();
+  m.insert(tid, t);
+  Ok(tid)
+}
+</t>
 <t tx="vitalije.20191215164111.1">#[pyfn(m, "node_at")]
 fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
-    let res = TREES.lock().unwrap().get(&amp;tid).map(|t|{
-        let x = t.outline[i];
-        let v = t.nodes[x.ignx() as usize].clone();
-        (x.level(), v)
-    });
-    Ok(res)
+  let res = TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    let x = t.outline[i];
+    let v = t.nodes[x.ignx() as usize].clone();
+    (x.level(), v)
+  });
+  Ok(res)
 }
 </t>
 <t tx="vitalije.20191215164117.1">#[pyfn(m, "iternodes")]
 fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
-    Ok(TreeIterator {tree_id:tid, index:0})
+  Ok(TreeIterator {tree_id:tid, index:0})
 }</t>
 <t tx="vitalije.20191215181042.1">pub fn from_leo_file(fname:&amp;Path) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
   let s = read_file_as_in_linux(fname)?;
@@ -1836,43 +1875,43 @@ fn parser_config() -&gt; ParserConfig {
 }</t>
 <t tx="vitalije.20191215182759.1">#[pyfn(m, "outline_from_file")]
 fn outline_from_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    match from_derived_file(&amp;Path::new(txt)) {
-        Ok((outline, nodes)) =&gt; {
-            let t = Tree {outline, nodes};
-            let mut m = TREES.lock().unwrap();
-            let tid = m.len();
-            m.insert(tid, t);
-            Ok(tid)
-        },
-        Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
-    }
+  match from_derived_file(&amp;Path::new(txt)) {
+    Ok((outline, nodes)) =&gt; {
+      let t = Tree {outline, nodes};
+      let mut m = TREES.lock().unwrap();
+      let tid = m.len();
+      m.insert(tid, t);
+      Ok(tid)
+    },
+    Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
+  }
 }</t>
 <t tx="vitalije.20191215183645.1">#[pyfn(m, "outline_from_leo_file")]
 fn outline_from_leo_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    match from_leo_file(&amp;Path::new(txt)) {
-        Ok((outline, nodes)) =&gt; {
-            let t = Tree {outline, nodes};
-            let mut m = TREES.lock().unwrap();
-            let tid = m.len();
-            m.insert(tid, t);
-            Ok(tid)
-        },
-        Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
-    }
+  match from_leo_file(&amp;Path::new(txt)) {
+    Ok((outline, nodes)) =&gt; {
+      let t = Tree {outline, nodes};
+      let mut m = TREES.lock().unwrap();
+      let tid = m.len();
+      m.insert(tid, t);
+      Ok(tid)
+    },
+    Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
+  }
 }</t>
 <t tx="vitalije.20191215183719.1">#[pyfn(m, "outline_from_leo_str")]
 fn outline_from_leo_str(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    let (outline, nodes) = from_leo_content(txt);
-    let t = Tree {outline, nodes};
-    let mut m = TREES.lock().unwrap();
-    let tid = m.len();
-    m.insert(tid, t);
-    Ok(tid)
+  let (outline, nodes) = from_leo_content(txt);
+  let t = Tree {outline, nodes};
+  let mut m = TREES.lock().unwrap();
+  let tid = m.len();
+  m.insert(tid, t);
+  Ok(tid)
 }
 </t>
 <t tx="vitalije.20191215194010.1">#[pyfn(m, "drop_tree")]
 fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
-    Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
+  Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
 }</t>
 <t tx="vitalije.20191216165607.1">pub fn find_derived_files(folder:&amp;Path, outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;(String, usize)&gt; {
   find_any_file_nodes(folder, outline, nodes, "@file ")
@@ -1898,21 +1937,21 @@ stack.push(nf);
 </t>
 <t tx="vitalije.20191216171715.1">#[pyfn(m, "at_files")]
 fn at_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
-    match TREES.lock().unwrap().get(&amp;tid).map(|t|{
-        find_derived_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
-    }){
-        Some(x) =&gt; Ok(x),
-        None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
-    }
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    find_derived_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
 }</t>
 <t tx="vitalije.20191217044239.1">#[pyfn(m, "tree_len")]
 fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
-    match TREES.lock().unwrap().get(&amp;tid).map(|t|{
-        t.outline.len() - 1
-    }){
-        Some(x) =&gt; Ok(x),
-        None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
-    }
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    t.outline.len() - 1
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
 }</t>
 <t tx="vitalije.20191229164032.1">^\s*(?:pub\s+)?fn\s+(\w+)\s*[(&lt;]
 ^\s*(?:pub\s+)?struct\s+(\w+)\s*[{]
@@ -1976,24 +2015,29 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
   let mut missing_files = Vec::new();
   @others
   trees.insert(0, (outline, vnodes));
+  if missing_files.len() &gt; 0 {
+    for x in missing_files {
+      print!("missing file:{}", &amp;x);
+    }
+  }
   Ok(combine_trees(&amp;trees))
 }</t>
 <t tx="vitalije.20191229172150.1">#[pyfn(m, "load_leo")]
 fn load_leo(_py: Python, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
-    let tid = match load_with_external_files(fname) {
-        Ok((outline, nodes)) =&gt; {
-            let t = Tree {outline, nodes};
-            let mut m = TREES.lock().unwrap();
-            let tid = m.len();
-            m.insert(tid, t);
-            tid
-        },
-        Err(e) =&gt; {
-            println!("{}", e);
-            0
-        }
-    };
-    Ok(tid)
+  let tid = match load_with_external_files(fname) {
+    Ok((outline, nodes)) =&gt; {
+      let t = Tree {outline, nodes};
+      let mut m = TREES.lock().unwrap();
+      let tid = m.len();
+      m.insert(tid, t);
+      tid
+    },
+    Err(e) =&gt; {
+      println!("{}", e);
+      0
+    }
+  };
+  Ok(tid)
 }</t>
 <t tx="vitalije.20191230142308.1">def build_native(spec):
     # build a native rust library
@@ -2008,7 +2052,7 @@ fn load_leo(_py: Python, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
         header_filename=lambda: build.find_header('mini_leo.h', in_path='target'),
         rtld_flags=['NOW', 'NODELETE']
     )</t>
-<t tx="vitalije.20191231151920.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">import os
+<t tx="vitalije.20191231151920.1">import os
 import subprocess
 import zipfile
 import hashlib
@@ -2106,7 +2150,7 @@ def makewin_wheel2():
     addf(dinfo + 'WHEEL', WHEEL)
     zf.writestr(dinfo + 'RECORD', '\n'.join(buf).encode('utf8'))
     zf.close()</t>
-<t tx="vitalije.20191231162159.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">version: 0.1.{build}
+<t tx="vitalije.20191231162159.1">version: 0.1.{build}
 image: Visual Studio 2015
 shallow_clone: true
 clone_depth: 5
@@ -2142,9 +2186,10 @@ artifacts:
   }
   Ok(buf)
 }</t>
-<t tx="vitalije.20200323074449.1" icons="5d71007d7101285804000000747970657102580400000066696c6571036803583b0000002f6f70742f70726f6772616d692f6c656f2f7472756e6b2f6c656f2f49636f6e732f66696c655f69636f6e732f66696c655f636c65616e2e706e677104580700000072656c506174687105581900000066696c655f69636f6e732f66696c655f636c65616e2e706e677106580500000077686572657107580e0000006265666f7265486561646c696e6571085807000000796f666673657471094b005807000000786f6666736574710a4b02580400000078706164710b4b0158020000006f6e710c5805000000766e6f6465710d580a00000076697375616c49636f6e710e580100000031710f75612e">@language rust
+<t tx="vitalije.20200323074449.1">@language rust
 @tabwidth -2
-use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
+use crate::model::{VData, Outline, LevGnxOps, Tree};
+use crate::utils::{extract_section_ref, is_directive, has_others, is_special};
 @others
 </t>
 <t tx="vitalije.20200323075415.1">pub fn find_any_file_nodes(
@@ -2194,13 +2239,14 @@ use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
     missing_files.push(f);
   }
 }</t>
-<t tx="vitalije.20200323075757.1">for (f, ni) in find_clean_files(folder, &amp;outline, &amp;vnodes) {
-  if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
-    let (subtree, mut subnodes) = extract_subtree(&amp;outline, &amp;vnodes, ni);
-    update_atclean_tree(&amp;subtree, &amp;mut subnodes, cont.as_str());
-    trees.push((subtree, subnodes));
-  } else {
-    missing_files.push(f);
+<t tx="vitalije.20200323075757.1">if false {
+  let cleanfs = find_clean_files(folder, &amp;outline, &amp;vnodes);
+  for (f, ni) in  cleanfs {
+    if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
+      update_atclean_tree(&amp;outline, &amp;mut vnodes, ni, cont.as_str());
+    } else {
+      missing_files.push(f);
+    }
   }
 }</t>
 <t tx="vitalije.20200323080552.1">for (f, ni) in find_edit_files(folder, &amp;outline, &amp;vnodes) {
@@ -2212,7 +2258,8 @@ use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
   } else {
     missing_files.push(f);
   }
-}</t>
+}
+</t>
 <t tx="vitalije.20200323081110.1">for (f, ni) in find_auto_files(folder, &amp;outline, &amp;vnodes) {
   if let Ok(cont) = read_file_as_in_linux(&amp;Path::new(&amp;f)) {
     for v in vnodes.get_mut(outline[ni as usize].ignx() as usize) {
@@ -2221,13 +2268,16 @@ use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
   } else {
     missing_files.push(f);
   }
-}</t>
+}
+</t>
 <t tx="vitalije.20200323081335.1">pub fn from_auto_content(v:&amp;VData, cont:&amp;str) -&gt; (Outline, Vec&lt;VData&gt;) {
   let mut v2 = v.clone();
+  let mut v1 = VData::new("hidden-root-vnode-gnx");
+  v1.h.push_str("&lt;hidden root vnode&gt;");
   v2.b.push_str("@nocolor\n");
   v2.b.push_str(cont);
-  let nodes = vec![v2];
-  let outline = vec![0];
+  let nodes = vec![v1, v2];
+  let outline = vec![0, (1 &lt;&lt; 18)|1];
   (outline, nodes)
 }</t>
 <t tx="vitalije.20200323085033.1">pub fn extract_subtree(
@@ -2252,7 +2302,9 @@ use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
     }
     (o, vs)
 }</t>
-<t tx="vitalije.20200323085359.1">pub fn update_atclean_tree(outline:&amp;Outline, nodes:&amp;mut Vec&lt;VData&gt;, cont:&amp;str) {
+<t tx="vitalije.20200323085359.1">pub fn update_atclean_tree(outline:&amp;Outline, nodes:&amp;mut Vec&lt;VData&gt;, ni:usize, cont:&amp;str) {
+  let n = outline.len() + nodes.len() + cont.len()+ni;
+  if n &gt; 1 {return}
   let oldtxt = atclean_to_string(outline, nodes, 0);
   let v = nodes.get_mut(0).unwrap();
   if cont.len() == 0 {
@@ -2262,12 +2314,309 @@ use crate::model::{VData, Outline}; //, OutlineOps, LevGnx, LevGnxOps};
   }
 }
 </t>
-<t tx="vitalije.20200323101936.1">pub fn atclean_to_string(outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;, ni:usize) -&gt; String {
-  if nodes.len() &gt; 0 &amp;&amp; ni &lt; outline.len() {
-    String::new()
-  } else {
-    String::new()
+<t tx="vitalije.20200323101936.1">static SPACES:&amp;'static str = "                                                                                                                                              ";
+pub fn atclean_to_string(outline:&amp;Outline, nodes:&amp;Vec&lt;VData&gt;, ni:usize) -&gt; String {
+  let mut res = String::new();
+  let cleanit = AtCleanTree::new(outline, nodes, ni, 0);
+  for (_lev, _v, _a, _b, ind, t) in cleanit {
+    if ind &gt; 0 {
+      res.push_str(&amp;SPACES[0..ind]);
+    }
+    res.push_str(t);
+    res.push('\n');
   }
+  res
+}
+</t>
+<t tx="vitalije.20200323114517.1">@others
+impl&lt;'a&gt; Iterator for Tree&lt;'a&gt; {
+  type Item = (u8, &amp;'a VData);
+  fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+    let i = &amp;mut self.index;
+    let o = &amp;self.outline;
+    let vs = &amp;self.nodes;
+    if *i &lt; o.len() {
+      let lev = o[*i].level();
+      let v = &amp;vs[o[*i].ignx() as usize];
+      *i += 1;
+      if !(self.predicat)(lev, v) {
+        while *i &lt; o.len() &amp;&amp; o[*i].level() &gt; lev {
+          *i += 1;
+        }
+      }
+      Some((lev, v))
+    } else {
+      None
+    }
+  }
+}</t>
+<t tx="vitalije.20200323141459.1">pub struct Tree&lt;'a&gt; {
+  outline: &amp;'a Outline,
+  nodes: &amp;'a Vec&lt;VData&gt;,
+  predicat: fn(u8, &amp;VData) -&gt; bool,
+  index: usize
+}</t>
+<t tx="vitalije.20200323141509.1">#[allow(dead_code)]
+impl&lt;'a&gt; Tree&lt;'a&gt; {
+  @others
+}</t>
+<t tx="vitalije.20200323141527.1">pub fn new(outline:&amp;'a Outline, nodes:&amp;'a Vec&lt;VData&gt;) -&gt; Self {
+  Tree {
+    outline,
+    nodes,
+    predicat: |_, _| {true},
+    index: 0
+  }
+}</t>
+<t tx="vitalije.20200323141530.1">pub fn roots(outline:&amp;'a Outline, nodes:&amp;'a Vec&lt;VData&gt;, predicat:fn(u8, &amp;VData) -&gt; bool) -&gt; Self {
+  Tree {
+    outline, nodes, predicat, index: 0
+  }
+}</t>
+<t tx="vitalije.20200323141537.1">pub fn skip(&amp;mut self, i:usize) {self.index = i }</t>
+<t tx="vitalije.20200323141541.1">pub fn skip_sections(mut self, start:usize) -&gt; impl Iterator&lt;Item=(u8, &amp;'a VData)&gt; {
+  self.predicat = |_, v| v.section_ref().is_none();
+  self.index = start;
+  self.into_iter()
+}
+pub fn skip_sections_and_nodes_with_others(mut self, start:usize) -&gt; impl Iterator&lt;Item=(u8, &amp;'a VData)&gt; {
+  self.predicat = |_, v| {
+    v.section_ref().is_none() &amp;&amp; !has_others(v.b.as_str())
+  };
+  self.index = start;
+  self.into_iter()
+}</t>
+<t tx="vitalije.20200323141544.1">pub fn others(self, start:usize) -&gt; impl Iterator&lt;Item=(u8, &amp;'a VData)&gt; {
+  self.skip_sections_and_nodes_with_others(start)
+  .filter(|(_, v)|v.section_ref().is_none())
+}</t>
+<t tx="vitalije.20200323141554.1">pub fn find_section(&amp;self, p:&amp;str, start:usize) -&gt; Option&lt;usize&gt; {
+  let o = self.outline;
+  let vs = self.nodes;
+  let mut i = start;
+  let zlev = o[i].level();
+  if let Some(x) = vs[o[i].ignx() as usize].section_ref() {
+    if x == p {return Some(i)}
+  }
+  i += 1;
+  while i &lt; o.len() &amp;&amp; o[i].level() &gt; zlev {
+     if let Some(x) = vs[o[i].ignx() as usize].section_ref() {
+      if x == p {return Some(i)}
+     }
+     i += 1;
+  }
+  None
+}</t>
+<t tx="vitalije.20200323150457.1">struct AtCleanTree&lt;'a&gt; {
+  o:&amp;'a Outline,
+  vs:&amp;'a Vec&lt;VData&gt;,
+  ni:usize,
+  bi:usize,
+  ind:usize,
+  children:Vec&lt;AtCleanTree&lt;'a&gt;&gt;
+}
+impl&lt;'a&gt; AtCleanTree&lt;'a&gt; {
+  fn new(o:&amp;'a Outline, vs:&amp;'a Vec&lt;VData&gt;, ni:usize, ind:usize) -&gt; Self {
+    AtCleanTree {
+      o, vs, ni, bi: 0, ind, children:Vec::new()
+    }
+  }
+}
+impl&lt;'a&gt; Iterator for AtCleanTree&lt;'a&gt; {
+  type Item = (u8, &amp;'a VData, usize, usize, usize, &amp;'a str);
+  fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+    while self.children.len() &gt; 0 {
+      let x = self.children[0].next();
+      match x {
+        Some(x) =&gt; return Some(x),
+        None =&gt; {self.children.remove(0);}
+      }
+    }
+    let v = &amp;self.vs[self.o[self.ni].ignx() as usize];
+    let b = v.b.as_str();
+    let lev = self.o[self.ni].level();
+    while self.bi &lt; b.len() {
+      let i = self.bi;
+      self.bi = i + b[i..].find('\n').unwrap_or(b.len()-i)+1;
+      let t = &amp;b[i..self.bi-1];
+      if is_directive(t) { continue }
+      if !is_special(t) {
+        return Some((lev, v, i, self.bi-1, self.ind, t))
+      }
+      let lt = t.trim_start();
+      let ind = t.len() - lt.len();
+      if lt.starts_with("@others") {
+        // handle others
+        let zlev = self.o[self.ni].level();
+        let mut skiplevel = 127u8;
+        let n = self.o.len();
+        let mut nch = 0;
+        for i in (self.ni+1)..n {
+          let x = self.o[i];
+          let lev = x.level();
+          if lev &lt;= zlev {break}
+          if lev &gt; skiplevel {continue} else {skiplevel = 127u8}
+          let v = &amp;self.vs[x.ignx() as usize];
+          if extract_section_ref(v.h.as_str()).is_some() {
+            skiplevel = lev;
+            continue
+          }
+          self.children.insert(nch, AtCleanTree::new(self.o, self.vs, i, self.ind + ind));
+          nch += 1;
+          if has_others(&amp;v.b) {
+            skiplevel = lev;
+          }
+        }
+        return self.next();
+      } else {
+        // not others? it must be section reference
+        let sname = extract_section_ref(t).unwrap();
+        let before = t.find(sname).unwrap();
+        self.bi = before + sname.len();
+        let ti=Tree::new(self.o, self.vs);
+        if let Some(ni) = ti.find_section(sname, self.ni) {
+          self.children.insert(0, AtCleanTree::new(self.o, self.vs, ni, ind + self.ind));
+        } else {
+          break
+        }
+        if before &gt; ind {
+          return Some((lev, v, i, before, self.ind + ind, &amp;t[0..before]))
+        } else {
+          return self.next()
+        }
+      }
+    }
+    None
+  }
+}</t>
+<t tx="vitalije.20200323152529.1">#[allow(dead_code)]
+pub fn extract_section_ref(x:&amp;str) -&gt; Option&lt;&amp;str&gt; {
+    x.find("&lt;&lt;")
+      .map(|i|{
+        x.find("&gt;&gt;").map(|j|{(i, j)})
+      }).flatten()
+      .filter(|(i, j)|i + 3 &lt; *j)
+      .map(|(i, j)| &amp;x[i..j+2])
+}</t>
+<t tx="vitalije.20200323154503.1">#[allow(dead_code)]
+pub fn is_directive(t:&amp;str) -&gt; bool {
+  t.starts_with("@language") ||
+  t.starts_with("@nocolor") ||
+  t.starts_with("@killcolor") ||
+  t.starts_with("@tabwidth") ||
+  t.starts_with("@beautify") ||
+  t.starts_with("@nobeautify") ||
+  t.starts_with("@killbeautify") ||
+  t.starts_with("@nopyflakes") ||
+  t.starts_with("@linending") ||
+  t.starts_with("@wrap") ||
+  t.starts_with("@nowrap") ||
+  t.starts_with("@encoding")
+}
+</t>
+<t tx="vitalije.20200324073138.1">import os
+@others
+c.frame.log.clearTab('Log')
+g.es('atothers_index(p)', atothers_index(p.v))
+g.es('ok')</t>
+<t tx="vitalije.20200324073748.1">def workdata():
+    cleans = c.find_h('@clean ')
+    for p in cleans:
+        fname = p.h.partition(' ')[2].strip()
+        if fname.endswith(('.rs', '.toml')):fname = 'rust/'+fname
+        assert os.path.exists(fname), fname
+        yield p.v, fname</t>
+<t tx="vitalije.20200324074019.1">def test_final():
+    wd = list(workdata())
+    for v, f in wd:
+        s1 = open(f, 'r').read()
+        s2 = atclean_to_str(v)
+        assert s1 == s2, f'\n{repr(s1)}\n{repr(s2)}'</t>
+<t tx="vitalije.20200324074659.1">def atothers_index(v):
+    b = bytes(v.b, 'utf8')
+    if b.lstrip().startswith(b'@others'):
+        return 0
+    i = b.find(b'@others')
+    if i &lt; 0:
+        return len(b) + 100
+    j = b.rfind(b'\n', 0, i)
+    return j + 1</t>
+<t tx="vitalije.20200324091357.1">#[allow(dead_code)]
+pub fn is_special(t:&amp;str) -&gt; bool {
+  t.trim_start().starts_with("@others") || extract_section_ref(t).is_some()
+}</t>
+<t tx="vitalije.20200324091401.1">#[allow(dead_code)]
+pub fn others_index(t:&amp;str) -&gt; usize {
+  if t.starts_with("@others") { return 0 }
+  for (i, _) in t.match_indices("@others") {
+    if let Some(j) = t[0..i].rfind('\n') {
+      return j;
+    }
+  }
+  t.len() + 100
+}
+</t>
+<t tx="vitalije.20200324092152.1">#[allow(dead_code)]
+pub fn has_others(t:&amp;str) -&gt; bool {
+  others_index(t) &lt; t.len()
+}</t>
+<t tx="vitalije.20200324094558.1">#[pyfn(m, "atclean_to_str")]
+fn pyatclean_to_str(_py: Python, tid: usize, ni: usize) -&gt; PyResult&lt;String&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    atclean_to_string(&amp;t.outline, &amp;t.nodes, ni)
+  }) {
+    Some(t) =&gt; Ok(t),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}
+</t>
+<t tx="vitalije.20200324100844.1">#[pyfn(m, "auto_files")]
+fn auto_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    find_auto_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200324100917.1">#[pyfn(m, "clean_files")]
+fn clean_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    find_clean_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200324100938.1">#[pyfn(m, "edit_files")]
+fn edit_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    find_edit_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200324130524.1">#[pyfn(m, "update_atclean")]
+fn pyupdate_atclean(_py: Python, tid: usize, ni:usize, cont:&amp;str) -&gt; PyResult&lt;()&gt; {
+  match TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
+    update_atclean_tree(&amp;t.outline, &amp;mut t.nodes, ni, cont)
+  }) {
+    Some(()) =&gt; Ok(()),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200324130742.1">#[pyfn(m, "extract_subtree")]
+fn pyextract_subtree(_py: Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&gt; {
+  let (outline, nodes) = match TREES.lock().unwrap().get(&amp;tid) {
+    Some(t) =&gt; extract_subtree(&amp;t.outline, &amp;t.nodes, ni),
+    None =&gt; return Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  };
+  let t = Tree {outline, nodes};
+  let mut m = TREES.lock().unwrap();
+  let ntid = m.len();
+  m.insert(ntid, t);
+  Ok(ntid)
 }</t>
 </tnodes>
 </leo_file>

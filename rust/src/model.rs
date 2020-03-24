@@ -1,6 +1,6 @@
 #[path="utils.rs"]
 mod utils;
-use utils::{b64str, b64int, partition};
+use utils::{b64str, b64int, partition, extract_section_ref, has_others};
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use std::path::{ Path};
@@ -244,6 +244,9 @@ impl VData {
     }
   }
   pub fn is_expanded(&self) -> bool {self.flags & 1 == 1}
+  pub fn section_ref(&self) -> Option<&str> {
+    extract_section_ref(self.h.as_str())
+  }
 }
 pub fn find_any_file_nodes(
     folder:&Path,
@@ -371,4 +374,81 @@ pub fn extract_subtree(
       }
     }
     (o, vs)
+}
+pub struct Tree<'a> {
+  outline: &'a Outline,
+  nodes: &'a Vec<VData>,
+  predicat: fn(u8, &VData) -> bool,
+  index: usize
+}
+#[allow(dead_code)]
+impl<'a> Tree<'a> {
+  pub fn new(outline:&'a Outline, nodes:&'a Vec<VData>) -> Self {
+    Tree {
+      outline,
+      nodes,
+      predicat: |_, _| {true},
+      index: 0
+    }
+  }
+  pub fn roots(outline:&'a Outline, nodes:&'a Vec<VData>, predicat:fn(u8, &VData) -> bool) -> Self {
+    Tree {
+      outline, nodes, predicat, index: 0
+    }
+  }
+  pub fn skip(&mut self, i:usize) {self.index = i }
+  pub fn skip_sections(mut self, start:usize) -> impl Iterator<Item=(u8, &'a VData)> {
+    self.predicat = |_, v| v.section_ref().is_none();
+    self.index = start;
+    self.into_iter()
+  }
+  pub fn skip_sections_and_nodes_with_others(mut self, start:usize) -> impl Iterator<Item=(u8, &'a VData)> {
+    self.predicat = |_, v| {
+      v.section_ref().is_none() && !has_others(v.b.as_str())
+    };
+    self.index = start;
+    self.into_iter()
+  }
+  pub fn find_section(&self, p:&str, start:usize) -> Option<usize> {
+    let o = self.outline;
+    let vs = self.nodes;
+    let mut i = start;
+    let zlev = o[i].level();
+    if let Some(x) = vs[o[i].ignx() as usize].section_ref() {
+      if x == p {return Some(i)}
+    }
+    i += 1;
+    while i < o.len() && o[i].level() > zlev {
+       if let Some(x) = vs[o[i].ignx() as usize].section_ref() {
+        if x == p {return Some(i)}
+       }
+       i += 1;
+    }
+    None
+  }
+  pub fn others(self, start:usize) -> impl Iterator<Item=(u8, &'a VData)> {
+    self.skip_sections_and_nodes_with_others(start)
+    .filter(|(_, v)|v.section_ref().is_none())
+  }
+}
+impl<'a> Iterator for Tree<'a> {
+  type Item = (u8, &'a VData);
+  fn next(&mut self) -> Option<Self::Item> {
+    let i = &mut self.index;
+    let o = &self.outline;
+    let vs = &self.nodes;
+    if *i < o.len() {
+      let lev = o[*i].level();
+      let v = &vs[o[*i].ignx() as usize];
+      *i += 1;
+      if !(self.predicat)(lev, v) {
+        while *i < o.len() && o[*i].level() > lev {
+          *i += 1;
+        }
+      }
+      Some((lev, v))
+    } else {
+      None
+    }
+  }
 }
