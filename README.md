@@ -8,6 +8,8 @@
 
 [![Documentation Status](https://readthedocs.org/projects/mini-leo/badge/?version=latest)](https://mini-leo.readthedocs.io/en/latest/?badge=latest)
 
+[ ~ Dependencies scanned by PyUp.io ~ ]
+
 A minimal version of Leo editor.
 
 -   Free software: MIT license

@@ -67,6 +67,10 @@
 <v t="vitalije.20200324130742.1"><vh>extract_subtree</vh></v>
 <v t="vitalije.20191215164111.1"><vh>node_at</vh></v>
 <v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
+<v t="vitalije.20200325084556.1"><vh>children</vh></v>
+<v t="vitalije.20200325085029.1"><vh>parents_indexes</vh></v>
+<v t="vitalije.20200325085157.1"><vh>parent_index</vh></v>
+<v t="vitalije.20200325090819.1"><vh>subtree_size</vh></v>
 <v t="vitalije.20191215194010.1"><vh>drop_tree</vh></v>
 <v t="vitalije.20191216171715.1"><vh>at_files</vh></v>
 <v t="vitalije.20200324100844.1"><vh>auto_files</vh></v>
@@ -88,8 +92,10 @@
 <v t="vitalije.20190625121537.1"><vh>subtree</vh></v>
 <v t="vitalije.20190625121544.1"><vh>add_node</vh></v>
 <v t="vitalije.20190625122338.1"><vh>parent_index</vh></v>
+<v t="vitalije.20200325082013.1"><vh>parent_indexes</vh></v>
 <v t="vitalije.20190625145720.1"><vh>subtree_size</vh></v>
 <v t="vitalije.20190625145812.1"><vh>child_index</vh></v>
+<v t="vitalije.20200325083733.1"><vh>children</vh></v>
 </v>
 </v>
 <v t="vitalije.20190702100427.1"><vh>gnx_index</vh></v>
@@ -281,6 +287,8 @@ c.redraw()
 [![image](https://img.shields.io/travis/vitalije/mini_leo.svg)](https://travis-ci.org/vitalije/mini_leo)
 
 [![Documentation Status](https://readthedocs.org/projects/mini-leo/badge/?version=latest)](https://mini-leo.readthedocs.io/en/latest/?badge=latest)
+
+[ ~ Dependencies scanned by PyUp.io ~ ]
 
 A minimal version of Leo editor.
 
@@ -478,11 +486,8 @@ while px:
         px.moveToNodeAfterTree()
     else:
         px.moveToThreadNext()
-c.frame.tree.clear_visual_icons('save1', {'c': c})
 c.save()
 c.fileCommands.save_ref()
-c.frame.tree.update_appearance('save1', {'c': c})
-c.frame.tree.update_appearance_idle('idle', {'c': c})
 </t>
 <t tx="vitalije.20180822171822.2">def hl(p, lev):
     return '#' * (lev) + ' ' + p.h + '\n'</t>
@@ -634,7 +639,7 @@ pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                   from_leo_file, from_leo_content, load_with_external_files};
 pub use atclean::{atclean_to_string, update_atclean_tree};
 pub use utils::{b64int, b64str};
-pub use model::{VData, Outline, LevGnx, LevGnxOps, gnx_index,
+pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 find_derived_files, find_edit_files,
                 find_auto_files, find_clean_files,
                 extract_subtree};
@@ -882,6 +887,11 @@ pub trait OutlineOps {
   /// has in its parent's list of children
   fn child_index(&amp;self, i:usize) -&gt; usize;
 
+  /// returns list of all parent indexes for the child node at index i
+  fn parents_indexes(&amp;self, i:usize) -&gt; Vec&lt;usize&gt;;
+
+  /// returns list of children ignxes
+  fn children(&amp;self, i:usize) -&gt; Vec&lt;u32&gt;;
 }
 </t>
 <t tx="vitalije.20190625121525.1">/// returns true if this outline conains a node with given ignx
@@ -1793,7 +1803,9 @@ fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VDa
 <t tx="vitalije.20191215164117.1">#[pyfn(m, "iternodes")]
 fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
   Ok(TreeIterator {tree_id:tid, index:0})
-}</t>
+}
+
+</t>
 <t tx="vitalije.20191215181042.1">pub fn from_leo_file(fname:&amp;Path) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
   let s = read_file_as_in_linux(fname)?;
   Ok(from_leo_content(s.as_str()))
@@ -2624,6 +2636,70 @@ fn pyextract_subtree(_py: Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&g
   let ntid = m.len();
   m.insert(ntid, t);
   Ok(ntid)
+}</t>
+<t tx="vitalije.20200325082013.1">/// returns list of all parent indexes for the child node at index i
+fn parents_indexes(&amp;self, i:usize) -&gt; Vec&lt;usize&gt; {
+  let ignx = self[i].ignx();
+  let mut pstack = vec![0usize];
+  let mut res = Vec::new();
+  for (j, x) in self.into_iter().enumerate() {
+    if j == 0 {continue}
+    pstack.truncate(x.level() as usize);
+    if x.ignx() == ignx {
+      res.push(*pstack.last().unwrap())
+    }
+    pstack.push(j);
+  }
+  res
+}
+</t>
+<t tx="vitalije.20200325083733.1">/// returns list of children ignxes
+fn children(&amp;self, i:usize) -&gt; Vec&lt;u32&gt; {
+  let plev = self[i].level();
+  self[i+1..].iter()
+    .take_while(|x|x.level() &gt; plev)
+    .filter(|x|x.level() == plev + 1)
+    .map(|x|x.ignx())
+    .collect()
+}</t>
+<t tx="vitalije.20200325084556.1">#[pyfn(m, "children")]
+fn children(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;Vec&lt;VData&gt;&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    t.outline.children(ni)
+      .into_iter()
+      .map(|i|t.nodes[i as usize].clone())
+      .collect()
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200325085029.1">#[pyfn(m, "parents_indexes")]
+fn parents_indexes(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;Vec&lt;usize&gt;&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    t.outline.parents_indexes(ni)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200325085157.1">#[pyfn(m, "parent_index")]
+fn parent_index(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    t.outline.parent_index(ni)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
+}</t>
+<t tx="vitalije.20200325090819.1">#[pyfn(m, "subtree_size")]
+fn subtree_seize(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    t.outline.subtree_size(ni)
+  }){
+    Some(x) =&gt; Ok(x),
+    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+  }
 }</t>
 </tnodes>
 </leo_file>

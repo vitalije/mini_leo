@@ -12,7 +12,7 @@ pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                   from_leo_file, from_leo_content, load_with_external_files};
 pub use atclean::{atclean_to_string, update_atclean_tree};
 pub use utils::{b64int, b64str};
-pub use model::{VData, Outline, LevGnx, LevGnxOps, gnx_index,
+pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 find_derived_files, find_edit_files,
                 find_auto_files, find_clean_files,
                 extract_subtree};
@@ -153,6 +153,46 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m, "iternodes")]
   fn iternodes(_py:Python, tid:usize) -> PyResult<TreeIterator> {
     Ok(TreeIterator {tree_id:tid, index:0})
+  }
+
+  #[pyfn(m, "children")]
+  fn children(_py:Python, tid:usize, ni:usize) -> PyResult<Vec<VData>> {
+    match TREES.lock().unwrap().get(&tid).map(|t|{
+      t.outline.children(ni)
+        .into_iter()
+        .map(|i|t.nodes[i as usize].clone())
+        .collect()
+    }){
+      Some(x) => Ok(x),
+      None => Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    }
+  }
+  #[pyfn(m, "parents_indexes")]
+  fn parents_indexes(_py:Python, tid:usize, ni:usize) -> PyResult<Vec<usize>> {
+    match TREES.lock().unwrap().get(&tid).map(|t|{
+      t.outline.parents_indexes(ni)
+    }){
+      Some(x) => Ok(x),
+      None => Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    }
+  }
+  #[pyfn(m, "parent_index")]
+  fn parent_index(_py:Python, tid:usize, ni:usize) -> PyResult<usize> {
+    match TREES.lock().unwrap().get(&tid).map(|t|{
+      t.outline.parent_index(ni)
+    }){
+      Some(x) => Ok(x),
+      None => Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    }
+  }
+  #[pyfn(m, "subtree_size")]
+  fn subtree_seize(_py:Python, tid:usize, ni:usize) -> PyResult<usize> {
+    match TREES.lock().unwrap().get(&tid).map(|t|{
+      t.outline.subtree_size(ni)
+    }){
+      Some(x) => Ok(x),
+      None => Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    }
   }
   #[pyfn(m, "drop_tree")]
   fn drop_tree(_py:Python, tid:usize) -> PyResult<bool> {

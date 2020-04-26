@@ -105,6 +105,11 @@ pub trait OutlineOps {
   /// has in its parent's list of children
   fn child_index(&self, i:usize) -> usize;
 
+  /// returns list of all parent indexes for the child node at index i
+  fn parents_indexes(&self, i:usize) -> Vec<usize>;
+
+  /// returns list of children ignxes
+  fn children(&self, i:usize) -> Vec<u32>;
 }
 impl OutlineOps for Outline {
   /// returns true if this outline conains a node with given ignx
@@ -178,6 +183,21 @@ impl OutlineOps for Outline {
       None => 0
     }
   }
+  /// returns list of all parent indexes for the child node at index i
+  fn parents_indexes(&self, i:usize) -> Vec<usize> {
+    let ignx = self[i].ignx();
+    let mut pstack = vec![0usize];
+    let mut res = Vec::new();
+    for (j, x) in self.into_iter().enumerate() {
+      if j == 0 {continue}
+      pstack.truncate(x.level() as usize);
+      if x.ignx() == ignx {
+        res.push(*pstack.last().unwrap())
+      }
+      pstack.push(j);
+    }
+    res
+  }
   /// returns the size of the subtree starting at given index
   fn subtree_size(&self, i:usize) -> usize {
     let z:u32 = self[i] & 0xffc_0000;
@@ -197,6 +217,15 @@ impl OutlineOps for Outline {
       if z.level() == lev {n += 1}
     }
     n
+  }
+  /// returns list of children ignxes
+  fn children(&self, i:usize) -> Vec<u32> {
+    let plev = self[i].level();
+    self[i+1..].iter()
+      .take_while(|x|x.level() > plev)
+      .filter(|x|x.level() == plev + 1)
+      .map(|x|x.ignx())
+      .collect()
   }
 }
 /// returns a map of ignx -> gnx
