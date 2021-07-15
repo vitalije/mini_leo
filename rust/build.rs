@@ -8,7 +8,7 @@ fn main() {
   config.language = cbindgen::Language::C;
   match cbindgen::generate_with_config(&crate_dir, config) {
     Ok(x) => x.write_to_file("target/mini_leo.h"),
-    Err(e) => println!("Greska: {}", e)
-  }
+    Err(e) => {println!("Greska: {}", e);false}
+  };
 }
 

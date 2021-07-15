@@ -63,9 +63,17 @@
 <v t="vitalije.20191215182759.1"><vh>outline_from_file</vh></v>
 <v t="vitalije.20191215183645.1"><vh>outline_from_leo_file</vh></v>
 <v t="vitalije.20191215183719.1"><vh>outline_from_leo</vh></v>
+<v t="vitalije.20210715081914.1"><vh>outline_from_zipped_leo</vh></v>
 <v t="vitalije.20191229172150.1"><vh>load_leo</vh></v>
 <v t="vitalije.20200324130742.1"><vh>extract_subtree</vh></v>
 <v t="vitalije.20191215164111.1"><vh>node_at</vh></v>
+<v t="vitalije.20210715141414.1"><vh>pyundo</vh></v>
+<v t="vitalije.20210715145536.1"><vh>pyredo</vh></v>
+<v t="vitalije.20210715090741.1"><vh>check_tree</vh></v>
+<v t="vitalije.20210714194823.1"><vh>update_node</vh></v>
+<v t="vitalije.20210715105215.1"><vh>pycreate_link</vh></v>
+<v t="vitalije.20210715154702.1"><vh>pybreak_link</vh></v>
+<v t="vitalije.20210714190540.1"><vh>gnx_index</vh></v>
 <v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
 <v t="vitalije.20200325084556.1"><vh>children</vh></v>
 <v t="vitalije.20200325085029.1"><vh>parents_indexes</vh></v>
@@ -77,6 +85,7 @@
 <v t="vitalije.20200324100917.1"><vh>clean_files</vh></v>
 <v t="vitalije.20200324100938.1"><vh>edit_files</vh></v>
 <v t="vitalije.20200324094558.1"><vh>pyatclean_to_str</vh></v>
+<v t="vitalije.20210714205839.1"><vh>debug_str</vh></v>
 <v t="vitalije.20200324130524.1"><vh>pyupdate_atclean</vh></v>
 <v t="vitalije.20191217044239.1"><vh>tree_len</vh></v>
 </v>
@@ -84,6 +93,7 @@
 <v t="vitalije.20190702073134.1"><vh>@clean src/model.rs</vh>
 <v t="vitalije.20190625101129.1"><vh>LevGnx</vh>
 <v t="vitalije.20190702093107.1"><vh>LevGnx implementation</vh></v>
+<v t="vitalije.20210714203347.1"><vh>test LevGnx</vh></v>
 </v>
 <v t="vitalije.20190625110116.1"><vh>Outline</vh>
 <v t="vitalije.20190702093035.1"><vh>Outline implementation</vh>
@@ -108,6 +118,7 @@
 <v t="vitalije.20200323075457.1"><vh>find_auto_files</vh></v>
 <v t="vitalije.20200323075523.1"><vh>find_edit_files</vh></v>
 <v t="vitalije.20191229164057.1"><vh>combine_trees</vh></v>
+<v t="vitalije.20210713141646.1"><vh>dump_outline</vh></v>
 <v t="vitalije.20200323085033.1"><vh>extract_subtree</vh></v>
 <v t="vitalije.20200323114517.1"><vh>TreeIterator</vh>
 <v t="vitalije.20200323141459.1"><vh>Tree</vh></v>
@@ -120,6 +131,19 @@
 <v t="vitalije.20200323141544.1"><vh>others</vh></v>
 </v>
 </v>
+<v t="vitalije.20210715083652.1"><vh>all_parents</vh></v>
+<v t="vitalije.20210715085917.1"><vh>clonned_nodes</vh></v>
+<v t="vitalije.20210715085928.1"><vh>check_levels</vh></v>
+<v t="vitalije.20210715124740.1"><vh>check_labels</vh></v>
+<v t="vitalije.20210715124725.1"><vh>check_clones</vh></v>
+<v t="vitalije.20210715101954.1"><vh>create_link</vh></v>
+<v t="vitalije.20210715153300.1"><vh>break_link</vh></v>
+<v t="vitalije.20210715123908.1"><vh>encode_insert_parts</vh></v>
+<v t="vitalije.20210715155238.1"><vh>encode_delete_blocks</vh></v>
+<v t="vitalije.20210715155611.1"><vh>undo_delete_blocks</vh></v>
+<v t="vitalije.20210715155637.1"><vh>redo_delete_blocks</vh></v>
+<v t="vitalije.20210715140101.1"><vh>undo_insert_parts</vh></v>
+<v t="vitalije.20210715145719.1"><vh>redo_insert_parts</vh></v>
 </v>
 <v t="vitalije.20190702073410.1"><vh>@clean src/utils.rs</vh>
 <v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
@@ -131,8 +155,14 @@
 <v t="vitalije.20200324091357.1"><vh>is_special</vh></v>
 <v t="vitalije.20200324091401.1"><vh>others_index</vh></v>
 <v t="vitalije.20200324092152.1"><vh>has_others</vh></v>
+<v t="vitalije.20210714133115.1"><vh>insert_parts</vh></v>
+<v t="vitalije.20210714131143.1"><vh>make_gaps</vh></v>
+<v t="vitalije.20210715134233.1"><vh>delete_blocks</vh></v>
 <v t="vitalije.20190702085650.1"><vh>tests</vh>
 <v t="vitalije.20190630113842.1"><vh>test_rpartition</vh></v>
+<v t="vitalije.20210714131223.1"><vh>test_make_gaps</vh></v>
+<v t="vitalije.20210714133911.1"><vh>test_insert_parts</vh></v>
+<v t="vitalije.20210715135807.1"><vh>test_delete_blocks</vh></v>
 </v>
 </v>
 <v t="vitalije.20190625192155.1"><vh>@clean src/parsing.rs</vh>
@@ -175,6 +205,7 @@
 <v t="vitalije.20190702104313.1"><vh>from_derived_file_content</vh></v>
 <v t="vitalije.20191215181220.1"><vh>parser_config</vh></v>
 <v t="vitalije.20191215181042.1"><vh>from_leo_file</vh></v>
+<v t="vitalije.20210715081849.1"><vh>from_zip_archive</vh></v>
 <v t="vitalije.20191215182704.1"><vh>from_leo_content</vh></v>
 <v t="vitalije.20200323081335.1"><vh>from_auto_content</vh></v>
 <v t="vitalije.20191229171155.1"><vh>load_with_external_files</vh>
@@ -189,6 +220,11 @@
 <v t="vitalije.20200323150457.1"><vh>AtCleanTree iterator</vh></v>
 </v>
 <v t="vitalije.20200323085359.1"><vh>update_atclean_tree</vh></v>
+</v>
+<v t="vitalije.20210715094411.1"><vh>@clean test.py</vh>
+<v t="vitalije.20210715133349.1"><vh>dump</vh></v>
+<v t="vitalije.20210715133359.1"><vh>check</vh></v>
+<v t="vitalije.20210715150601.1"><vh>compare_debugs</vh></v>
 </v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
 <v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
@@ -636,17 +672,24 @@ mod atclean;
 use std::collections::HashMap;
 use std::sync::{Mutex};
 pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
-                  from_leo_file, from_leo_content, load_with_external_files};
+                  from_leo_file, from_leo_content, load_with_external_files,
+                  /*from_zip_archive,*/
+                  };
 pub use atclean::{atclean_to_string, update_atclean_tree};
 pub use utils::{b64int, b64str};
 pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 find_derived_files, find_edit_files,
                 find_auto_files, find_clean_files,
-                extract_subtree};
+                check_levels, check_clones, check_labels,
+                create_link, undo_insert_parts, redo_insert_parts,
+                break_link, undo_delete_blocks, redo_delete_blocks,
+                extract_subtree, INDENT};
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
-use pyo3::{wrap_pyfunction};
-use pyo3::type_object::PyTypeObject;
+use pyo3::exceptions::{PyValueError, PyIOError};
+
+//use pyo3::{wrap_pyfunction};
+//use pyo3::type_object::PyTypeObject;
 //use xml::reader::{ParserConfig, XmlEvent};
 use std::path::{Path};
 #[macro_use]
@@ -669,28 +712,16 @@ name = "mini_leo"
 crate-type = ["cdylib"]
 
 [build-dependencies]
-cbindgen = "0.5.2"
+cbindgen = "0.19.0"
 
 [dependencies]
 lazy_static = "1.4.0"
-#clap = "2.33.0"
-#error-type = "0.1.2"
-#futures = "0.1.27"
-#http = "0.1.17"
-#hyper = "0.12"
-#mime = "0.3.13"
-#tokio-fs = "0.1.6"
-#tokio-io = "0.1.12"
-#xml-rs = "0.8.0"
 quick-xml = "0.17.1"
-nom = "5.0.0"
-#sxd-document = "0.3.2"
-#threadpool = "1.7.1"
-#net2 = "0.2.33"
-#libc = "0.2.58"
+# zip = "0.5.13"
+
 [dependencies.pyo3]
-version = "0.8.4"
-features = ["extension-module"]
+version = "0.14.1"
+features = ["extension-module", "abi3"]
 </t>
 <t tx="vitalije.20180822205209.1">extern crate cbindgen;
 
@@ -702,8 +733,8 @@ fn main() {
   config.language = cbindgen::Language::C;
   match cbindgen::generate_with_config(&amp;crate_dir, config) {
     Ok(x) =&gt; x.write_to_file("target/mini_leo.h"),
-    Err(e) =&gt; println!("Greska: {}", e)
-  }
+    Err(e) =&gt; {println!("Greska: {}", e);false}
+  };
 }
 
 </t>
@@ -775,7 +806,7 @@ Known facts:
     4. when we receive EndElement(t) update h_b map bodygnx -&gt; b=bodybuf
     </t>
 <t tx="vitalije.20190625101104.1">/// converts integer to String in base 64
-pub fn b64str(n:u32) -&gt; String {
+pub fn b64str(n:u64) -&gt; String {
   if n == 0 {
     String::from("0")
   } else {
@@ -788,45 +819,81 @@ pub fn b64str(n:u32) -&gt; String {
     res
   }
 }
+#[allow(dead_code)]
+/// appends textual representation of u64 number to
+/// the given string buffer
+pub fn b64write(n:u64, buf:&amp;mut String) {
+  if n == 0 {
+    buf.push('0');
+  } else {
+    let mut _n = n;
+    let i = buf.len();
+    while _n &gt; 0 {
+      buf.insert(i, B64DIGITS[(_n &amp; 63) as usize]);
+      _n = _n &gt;&gt; 6;
+    }
+  }
+}
 
-/// converts base 64 str to u32
-pub fn b64int(a:&amp;str) -&gt; u32 {
-  let mut res = 0_u32;
+/// converts base 64 str to u64
+pub fn b64int(a:&amp;str) -&gt; u64 {
+  let mut res = 0_u64;
   for i in a.bytes() {
     let k = B64VALUES[(i &amp; 127) as usize];
     if k == 255 { break }
-    res = (res &lt;&lt; 6) + (k as u32);
+    res = (res &lt;&lt; 6) + (k as u64);
   }
   res
 }</t>
-<t tx="vitalije.20190625101129.1">pub type LevGnx = u32;
+<t tx="vitalije.20190625101129.1">pub type LevGnx = u64;
 pub trait LevGnxOps {
-  /// returns level of this object
+  /// returns level of this node
   fn level(&amp;self) -&gt; u8;
 
-  /// returns ignx of this object
+  /// returns ignx of this node
   fn ignx(&amp;self) -&gt; u32;
 
-  /// increments level of this object
+  /// returns label of this node
+  fn label(&amp;self) -&gt; u32;
+
+  /// returns true if this node should be expanded
+  fn is_expanded(&amp;self) -&gt; bool;
+
+  /// increments level of this node
   fn inc(&amp;mut self);
 
-  /// decrements level of this object
+  /// decrements level of this node
   fn dec(&amp;mut self);
 
-  /// changes the level of this object for given delta d
+  /// changes the level of this node for given delta d
   fn shift(&amp;mut self, d: i8);
 
-  /// sets ignx of this object to given value
+  /// sets level of this node to given value
+  fn set_level(&amp;mut self, lev: u8);
+
+  /// sets ignx of this node to given value
   fn set_ignx(&amp;mut self, ignx:u32);
 
-  /// converts this object into ascii representation (4 ascii letters)
+  /// sets label for this node to given value
+  fn set_label(&amp;mut self, label:u32);
+
+  /// expands this node
+  fn expand(&amp;mut self);
+
+  /// collapses this node
+  fn collapse(&amp;mut self);
+
+  /// converts this object into ascii representation (11 ascii letters)
   fn to_str(&amp;self) -&gt; String;
 
   /// creates object from its String representation
   fn from_str(a:&amp;str) -&gt; LevGnx;
 
   /// creates object from level and ignx values
-  fn make(lev:u8, ignx:u32) -&gt; Self;
+  fn make(lev:u8, ignx:u32, label:u32) -&gt; Self;
+
+  /// appends String representation of this node to the given buffer
+  fn write(&amp;self, buf:&amp;mut String);
 }
 </t>
 <t tx="vitalije.20190625102142.1">const B64DIGITS:[char;64] = [
@@ -857,15 +924,15 @@ const B64VALUES:[u8; 128] = [
    52u8,  53u8,  54u8,  55u8,  56u8,  57u8,  58u8,  59u8,
    60u8,  61u8,  62u8, 255u8, 255u8, 255u8,  63u8, 255u8
 ];</t>
-<t tx="vitalije.20190625110116.1">pub type Outline = Vec&lt;u32&gt;;
+<t tx="vitalije.20190625110116.1">pub type Outline = Vec&lt;u64&gt;;
 
 pub trait OutlineOps {
   /// returns true if this outline conains a node with given ignx
   fn has(&amp;self, ignx:u32) -&gt; bool;
 
   /// returns the index of the first node with the given ignx
-  /// if the node can't be found returns -1
-  fn find(&amp;self, ignx:u32) -&gt; i64;
+  /// if the node can't be found returns None
+  fn find(&amp;self, ignx:u32) -&gt; Option&lt;usize&gt;;
 
   /// returns suboutline of the node with the given ignx
   /// if such a node dosen't exist returns an empty outline
@@ -874,7 +941,7 @@ pub trait OutlineOps {
   /// appends a node with the given ignx at the given level.
   /// Returns true if the node is clone and its subtree has been added too;
   /// otherwise returns false.
-  fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; bool;
+  fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; Result&lt;bool, TreeError&gt;;
 
   /// returns the index of the parent node
   fn parent_index(&amp;self, i: usize) -&gt; usize;
@@ -895,60 +962,68 @@ pub trait OutlineOps {
 }
 </t>
 <t tx="vitalije.20190625121525.1">/// returns true if this outline conains a node with given ignx
-fn has(&amp;self, ignx:u32) -&gt; bool { self.find(ignx) &gt; -1}</t>
+fn has(&amp;self, ignx:u32) -&gt; bool { self.find(ignx).is_some()}</t>
 <t tx="vitalije.20190625121531.1">/// returns the index of the first node with the given ignx
-/// if the node can't be found returns -1
-fn find(&amp;self, ignx:u32) -&gt; i64 {
-  let mut i = 0i64;
+/// if the node can't be found returns None
+fn find(&amp;self, ignx:u32) -&gt; Option&lt;usize&gt; {
+  let mut i = 0usize;
   for x in self {
-    if (x &amp; 0x3ffff) == ignx {return i}
+    if x.ignx() == ignx {return Some(i)}
     i += 1;
   }
-  -1
+  None
 }</t>
 <t tx="vitalije.20190625121537.1">/// returns suboutline of the node with the given ignx
 /// if such a node dosen't exist returns an empty outline
 fn subtree(&amp;self, ignx:u32) -&gt; Outline {
   let mut res:Outline = Vec::new();
-  let j = self.find(ignx);
-  if j &lt; 0 { return res }
-  let mut i = j as usize;
-  let z = self[i];
-  let zlev:u8 = z.level();
-  let delta:i8 = -(zlev as i8);
-  res.push(z.ignx());
-  let n = self.len();
-  while i + 1 &lt; n {
-    i += 1;
-    let mut z = self[i];
-    if z.level() &lt;= zlev { break };
-    z.shift(delta);
-    res.push(z);
+  if let Some(j) = self.find(ignx) {
+    let mut i = j;
+    let z = self[i];
+    let zlev:u8 = z.level();
+    let delta:i8 = -(zlev as i8);
+    res.push(z &amp; !LEVEL_MASK);
+    let n = self.len();
+    while i + 1 &lt; n {
+      i += 1;
+      let mut z = self[i];
+      if z.level() &lt;= zlev { break };
+      z.shift(delta);
+      res.push(z);
+    }
   }
   res
 }</t>
 <t tx="vitalije.20190625121544.1">/// appends a node with the given ignx at the given level.
 /// Returns true if the node is clone and its subtree has been added too;
 /// otherwise returns false.
-fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; bool {
+fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; Result&lt;bool, TreeError&gt; {
+  let mut label = if self.is_empty() {0} else {self[0].label()};
   let max_level:u8 = match self.last() {
     Some(z) =&gt; z.level() + 1,
     None =&gt; 0
   };
   if level &gt; max_level {
-    panic!("trying to add a node to level {} when max_level is {}", level, max_level);
+    let e = TreeError(format!(
+      "trying to add a node to level {} when max_level is {}"
+      , level
+      , max_level
+      )); 
+    return Err(e);
   }
   let st = self.subtree(ignx);
   if st.is_empty() {
-    self.push(((level as u32) &lt;&lt; 18) | ignx);
-    false
+    self.push(LevGnxOps::make(level, ignx, label+1));
+    self[0].set_label(label + 1);
+    Ok(false)
   } else {
-    for x in st {
-      let mut z = x;
+    for mut z in st {
       z.shift(level as i8);
+      z.set_label(label + 1);
+      label += 1;
       self.push(z);
     }
-    true
+    Ok(true)
   }
 }</t>
 <t tx="vitalije.20190625122338.1">/// returns the index of the parent node
@@ -967,11 +1042,11 @@ fn parent_index(&amp;self, i: usize) -&gt; usize {
 }</t>
 <t tx="vitalije.20190625145720.1">/// returns the size of the subtree starting at given index
 fn subtree_size(&amp;self, i:usize) -&gt; usize {
-  let z:u32 = self[i] &amp; 0xffc_0000;
-  for (j, x) in self[i..].iter().enumerate() {
-    if z &gt; *x {return j + 1}
-  }
-  self.len() - i
+  let z = self[i] &amp; LEVEL_MASK;
+  self[i+1..]
+    .iter()
+    .position(|x|(*x &amp; LEVEL_MASK) &lt;= z)
+    .unwrap_or(self.len() - i - 1) + 1
 }</t>
 <t tx="vitalije.20190625145812.1">/// Given the node located at the given outline index i
 /// this method returns the child index that this node
@@ -988,8 +1063,10 @@ fn child_index(&amp;self, i:usize) -&gt; usize {
 </t>
 <t tx="vitalije.20190625161035.1">#[pyclass]
 pub struct VData {
-  #[pyo3(get, set)]
+  #[pyo3(get)]
   pub gnx: String,
+  #[pyo3(get)]
+  pub ignx: u32,
   #[pyo3(get, set)]
   pub h: String,
   #[pyo3(get, set)]
@@ -1001,17 +1078,18 @@ pub struct VData {
 #[pymethods]
 impl VData {
   #[new]
-  fn pynew(obj: &amp;PyRawObject, _gnx:&amp;str) {
-    obj.init(VData::new(_gnx));
+  fn pynew(_gnx:&amp;str) -&gt; Self {
+    VData::new(_gnx)
   }
 }
 impl VData {
   pub fn new(_gnx:&amp;str) -&gt; VData {
     VData {
       gnx: String::from(_gnx),
+      ignx:0,
       h:String::new(),
       b:String::new(),
-      flags:1
+      flags:1,
     }
   }
   pub fn clone(&amp;self) -&gt; VData {
@@ -1019,10 +1097,10 @@ impl VData {
       gnx: self.gnx.clone(),
       h: self.h.clone(),
       b: self.b.clone(),
-      flags: self.flags
+      flags: self.flags,
+      ignx: self.ignx
     }
   }
-  pub fn is_expanded(&amp;self) -&gt; bool {self.flags &amp; 1 == 1}
   pub fn section_ref(&amp;self) -&gt; Option&lt;&amp;str&gt; {
     extract_section_ref(self.h.as_str())
   }
@@ -1037,7 +1115,8 @@ use crate::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
 use quick_xml::events::attributes::Attributes;
-
+//use zip::read::ZipArchive;
+//use std::io::Read;
 use std::{
   io,
   io::{BufRead, BufReader},
@@ -1111,7 +1190,9 @@ fn test_rpartition() {
   assert_eq!(res2, ("asepbsepc", "", ""));
   let res3 = super::rpartition(s, "a");
   assert_eq!(res3, ("", "a", "sepbsepc"));
-}</t>
+}
+
+</t>
 <t tx="vitalije.20190630144250.1">type NodesBuf = Vec&lt;(usize, usize, usize, usize, usize)&gt;;
 type LinesBuf = Vec&lt;(usize, usize, usize, Option&lt;(&amp;'static str, &amp;'static str)&gt;)&gt;;
 
@@ -1618,12 +1699,24 @@ fn is_at_minus_leo&lt;'a&gt;(state:&amp;mut LdfParseState) -&gt; bool {
 @tabwidth -2
 #[path="utils.rs"]
 mod utils;
-use utils::{b64str, b64int, partition, extract_section_ref, has_others};
-use std::collections::HashMap;
+use utils::{b64str, b64int, b64write, partition, extract_section_ref, has_others,
+            insert_parts, /*make_gaps,*/ delete_blocks};
+use std::collections::{HashMap, HashSet};
 use pyo3::prelude::*;
 use std::path::{ Path};
+use std::error::Error;
+use std::fmt;
 @others
-</t>
+
+
+#[derive(Debug)]
+pub struct TreeError(String);
+impl Error for TreeError{}
+impl fmt::Display for TreeError {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;'_&gt;) -&gt; fmt::Result {
+        write!(f, "TreeError:{}", self.0)
+    }
+}</t>
 <t tx="vitalije.20190702073410.1">@language rust
 @tabwidth -2
 @others
@@ -1637,35 +1730,74 @@ mod tests {
   @others
 }
 </t>
-<t tx="vitalije.20190702093107.1">impl LevGnxOps for LevGnx {
+<t tx="vitalije.20190702093107.1">const LEVEL_ONE:u64 =             0x100_0000;
+const LEVEL_MASK:u64 =           0xFF00_0000;
+const IGNX_MASK:u64 =              0xFF_FFFF;
+const LABEL_MASK:u64 = 0x7FFF_FFFF_0000_0000;
+const EXPANDED:u64 =   0x8000_0000_0000_0000;
+impl LevGnxOps for LevGnx {
 
-  /// returns level of this object
-  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 18) &amp; 63) as u8}
+  /// returns level of this node
+  fn level(&amp;self) -&gt; u8 {(((*self) &gt;&gt; 24) &amp; 255) as u8}
 
-  /// returns ignx of this object
-  fn ignx(&amp;self) -&gt; u32 {(*self) &amp; 0x3ffffu32}
+  /// sets level of this node to given value
+  fn set_level(&amp;mut self, lev: u8) {
+    *self = (*self &amp; !LEVEL_MASK) | ((lev as u64) &lt;&lt; 24)
+  }
 
-  /// increments level of this object
-  fn inc(&amp;mut self) {*self += 0x4ffffu32;}
+  /// returns ignx of this node
+  fn ignx(&amp;self) -&gt; u32 {((*self) &amp; IGNX_MASK) as u32}
 
-  /// decrements level of this object
-  fn dec(&amp;mut self) {if *self &gt; 0x3ffff {*self -= 0x4ffffu32;}}
+  /// increments level of this node
+  fn inc(&amp;mut self) {*self += LEVEL_ONE;}
 
-  /// changes the level of this object for given delta d
+  /// decrements level of this node
+  fn dec(&amp;mut self) {
+    if *self &amp; LEVEL_MASK &gt; 0 {
+      *self -= LEVEL_ONE;
+    }
+  }
+
+  /// changes the level of this node for given delta d
   fn shift(&amp;mut self, d: i8) {
-    let lev = ((*self &gt;&gt; 18) &amp; 63) as i8 + d;
-    *self = (*self &amp; 0x3ffff) | if lev &lt;= 0 { 0 } else { (lev as u32) &lt;&lt; 18};
+    if d &lt; 0 {
+      let d1 = ((-d) as u64) &lt;&lt; 24;
+      if *self &amp; LEVEL_MASK &gt;= d1 {
+        *self -= d1;
+      }
+    } else {
+      let d1 = (d as u64) &lt;&lt; 24;
+      *self += d1;
+    }
   }
 
-  /// sets ignx of this object to given value
+  /// returns label of this node
+  fn label(&amp;self) -&gt; u32 {((*self &amp; LABEL_MASK) &gt;&gt; 32) as u32}
+
+  /// sets label of this node to given value
+  fn set_label(&amp;mut self, label:u32) {
+    let mlab:u64 = ((label as u64) &lt;&lt; 32) &amp; LABEL_MASK;
+    *self = (*self &amp; !LABEL_MASK) | mlab;
+  }
+
+  /// expands this node
+  fn expand(&amp;mut self) {*self |= EXPANDED}
+
+  /// collapses this node
+  fn collapse(&amp;mut self) {*self &amp;=!EXPANDED}
+
+  /// returns true if this node should be expanded
+  fn is_expanded(&amp;self) -&gt; bool {*self &amp; EXPANDED != 0}
+
+  /// sets ignx of this node to given value
   fn set_ignx(&amp;mut self, ignx:u32) {
-    *self = (*self &amp; 0xfc0000) | ignx;
+    *self = (*self &amp; !IGNX_MASK) | (ignx as u64) &amp; IGNX_MASK;
   }
 
-  /// converts this object into ascii representation (4 ascii letters)
+  /// converts this node into ascii representation (4 ascii letters)
   fn to_str(&amp;self) -&gt; String {
     let mut res = b64str(*self);
-    while res.len() &lt; 4 {res.insert(0, '0');}
+    while res.len() &lt; 11 {res.insert(0, '0');}
     res
   }
 
@@ -1673,10 +1805,15 @@ mod tests {
   fn from_str(a:&amp;str) -&gt; LevGnx {
     b64int(&amp;a[..4]) as LevGnx
   }
-
+  /// appends String representation of this node to the given buffer
+  fn write(&amp;self, buf:&amp;mut String) {
+    b64write(*self, buf);
+  }
   /// creates object from level and ignx values
-  fn make(lev:u8, ignx:u32) -&gt; Self {
-    ((lev as u32) &lt;&lt; 18) | (ignx &amp; 0x3ffff)
+  fn make(lev:u8, ignx:u32, label:u32) -&gt; Self {
+    (((label as u64) &lt;&lt; 32) &amp; LABEL_MASK) |
+    ((lev as u64) &lt;&lt; 24) |
+    (ignx as u64 &amp; IGNX_MASK)
   }
 }</t>
 <t tx="vitalije.20190702100427.1">/// returns a map of ignx -&gt; gnx
@@ -1691,7 +1828,7 @@ pub fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;&amp;str, u32&gt;
   let mut nodes = Vec::new();
   let mut outline = Vec::new();
   let (vnodes, lines, _, _) = ldf_parse(content);
-  let mut i:u32 = 0;
+  let mut i:u64 = 0;
   // TODO: consider changing ldf_parse to skip root node in its output nodes
   // if it skips root node, in the following loop we won't have to check if lev &gt; 0
   // and root node can be inserted in nodes before loop
@@ -1699,6 +1836,7 @@ pub fn gnx_index(nodes:&amp;Vec&lt;VData&gt;) -&gt; HashMap&lt;&amp;str, u32&gt;
     if lev &gt; 0 {
       let mut v = VData::new(&amp;content[a..b]);
       v.h.push_str(&amp;content[c..d]);
+      v.ignx = nodes.len() as u32;
       nodes.push(v);
       let mut x:LevGnx = i;
       x.shift(lev as i8);
@@ -1749,14 +1887,14 @@ impl PyIterProtocol for TreeIterator {
   fn __iter__(slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Py&lt;TreeIterator&gt;&gt; {
     Ok(slf.into())
   }
-  fn __next__(mut slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
+  fn __next__(mut slf:PyRefMut&lt;Self&gt;) -&gt; PyResult&lt;Option&lt;(u8, bool, u32, VData)&gt;&gt; {
     let m = TREES.lock().unwrap();
     let res = m.get(&amp;slf.tree_id).map(|t|{
       let n = t.outline.len();
       if slf.index &lt; n {
         let levgnx = t.outline[slf.index];
         let i = levgnx.ignx() as usize;
-        Some((levgnx.level(), t.nodes[i].clone()))
+        Some((levgnx.level(), levgnx.is_expanded(), levgnx.label(), t.nodes[i].clone()))
       } else {
         None
       }
@@ -1776,11 +1914,17 @@ impl PyIterProtocol for TreeIterator {
 fn _minileo(_py: Python, m:&amp;PyModule) -&gt; PyResult&lt;()&gt; {
   /// creates outline from str
   @others
-  m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
-  m.add("VData", &lt;VData as PyTypeObject&gt;::type_object())?;
+  //m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
+  m.add("VData", _py.get_type::&lt;VData&gt;())?;
   Ok(())
 }</t>
-<t tx="vitalije.20191215164104.1">#[pyfn(m, "outline_from_str")]
+<t tx="vitalije.20191215164104.1">#[pyfn(m)]
+#[pyo3(name="outline_from_str", text_signature="(txt)")]
+/// Parses given txt as Leo external at-file format,
+/// builds the outline and returns a handle to this outline.
+///
+/// In case of errors the resulting outline will be empty.
+///
 fn outline_from_string(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
   let (outline, nodes) = from_derived_file_content(txt);
   let t = Tree {outline, nodes};
@@ -1790,7 +1934,13 @@ fn outline_from_string(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
   Ok(tid)
 }
 </t>
-<t tx="vitalije.20191215164111.1">#[pyfn(m, "node_at")]
+<t tx="vitalije.20191215164111.1">#[pyfn(m)]
+#[pyo3(name="node_at", text_signature="(tid, i)")]
+/// Returns a copy of node located on the given index i inside the outline
+/// idetified by tid.
+/// 
+/// Returns None if the tid outline is missing or there isn't a node at 
+/// the given index i
 fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VData)&gt;&gt; {
   let res = TREES.lock().unwrap().get(&amp;tid).map(|t|{
     let x = t.outline[i];
@@ -1800,7 +1950,8 @@ fn node_at(_py: Python, tid:usize, i:usize) -&gt; PyResult&lt;Option&lt;(u8, VDa
   Ok(res)
 }
 </t>
-<t tx="vitalije.20191215164117.1">#[pyfn(m, "iternodes")]
+<t tx="vitalije.20191215164117.1">#[pyfn(m)]
+#[pyo3(name="iternodes")]
 fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
   Ok(TreeIterator {tree_id:tid, index:0})
 }
@@ -1809,7 +1960,9 @@ fn iternodes(_py:Python, tid:usize) -&gt; PyResult&lt;TreeIterator&gt; {
 <t tx="vitalije.20191215181042.1">pub fn from_leo_file(fname:&amp;Path) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
   let s = read_file_as_in_linux(fname)?;
   Ok(from_leo_content(s.as_str()))
-}</t>
+}
+
+</t>
 <t tx="vitalije.20191215181220.1">/*
 fn parser_config() -&gt; ParserConfig {
   ParserConfig::new()
@@ -1832,7 +1985,7 @@ fn parser_config() -&gt; ParserConfig {
   let mut txt = String::new();
   let mut lev = 0u8;
   let mut gnxcount:usize = 1;
-  let mut outline:Outline = vec![0u32];
+  let mut outline:Outline = vec![0u64];
   loop {
     let mut xmlbuf = Vec::new();
     let getattr = |k:&amp;[u8], attrs:Attributes, rr| {
@@ -1850,10 +2003,11 @@ fn parser_config() -&gt; ParserConfig {
         if n == b"v" {
           last_gnx.clear();
           last_gnx.push_str(&amp;getattr(b"t", e.attributes(), &amp;reader));
-          let v = VData::new(&amp;last_gnx);
+          let mut v = VData::new(&amp;last_gnx);
           let ignx = gnx2i.entry(v.gnx.clone()).or_insert(gnxcount);
+          v.ignx = *ignx as u32;
           lev += 1u8;
-          outline.add_node(lev, *ignx as u32);
+          outline.add_node(lev, *ignx as u32).unwrap();
           nodes.push(v);
           gnxcount += 1;
         } else if n == b"vnodes" {
@@ -1885,9 +2039,17 @@ fn parser_config() -&gt; ParserConfig {
   }
   (outline, nodes)
 }</t>
-<t tx="vitalije.20191215182759.1">#[pyfn(m, "outline_from_file")]
-fn outline_from_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
-  match from_derived_file(&amp;Path::new(txt)) {
+<t tx="vitalije.20191215182759.1">#[pyfn(m)]
+#[pyo3(name="outline_from_file", text_signature="(fname)")]
+/// Loads an outline from the given file, which should be in
+/// Leo exteranl at-file format.
+///
+/// In case of errors the resulting outline will be empty.
+///
+/// Raises IOError if the file doesn't exist.
+///
+fn outline_from_file(_py: Python, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
+  match from_derived_file(&amp;Path::new(fname)) {
     Ok((outline, nodes)) =&gt; {
       let t = Tree {outline, nodes};
       let mut m = TREES.lock().unwrap();
@@ -1895,10 +2057,11 @@ fn outline_from_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
       m.insert(tid, t);
       Ok(tid)
     },
-    Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
+    Err(e) =&gt; Err(PyIOError::new_err(e.to_string()))
   }
 }</t>
-<t tx="vitalije.20191215183645.1">#[pyfn(m, "outline_from_leo_file")]
+<t tx="vitalije.20191215183645.1">#[pyfn(m)]
+#[pyo3(name="outline_from_leo_file")]
 fn outline_from_leo_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
   match from_leo_file(&amp;Path::new(txt)) {
     Ok((outline, nodes)) =&gt; {
@@ -1908,10 +2071,11 @@ fn outline_from_leo_file(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; 
       m.insert(tid, t);
       Ok(tid)
     },
-    Err(e) =&gt; Err(pyo3::exceptions::IOError::py_err(e.to_string()))
+    Err(e) =&gt; Err(PyValueError::new_err(e.to_string()))
   }
 }</t>
-<t tx="vitalije.20191215183719.1">#[pyfn(m, "outline_from_leo_str")]
+<t tx="vitalije.20191215183719.1">#[pyfn(m)]
+#[pyo3(name="outline_from_leo_str")]
 fn outline_from_leo_str(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
   let (outline, nodes) = from_leo_content(txt);
   let t = Tree {outline, nodes};
@@ -1921,7 +2085,8 @@ fn outline_from_leo_str(_py: Python, txt:&amp;str) -&gt; PyResult&lt;usize&gt; {
   Ok(tid)
 }
 </t>
-<t tx="vitalije.20191215194010.1">#[pyfn(m, "drop_tree")]
+<t tx="vitalije.20191215194010.1">#[pyfn(m)]
+#[pyo3(name="drop_tree")]
 fn drop_tree(_py:Python, tid:usize) -&gt; PyResult&lt;bool&gt; {
   Ok(TREES.lock().unwrap().remove(&amp;tid).is_some())
 }</t>
@@ -1947,22 +2112,30 @@ if np.len() &gt; 0 {
 }
 stack.push(nf);
 </t>
-<t tx="vitalije.20191216171715.1">#[pyfn(m, "at_files")]
+<t tx="vitalije.20191216171715.1">#[pyfn(m)]
+#[pyo3(name="at_files")]
 fn at_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     find_derived_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20191217044239.1">#[pyfn(m, "tree_len")]
+<t tx="vitalije.20191217044239.1">#[pyfn(m)]
+#[pyo3(name="tree_len", text_signature="(tid)")]
+/// Returns the number of different positions in the
+/// outline idetified by tid.
+///
+/// Raises ValueError if there is no outline (tid).
+///
 fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
-    t.outline.len() - 1
+    let i = t.outline.len();
+    if i &gt; 0 {i - 1} else { 0 }
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
 <t tx="vitalije.20191229164032.1">^\s*(?:pub\s+)?fn\s+(\w+)\s*[(&lt;]
@@ -1975,29 +2148,50 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
     let (o, n) = x;
     for y in o.iter() {
       let ignx = y.ignx() as usize;
+      if ignx &gt; n.len() {
+        println!("{:x} nepostojeci index: ignx={:x}", y, ignx);
+        for v in n.iter() {
+          println!("{}:{}", v.ignx, v.h);
+        }
+        println!("{}", INDENT);
+        for v in o.iter() {
+          println!("{}:{:08x}:{:08x} {:016x}",&amp;INDENT[0..v.level() as usize], v.label(), v.ignx(), v);
+        }
+      }
       let gnx = n[ignx].gnx.as_str();
       catalog.insert(gnx, (i, ignx));
     }
   }
-  let vclone = |v:&amp;VData| {
+  let vclone = |(k,v):(usize, &amp;VData)| {
     let gnx = v.gnx.as_str();
     let (i, j) = catalog.get(gnx).unwrap();
-    trees[*i].1[*j].clone()
+    let mut v = trees[*i].1[*j].clone();
+    v.ignx = k as u32;
+    v
   };
   let (o1, v1) = &amp;trees[0];
   let mut outline = vec![o1[0]];
-  let mut vnodes:Vec&lt;VData&gt; = v1.iter().map(vclone).collect();
+  outline[0].set_label(0);
+  let mut vnodes:Vec&lt;VData&gt; = v1.iter().enumerate().map(vclone).collect();
   let mut real_start = 0;
   let mut i = trees.len();
   let mut ignxes = gnx_index(&amp;v1);
   for (o, n) in trees.iter().rev() {
+    if o.len() &lt; 1 { continue }
     i -= 1;
     if i == 0 {
       real_start = outline.len();
+      let mut skip_level = 255u8;
       for x in o.iter().skip(1) {
-        let gnx = n[x.ignx() as usize].gnx.as_str();
-        let ii = ignxes.get(gnx).unwrap();
-        outline.add_node(x.level(), *ii);
+        if x.level() &lt;= skip_level {
+          let gnx = n[x.ignx() as usize].gnx.as_str();
+          let ii = ignxes.get(gnx).unwrap();
+          skip_level = if outline.add_node(x.level(), *ii).unwrap() {
+                          x.level()
+                       } else {
+                          255u8
+                       };
+        }
       }
     } else {
       for v in n.iter() {
@@ -2005,13 +2199,20 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
         if !ignxes.contains_key(gnx) {
           let ii = ignxes.len() as u32;
           ignxes.insert(gnx, ii);
-          vnodes.push(vclone(v));
+          vnodes.push(vclone((ii as usize, v)));
         }
       }
+      let mut skip_level = 255u8;
       for x in o {
-        let gnx = n[x.ignx() as usize].gnx.as_str();
-        let ii = ignxes.get(gnx).unwrap();
-        outline.add_node(x.level(), *ii);
+        if x.level() &lt;= skip_level {
+          let gnx = n[x.ignx() as usize].gnx.as_str();
+          let ii = ignxes.get(gnx).unwrap();
+          skip_level = if outline.add_node(x.level(), *ii).unwrap() {
+                          x.level()
+                       } else {
+                          255u8
+                       };
+        }
       }
     }
   }
@@ -2034,22 +2235,28 @@ fn tree_len(_py:Python, tid:usize) -&gt; PyResult&lt;usize&gt; {
   }
   Ok(combine_trees(&amp;trees))
 }</t>
-<t tx="vitalije.20191229172150.1">#[pyfn(m, "load_leo")]
+<t tx="vitalije.20191229172150.1">#[pyfn(m)]
+#[pyo3(name="load_leo", text_signature="(fname)")]
+/// Loads Leo document from the given filename.
+///
+/// This function will also load all external (at-file) files
+/// found in the outline.
+///
+/// Raises IOError if the file doesn't exists or it
+/// doesn't contain valid Leo document.
+///
 fn load_leo(_py: Python, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
-  let tid = match load_with_external_files(fname) {
+  match load_with_external_files(fname) {
     Ok((outline, nodes)) =&gt; {
       let t = Tree {outline, nodes};
       let mut m = TREES.lock().unwrap();
       let tid = m.len();
       m.insert(tid, t);
-      tid
+      Ok(tid)
     },
-    Err(e) =&gt; {
-      println!("{}", e);
-      0
-    }
-  };
-  Ok(tid)
+    Err(e) =&gt;
+      Err(PyIOError::new_err(e.to_string()))
+  }
 }</t>
 <t tx="vitalije.20191230142308.1">def build_native(spec):
     # build a native rust library
@@ -2293,29 +2500,39 @@ use crate::utils::{extract_section_ref, is_directive, has_others, is_special};
   v2.b.push_str("@nocolor\n");
   v2.b.push_str(cont);
   let nodes = vec![v1, v2];
-  let outline = vec![0, (1 &lt;&lt; 18)|1];
+  let outline = vec![0, LevGnx::make(1, 1, 1)];
   (outline, nodes)
 }</t>
 <t tx="vitalije.20200323085033.1">pub fn extract_subtree(
     outline:&amp;Outline,
     nodes:&amp;Vec&lt;VData&gt;,
     ni:usize) -&gt; (Outline, Vec&lt;VData&gt;) {
+    let rawnodes = &amp;nodes[..];
     let mut o = Vec::new();
+    let mut label = 0;
     let mut ind:LevGnx = 0;
     let mut vs = Vec::new();
+    let mut gnx2i:HashMap&lt;&amp;str, usize&gt;=HashMap::new();
+    let mut gnxcount:usize = 0;
     let zlev = outline[ni].level();
     for lg in &amp;outline[ni..] {
       let lev = lg.level();
       if ind == 0 || lev &gt; zlev {
         let ignx = lg.ignx();
-        let v = nodes[ignx as usize].clone();
-        o.push(LevGnx::make(lev-zlev, ind));
-        vs.push(v);
+        let v = &amp;rawnodes[ignx as usize];
+        let ignx2 = gnx2i.entry(&amp;v.gnx).or_insert(gnxcount);
+        if *ignx2 == gnxcount {
+          vs.push(v.clone());
+          gnxcount +=1;
+        }
+        o.push(LevGnx::make(lev-zlev, (*ignx2) as u32, label));
+        label += 1;
         ind += 1;
       } else {
         break
       }
     }
+    o[0].set_label(label);
     (o, vs)
 }</t>
 <t tx="vitalije.20200323085359.1">pub fn update_atclean_tree(outline:&amp;Outline, nodes:&amp;mut Vec&lt;VData&gt;, ni:usize, cont:&amp;str) {
@@ -2579,57 +2796,73 @@ pub fn others_index(t:&amp;str) -&gt; usize {
 pub fn has_others(t:&amp;str) -&gt; bool {
   others_index(t) &lt; t.len()
 }</t>
-<t tx="vitalije.20200324094558.1">#[pyfn(m, "atclean_to_str")]
+<t tx="vitalije.20200324094558.1">#[pyfn(m)]
+#[pyo3(name="atclean_to_str", text_signature="(tid, ni)")]
+/// Returns `at-clean` representation of the node at the given
+/// index `ni` in the outline identified by `tid`.
+/// 
+/// Raises ValueError if there is no such outline or if there
+/// is no such node.
+///
 fn pyatclean_to_str(_py: Python, tid: usize, ni: usize) -&gt; PyResult&lt;String&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
-    atclean_to_string(&amp;t.outline, &amp;t.nodes, ni)
+    if t.outline.len() &gt; ni {
+      Ok(atclean_to_string(&amp;t.outline, &amp;t.nodes, ni))
+    } else {
+      Err(PyValueError::new_err("no such node"))
+    }
   }) {
-    Some(t) =&gt; Ok(t),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    Some(t) =&gt; t,
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }
 </t>
-<t tx="vitalije.20200324100844.1">#[pyfn(m, "auto_files")]
+<t tx="vitalije.20200324100844.1">#[pyfn(m)]
+#[pyo3(name="auto_files")]
 fn auto_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     find_auto_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200324100917.1">#[pyfn(m, "clean_files")]
+<t tx="vitalije.20200324100917.1">#[pyfn(m)]
+#[pyo3(name="clean_files")]
 fn clean_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     find_clean_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200324100938.1">#[pyfn(m, "edit_files")]
+<t tx="vitalije.20200324100938.1">#[pyfn(m)]
+#[pyo3(name="edit_files")]
 fn edit_files(_py:Python, tid:usize, folder:&amp;str) -&gt; PyResult&lt;Vec&lt;(String, usize)&gt;&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     find_edit_files(&amp;Path::new(folder), &amp;t.outline, &amp;t.nodes)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200324130524.1">#[pyfn(m, "update_atclean")]
+<t tx="vitalije.20200324130524.1">#[pyfn(m)]
+#[pyo3(name="update_atclean")]
 fn pyupdate_atclean(_py: Python, tid: usize, ni:usize, cont:&amp;str) -&gt; PyResult&lt;()&gt; {
   match TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
     update_atclean_tree(&amp;t.outline, &amp;mut t.nodes, ni, cont)
   }) {
     Some(()) =&gt; Ok(()),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200324130742.1">#[pyfn(m, "extract_subtree")]
+<t tx="vitalije.20200324130742.1">#[pyfn(m)]
+#[pyo3(name="extract_subtree")]
 fn pyextract_subtree(_py: Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&gt; {
   let (outline, nodes) = match TREES.lock().unwrap().get(&amp;tid) {
     Some(t) =&gt; extract_subtree(&amp;t.outline, &amp;t.nodes, ni),
-    None =&gt; return Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; return Err(PyValueError::new_err("unknown tree id"))
   };
   let t = Tree {outline, nodes};
   let mut m = TREES.lock().unwrap();
@@ -2662,7 +2895,8 @@ fn children(&amp;self, i:usize) -&gt; Vec&lt;u32&gt; {
     .map(|x|x.ignx())
     .collect()
 }</t>
-<t tx="vitalije.20200325084556.1">#[pyfn(m, "children")]
+<t tx="vitalije.20200325084556.1">#[pyfn(m)]
+#[pyo3(name="children")]
 fn children(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;Vec&lt;VData&gt;&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     t.outline.children(ni)
@@ -2671,35 +2905,713 @@ fn children(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;Vec&lt;VData&gt;&
       .collect()
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200325085029.1">#[pyfn(m, "parents_indexes")]
+<t tx="vitalije.20200325085029.1">#[pyfn(m)]
+#[pyo3(name="parents_indexes")]
 fn parents_indexes(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;Vec&lt;usize&gt;&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     t.outline.parents_indexes(ni)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200325085157.1">#[pyfn(m, "parent_index")]
+<t tx="vitalije.20200325085157.1">#[pyfn(m)]
+#[pyo3(name="parent_index")]
 fn parent_index(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     t.outline.parent_index(ni)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
 }</t>
-<t tx="vitalije.20200325090819.1">#[pyfn(m, "subtree_size")]
+<t tx="vitalije.20200325090819.1">#[pyfn(m)]
+#[pyo3(name="subtree_size")]
 fn subtree_seize(_py:Python, tid:usize, ni:usize) -&gt; PyResult&lt;usize&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
     t.outline.subtree_size(ni)
   }){
     Some(x) =&gt; Ok(x),
-    None =&gt; Err(pyo3::exceptions::ValueError::py_err("unknown tree id"))
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
   }
+}</t>
+<t tx="vitalije.20210713141646.1">pub const INDENT:&amp;str="...........................................................................................................................................................................................................................................................................................................................................";
+
+#[allow(dead_code)]
+fn dump_outline(o:&amp;Outline, n:&amp;Vec&lt;VData&gt;, s:&amp;str){
+  println!("DUMPING START: {}", s);
+  for (i, x) in o[..].iter().enumerate() {
+    let v = &amp;n[x.ignx() as usize];
+    println!("{}{}{}", i, &amp;INDENT[..x.level() as usize], v.h);
+  }
+  println!("DUMPING END: {}", s);
+  println!("");
+}</t>
+<t tx="vitalije.20210714131143.1">#[allow(dead_code)]
+pub fn make_gaps(inp:&amp;mut Vec&lt;u64&gt;, marks:&amp;Vec&lt;usize&gt;, sz:usize) {
+    let mut space = marks.len() * sz;
+    inp.reserve(space);
+    let mut count = inp.len();
+    unsafe { inp.set_len(space + count); }
+    for i in marks.iter().rev() {
+        if count != *i {
+          unsafe {
+              let src = inp.as_mut_ptr().add(*i);
+              let dst = src.add(space);
+              std::ptr::copy(src, dst, count - *i);
+          }
+        }
+        count = *i;
+        space -= sz;
+    }
+}</t>
+<t tx="vitalije.20210714131223.1">#[test]
+fn test_make_gaps() {
+  let mut v1:Vec&lt;u64&gt; = vec![1, 3, 5, 7, 9];
+  let marks = vec![1usize,2, 3, 4, 5];
+  super::make_gaps(&amp;mut v1, &amp;marks, 1);
+  for (i, j) in marks.iter().enumerate() {
+    v1[i+(*j as usize)] = (i * 2 + 2) as u64;
+  }
+  assert_eq!(v1, [1,2,3,4,5,6,7,8,9,10]);
+}</t>
+<t tx="vitalije.20210714133115.1">#[allow(dead_code)]
+pub fn insert_parts(inp:&amp;mut Vec&lt;u64&gt;, marks:&amp;Vec&lt;usize&gt;, data:&amp;Vec&lt;u64&gt;) {
+  let size = data.len()/marks.len();
+  make_gaps(inp, marks, size);
+  for (i, j) in marks.iter().enumerate() {
+    let mut a = (*j as usize) + i * size;
+    for k in &amp;data[i*size..(i+1)*size] {
+      inp[a] = *k;
+      a += 1;
+    }
+  }
+}</t>
+<t tx="vitalije.20210714133911.1">#[test]
+fn test_insert_parts() {
+  let mut v1:Vec&lt;u64&gt; = vec![1, 5, 9, 13];
+  let marks = vec![1usize,2, 3, 4];
+  let data = vec![2u64, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15, 16];
+  super::insert_parts(&amp;mut v1, &amp;marks, &amp;data);
+  assert_eq!(v1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+}</t>
+<t tx="vitalije.20210714190540.1">#[pyfn(m)]
+#[pyo3(name="gnx_index", text_signature="(tid)")]
+/// Returns a map of gnx-&gt;ignx in the outline
+/// idetified by tid.
+/// 
+/// Returns None if the tid outline is missing
+fn gnx_index(_py: Python, tid:usize) -&gt; PyResult&lt;Option&lt;HashMap&lt;String, u32&gt;&gt;&gt; {
+  let res = TREES.lock().unwrap().get(&amp;tid).map(|t|{
+    let mut m = HashMap::new();
+    for (i, v) in t.nodes.iter().enumerate() {
+      m.insert(v.gnx.clone(), i as u32);
+    }
+    m
+  });
+  Ok(res)
+}
+</t>
+<t tx="vitalije.20210714194823.1">#[pyfn(m)]
+#[pyo3(name="update_node", text_signature="(tid, vnode)")]
+/// Updates h, b and flags
+/// idetified by tid.
+/// 
+/// Returns None if the tid outline is missing or there isn't a node at 
+/// the given index i
+fn update_node(_py: Python, tid:usize, v:&amp;VData) -&gt; PyResult&lt;bool&gt; {
+  let res = TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
+    if let Some(mut v0) = t.nodes.get_mut(v.ignx as usize) {
+      if v0.gnx == v.gnx {
+        v0.h.replace_range(.., &amp;v.h);
+        v0.b.replace_range(.., &amp;v.b);
+        v0.flags = v.flags;
+        return true;
+      }
+    }
+    false
+  });
+  Ok(res.unwrap_or(false))
+}
+</t>
+<t tx="vitalije.20210714203347.1">#[test]
+fn test_make_levgnx() {
+  let i = LevGnx::make(3, 5, 7);
+  assert_eq!(i, 0x0000_0007_03_000005);
+}
+#[test]
+fn test_getters_levgnx() {
+  let i = LevGnx::make(3, 5, 7);
+  assert_eq!(i, 0x0000_0007_03_000005);  assert_eq!(i.ignx(), 5);
+  assert_eq!(i.level(), 3);
+  assert_eq!(i.label(), 7);
+}
+#[test]
+fn test_setters_levgnx() {
+  let mut i = 0u64;
+  i.set_label(8);
+  assert_eq!(i.label(), 8);
+  i.set_level(3);
+  assert_eq!(i.level(), 3);
+  i.set_ignx(5);
+  assert_eq!(i.ignx(), 5);
+}
+
+
+#[test]
+fn test_shift_levgnx() {
+  let mut i = LevGnx::make(3, 5, 7);
+  i.shift(3);
+  assert_eq!(i, 0x0000_0007_06_000005);
+  i.shift(-2);
+  assert_eq!(i, 0x0000_0007_04_000005);
+}
+
+#[test]
+fn test_incdec_levgnx() {
+  let mut i = LevGnx::make(3, 5, 7);
+  i.inc();
+  assert_eq!(i, 0x0000_0007_04_000005);
+  i.dec();
+  assert_eq!(i, 0x0000_0007_03_000005);
+}</t>
+<t tx="vitalije.20210714205839.1">#[pyfn(m)]
+#[pyo3(name="debug_str", text_signature="(tid)")]
+/// Returns debug representation of the complete outline
+///
+/// Raises ValueError if there is no such outline
+///
+fn to_debug_str(_py: Python, tid: usize) -&gt; PyResult&lt;String&gt; {
+  match TREES.lock().unwrap().get(&amp;tid).map(|t|{
+      let mut res = String::new();
+      for (i, x) in t.outline.iter().enumerate() {
+        let row = format!("{:3}[0x{:X}/0x{:X}]{}{}\n", i, x.ignx(), x.label()
+                         , &amp;INDENT[..2*x.level() as usize]
+                         , t.nodes[x.ignx() as usize].h);
+        res.push_str(&amp;row);
+      }
+      Ok(res)
+    }) {
+    Some(t) =&gt; t,
+    None =&gt; Err(PyValueError::new_err("unknown tree id"))
+  }
+}
+</t>
+<t tx="vitalije.20210715081849.1">/*
+pub fn from_zip_archive(archive:&amp;Path, fname:&amp;str) -&gt; Result&lt;(Outline, Vec&lt;VData&gt;), io::Error&gt; {
+  let f = File::open(archive)?;
+  let buf_reader = BufReader::new(f);
+  if let Ok(mut zarch) = ZipArchive::new(buf_reader) {
+    if let Ok(mut zf) = zarch.by_name(fname) {
+      let mut res = String::with_capacity((zf.size()+5) as usize);
+      zf.read_to_string(&amp;mut res)?;
+      return Ok(from_leo_content(res.as_str()));
+    }
+  }
+  let msg = format!("Can't read {:?} from archive {:?}", fname, archive);
+  Err(io::Error::new(io::ErrorKind::NotFound, msg))
+}
+*/</t>
+<t tx="vitalije.20210715081914.1">/* // why not use Python zipfile? It would be more flexible!
+#[pyfn(m)]
+#[pyo3(name="outline_from_zipped_leo", text_signature="(arhcive, fname)")]
+fn outline_from_zipped_leo(_py: Python, arch:&amp;str, fname:&amp;str) -&gt; PyResult&lt;usize&gt; {
+  match from_zip_archive(&amp;Path::new(arch), fname) {
+    Ok((outline, nodes)) =&gt; {
+      let t = Tree {outline, nodes};
+      let mut m = TREES.lock().unwrap();
+      let tid = m.len();
+      m.insert(tid, t);
+      Ok(tid)
+    },
+    Err(e) =&gt; Err(PyIOError::new_err(e.to_string()))
+  }
+}
+*/</t>
+<t tx="vitalije.20210715083652.1">#[allow(dead_code)]
+pub fn all_parents(o: &amp;Outline, n:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;HashSet&lt;u64&gt;&gt; {
+  let mut res:Vec&lt;HashSet&lt;u64&gt;&gt; = n.iter().map(|_|HashSet::new()).collect();
+  let mut stack = vec![0u64];
+  for (i, x) in o.iter().enumerate().skip(1) {
+    let lev = x.level() as usize;
+    let ignx = x.ignx() as u64;
+    let pignx = (stack[lev-1] &gt;&gt; 32) as u64;
+    let pind = (stack[lev-1] &amp; 0xFFFF_FFFF) as u64;
+    stack.truncate(lev);
+    stack.push(((ignx &lt;&lt; 32) | (i as u64)) as u64);
+    res[ignx as usize].insert((pignx &lt;&lt; 32) | (i as u64 - pind));
+  }
+  res
+}
+</t>
+<t tx="vitalije.20210715085917.1">#[allow(dead_code)]
+pub fn clonned_nodes(o:&amp;Outline, n:&amp;Vec&lt;VData&gt;) -&gt; Vec&lt;u32&gt; {
+  all_parents(o, n)
+    .iter()
+    .enumerate()
+    .filter(|x|x.1.len()&gt;1)
+    .map(|x|(x.0 as u32))
+    .collect()
+}</t>
+<t tx="vitalije.20210715085928.1">pub fn check_levels(o:&amp;Outline) -&gt; Option&lt;usize&gt; {
+  o.iter()
+   .enumerate()
+   .skip(1)
+   .filter(|(i,x)|x.level() &gt; o[i-1].level()+1)
+   .map(|x|x.0)
+   .find(|_|true)
+}
+
+</t>
+<t tx="vitalije.20210715090741.1">#[pyfn(m)]
+#[pyo3(name="check_tree", text_signature="(tid)")]
+/// Returns None if the given tree is valid.
+/// In case an error has been found, throws ValueError
+///
+fn check_tree(_py: Python, tid:usize) -&gt; PyResult&lt;()&gt; {
+  let res = TREES.lock().unwrap().get(&amp;tid).and_then(|t|{
+    if let Some(i) = check_levels(&amp;t.outline) {
+      let msg = format!("Level validation failed at index:{}", i);
+      return Some(PyValueError::new_err(msg));
+    }
+    if let Some(ignx) = check_clones(&amp;t.outline, &amp;t.nodes) {
+      let v = &amp;t.nodes[ignx as usize];
+      let msg = format!("Clones of {}[{}] are different", v.h, v.gnx);
+      return Some(PyValueError::new_err(msg));
+    }
+    if let Some(i) = check_labels(&amp;t.outline) {
+      let msg = format!("Duplicate position value at index:{}", i);
+      return Some(PyValueError::new_err(msg));
+    }
+    return None
+  });
+  if let Some(e) = res {
+    return Err(e);
+  }
+  Ok(())
+}
+</t>
+<t tx="vitalije.20210715094411.1">import zipfile
+import _minileo as ML
+@others
+def main():
+    zf = zipfile.ZipFile('/home/vitalije/py/issue-1598/leo-demo-files.zip', 'r')
+    for name in zf.namelist():
+        s = zf.read(name).decode('utf8')
+        t = ML.outline_from_leo_str(s)
+        try:
+            ML.check_tree(t)
+        except:
+            print(ML.debug_str(t))
+            raise
+        ML.drop_tree(t)
+    s = zf.read('demo-000/demo.leo').decode('utf8')
+    t = ML.outline_from_leo_str(s)
+    A = ML.debug_str(t)
+    vpar = ML.node_at(t, 202)[1]
+    vch = ML.node_at(t, 205)[1]
+    vch2 = ML.node_at(t, 199)[1]
+    undo = []
+    undo.append(ML.create_link(t, vpar, 2, vch))
+    B = ML.debug_str(t)
+    check(t)
+    undo.append(ML.create_link(t, vch, 2, vch2))
+    check(t)
+    C = ML.debug_str(t)
+    ML.undo(t, undo[1])
+    compare_debugs(B, ML.debug_str(t), C)
+    ML.undo(t, undo[0])
+    compare_debugs(A, ML.debug_str(t), B)
+    check(t)
+    ML.redo(t, undo[0])
+    compare_debugs(B, ML.debug_str(t), A)
+    ML.redo(t, undo[1])
+    compare_debugs(C, ML.debug_str(t), B)
+    undo.append(ML.break_link(t, vch, 1))
+    D = ML.debug_str(t)
+    check(t)
+    ML.undo(t, undo[-1])
+    compare_debugs(C, ML.debug_str(t), D)
+    check(t)
+    print('everything is ok')
+if __name__ == '__main__':
+    main()
+</t>
+<t tx="vitalije.20210715101954.1">pub fn create_link(o:&amp;mut Outline, pignx:usize, child_index:usize, cignx:usize) -&gt; Option&lt;String&gt; {
+  let mut tch = o.subtree(cignx as u32);
+  if tch.len() == 0 {return None}
+  let pu32 = pignx as u32;
+  for x in tch.iter() {
+    if x.ignx() == pu32 { return None }
+  }
+  let mut tp = o.subtree(pu32);
+  tp.push(LevGnx::make(1, 0, 0));
+  if tp.len() == 0 {return None}
+  if let Some((j, _)) = tp.iter()
+                          .enumerate()
+                          .filter(|x|x.1.level()==1)
+                          .skip(child_index)
+                          .next() {
+    let mut label = o[0].label()+1;
+    let marks:Vec&lt;usize&gt; = 
+      o.iter()
+       .enumerate()
+       .skip(1)
+       .filter(|x|x.1.ignx() == pu32)
+       .map(|(i,_)|i+j)
+       .collect();
+    let sz = tch.len();
+    for (i, m) in marks.iter().enumerate() {
+      if i &gt; 0 {
+        tch.extend_from_within(0..sz);
+      }
+      let zlev = (o[*m as usize - j].level() + 1) as i8 - tch[0].level() as i8;
+      for x in tch.iter_mut().skip(i*sz) {
+        x.shift(zlev as i8);
+        x.set_label(label); label += 1;
+      }
+    }
+    let mut res = String::new();
+    encode_insert_parts(o, &amp;marks, &amp;tch, &amp;mut res);
+    insert_parts(o, &amp;marks, &amp;tch);
+    o[0].set_label(label-1);
+    return Some(res)
+  }
+  None
+}</t>
+<t tx="vitalije.20210715105215.1">#[pyfn(m)]
+#[pyo3(name="create_link", text_signature="(tid, parent, childIndex, child)")]
+/// Links child node at the childIndex to parent in the outline
+/// idetified by tid. If the link was created, returns string
+/// which can be used to undo/redo operation.
+/// 
+/// Returns None if the tid outline is missing or parent and child
+/// are not part of the outline
+///
+fn pycreate_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize, v2:&amp;VData) -&gt; Option&lt;String&gt; {
+  TREES.lock().unwrap().get_mut(&amp;tid).and_then(|t|{
+    return create_link( &amp;mut t.outline
+                      , v1.ignx as usize
+                      , ci
+                      , v2.ignx as usize
+                      )
+  })
+}
+</t>
+<t tx="vitalije.20210715123908.1">fn encode_insert_parts(o:&amp;Outline, marks:&amp;Vec&lt;usize&gt;, data:&amp;Vec&lt;u64&gt;, mut buf:&amp;mut String) {
+    // TODO: check if it is necessary to have o[0].label() after parts have been
+    //       inserted. This information might be necessary for redo!
+    buf.push_str("ip:");
+    b64write(o[0].label() as u64, &amp;mut buf);
+    buf.push_str(",(");
+    for m in marks.iter() {
+      b64write(*m as u64, &amp;mut buf);
+      buf.push(',');
+    }
+    buf.pop();
+    buf.push_str("),(");
+    for m in data.iter() {
+      if m.is_expanded() {
+        buf.push('+');
+      } else {
+        buf.push('-');
+      }
+      b64write(m.level() as u64, &amp;mut buf);buf.push('.');
+      b64write(m.ignx() as u64, &amp;mut buf);buf.push('.');
+      b64write(m.label() as u64, &amp;mut buf);buf.push(',');
+    }
+    buf.pop();
+    buf.push(')');
+}</t>
+<t tx="vitalije.20210715124725.1">pub fn check_clones(o:&amp;Outline, n:&amp;Vec&lt;VData&gt;) -&gt; Option&lt;u32&gt; {
+  let clones = clonned_nodes(o, n);
+  for cignx in clones.iter() {
+    let t1 = o.subtree(*cignx);
+    let it = o.iter()
+              .enumerate()
+              .filter(|x|x.1.ignx() == *cignx)
+              .skip(1);
+    for (i, x) in it {
+      let zlev = x.level();
+      for (j, y) in t1.iter().enumerate() {
+        let z = o[i + j];
+        if y.ignx() != z.ignx() || y.level() + zlev != z.level() {
+          return Some(*cignx)
+        }
+      }
+    }
+  }
+  None
+}</t>
+<t tx="vitalije.20210715124740.1">pub fn check_labels(o:&amp;Outline) -&gt; Option&lt;usize&gt; {
+  let mut seen:HashSet&lt;u32&gt; = HashSet::new();
+  for (i, x) in o.iter().enumerate().skip(1) {
+    let lab = x.label();
+    if seen.contains(&amp;lab) { return Some(i) }
+    seen.insert(lab);
+  }
+  None
+}
+
+</t>
+<t tx="vitalije.20210715133349.1">def dump(A, B):
+    alines = A.splitlines()
+    blines = B.splitlines()
+    N = max(len(alines), len(blines))
+    for i in range(N):
+        if i &lt; len(alines):
+            a = alines[i]
+        else:
+            a = ''
+        if i &lt; len(blines):
+            b = blines[i]
+        else:
+            b = ''
+        print(a.ljust(40), '|', b)
+    print('A == B?', A==B)</t>
+<t tx="vitalije.20210715133359.1">def check(t):
+    try:
+        ML.check_tree(t)
+        print('valid')
+    except:
+        print('invalid')
+        raise</t>
+<t tx="vitalije.20210715134233.1">#[allow(dead_code)]
+pub fn delete_blocks(inp:&amp;mut Vec&lt;u64&gt;, marks:&amp;Vec&lt;usize&gt;, sz:usize) {
+    let count = inp.len();
+    let mut delta = 0;
+    for (j, i) in marks.iter().enumerate() {
+      unsafe {
+        let src = inp.as_mut_ptr().add(*i + sz);
+        let dst = inp.as_mut_ptr().add(*i - delta);
+        let cnt = *marks.get(j+1).unwrap_or(&amp;count) - *i;
+        std::ptr::copy(src, dst, cnt);
+        delta += sz;
+      }
+    }
+    inp.truncate(count-delta);
+}</t>
+<t tx="vitalije.20210715135807.1">#[test]
+fn test_delete_blocks() {
+  let mut v1:Vec&lt;u64&gt; = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  let marks = vec![1usize,5, 9, 13];
+  super::delete_blocks(&amp;mut v1, &amp;marks, 3);
+  assert_eq!(v1, [1, 5, 9, 13]);
+}</t>
+<t tx="vitalije.20210715140101.1">pub fn undo_insert_parts(o:&amp;mut Outline, enc:&amp;str) {
+    // expects enc string to look like
+    // ip:xxx,(m1,m2,m3,...),(_l1.ignx1.lab1,_l2.ignx2.lab2,_l3.ignx3.lab3,...)
+    // where xxx is old label of o[0]
+    // m1,m2,m3,... are old marks
+    //_l1.ignx1.lab1,... are nodes that were inserted
+    let old_zlabel = b64int(&amp;enc[3..]);
+    let s2 = partition(&amp;enc, ",(").2;
+    let (s2,_,s3) = partition(&amp;s2, "),(");
+    let pmarks:Vec&lt;usize&gt; =
+      s2.split(',')
+       .map(|x|b64int(x) as usize)
+       .collect();
+    let size = s3.split(",").count()/pmarks.len();
+    let nmarks:Vec&lt;usize&gt; =
+      pmarks
+        .iter()
+        .enumerate()
+        .map(|(i,j)|j+i*size)
+        .collect();
+    delete_blocks(o, &amp;nmarks, size);
+    o[0].set_label(old_zlabel as u32);
+}</t>
+<t tx="vitalije.20210715141414.1">#[pyfn(m)]
+#[pyo3(name="undo", text_signature="(tid, data)")]
+/// Undoes change described by the data parameter
+/// previously done to the outline identified by tid.
+/// 
+fn pyundo(_py: Python, tid:usize, data:&amp;str) {
+  TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
+    if data.starts_with("ip:") {
+      undo_insert_parts(&amp;mut t.outline, data);
+    } else if data.starts_with("db:") {
+      undo_delete_blocks(&amp;mut t.outline, data);
+    }
+  });
+}
+</t>
+<t tx="vitalije.20210715145536.1">#[pyfn(m)]
+#[pyo3(name="redo", text_signature="(tid, data)")]
+/// Redoes change described by the data parameter
+/// previously undone to the outline identified by tid.
+/// 
+fn pyredo(_py: Python, tid:usize, data:&amp;str) {
+  TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
+    if data.starts_with("ip:") {
+      redo_insert_parts(&amp;mut t.outline, &amp;data);
+    }
+  });
+}
+</t>
+<t tx="vitalije.20210715145719.1">pub fn redo_insert_parts(o:&amp;mut Outline, enc:&amp;str) {
+    // expects enc string to look like
+    // ip:xxx,(m1,m2,m3,...),(_l1.ignx1.lab1,_l2.ignx2.lab2,_l3.ignx3.lab3,...)
+    // where xxx is old label of o[0]
+    // m1,m2,m3,... are old marks
+    //_l1.ignx1.lab1,... are nodes that were inserted
+    let s2 = partition(&amp;enc, ",(").2;
+    let (s2,_,s3) = partition(&amp;s2, "),(");
+    let pmarks:Vec&lt;usize&gt; =
+      s2.split(',')
+       .map(|x|b64int(x) as usize)
+       .collect();
+    let data:Vec&lt;u64&gt; =
+      s3.split(",")
+        .map(|x|{
+          let mut it = x[1..].split('.');
+          let lev = b64int(it.next().unwrap()) as u8;
+          let ignx = b64int(it.next().unwrap()) as u32;
+          let lab = b64int(it.next().unwrap()) as u32;
+          let mut y = LevGnx::make(lev, ignx, lab);
+          if x.starts_with('-') {
+            y.expand();
+          } else {
+            y.collapse();
+          }
+          y
+        }).collect();
+    insert_parts(o, &amp;pmarks, &amp;data);
+    let z = &amp;mut o[0];
+    z.set_label(z.label() + data.len() as u32);
+}</t>
+<t tx="vitalije.20210715150601.1">def compare_debugs(B, B1, C):
+    if B1 != B:
+        dump(B, B1)
+        raise ValueError("not same after undo/redo")
+</t>
+<t tx="vitalije.20210715153300.1">#[allow(dead_code)]
+fn log&lt;T&gt;(x:T) -&gt; T where T: std::fmt::Debug {
+  println!("{:?}", x);
+  x
+}
+pub fn break_link(o:&amp;mut Outline, pignx:u32, child_index:usize) -&gt; Option&lt;String&gt; {
+  if let Some(pi) = o.find(pignx) {
+    let zlev = o[pi].level() + 1;
+    if let Some(ci) = o.iter()
+                       .skip(pi+1)
+                       .enumerate()
+                       .take_while(|x|x.1.level() &gt;= zlev)
+                       .filter(|x|x.1.level() == zlev)
+                       .skip(child_index)
+                       .map(|x|x.0+1)
+                       .next() {
+      // now parent is at index pi, and child starts at the index ci
+      let sz = o.subtree_size(ci+pi);
+      let delta = ci;
+      let mut marks:Vec&lt;usize&gt; =
+        o.iter()
+         .enumerate()
+         .skip(pi+ci+sz)
+         .filter(|x|x.1.ignx() == pignx)
+         .map(|x|x.0+delta)
+         .collect();
+      marks.insert(0, pi+ci);
+      let mut buf = String::new();
+      encode_delete_blocks(o, &amp;marks, sz, &amp;mut buf);
+      delete_blocks(o, &amp;marks, sz);
+      return Some(buf);
+    }
+  };
+  None
+}</t>
+<t tx="vitalije.20210715154702.1">#[pyfn(m)]
+#[pyo3(name="break_link", text_signature="(tid, parent, childIndex)")]
+/// Removes child at the index childIndex from parent in the outline
+/// idetified by tid. If the parent is not present in the outline, or
+/// if it doesn't have child with the childIndex, returns None
+/// else returns string description of the changes made.
+///
+fn pybreak_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize) -&gt; Option&lt;String&gt; {
+  TREES.lock().unwrap().get_mut(&amp;tid).and_then(|t|{
+    return break_link( &amp;mut t.outline
+                      , v1.ignx
+                      , ci
+                      )
+  })
+}
+</t>
+<t tx="vitalije.20210715155238.1">fn encode_delete_blocks(o:&amp;Outline, marks:&amp;Vec&lt;usize&gt;, sz:usize, mut buf:&amp;mut String) {
+    buf.push_str("db:");
+    b64write(sz as u64, &amp;mut buf);
+    buf.push_str(",(");
+    let mut data:Vec&lt;u64&gt; = Vec::new();
+    for m in marks.iter() {
+      b64write(*m as u64, &amp;mut buf);
+      buf.push(',');
+      for i in o.iter().skip(*m).take(sz) {
+        data.push(*i);
+      }
+    }
+    buf.pop();
+    buf.push_str("),(");
+    for m in data.iter() {
+      if m.is_expanded() {
+        buf.push('+');
+      } else {
+        buf.push('-');
+      }
+      b64write(m.level() as u64, &amp;mut buf);buf.push('.');
+      b64write(m.ignx() as u64, &amp;mut buf);buf.push('.');
+      b64write(m.label() as u64, &amp;mut buf);buf.push(',');
+    }
+    buf.pop();
+    buf.push(')');
+}</t>
+<t tx="vitalije.20210715155611.1">pub fn undo_delete_blocks(o:&amp;mut Outline, enc:&amp;str) {
+  // expects enc string to look like
+  // db:xxx,(m1,m2,m3,...),(_l1.ignx1.lab1,_l2.ignx2.lab2,_l3.ignx3.lab3,...)
+  // where xxx is size of the deleted block
+  // m1,m2,m3,... are old marks before deletion
+  //_l1.ignx1.lab1,... are nodes that were deleted
+  let size = b64int(&amp;enc[3..]) as usize;
+  let s2 = partition(&amp;enc, ",(").2;
+  let (s2,_,s3) = partition(&amp;s2, "),(");
+  let pmarks:Vec&lt;usize&gt; =
+    s2.split(',')
+     .enumerate()
+     .map(|x|b64int(x.1) as usize - size*x.0)
+     .collect();
+  let data:Vec&lt;u64&gt; =
+      s3.split(",")
+        .map(|x|{
+          let mut it = x[1..].split('.');
+          let lev = b64int(it.next().unwrap()) as u8;
+          let ignx = b64int(it.next().unwrap()) as u32;
+          let lab = b64int(it.next().unwrap()) as u32;
+          let mut y = LevGnx::make(lev, ignx, lab);
+          if x.starts_with('-') {
+            y.expand();
+          } else {
+            y.collapse();
+          }
+          y
+        }).collect();
+  insert_parts(o, &amp;pmarks, &amp;data);
+}</t>
+<t tx="vitalije.20210715155637.1">pub fn redo_delete_blocks(o:&amp;mut Outline, enc:&amp;str) {
+  // expects enc string to look like
+  // db:xxx,(m1,m2,m3,...),(_l1.ignx1.lab1,_l2.ignx2.lab2,_l3.ignx3.lab3,...)
+  // where xxx is size of the deleted block
+  // m1,m2,m3,... are old marks before deletion
+  //_l1.ignx1.lab1,... are nodes that were deleted
+  let size = b64int(&amp;enc[3..]) as usize;
+  let s2 = partition(&amp;enc, ",(").2;
+  let s2 = partition(&amp;s2, "),(").0;
+  let pmarks:Vec&lt;usize&gt; =
+    s2.split(',')
+     .enumerate()
+     .map(|x|b64int(x.1) as usize)
+     .collect();
+  delete_blocks(o, &amp;pmarks, size);
 }</t>
 </tnodes>
 </leo_file>

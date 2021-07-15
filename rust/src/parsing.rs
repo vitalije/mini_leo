@@ -5,7 +5,8 @@ use crate::atclean::update_atclean_tree;
 use quick_xml::Reader as XmlReader;
 use quick_xml::events::Event;
 use quick_xml::events::attributes::Attributes;
-
+//use zip::read::ZipArchive;
+//use std::io::Read;
 use std::{
   io,
   io::{BufRead, BufReader},
@@ -509,7 +510,7 @@ pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
   let mut nodes = Vec::new();
   let mut outline = Vec::new();
   let (vnodes, lines, _, _) = ldf_parse(content);
-  let mut i:u32 = 0;
+  let mut i:u64 = 0;
   // TODO: consider changing ldf_parse to skip root node in its output nodes
   // if it skips root node, in the following loop we won't have to check if lev > 0
   // and root node can be inserted in nodes before loop
@@ -517,6 +518,7 @@ pub fn from_derived_file_content(content:&str) -> (Outline, Vec<VData>) {
     if lev > 0 {
       let mut v = VData::new(&content[a..b]);
       v.h.push_str(&content[c..d]);
+      v.ignx = nodes.len() as u32;
       nodes.push(v);
       let mut x:LevGnx = i;
       x.shift(lev as i8);
@@ -552,6 +554,22 @@ pub fn from_leo_file(fname:&Path) -> Result<(Outline, Vec<VData>), io::Error> {
   let s = read_file_as_in_linux(fname)?;
   Ok(from_leo_content(s.as_str()))
 }
+
+/*
+pub fn from_zip_archive(archive:&Path, fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {
+  let f = File::open(archive)?;
+  let buf_reader = BufReader::new(f);
+  if let Ok(mut zarch) = ZipArchive::new(buf_reader) {
+    if let Ok(mut zf) = zarch.by_name(fname) {
+      let mut res = String::with_capacity((zf.size()+5) as usize);
+      zf.read_to_string(&mut res)?;
+      return Ok(from_leo_content(res.as_str()));
+    }
+  }
+  let msg = format!("Can't read {:?} from archive {:?}", fname, archive);
+  Err(io::Error::new(io::ErrorKind::NotFound, msg))
+}
+*/
 pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
   let mut reader = XmlReader::from_str(buf);
   let mut nodes:Vec<VData> = Vec::new();
@@ -561,7 +579,7 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
   let mut txt = String::new();
   let mut lev = 0u8;
   let mut gnxcount:usize = 1;
-  let mut outline:Outline = vec![0u32];
+  let mut outline:Outline = vec![0u64];
   loop {
     let mut xmlbuf = Vec::new();
     let getattr = |k:&[u8], attrs:Attributes, rr| {
@@ -579,10 +597,11 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
         if n == b"v" {
           last_gnx.clear();
           last_gnx.push_str(&getattr(b"t", e.attributes(), &reader));
-          let v = VData::new(&last_gnx);
+          let mut v = VData::new(&last_gnx);
           let ignx = gnx2i.entry(v.gnx.clone()).or_insert(gnxcount);
+          v.ignx = *ignx as u32;
           lev += 1u8;
-          outline.add_node(lev, *ignx as u32);
+          outline.add_node(lev, *ignx as u32).unwrap();
           nodes.push(v);
           gnxcount += 1;
         } else if n == b"vnodes" {
@@ -621,7 +640,7 @@ pub fn from_auto_content(v:&VData, cont:&str) -> (Outline, Vec<VData>) {
   v2.b.push_str("@nocolor\n");
   v2.b.push_str(cont);
   let nodes = vec![v1, v2];
-  let outline = vec![0, (1 << 18)|1];
+  let outline = vec![0, LevGnx::make(1, 1, 1)];
   (outline, nodes)
 }
 pub fn load_with_external_files(fname:&str) -> Result<(Outline, Vec<VData>), io::Error> {

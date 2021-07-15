@@ -1,5 +1,5 @@
 /// converts integer to String in base 64
-pub fn b64str(n:u32) -> String {
+pub fn b64str(n:u64) -> String {
   if n == 0 {
     String::from("0")
   } else {
@@ -12,14 +12,29 @@ pub fn b64str(n:u32) -> String {
     res
   }
 }
+#[allow(dead_code)]
+/// appends textual representation of u64 number to
+/// the given string buffer
+pub fn b64write(n:u64, buf:&mut String) {
+  if n == 0 {
+    buf.push('0');
+  } else {
+    let mut _n = n;
+    let i = buf.len();
+    while _n > 0 {
+      buf.insert(i, B64DIGITS[(_n & 63) as usize]);
+      _n = _n >> 6;
+    }
+  }
+}
 
-/// converts base 64 str to u32
-pub fn b64int(a:&str) -> u32 {
-  let mut res = 0_u32;
+/// converts base 64 str to u64
+pub fn b64int(a:&str) -> u64 {
+  let mut res = 0_u64;
   for i in a.bytes() {
     let k = B64VALUES[(i & 127) as usize];
     if k == 255 { break }
-    res = (res << 6) + (k as u32);
+    res = (res << 6) + (k as u64);
   }
   res
 }
@@ -120,6 +135,51 @@ pub fn others_index(t:&str) -> usize {
 pub fn has_others(t:&str) -> bool {
   others_index(t) < t.len()
 }
+#[allow(dead_code)]
+pub fn insert_parts(inp:&mut Vec<u64>, marks:&Vec<usize>, data:&Vec<u64>) {
+  let size = data.len()/marks.len();
+  make_gaps(inp, marks, size);
+  for (i, j) in marks.iter().enumerate() {
+    let mut a = (*j as usize) + i * size;
+    for k in &data[i*size..(i+1)*size] {
+      inp[a] = *k;
+      a += 1;
+    }
+  }
+}
+#[allow(dead_code)]
+pub fn make_gaps(inp:&mut Vec<u64>, marks:&Vec<usize>, sz:usize) {
+    let mut space = marks.len() * sz;
+    inp.reserve(space);
+    let mut count = inp.len();
+    unsafe { inp.set_len(space + count); }
+    for i in marks.iter().rev() {
+        if count != *i {
+          unsafe {
+              let src = inp.as_mut_ptr().add(*i);
+              let dst = src.add(space);
+              std::ptr::copy(src, dst, count - *i);
+          }
+        }
+        count = *i;
+        space -= sz;
+    }
+}
+#[allow(dead_code)]
+pub fn delete_blocks(inp:&mut Vec<u64>, marks:&Vec<usize>, sz:usize) {
+    let count = inp.len();
+    let mut delta = 0;
+    for (j, i) in marks.iter().enumerate() {
+      unsafe {
+        let src = inp.as_mut_ptr().add(*i + sz);
+        let dst = inp.as_mut_ptr().add(*i - delta);
+        let cnt = *marks.get(j+1).unwrap_or(&count) - *i;
+        std::ptr::copy(src, dst, cnt);
+        delta += sz;
+      }
+    }
+    inp.truncate(count-delta);
+}
 #[cfg(test)]
 mod tests {
   #[test]
@@ -131,5 +191,31 @@ mod tests {
     assert_eq!(res2, ("asepbsepc", "", ""));
     let res3 = super::rpartition(s, "a");
     assert_eq!(res3, ("", "a", "sepbsepc"));
+  }
+
+  #[test]
+  fn test_make_gaps() {
+    let mut v1:Vec<u64> = vec![1, 3, 5, 7, 9];
+    let marks = vec![1usize,2, 3, 4, 5];
+    super::make_gaps(&mut v1, &marks, 1);
+    for (i, j) in marks.iter().enumerate() {
+      v1[i+(*j as usize)] = (i * 2 + 2) as u64;
+    }
+    assert_eq!(v1, [1,2,3,4,5,6,7,8,9,10]);
+  }
+  #[test]
+  fn test_insert_parts() {
+    let mut v1:Vec<u64> = vec![1, 5, 9, 13];
+    let marks = vec![1usize,2, 3, 4];
+    let data = vec![2u64, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15, 16];
+    super::insert_parts(&mut v1, &marks, &data);
+    assert_eq!(v1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+  }
+  #[test]
+  fn test_delete_blocks() {
+    let mut v1:Vec<u64> = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+    let marks = vec![1usize,5, 9, 13];
+    super::delete_blocks(&mut v1, &marks, 3);
+    assert_eq!(v1, [1, 5, 9, 13]);
   }
 }

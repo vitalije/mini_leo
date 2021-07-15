@@ -9,25 +9,13 @@ name = "mini_leo"
 crate-type = ["cdylib"]
 
 [build-dependencies]
-cbindgen = "0.5.2"
+cbindgen = "0.19.0"
 
 [dependencies]
 lazy_static = "1.4.0"
-#clap = "2.33.0"
-#error-type = "0.1.2"
-#futures = "0.1.27"
-#http = "0.1.17"
-#hyper = "0.12"
-#mime = "0.3.13"
-#tokio-fs = "0.1.6"
-#tokio-io = "0.1.12"
-#xml-rs = "0.8.0"
 quick-xml = "0.17.1"
-nom = "5.0.0"
-#sxd-document = "0.3.2"
-#threadpool = "1.7.1"
-#net2 = "0.2.33"
-#libc = "0.2.58"
+# zip = "0.5.13"
+
 [dependencies.pyo3]
-version = "0.8.4"
-features = ["extension-module"]
+version = "0.14.1"
+features = ["extension-module", "abi3"]
