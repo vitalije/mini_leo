@@ -59,35 +59,43 @@
 <v t="vitalije.20191215163859.1"><vh>Tree, TreeIterator</vh></v>
 <v t="vitalije.20191215164034.1"><vh>TREES</vh></v>
 <v t="vitalije.20191215164048.1"><vh>module</vh>
-<v t="vitalije.20191215164104.1"><vh>outline_from_str</vh></v>
-<v t="vitalije.20191215182759.1"><vh>outline_from_file</vh></v>
-<v t="vitalije.20191215183645.1"><vh>outline_from_leo_file</vh></v>
-<v t="vitalije.20191215183719.1"><vh>outline_from_leo</vh></v>
-<v t="vitalije.20210715081914.1"><vh>outline_from_zipped_leo</vh></v>
-<v t="vitalije.20191229172150.1"><vh>load_leo</vh></v>
-<v t="vitalije.20200324130742.1"><vh>extract_subtree</vh></v>
-<v t="vitalije.20191215164111.1"><vh>node_at</vh></v>
-<v t="vitalije.20210715141414.1"><vh>pyundo</vh></v>
-<v t="vitalije.20210715145536.1"><vh>pyredo</vh></v>
-<v t="vitalije.20210715090741.1"><vh>check_tree</vh></v>
-<v t="vitalije.20210714194823.1"><vh>update_node</vh></v>
-<v t="vitalije.20210715105215.1"><vh>pycreate_link</vh></v>
-<v t="vitalije.20210715154702.1"><vh>pybreak_link</vh></v>
-<v t="vitalije.20210714190540.1"><vh>gnx_index</vh></v>
-<v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
-<v t="vitalije.20200325084556.1"><vh>children</vh></v>
-<v t="vitalije.20200325085029.1"><vh>parents_indexes</vh></v>
-<v t="vitalije.20200325085157.1"><vh>parent_index</vh></v>
-<v t="vitalije.20200325090819.1"><vh>subtree_size</vh></v>
-<v t="vitalije.20191215194010.1"><vh>drop_tree</vh></v>
 <v t="vitalije.20191216171715.1"><vh>at_files</vh></v>
 <v t="vitalije.20200324100844.1"><vh>auto_files</vh></v>
+<v t="vitalije.20210715090741.1"><vh>check_tree</vh></v>
+<v t="vitalije.20200325084556.1"><vh>children</vh></v>
 <v t="vitalije.20200324100917.1"><vh>clean_files</vh></v>
-<v t="vitalije.20200324100938.1"><vh>edit_files</vh></v>
-<v t="vitalije.20200324094558.1"><vh>pyatclean_to_str</vh></v>
+<v t="vitalije.20210718122914.1"><vh>collapse_node</vh></v>
 <v t="vitalije.20210714205839.1"><vh>debug_str</vh></v>
+<v t="vitalije.20191215194010.1"><vh>drop_tree</vh></v>
+<v t="vitalije.20200324100938.1"><vh>edit_files</vh></v>
+<v t="vitalije.20210718121623.1"><vh>expand_node</vh></v>
+<v t="vitalije.20200324130742.1"><vh>extract_subtree</vh></v>
+<v t="vitalije.20210714190540.1"><vh>gnx_index</vh></v>
+<v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
+<v t="vitalije.20191229172150.1"><vh>load_leo</vh></v>
+<v t="vitalije.20210716090049.1"><vh>moving nodes</vh>
+<v t="vitalije.20210716090113.1"><vh>pymove_node_right</vh></v>
+<v t="vitalije.20210716122155.1"><vh>pymove_node_left</vh></v>
+<v t="vitalije.20210716125311.1"><vh>pymove_node_up</vh></v>
+<v t="vitalije.20210716171752.1"><vh>pymove_node_down</vh></v>
+</v>
+<v t="vitalije.20191215164111.1"><vh>node_at</vh></v>
+<v t="vitalije.20191215182759.1"><vh>outline_from_file</vh></v>
+<v t="vitalije.20191215183719.1"><vh>outline_from_leo</vh></v>
+<v t="vitalije.20191215183645.1"><vh>outline_from_leo_file</vh></v>
+<v t="vitalije.20191215164104.1"><vh>outline_from_str</vh></v>
+<v t="vitalije.20210715081914.1"><vh>outline_from_zipped_leo</vh></v>
+<v t="vitalije.20200325085157.1"><vh>parent_index</vh></v>
+<v t="vitalije.20200325085029.1"><vh>parents_indexes</vh></v>
+<v t="vitalije.20200324094558.1"><vh>pyatclean_to_str</vh></v>
+<v t="vitalije.20210715154702.1"><vh>pybreak_link</vh></v>
+<v t="vitalije.20210715105215.1"><vh>pycreate_link</vh></v>
+<v t="vitalije.20210715145536.1"><vh>pyredo</vh></v>
+<v t="vitalije.20210715141414.1"><vh>pyundo</vh></v>
 <v t="vitalije.20200324130524.1"><vh>pyupdate_atclean</vh></v>
+<v t="vitalije.20200325090819.1"><vh>subtree_size</vh></v>
 <v t="vitalije.20191217044239.1"><vh>tree_len</vh></v>
+<v t="vitalije.20210714194823.1"><vh>update_node</vh></v>
 </v>
 </v>
 <v t="vitalije.20190702073134.1"><vh>@clean src/model.rs</vh>
@@ -131,19 +139,60 @@
 <v t="vitalije.20200323141544.1"><vh>others</vh></v>
 </v>
 </v>
+<v t="vitalije.20210716071616.1"><vh>geting info</vh>
 <v t="vitalije.20210715083652.1"><vh>all_parents</vh></v>
 <v t="vitalije.20210715085917.1"><vh>clonned_nodes</vh></v>
-<v t="vitalije.20210715085928.1"><vh>check_levels</vh></v>
+</v>
+<v t="vitalije.20210716071553.1"><vh>checks</vh>
 <v t="vitalije.20210715124740.1"><vh>check_labels</vh></v>
+<v t="vitalije.20210715085928.1"><vh>check_levels</vh></v>
 <v t="vitalije.20210715124725.1"><vh>check_clones</vh></v>
+</v>
+<v t="vitalije.20210716071650.1"><vh>outline operations</vh>
+<v t="vitalije.20210716071701.1"><vh>basic</vh>
 <v t="vitalije.20210715101954.1"><vh>create_link</vh></v>
 <v t="vitalije.20210715153300.1"><vh>break_link</vh></v>
+</v>
+<v t="vitalije.20210716071711.1"><vh>move_node_right</vh>
+<v t="vitalije.20210716120732.1"><vh>&lt;&lt;move right optimize&gt;&gt;</vh></v>
+</v>
+<v t="vitalije.20210716121409.1"><vh>move_node_left</vh></v>
+<v t="vitalije.20210716125410.1"><vh>move_node_up</vh>
+<v t="vitalije.20210716202521.1"><vh>visible_parent</vh></v>
+<v t="vitalije.20210716202526.1"><vh>is_visible</vh></v>
+<v t="vitalije.20210716203726.1"><vh>move_node_up_1</vh></v>
+<v t="vitalije.20210716204035.1"><vh>move_node_up_2</vh></v>
+<v t="vitalije.20210716204038.1"><vh>move_node_up_3</vh></v>
+</v>
+<v t="vitalije.20210716171712.1"><vh>move_node_down</vh>
+<v t="vitalije.20210718201053.1"><vh>&lt;&lt;move down case 1&gt;&gt;</vh></v>
+<v t="vitalije.20210718201112.1"><vh>&lt;&lt;move donw case 2&gt;&gt;</vh></v>
+<v t="vitalije.20210718201129.1"><vh>&lt;&lt;move_down case 3&gt;&gt;</vh></v>
+</v>
+</v>
+<v t="vitalije.20210716071524.1"><vh>inserting parts</vh>
 <v t="vitalije.20210715123908.1"><vh>encode_insert_parts</vh></v>
+<v t="vitalije.20210715140101.1"><vh>undo_insert_parts</vh></v>
+<v t="vitalije.20210715145719.1"><vh>redo_insert_parts</vh></v>
+</v>
+<v t="vitalije.20210716071457.1"><vh>deleting blocks</vh>
 <v t="vitalije.20210715155238.1"><vh>encode_delete_blocks</vh></v>
 <v t="vitalije.20210715155611.1"><vh>undo_delete_blocks</vh></v>
 <v t="vitalije.20210715155637.1"><vh>redo_delete_blocks</vh></v>
-<v t="vitalije.20210715140101.1"><vh>undo_insert_parts</vh></v>
-<v t="vitalije.20210715145719.1"><vh>redo_insert_parts</vh></v>
+</v>
+<v t="vitalije.20210716115224.1"><vh>shifting blocks</vh>
+<v t="vitalije.20210716112543.1"><vh>shift_blocks</vh></v>
+<v t="vitalije.20210716114748.1"><vh>encode_shift_blocks</vh></v>
+<v t="vitalije.20210716120605.1"><vh>decode_shift_blocks</vh></v>
+<v t="vitalije.20210716115256.1"><vh>undo_shift_blocks</vh></v>
+<v t="vitalije.20210716115333.1"><vh>redo_shift_blocks</vh></v>
+</v>
+<v t="vitalije.20210716205921.1"><vh>setting nodes</vh>
+<v t="vitalije.20210716210738.1"><vh>encode_set_nodes</vh></v>
+<v t="vitalije.20210716210930.1"><vh>set_nodes</vh></v>
+<v t="vitalije.20210716210937.1"><vh>undo_set_nodes</vh></v>
+<v t="vitalije.20210716211545.1"><vh>redo_set_nodes</vh></v>
+</v>
 </v>
 <v t="vitalije.20190702073410.1"><vh>@clean src/utils.rs</vh>
 <v t="vitalije.20190625101104.1"><vh>b64 ints</vh>
@@ -225,6 +274,11 @@
 <v t="vitalije.20210715133349.1"><vh>dump</vh></v>
 <v t="vitalije.20210715133359.1"><vh>check</vh></v>
 <v t="vitalije.20210715150601.1"><vh>compare_debugs</vh></v>
+<v t="vitalije.20210716091223.1"><vh>test_some</vh></v>
+<v t="vitalije.20210716091402.1"><vh>get_outline</vh></v>
+<v t="vitalije.20210716122616.1"><vh>test_right</vh></v>
+<v t="vitalije.20210716122705.1"><vh>test_left</vh></v>
+<v t="vitalije.20210718114938.1"><vh>test_up</vh></v>
 </v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
 <v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
@@ -676,13 +730,16 @@ pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                   /*from_zip_archive,*/
                   };
 pub use atclean::{atclean_to_string, update_atclean_tree};
-pub use utils::{b64int, b64str};
+pub use utils::{b64int, b64str, b64write};
 pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 find_derived_files, find_edit_files,
                 find_auto_files, find_clean_files,
                 check_levels, check_clones, check_labels,
                 create_link, undo_insert_parts, redo_insert_parts,
                 break_link, undo_delete_blocks, redo_delete_blocks,
+                undo_shift_blocks, redo_shift_blocks,
+                undo_set_nodes, redo_set_nodes,
+                move_node_right, move_node_left, move_node_up, move_node_down,
                 extract_subtree, INDENT};
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
@@ -1042,11 +1099,12 @@ fn parent_index(&amp;self, i: usize) -&gt; usize {
 }</t>
 <t tx="vitalije.20190625145720.1">/// returns the size of the subtree starting at given index
 fn subtree_size(&amp;self, i:usize) -&gt; usize {
-  let z = self[i] &amp; LEVEL_MASK;
-  self[i+1..]
+  let z = self[i].level();
+  self
     .iter()
-    .position(|x|(*x &amp; LEVEL_MASK) &lt;= z)
-    .unwrap_or(self.len() - i - 1) + 1
+    .skip(i+1)
+    .take_while(|x|x.level() &gt; z)
+    .count()+1
 }</t>
 <t tx="vitalije.20190625145812.1">/// Given the node located at the given outline index i
 /// this method returns the child index that this node
@@ -1761,10 +1819,8 @@ impl LevGnxOps for LevGnx {
   /// changes the level of this node for given delta d
   fn shift(&amp;mut self, d: i8) {
     if d &lt; 0 {
-      let d1 = ((-d) as u64) &lt;&lt; 24;
-      if *self &amp; LEVEL_MASK &gt;= d1 {
-        *self -= d1;
-      }
+      let lev = self.level() as i8 + d;
+      if lev &gt;= 0 { self.set_level(lev as u8) };
     } else {
       let d1 = (d as u64) &lt;&lt; 24;
       *self += d1;
@@ -2949,6 +3005,15 @@ fn dump_outline(o:&amp;Outline, n:&amp;Vec&lt;VData&gt;, s:&amp;str){
   }
   println!("DUMPING END: {}", s);
   println!("");
+}
+#[allow(dead_code)]
+fn dump_just_outline(o:&amp;Outline, s:&amp;str){
+  println!("DUMPING START: {}", s);
+  for (i, x) in o[..].iter().enumerate() {
+    println!("{}[{:X}/{:X}]{}head-{}", i, x.ignx(), x.label(),  &amp;INDENT[..x.level() as usize], i);
+  }
+  println!("DUMPING END: {}", s);
+  println!("");
 }</t>
 <t tx="vitalije.20210714131143.1">#[allow(dead_code)]
 pub fn make_gaps(inp:&amp;mut Vec&lt;u64&gt;, marks:&amp;Vec&lt;usize&gt;, sz:usize) {
@@ -3017,7 +3082,7 @@ fn gnx_index(_py: Python, tid:usize) -&gt; PyResult&lt;Option&lt;HashMap&lt;Stri
 </t>
 <t tx="vitalije.20210714194823.1">#[pyfn(m)]
 #[pyo3(name="update_node", text_signature="(tid, vnode)")]
-/// Updates h, b and flags
+/// Updates h, b and flags in the outline
 /// idetified by tid.
 /// 
 /// Returns None if the tid outline is missing or there isn't a node at 
@@ -3088,8 +3153,9 @@ fn to_debug_str(_py: Python, tid: usize) -&gt; PyResult&lt;String&gt; {
   match TREES.lock().unwrap().get(&amp;tid).map(|t|{
       let mut res = String::new();
       for (i, x) in t.outline.iter().enumerate() {
-        let row = format!("{:3}[0x{:X}/0x{:X}]{}{}\n", i, x.ignx(), x.label()
-                         , &amp;INDENT[..2*x.level() as usize]
+        let e = if x.is_expanded() { "+" } else { "-" };
+        let row = format!("{:3}{}[0x{:X}/0x{:X}]{}{}\n", i, e, x.ignx(), x.label()
+                         , &amp;INDENT[..x.level() as usize]
                          , t.nodes[x.ignx() as usize].h);
         res.push_str(&amp;row);
       }
@@ -3196,49 +3262,14 @@ fn check_tree(_py: Python, tid:usize) -&gt; PyResult&lt;()&gt; {
 </t>
 <t tx="vitalije.20210715094411.1">import zipfile
 import _minileo as ML
+import pprint
 @others
-def main():
-    zf = zipfile.ZipFile('/home/vitalije/py/issue-1598/leo-demo-files.zip', 'r')
-    for name in zf.namelist():
-        s = zf.read(name).decode('utf8')
-        t = ML.outline_from_leo_str(s)
-        try:
-            ML.check_tree(t)
-        except:
-            print(ML.debug_str(t))
-            raise
-        ML.drop_tree(t)
-    s = zf.read('demo-000/demo.leo').decode('utf8')
-    t = ML.outline_from_leo_str(s)
-    A = ML.debug_str(t)
-    vpar = ML.node_at(t, 202)[1]
-    vch = ML.node_at(t, 205)[1]
-    vch2 = ML.node_at(t, 199)[1]
-    undo = []
-    undo.append(ML.create_link(t, vpar, 2, vch))
-    B = ML.debug_str(t)
-    check(t)
-    undo.append(ML.create_link(t, vch, 2, vch2))
-    check(t)
-    C = ML.debug_str(t)
-    ML.undo(t, undo[1])
-    compare_debugs(B, ML.debug_str(t), C)
-    ML.undo(t, undo[0])
-    compare_debugs(A, ML.debug_str(t), B)
-    check(t)
-    ML.redo(t, undo[0])
-    compare_debugs(B, ML.debug_str(t), A)
-    ML.redo(t, undo[1])
-    compare_debugs(C, ML.debug_str(t), B)
-    undo.append(ML.break_link(t, vch, 1))
-    D = ML.debug_str(t)
-    check(t)
-    ML.undo(t, undo[-1])
-    compare_debugs(C, ML.debug_str(t), D)
-    check(t)
-    print('everything is ok')
 if __name__ == '__main__':
-    main()
+    test_up()
+    test_some()
+    test_right()
+    test_left()
+    print("everything went ok")
 </t>
 <t tx="vitalije.20210715101954.1">pub fn create_link(o:&amp;mut Outline, pignx:usize, child_index:usize, cignx:usize) -&gt; Option&lt;String&gt; {
   let mut tch = o.subtree(cignx as u32);
@@ -3357,11 +3388,12 @@ fn pycreate_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize, v2:&amp;VData)
 }
 
 </t>
-<t tx="vitalije.20210715133349.1">def dump(A, B):
+<t tx="vitalije.20210715133349.1">def dump(A, B, rng=None):
     alines = A.splitlines()
     blines = B.splitlines()
     N = max(len(alines), len(blines))
-    for i in range(N):
+    it = range(N) if rng is None else list(range(N))[rng]
+    for i in it:
         if i &lt; len(alines):
             a = alines[i]
         else:
@@ -3375,9 +3407,9 @@ fn pycreate_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize, v2:&amp;VData)
 <t tx="vitalije.20210715133359.1">def check(t):
     try:
         ML.check_tree(t)
-        print('valid')
+        #print('valid')
     except:
-        print('invalid')
+        #print('invalid')
         raise</t>
 <t tx="vitalije.20210715134233.1">#[allow(dead_code)]
 pub fn delete_blocks(inp:&amp;mut Vec&lt;u64&gt;, marks:&amp;Vec&lt;usize&gt;, sz:usize) {
@@ -3431,10 +3463,16 @@ fn test_delete_blocks() {
 /// 
 fn pyundo(_py: Python, tid:usize, data:&amp;str) {
   TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
-    if data.starts_with("ip:") {
-      undo_insert_parts(&amp;mut t.outline, data);
-    } else if data.starts_with("db:") {
-      undo_delete_blocks(&amp;mut t.outline, data);
+    for x in data.split('\n').rev() {
+      if x.starts_with("ip:") {
+        undo_insert_parts(&amp;mut t.outline, x);
+      } else if x.starts_with("db:") {
+        undo_delete_blocks(&amp;mut t.outline, x);
+      } else if x.starts_with("sb:") {
+        undo_shift_blocks(&amp;mut t.outline, x);
+      } else if x.starts_with("sn:") {
+        undo_set_nodes(&amp;mut t.outline, x);
+      }
     }
   });
 }
@@ -3446,8 +3484,16 @@ fn pyundo(_py: Python, tid:usize, data:&amp;str) {
 /// 
 fn pyredo(_py: Python, tid:usize, data:&amp;str) {
   TREES.lock().unwrap().get_mut(&amp;tid).map(|t|{
-    if data.starts_with("ip:") {
-      redo_insert_parts(&amp;mut t.outline, &amp;data);
+    for x in data.split('\n') {
+      if x.starts_with("ip:") {
+        redo_insert_parts(&amp;mut t.outline, x);
+      } else if x.starts_with("db:") {
+        redo_delete_blocks(&amp;mut t.outline, x);
+      } else if x.starts_with("sb:") {
+        redo_shift_blocks(&amp;mut t.outline, x);
+      } else if x.starts_with("sn:") {
+        redo_set_nodes(&amp;mut t.outline, x);
+      }
     }
   });
 }
@@ -3472,18 +3518,19 @@ fn pyredo(_py: Python, tid:usize, data:&amp;str) {
           let ignx = b64int(it.next().unwrap()) as u32;
           let lab = b64int(it.next().unwrap()) as u32;
           let mut y = LevGnx::make(lev, ignx, lab);
-          if x.starts_with('-') {
+          if x.starts_with('+') {
             y.expand();
           } else {
             y.collapse();
           }
           y
         }).collect();
+    let nlabel = data.iter().fold(o[0].label(), |x, y|{if x &gt; y.label() { x } else { y.label() }});
     insert_parts(o, &amp;pmarks, &amp;data);
     let z = &amp;mut o[0];
-    z.set_label(z.label() + data.len() as u32);
+    z.set_label(nlabel);
 }</t>
-<t tx="vitalije.20210715150601.1">def compare_debugs(B, B1, C):
+<t tx="vitalije.20210715150601.1">def compare_debugs(B, B1):
     if B1 != B:
         dump(B, B1)
         raise ValueError("not same after undo/redo")
@@ -3497,24 +3544,24 @@ pub fn break_link(o:&amp;mut Outline, pignx:u32, child_index:usize) -&gt; Option
   if let Some(pi) = o.find(pignx) {
     let zlev = o[pi].level() + 1;
     if let Some(ci) = o.iter()
-                       .skip(pi+1)
                        .enumerate()
+                       .skip(pi+1)
                        .take_while(|x|x.1.level() &gt;= zlev)
                        .filter(|x|x.1.level() == zlev)
                        .skip(child_index)
-                       .map(|x|x.0+1)
+                       .map(|x|x.0)
                        .next() {
       // now parent is at index pi, and child starts at the index ci
-      let sz = o.subtree_size(ci+pi);
-      let delta = ci;
+      let sz = o.subtree_size(ci);
+      let delta = ci-pi;
       let mut marks:Vec&lt;usize&gt; =
         o.iter()
          .enumerate()
-         .skip(pi+ci+sz)
+         .skip(ci+sz)
          .filter(|x|x.1.ignx() == pignx)
          .map(|x|x.0+delta)
          .collect();
-      marks.insert(0, pi+ci);
+      marks.insert(0, ci);
       let mut buf = String::new();
       encode_delete_blocks(o, &amp;marks, sz, &amp;mut buf);
       delete_blocks(o, &amp;marks, sz);
@@ -3588,7 +3635,7 @@ fn pybreak_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize) -&gt; Option&lt
           let ignx = b64int(it.next().unwrap()) as u32;
           let lab = b64int(it.next().unwrap()) as u32;
           let mut y = LevGnx::make(lev, ignx, lab);
-          if x.starts_with('-') {
+          if x.starts_with('+') {
             y.expand();
           } else {
             y.collapse();
@@ -3613,5 +3660,860 @@ fn pybreak_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize) -&gt; Option&lt
      .collect();
   delete_blocks(o, &amp;pmarks, size);
 }</t>
+<t tx="vitalije.20210716071457.1"></t>
+<t tx="vitalije.20210716071524.1"></t>
+<t tx="vitalije.20210716071553.1"></t>
+<t tx="vitalije.20210716071616.1"></t>
+<t tx="vitalije.20210716071650.1"></t>
+<t tx="vitalije.20210716071701.1"></t>
+<t tx="vitalije.20210716071711.1">pub fn move_node_right(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
+  if i &lt; 2 {return None}
+  let ilev = o[i].level();
+  if  ilev == o[i-1].level() + 1 {return None}
+  let j = i - 1 - o[..i-1]
+    .iter()
+    .rev()
+    .position(|x|x.level() == ilev)
+    .unwrap(); // there must be a previous sibling, so its safe
+  let oldpi = o.parent_index(j);
+  let oldpignx = o[oldpi].ignx();
+  let delta = i - oldpi;
+  let sz = o.subtree_size(i);
+  let tch:Vec&lt;u64&gt; = o[i..]
+    .iter()
+    .take(sz)
+    .map(|x|{
+      let mut y = 0+*x;
+      y.shift(-(ilev as i8));
+      y
+    })
+    .collect();
+  let npignx = o[j].ignx();
+  if tch.iter().any(|x|x.ignx() == npignx) {return None}
+  // here we are certain that the movement wouldn't create invalid outline
+  let marks:Vec&lt;usize&gt; = o
+    .iter()
+    .enumerate()
+    .filter(|x|x.1.ignx() == oldpignx)
+    .map(|x|x.0+delta)
+    .collect();
+  let mut buf = String::new();
+  &lt;&lt;move right optimize&gt;&gt;
+  let oldlevels:Vec&lt;i8&gt; = marks
+    .iter()
+    .map(|x|-(o[*x].level() as i8))
+    .collect();
+  encode_delete_blocks(o, &amp;marks, sz, &amp;mut buf);
+  buf.push('\n');
+  let mut deldata:Vec&lt;u64&gt; = marks
+    .iter()
+    .flat_map(|x|o.iter().skip(*x).take(sz))
+    .map(|x|*x)
+    .collect();
+  //dump_just_outline(&amp;deldata, "deldata");
+  let psz = i-j;
+  delete_blocks(o, &amp;marks, sz);
+  //dump_just_outline(&amp;o[190..].to_vec(), "after delete blocks");
+  let nmarks:Vec&lt;usize&gt; = o
+    .iter()
+    .enumerate()
+    .filter(|x|x.1.ignx() == npignx)
+    .map(|x|x.0 + psz)
+    .collect();
+  //println!("nmarks:{:#?}", nmarks);
+  for (i, d) in oldlevels.iter().enumerate() {
+    if i &lt; nmarks.len() {
+      let zlev = 1 + o[nmarks[i]-psz].level() as i8 + d;
+      for x in deldata.iter_mut().skip(i*sz).take(sz) {
+        x.shift(zlev);
+      }
+    } else {
+      deldata.truncate(i*sz);
+      encode_insert_parts(o, &amp;nmarks, &amp;deldata, &amp;mut buf);
+      insert_parts(o, &amp;nmarks, &amp;deldata);
+      return Some(buf);
+    }
+  }
+  let mut label = o[0].label();
+  for i in nmarks.iter().skip(marks.len()) {
+    let zlev = (o[i-psz].level()+1) as i8;
+    for x in tch.iter() {
+      label += 1;
+      let mut y = *x + 0;
+      y.shift(zlev);
+      y.set_label(label);
+      deldata.push(y);
+    }
+  }
+  encode_insert_parts(o, &amp;nmarks, &amp;deldata, &amp;mut buf);
+  o[0].set_label(label);
+  insert_parts(o, &amp;nmarks, &amp;deldata);
+  return Some(buf);
+}</t>
+<t tx="vitalije.20210716090049.1"></t>
+<t tx="vitalije.20210716090113.1">#[pyfn(m)]
+#[pyo3(name="move_node_right", text_signature="(tid, label)")]
+/// Moves node right idetified by given label in the outline
+/// idetified by tid. If the movement would result in the
+/// invalid outline, returns None, without making any change.
+/// 
+/// Returns string representation of the performed changes, that
+/// can be later used for undo/redo operations.
+///
+/// Returns None if the outline or node is missing
+///
+fn pymove_node_right(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      let i = t.outline
+       .iter()
+       .skip(1)
+       .position(|x|x.label() == label)
+       .unwrap_or(0);
+      if i == 0 {return None}
+      move_node_right(&amp;mut t.outline, i+1)
+    })
+}</t>
+<t tx="vitalije.20210716091223.1">def test_some():
+    zf = zipfile.ZipFile('/home/vitalije/py/issue-1598/leo-demo-files.zip', 'r')
+    for name in zf.namelist():
+        s = zf.read(name).decode('utf8')
+        t = ML.outline_from_leo_str(s)
+        try:
+            ML.check_tree(t)
+        except:
+            print(ML.debug_str(t))
+            raise
+        ML.drop_tree(t)
+    s = zf.read('demo-000/demo.leo').decode('utf8')
+    t = ML.outline_from_leo_str(s)
+    A = ML.debug_str(t)
+    vpar = ML.node_at(t, 202)[1]
+    vch = ML.node_at(t, 205)[1]
+    vch2 = ML.node_at(t, 199)[1]
+    undo = []
+    undo.append(ML.create_link(t, vpar, 2, vch))
+    B = ML.debug_str(t)
+    check(t)
+    undo.append(ML.create_link(t, vch, 2, vch2))
+    check(t)
+    C = ML.debug_str(t)
+    ML.undo(t, undo[1])
+    compare_debugs(B, ML.debug_str(t))
+    ML.undo(t, undo[0])
+    compare_debugs(A, ML.debug_str(t))
+    check(t)
+    ML.redo(t, undo[0])
+    compare_debugs(B, ML.debug_str(t))
+    ML.redo(t, undo[1])
+    compare_debugs(C, ML.debug_str(t))
+    undo.append(ML.break_link(t, vch, 1))
+    check(t)
+    ML.undo(t, undo[-1])
+    compare_debugs(C, ML.debug_str(t))
+    check(t)
+    print('test_some went ok')</t>
+<t tx="vitalije.20210716091402.1">def get_outline(fname):
+    zf = zipfile.ZipFile('/home/vitalije/py/issue-1598/leo-demo-files.zip', 'r')
+    s = zf.read(fname).decode('utf8')
+    t = ML.outline_from_leo_str(s)
+    return t</t>
+<t tx="vitalije.20210716112543.1">fn shift_one_block(o:&amp;mut Outline, i:usize, sz:usize, d:i8) {
+  for x in o.iter_mut().skip(i).take(sz) {
+    x.shift(d);
+  }
+}
+
+fn shift_blocks(o:&amp;mut Outline, marks:&amp;Vec&lt;usize&gt;, sz:usize, d:i8) {
+  for i in marks.iter() {
+    shift_one_block(o, *i, sz, d);
+  }
+}
+</t>
+<t tx="vitalije.20210716114748.1">fn encode_shift_blocks(o:&amp;Outline, marks:&amp;Vec&lt;usize&gt;, sz:usize, d:i8, mut buf:&amp;mut String) {
+    buf.push_str("sb:");
+    b64write(sz as u64, &amp;mut buf);
+    buf.push(',');
+    if d &lt; 0 { buf.push('-'); b64write((-d) as u64, &amp;mut buf) }
+    else {b64write(d as u64, &amp;mut buf)}
+    buf.push_str(",(");
+    let mut data:Vec&lt;u64&gt; = Vec::new();
+    for m in marks.iter() {
+      b64write(*m as u64, &amp;mut buf);
+      buf.push(',');
+      for i in o.iter().skip(*m).take(sz) {
+        data.push(*i);
+      }
+    }
+    buf.pop();
+    buf.push(')');
+}</t>
+<t tx="vitalije.20210716115224.1"></t>
+<t tx="vitalije.20210716115256.1">pub fn undo_shift_blocks(o:&amp;mut Outline, enc:&amp;str) {
+  let (size, marks, d) = decode_shift_blocks(enc);
+  shift_blocks(o, &amp;marks, size, -d);
+}</t>
+<t tx="vitalije.20210716115333.1">pub fn redo_shift_blocks(o:&amp;mut Outline, enc:&amp;str) {
+  let (size, marks, d) = decode_shift_blocks(enc);
+  shift_blocks(o, &amp;marks, size, d);
+}</t>
+<t tx="vitalije.20210716120605.1">fn decode_shift_blocks(enc:&amp;str) -&gt; (usize, Vec&lt;usize&gt;, i8) {
+  let size = b64int(&amp;enc[3..]) as usize;
+  let s2 = partition(&amp;enc, ",").2;
+  let d:i8 = if s2.starts_with('-') {
+    let z = b64int(&amp;s2[1..]) as i8;
+    -z
+  } else {
+    b64int(&amp;s2) as i8
+  };
+  let s2 = partition(&amp;s2, "(").2;
+  let marks:Vec&lt;usize&gt; =
+    s2.split(',')
+     .enumerate()
+     .map(|x|b64int(x.1) as usize - size*x.0)
+     .collect();
+  (size, marks, d)
+}</t>
+<t tx="vitalije.20210716120732.1">/* unless current node is clonned we can optimize this operation */
+if marks.iter().all(|x|o[x-delta].ignx() == oldpignx) {
+  encode_shift_blocks(o, &amp;marks, sz, 1, &amp;mut buf);
+  shift_blocks(o, &amp;marks, sz, 1);
+  return Some(buf);
+}</t>
+<t tx="vitalije.20210716121409.1">pub fn move_node_left(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
+  if i &gt;= o.len() { return None }
+  if o[i].level() &lt; 2 { return None }
+  let pi1 = o.parent_index(i);
+  let pi2 = o.parent_index(pi1);
+  let pgnx = o[pi2].ignx();
+  let delta = i - pi2;
+  let marks:Vec&lt;usize&gt; = o.iter()
+    .enumerate()
+    .filter(|x|x.1.ignx() == pgnx)
+    .map(|x|x.0 + delta)
+    .collect();
+  let sz = o.subtree_size(i);
+  let mut buf = String::new();
+  encode_shift_blocks(o, &amp;marks, sz, -1, &amp;mut buf);
+  shift_blocks(o, &amp;marks, sz, -1);
+  Some(buf)
+}</t>
+<t tx="vitalije.20210716122155.1">#[pyfn(m)]
+#[pyo3(name="move_node_left", text_signature="(tid, label)")]
+/// Moves node left idetified by given label in the outline
+/// idetified by tid. If the movement would result in the
+/// invalid outline, returns None, without making any change.
+/// 
+/// Returns string representation of the performed changes, that
+/// can be later used for undo/redo operations.
+///
+/// Returns None if the outline or node is missing
+///
+fn pymove_node_left(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      let i = t.outline
+       .iter()
+       .skip(1)
+       .position(|x|x.label() == label)
+       .map(|x|x+1)
+       .unwrap_or(0);
+      if i == 0 { return None }
+      move_node_left(&amp;mut t.outline, i)
+    })
+}</t>
+<t tx="vitalije.20210716122616.1">def test_right():
+    t = get_outline('demo-000/demo.leo')
+    A = ML.debug_str(t)
+    undo = [ML.move_node_right(t, 205)]
+    B = ML.debug_str(t)
+    check(t)
+    ML.undo(t, undo[0])
+    compare_debugs(A, ML.debug_str(t))
+    check(t)
+    ML.redo(t, undo[0])
+    compare_debugs(B, ML.debug_str(t))
+    check(t)
+    print("test_right went ok")</t>
+<t tx="vitalije.20210716122705.1">def test_left():
+    t = get_outline('demo-000/demo.leo')
+    A = ML.debug_str(t)
+    cps = [p for lev, exp, p, v in ML.iternodes(t) if lev &gt; 1]
+    for p in cps:
+        u = ML.move_node_left(t, p)
+        assert u is not None, f'{A}\np:{p}\nu:{u}'
+        check(t)
+        B = ML.debug_str(t)
+        #dump(A, B)
+        #print(u)
+        #return
+        ML.undo(t, u)
+        check(t)
+        compare_debugs(A, ML.debug_str(t))
+        ML.redo(t, u)
+        check(t)
+        compare_debugs(B, ML.debug_str(t))
+        ML.undo(t, u)
+    print("test_left went ok")</t>
+<t tx="vitalije.20210716125311.1">#[pyfn(m)]
+#[pyo3(name="move_node_up", text_signature="(tid, label)")]
+/// Moves node up idetified by given label in the outline
+/// idetified by tid. If the movement would result in the
+/// invalid outline, returns None, without making any change.
+/// 
+/// Returns string representation of the performed changes, that
+/// can be later used for undo/redo operations.
+///
+/// Returns None if the outline or node is missing
+///
+fn pymove_node_up(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      let i = t.outline
+       .iter()
+       .skip(1)
+       .position(|x|x.label() == label)
+       .unwrap_or(0);
+      if i == 0 {return None}
+      move_node_up(&amp;mut t.outline, i+1)
+    })
+}</t>
+<t tx="vitalije.20210716125410.1">pub fn move_node_up(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
+  if i &lt; 2 {return None}
+  if o[i-1].level() + 1 == o[i].level() {
+    // moving up, this node becomes previous sibling to its old parent
+    Some(move_node_up_1(o, i))
+  } else {
+    // this node has previous sibling
+    let j = visible_parent(o, i-1);
+    if o[j].level() == o[i].level() {
+      // moving up, this node won't change its parent
+      Some(move_node_up_2(o, i, j))
+    } else {
+      // moving up, this node will also move right and change its parent
+      move_node_up_3(o, i, j)
+    }
+  }
+}</t>
+<t tx="vitalije.20210716171712.1">pub fn move_node_down(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
+  // case 1:
+  //    if this node is last sibling, then this node becomes
+  //    next sibling of its parent. This is always valid move.
+  // case 2:
+  //    if the following sibling of this node has children and
+  //    if it is expanded then this node becomes first child of
+  //    the following sibling node (if it is a valid move)
+  // case 3:
+  //    if the following sibling of this node has no children
+  //    or if it is collapsed, then this swaps its position
+  //    with the following sibling.
+  let j = o.parent_index(i);
+  let sz_a = o.subtree_size(i);
+  if sz_a + i &gt;= o.len() {return None} // last node can't go down
+  let ilev = o[i].level();
+  let flev = o[i+sz_a].level();
+  if ilev &gt; flev {
+    &lt;&lt;move down case 1&gt;&gt;
+  } else if i+sz_a+1 &lt; o.len()
+      &amp;&amp; o[i+sz_a].is_expanded()
+      &amp;&amp; o[i+sz_a+1].level() &gt; ilev {
+    &lt;&lt;move donw case 2&gt;&gt;
+  } else {
+    &lt;&lt;move_down case 3&gt;&gt;
+  }
+}</t>
+<t tx="vitalije.20210716171752.1">#[pyfn(m)]
+#[pyo3(name="move_node_down", text_signature="(tid, label)")]
+/// Moves node down idetified by given label in the outline
+/// idetified by tid. If the movement would result in the
+/// invalid outline, returns None, without making any change.
+/// 
+/// Returns string representation of the performed changes, that
+/// can be later used for undo/redo operations.
+///
+/// Returns None if the outline or node is missing
+///
+fn pymove_node_down(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      let i = t.outline
+       .iter()
+       .skip(1)
+       .position(|x|x.label() == label)
+       .unwrap_or(0);
+      if i == 0 {return None}
+      move_node_down(&amp;mut t.outline, i+1)
+    })
+}</t>
+<t tx="vitalije.20210716202521.1">fn visible_parent(o:&amp;Outline, i:usize) -&gt; usize {
+  let mut k = i;
+  let mut j = o.parent_index(i);
+  while j &gt; 0 {
+    if !o[j].is_expanded() {
+      k = j;
+    }
+    j = o.parent_index(j);
+  }
+  k
+}</t>
+<t tx="vitalije.20210716202526.1">#[allow(dead_code)]
+fn is_visible(o:&amp;Outline, i:usize) -&gt; bool {
+  if o[i].level() == 1 {return true}
+  let mut j = o.parent_index(i);
+  while j &gt; 0 &amp;&amp; o[j].is_expanded() {
+    j = o.parent_index(i);
+  }
+  o[j].level() == 1
+}</t>
+<t tx="vitalije.20210716203726.1">/// Node becomes previous sibling of its old parent.
+/// This operation is always valid.
+///
+fn move_node_up_1(o:&amp;mut Outline, i:usize) -&gt; String {
+  // what actually needs to be done is just swaping block of nodes
+  let pi = i - 1;
+  let pgnx = o[pi].ignx();
+  let sz = o.subtree_size(i);
+  let marks:Vec&lt;usize&gt; = o
+    .iter()
+    .enumerate()
+    .filter(|x|x.1.ignx() == pgnx)
+    .map(|x|x.0)
+    .collect();
+  let data:Outline = marks
+    .iter()
+    .flat_map(|x| {
+      let a = o
+        .iter()
+        .skip(*x + 1)
+        .map(|n|{let mut m:u64=*n+0; m.dec(); m})
+        .take(sz);
+      let b = o.iter().skip(*x).take(1).map(|x|*x);
+      a.chain(b)
+    })
+    .collect();
+  let mut buf = String::new();
+  encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+  set_nodes(o, &amp;marks, &amp;data);
+  buf
+}</t>
+<t tx="vitalije.20210716204035.1">/// moving up, this node won't change its parent. This operation is
+/// always valid.
+///
+fn move_node_up_2(o:&amp;mut Outline, i:usize, j:usize) -&gt; String {
+  let sz = o.subtree_size(i);
+  let sz2 = i-j;
+  let pi = o.parent_index(j);
+  let delta = j - pi;
+  let pgnx = o[pi].ignx();
+  let marks:Vec&lt;usize&gt; = o
+    .iter()
+    .enumerate()
+    .filter(|x|x.1.ignx() == pgnx)
+    .map(|x|x.0 + delta)
+    .collect();
+  let data:Outline = marks
+    .iter()
+    .flat_map(|x| {
+      let a = o.iter().skip(*x+sz2).take(sz);
+      let b = o.iter().skip(*x).take(sz2);
+      a.chain(b)
+    })
+    .map(|x|*x)
+    .collect();
+  let mut buf = String::new();
+  encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+  set_nodes(o, &amp;marks, &amp;data);
+  buf
+}</t>
+<t tx="vitalije.20210716204038.1">/// moving up, this node will also move right and change its parent.
+/// This operation might result in invalid outline.
+///
+fn move_node_up_3(o:&amp;mut Outline, i:usize, j:usize) -&gt; Option&lt;String&gt; {
+  // this node[i] should become following sibling of node[j]
+  let pj = o.parent_index(j);
+  let gpj = o.parent_index(pj); // this must be also the parent of i
+  let gpgnx = o[gpj].ignx();
+  let gpdelta = pj-gpj;
+  let npgnx = o[pj].ignx();
+  let dlev:i8 = o[j].level() as i8 - o[i].level() as i8;
+  let dest = o.subtree_size(pj) + pj; // this is where node[i] should end
+  let delta = dest - pj;
+  let sz_a = i - dest;
+  let sz_b = o.subtree_size(i);
+
+  // all_marks: all indexes where npgnx appears in the outline
+  // for each index there is a bool telling wether we need to allocate new positions
+  // for that block or just to copy old positions
+  let all_marks:Vec&lt;(usize, bool)&gt; = o
+    .iter()
+    .enumerate()
+    .filter(|x|x.1.ignx() == npgnx)
+    .map(|(i, _)| {
+      (i, i &gt; gpdelta &amp;&amp; o[i-gpdelta].ignx() != gpgnx)
+    })
+    .collect();
+  let marks_1:Vec&lt;usize&gt; = all_marks
+    .iter()
+    .filter(|x|x.1)
+    .map(|x|x.0 + delta + sz_a)
+    .collect();
+  let marks_2:Vec&lt;usize&gt; = all_marks
+    .iter()
+    .filter(|x|!x.1)
+    .map(|x|x.0 + delta + sz_a)
+    .collect();
+
+  let mut buf = String::new();
+  encode_shift_blocks(o, &amp;marks_2, sz_b, dlev, &amp;mut buf);
+  shift_blocks(o, &amp;marks_2, sz_b, dlev);
+  if marks_1.len() == 0 { return Some(buf); }
+  buf.push('\n');
+  let zlev = o[i].level() as i8;
+  let tch:Vec&lt;u64&gt; = o
+    .iter()
+    .skip(i)
+    .take(sz_b)
+    .map(|x|{let mut z = *x + 0;z.shift(-zlev); z})
+    .collect();
+  let mut data_1:Vec&lt;u64&gt; = marks_1
+    .iter()
+    .map(|i|o[*i-delta-sz_a].level()+1)
+    .flat_map(|zlev| {
+      tch.iter().map(move |x|
+        LevGnx::make(zlev+x.level(), x.ignx(), 0)
+      )
+    })
+    .collect();
+  let label = o[0].label()+1;
+  for (l, x) in data_1.iter_mut().enumerate() {
+    x.set_label(l as u32 + label);
+  }
+  encode_insert_parts(o, &amp;marks_1, &amp;data_1, &amp;mut buf);
+  o[0].set_label(label - 1 + data_1.len() as u32);
+  insert_parts(o, &amp;marks_1, &amp;data_1);
+  Some(buf)
+}</t>
+<t tx="vitalije.20210716205921.1"></t>
+<t tx="vitalije.20210716210738.1">fn encode_set_nodes(o:&amp;Outline, marks:&amp;Vec&lt;usize&gt;, data:&amp;Outline, buf:&amp;mut String) {
+  let sz = data.len() / marks.len();
+  let ndata:Outline = marks
+    .iter()
+    .flat_map(|x| o.iter().skip(*x).take(sz))
+    .map(|x|*x)
+    .collect();
+  buf.push_str("sn:");
+  b64write(sz as u64, buf);
+  buf.push_str(",(");
+  for m in marks.iter() {
+    b64write(*m as u64, buf);
+    buf.push(',')
+  }
+  buf.pop();
+  buf.push_str("),(");
+  for m in data.iter() {
+    buf.push(if m.is_expanded() { '+' } else { '-' });
+    b64write(m.level() as u64, buf);
+    buf.push('.');
+    b64write(m.ignx() as u64, buf);
+    buf.push('.');
+    b64write(m.label() as u64, buf);
+    buf.push(',');
+  }
+  buf.pop();
+  buf.push_str("),(");
+  for m in ndata.iter() {
+    buf.push(if m.is_expanded() { '+' } else { '-' });
+    b64write(m.level() as u64, buf);
+    buf.push('.');
+    b64write(m.ignx() as u64, buf);
+    buf.push('.');
+    b64write(m.label() as u64, buf);
+    buf.push(',');
+  }
+  buf.pop();
+  buf.push(')');
+}</t>
+<t tx="vitalije.20210716210930.1">fn set_nodes(o:&amp;mut Outline, marks:&amp;Vec&lt;usize&gt;, data:&amp;Outline) {
+  let sz = data.len() / marks.len();
+  for (i, m) in marks.iter().enumerate() {
+    for (j, x) in data.iter().skip(i * sz).enumerate().take(sz) {
+      o[m+j] = *x;
+    }
+  }
+}
+</t>
+<t tx="vitalije.20210716210937.1">pub fn undo_set_nodes(o:&amp;mut Outline, enc:&amp;str) {
+  //let size = b64int(&amp;enc[3..]) as usize;
+  let s2 = partition(&amp;enc, ",(").2;
+  let (s2, _, s3) = partition(s2, "),(");
+  let marks:Vec&lt;usize&gt; =
+    s2.split(',')
+      .map(|x|b64int(x) as usize)
+      .collect();
+  let (_, _, s3) = partition(s3, "),(");
+  let data:Vec&lt;u64&gt; =
+      s3.split(",")
+        .map(|x|{
+          let mut it = x[1..].split('.');
+          let lev = b64int(it.next().unwrap()) as u8;
+          let ignx = b64int(it.next().unwrap()) as u32;
+          let lab = b64int(it.next().unwrap()) as u32;
+          let mut y = LevGnx::make(lev, ignx, lab);
+          if x.starts_with('+') {
+            y.expand();
+          } else {
+            y.collapse();
+          }
+          y
+        }).collect();
+  set_nodes(o, &amp;marks, &amp;data);
+}</t>
+<t tx="vitalije.20210716211545.1">pub fn redo_set_nodes(o:&amp;mut Outline, enc:&amp;str) {
+  //let size = b64int(&amp;enc[3..]) as usize;
+  let s2 = partition(&amp;enc, ",(").2;
+  let (s2, _, s3) = partition(s2, "),(");
+  let marks:Vec&lt;usize&gt; =
+    s2.split(',')
+      .map(|x|b64int(x) as usize)
+      .collect();
+  let (s2, _, _) = partition(s3, "),(");
+  let data:Vec&lt;u64&gt; =
+      s2.split(",")
+        .map(|x|{
+          let mut it = x[1..].split('.');
+          let lev = b64int(it.next().unwrap()) as u8;
+          let ignx = b64int(it.next().unwrap()) as u32;
+          let lab = b64int(it.next().unwrap()) as u32;
+          let mut y = LevGnx::make(lev, ignx, lab);
+          if x.starts_with('+') {
+            y.expand();
+          } else {
+            y.collapse();
+          }
+          y
+        }).collect();
+  set_nodes(o, &amp;marks, &amp;data);
+}</t>
+<t tx="vitalije.20210718114938.1">def test_up():
+    t = get_outline('demo-000/demo.leo')
+    cps = [p for lev, exp, p, v in ML.iternodes(t)][1:]
+
+    for p in [171, 173, 174, 183, 193, 205]:
+        u = ML.expand_node(t, p)
+        assert u, f'u:{u}, p:{p}'
+    A = ML.debug_str(t)
+    u = ML.move_node_up(t, 211)
+    assert u is not None, f'{A}\np:{p}\nu:{u}'
+    B = ML.debug_str(t)
+    try:
+        check(t)
+    except:
+        dump(A,B)
+        print("position:%X"%p)
+        raise
+    ML.undo(t, u)
+    check(t)
+    compare_debugs(A, ML.debug_str(t))
+    ML.redo(t, u)
+    check(t)
+    compare_debugs(B, ML.debug_str(t))
+    ML.undo(t, u)
+    ML.collapse_node(t, 205)
+    A = ML.debug_str(t)
+    u = ML.move_node_up(t, 211)
+    check(t)
+    assert u, f'{A}\np:{p}\nu:{u}'
+    B = ML.debug_str(t)
+    u2 = ML.move_node_up(t, 211)
+    check(t)
+    ML.undo(t, u2)
+    check(t)
+    compare_debugs(B, ML.debug_str(t))
+    ML.undo(t, u)
+    check(t)
+    compare_debugs(A, ML.debug_str(t))
+    vpar = ML.node_at(t, 202)[1]
+    vch = ML.node_at(t, 205)[1]
+    vch2 = ML.node_at(t, 199)[1]
+    undo = []
+    undo.append(ML.create_link(t, vpar, 2, vch))
+    B = ML.debug_str(t)
+    check(t)
+    ML.expand_node(t, 205)
+    B1 = ML.debug_str(t)
+    undo.append(ML.move_node_up(t, 211))
+    C = ML.debug_str(t)
+    check(t)
+    ML.undo(t, undo[-1])
+    check(t)
+    compare_debugs(B1, ML.debug_str(t))
+    ML.redo(t, undo[-1])
+    compare_debugs(C, ML.debug_str(t))
+    print("test_up went ok")</t>
+<t tx="vitalije.20210718121623.1">#[pyfn(m)]
+#[pyo3(name="expand_node", text_signature="(tid, p)")]
+/// Expands node at position p in the outline
+/// idetified by tid.
+/// 
+/// Returns None if the tid outline is missing or there isn't a node at 
+/// the given position p, or node was already expanded
+fn expand_node(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      t.outline
+        .iter_mut()
+        .enumerate()
+        .filter(|x|x.1.label() == label)
+        .nth(0)
+        .filter(|x|!x.1.is_expanded())
+        .map(|x| {
+          let mut s = "expand:".to_string();
+          b64write(x.0 as u64, &amp;mut s);
+          x.1.expand();
+          s
+        })
+    })
+}
+</t>
+<t tx="vitalije.20210718122914.1">#[pyfn(m)]
+#[pyo3(name="collapse_node", text_signature="(tid, p)")]
+/// Collapses node at position p in the outline
+/// idetified by tid.
+/// 
+/// Returns None if the tid outline is missing or there isn't a node at 
+/// the given position p, or node was already collapsed
+fn collapse_node(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      t.outline
+        .iter_mut()
+        .enumerate()
+        .filter(|x|x.1.label() == label)
+        .nth(0)
+        .filter(|x|x.1.is_expanded())
+        .map(|x| {
+          let mut s = "collapse:".to_string();
+          b64write(x.0 as u64, &amp;mut s);
+          x.1.collapse();
+          s
+        })
+    })
+}
+</t>
+<t tx="vitalije.20210718201053.1">// case 1:
+// this node becomes next sibling of its parent
+// this is the same as moving node right
+// this is always valid move
+return move_node_right(o, i);</t>
+<t tx="vitalije.20210718201112.1">// case 2:
+// this node becomes first child of the following sibling node
+// sometimes this move is not valid
+let fi = i + sz_a;
+let fignx = o[fi].ignx();
+if o.iter().skip(i).take(sz_a).any(|x|x.ignx() == fignx) {
+  return None; //can't become child of own descendant
+}
+let pignx = o[j].ignx();
+let delta_back = fi - j;
+// now we know: this move is surely valid
+let all_marks:Vec&lt;(usize, bool)&gt; = o
+  .iter()
+  .enumerate()
+  .filter(|x|x.1.ignx() == fignx)
+  .map(|x|
+    (x.0, x.0 &lt;= delta_back || o[x.0-delta_back].ignx() != pignx)
+  ).collect();
+let marks_1:Vec&lt;usize&gt; = all_marks
+  .iter()
+  .filter(|x|!x.1)
+  .map(|x|x.0-sz_a)
+  .collect();
+
+let marks_2:Vec&lt;usize&gt; = all_marks
+  .iter()
+  .filter(|x|x.1)
+  .map(|x|x.0+1)
+  .collect();
+let data:Vec&lt;u64&gt; = marks_1
+  .iter()
+  .flat_map(|m|{
+    let a = o.iter().skip(*m).take(sz_a);
+    let b = o.iter().skip(*m+sz_a).take(1);
+    b.chain(a)
+  }).map(|x|*x)
+  .collect();
+let mut buf = String::new();
+encode_set_nodes(o, &amp;marks_1, &amp;data, &amp;mut buf);
+if marks_2.len() == 0 {
+  set_nodes(o, &amp;marks_1, &amp;data);
+  return Some(buf);
+}
+buf.push('\n');
+let dlev:i8 = - (ilev as i8);
+let tch:Vec&lt;u64&gt; = o
+  .iter()
+  .skip(i)
+  .take(sz_a)
+  .map(|x|{let mut m = *x + 0; m.shift(dlev); m})
+  .collect();
+let mut data_2:Vec&lt;u64&gt; = marks_2
+  .iter()
+  .flat_map(|m| {
+    let zlev = o[*m].level() as u64 * LEVEL_ONE;
+    tch.iter().map(move |x|*x + zlev)
+  })
+  .collect();
+let label = o[0].label()+1;
+for (l, x) in data_2.iter_mut().enumerate() {
+  x.set_label(l as u32 + label);
+}
+set_nodes(o, &amp;marks_1, &amp;data);
+encode_insert_parts(o, &amp;marks_2, &amp;data_2, &amp;mut buf);
+insert_parts(o, &amp;marks_2, &amp;data_2);
+o[0].set_label(label - 1 + data_2.len() as u32);
+return Some(buf);</t>
+<t tx="vitalije.20210718201129.1">// case 3:
+//    this node swaps its position with the following sibling.
+let sz_b = o.subtree_size(i + sz_a);
+let pgnx = o[j].ignx();
+let delta_st = i - j;
+let marks:Vec&lt;usize&gt; = o
+  .iter()
+  .enumerate()
+  .filter(|x|x.1.ignx() == pgnx)
+  .map(|x|x.0 + delta_st)
+  .collect();
+
+let data:Vec&lt;u64&gt; = marks
+  .iter()
+  .flat_map(|m| {
+    let a = o.iter().skip(*m).take(sz_a);
+    let b = o.iter().skip(*m+sz_a).take(sz_b);
+    b.chain(a)
+  }).map(|x|*x)
+  .collect();
+
+let mut buf = String::new();
+encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+set_nodes(o, &amp;marks, &amp;data);
+return Some(buf);</t>
 </tnodes>
 </leo_file>
