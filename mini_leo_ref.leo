@@ -156,12 +156,18 @@
 <v t="vitalije.20210716071711.1"><vh>move_node_right</vh>
 <v t="vitalije.20210716120732.1"><vh>&lt;&lt;move right optimize&gt;&gt;</vh></v>
 </v>
-<v t="vitalije.20210716121409.1"><vh>move_node_left</vh></v>
+<v t="vitalije.20210716121409.1"><vh>move_node_left</vh>
+<v t="vitalije.20210719170944.1"><vh>&lt;&lt;move left case 1&gt;&gt;</vh></v>
+<v t="vitalije.20210719171056.1"><vh>&lt;&lt;move left case 2&gt;&gt;</vh></v>
+<v t="vitalije.20210719171147.1"><vh>&lt;&lt;move left case 3&gt;&gt;</vh></v>
+<v t="vitalije.20210719171154.1"><vh>&lt;&lt;move left case 4&gt;&gt;</vh></v>
+</v>
 <v t="vitalije.20210716125410.1"><vh>move_node_up</vh>
+<v t="vitalije.20210719143857.1"><vh>&lt;&lt;move up case 1&gt;&gt;</vh></v>
+<v t="vitalije.20210719144020.1"><vh>&lt;&lt;move up case 2&gt;&gt;</vh></v>
+<v t="vitalije.20210719144033.1"><vh>&lt;&lt;move up case 3&gt;&gt;</vh></v>
 <v t="vitalije.20210716202521.1"><vh>visible_parent</vh></v>
 <v t="vitalije.20210716202526.1"><vh>is_visible</vh></v>
-<v t="vitalije.20210716203726.1"><vh>move_node_up_1</vh></v>
-<v t="vitalije.20210716204035.1"><vh>move_node_up_2</vh></v>
 <v t="vitalije.20210716204038.1"><vh>move_node_up_3</vh></v>
 </v>
 <v t="vitalije.20210716171712.1"><vh>move_node_down</vh>
@@ -255,7 +261,9 @@
 <v t="vitalije.20191215181220.1"><vh>parser_config</vh></v>
 <v t="vitalije.20191215181042.1"><vh>from_leo_file</vh></v>
 <v t="vitalije.20210715081849.1"><vh>from_zip_archive</vh></v>
-<v t="vitalije.20191215182704.1"><vh>from_leo_content</vh></v>
+<v t="vitalije.20191215182704.1"><vh>from_leo_content</vh>
+<v t="vitalije.20210719122601.1"><vh>&lt;&lt;handle empty v element&gt;&gt;</vh></v>
+</v>
 <v t="vitalije.20200323081335.1"><vh>from_auto_content</vh></v>
 <v t="vitalije.20191229171155.1"><vh>load_with_external_files</vh>
 <v t="vitalije.20200323075753.1"><vh>load derived files</vh></v>
@@ -281,6 +289,7 @@
 <v t="vitalije.20210718114938.1"><vh>test_up</vh></v>
 <v t="vitalije.20210719104019.1"><vh>test_down</vh></v>
 </v>
+<v t="vitalije.20210719152258.1"><vh>тест дата</vh></v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
 <v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
 </v>
@@ -774,7 +783,7 @@ cbindgen = "0.19.0"
 
 [dependencies]
 lazy_static = "1.4.0"
-quick-xml = "0.17.1"
+quick-xml = "0.22.0"
 # zip = "0.5.13"
 
 [dependencies.pyo3]
@@ -1081,6 +1090,7 @@ fn add_node(&amp;mut self, level: u8, ignx: u32) -&gt; Result&lt;bool, TreeError
       label += 1;
       self.push(z);
     }
+    self[0].set_label(label);
     Ok(true)
   }
 }</t>
@@ -2074,6 +2084,9 @@ fn parser_config() -&gt; ParserConfig {
           last_gnx.push_str(&amp;getattr(b"tx", e.attributes(), &amp;reader));
         }
         txt.clear();
+      },
+      Ok(Event::Empty(ref e)) =&gt; {
+        &lt;&lt;handle empty v element&gt;&gt;
       },
       Ok(Event::Text(e)) =&gt; txt.push_str(&amp;e.unescape_and_decode(&amp;reader).unwrap()),
       Ok(Event::End(ref e)) =&gt; {
@@ -3155,7 +3168,7 @@ fn to_debug_str(_py: Python, tid: usize) -&gt; PyResult&lt;String&gt; {
       let mut res = String::new();
       for (i, x) in t.outline.iter().enumerate() {
         let e = if x.is_expanded() { "+" } else { "-" };
-        let row = format!("{:3}{}[0x{:X}/0x{:X}]{}{}\n", i, e, x.ignx(), x.label()
+        let row = format!("{:3}{}[0x{:03X}/0x{:03X}]{}{}\n", i, e, x.ignx(), x.label()
                          , &amp;INDENT[..x.level() as usize]
                          , t.nodes[x.ignx() as usize].h);
         res.push_str(&amp;row);
@@ -3244,9 +3257,9 @@ fn check_tree(_py: Python, tid:usize) -&gt; PyResult&lt;()&gt; {
       let msg = format!("Level validation failed at index:{}", i);
       return Some(PyValueError::new_err(msg));
     }
-    if let Some(ignx) = check_clones(&amp;t.outline, &amp;t.nodes) {
+    if let Some((ignx, i)) = check_clones(&amp;t.outline, &amp;t.nodes) {
       let v = &amp;t.nodes[ignx as usize];
-      let msg = format!("Clones of {}[{}] are different", v.h, v.gnx);
+      let msg = format!("Clones of {}[0x{:03X}] are different at index:{}", v.h, v.ignx, i);
       return Some(PyValueError::new_err(msg));
     }
     if let Some(i) = check_labels(&amp;t.outline) {
@@ -3359,7 +3372,7 @@ fn pycreate_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize, v2:&amp;VData)
     buf.pop();
     buf.push(')');
 }</t>
-<t tx="vitalije.20210715124725.1">pub fn check_clones(o:&amp;Outline, n:&amp;Vec&lt;VData&gt;) -&gt; Option&lt;u32&gt; {
+<t tx="vitalije.20210715124725.1">pub fn check_clones(o:&amp;Outline, n:&amp;Vec&lt;VData&gt;) -&gt; Option&lt;(u32, usize)&gt; {
   let clones = clonned_nodes(o, n);
   for cignx in clones.iter() {
     let t1 = o.subtree(*cignx);
@@ -3372,7 +3385,7 @@ fn pycreate_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize, v2:&amp;VData)
       for (j, y) in t1.iter().enumerate() {
         let z = o[i + j];
         if y.ignx() != z.ignx() || y.level() + zlev != z.level() {
-          return Some(*cignx)
+          return Some((*cignx, i+j))
         }
       }
     }
@@ -3780,7 +3793,7 @@ fn pymove_node_right(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&g
     })
 }</t>
 <t tx="vitalije.20210716091223.1">def test_some():
-    zf = zipfile.ZipFile('/home/vitalije/py/issue-1598/leo-demo-files.zip', 'r')
+    zf = zipfile.ZipFile('leo-demo-files.zip', 'r')
     for name in zf.namelist():
         s = zf.read(name).decode('utf8')
         t = ML.outline_from_leo_str(s)
@@ -3790,14 +3803,13 @@ fn pymove_node_right(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&g
             print(ML.debug_str(t))
             raise
         ML.drop_tree(t)
-    s = zf.read('demo-000/demo.leo').decode('utf8')
-    t = ML.outline_from_leo_str(s)
+    t = get_outline('demo-000/demo.leo')
     A = ML.debug_str(t)
-    vpar = ML.node_at(t, 202)[1]
-    vch = ML.node_at(t, 205)[1]
-    vch2 = ML.node_at(t, 199)[1]
+    vpar = ML.node_at(t, 287)[1]
+    vch = ML.node_at(t, 300)[1]
+    vch2 = ML.node_at(t, 290)[1]
     undo = []
-    undo.append(ML.create_link(t, vpar, 2, vch))
+    undo.append(ML.create_link(t, vpar, 1, vch))
     B = ML.debug_str(t)
     check(t)
     undo.append(ML.create_link(t, vch, 2, vch2))
@@ -3819,7 +3831,7 @@ fn pymove_node_right(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&g
     check(t)
     print('test_some went ok')</t>
 <t tx="vitalije.20210716091402.1">def get_outline(fname):
-    zf = zipfile.ZipFile('/home/vitalije/py/issue-1598/leo-demo-files.zip', 'r')
+    zf = zipfile.ZipFile('leo-demo-files.zip', 'r')
     s = zf.read(fname).decode('utf8')
     t = ML.outline_from_leo_str(s)
     return t</t>
@@ -3874,8 +3886,7 @@ fn shift_blocks(o:&amp;mut Outline, marks:&amp;Vec&lt;usize&gt;, sz:usize, d:i8)
   let s2 = partition(&amp;s2, "(").2;
   let marks:Vec&lt;usize&gt; =
     s2.split(',')
-     .enumerate()
-     .map(|x|b64int(x.1) as usize - size*x.0)
+     .map(|x|b64int(x) as usize)
      .collect();
   (size, marks, d)
 }</t>
@@ -3888,19 +3899,76 @@ if marks.iter().all(|x|o[x-delta].ignx() == oldpignx) {
 <t tx="vitalije.20210716121409.1">pub fn move_node_left(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
   if i &gt;= o.len() { return None }
   if o[i].level() &lt; 2 { return None }
+  // there are four different cases
+  // case 1: the simplest one
+  //    curent parent of this node is not cloned and this node is
+  //    last child. In this case it is enough just to shift all
+  //    occurrencies of this node
+  // case 2:
+  //    parent is clonned and this node is last child
+  //    in this case we need to shift some occurrencies of this node
+  //    and delete this node from other clones.
+  // case 3:
+  //    parent is not clonned but this node has following siblings
+  //    we just need to move this node to the last child position
+  //    and shift it left
+  // case 4:
+  //    parent is cloned and this node has following siblings
+  //    in this case we need to move node to last child position
+  //    and shift it left, and we need to delete this node from
+  //    other clones.
   let pi1 = o.parent_index(i);
+  let sz_a = o.subtree_size(i);
+  let psz = o.subtree_size(pi1);
+  let is_last_child = psz + pi1 == i + sz_a;
+
   let pi2 = o.parent_index(pi1);
   let pgnx = o[pi2].ignx();
-  let delta = i - pi2;
-  let marks:Vec&lt;usize&gt; = o.iter()
+  let gnx = o[pi1].ignx();
+  let delta = i - pi1;
+  let pdelta = pi1 - pi2;
+
+  let all_marks:Vec&lt;(usize, bool)&gt; = o.iter()
     .enumerate()
-    .filter(|x|x.1.ignx() == pgnx)
-    .map(|x|x.0 + delta)
+    .filter(|x|x.1.ignx() == gnx)
+    .map(|x|(x.0 + delta, x.0 &gt;= pdelta &amp;&amp; o[x.0-pdelta].ignx() == pgnx))
     .collect();
-  let sz = o.subtree_size(i);
+
+  // marks: indices of blocks to be shifted/moved
+  let marks:Vec&lt;usize&gt; = all_marks
+    .iter()
+    .filter(|x|x.1)
+    .map(|x|x.0)
+    .collect();
+  // marks_2: indices of blocks to be deleted
+  let marks_2:Vec&lt;usize&gt; = all_marks
+    .iter()
+    .filter(|x|!x.1)
+    .map(|x|x.0)
+    .collect();
+  let parent_has_clones = marks_2.len() &gt; 0;
   let mut buf = String::new();
-  encode_shift_blocks(o, &amp;marks, sz, -1, &amp;mut buf);
-  shift_blocks(o, &amp;marks, sz, -1);
+  if is_last_child {
+    if !parent_has_clones {
+      &lt;&lt;move left case 1&gt;&gt;
+    } else {
+      &lt;&lt;move left case 2&gt;&gt;
+    }
+  } else {
+    let sz_b = psz + pi1 - i - sz_a;
+    let data:Vec&lt;u64&gt; = marks
+      .iter()
+      .flat_map(|i|{
+        let a = o.iter().skip(*i).take(sz_a).map(|x|*x - LEVEL_ONE);
+        let b = o.iter().skip(*i+sz_a).take(sz_b).map(|x|*x);
+        b.chain(a)
+      }).collect();
+    if !parent_has_clones {
+      &lt;&lt;move left case 3&gt;&gt;
+    } else {
+      &lt;&lt;move left case 4&gt;&gt;
+    }
+  }
   Some(buf)
 }</t>
 <t tx="vitalije.20210716122155.1">#[pyfn(m)]
@@ -3950,7 +4018,12 @@ fn pymove_node_left(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt
     for p in cps:
         u = ML.move_node_left(t, p)
         assert u is not None, f'{A}\np:{p}\nu:{u}'
-        check(t)
+        try:
+            check(t)
+        except:
+            dump(A, ML.debug_str(t))
+            print(f"move left:{hex(p)}")
+            raise
         B = ML.debug_str(t)
         #dump(A, B)
         #print(u)
@@ -3992,17 +4065,13 @@ fn pymove_node_up(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; 
 <t tx="vitalije.20210716125410.1">pub fn move_node_up(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
   if i &lt; 2 {return None}
   if o[i-1].level() + 1 == o[i].level() {
-    // moving up, this node becomes previous sibling to its old parent
-    Some(move_node_up_1(o, i))
+    &lt;&lt;move up case 1&gt;&gt;
   } else {
-    // this node has previous sibling
     let j = visible_parent(o, i-1);
     if o[j].level() == o[i].level() {
-      // moving up, this node won't change its parent
-      Some(move_node_up_2(o, i, j))
+      &lt;&lt;move up case 2&gt;&gt;
     } else {
-      // moving up, this node will also move right and change its parent
-      move_node_up_3(o, i, j)
+      &lt;&lt;move up case 3&gt;&gt;
     }
   }
 }</t>
@@ -4079,134 +4148,7 @@ fn is_visible(o:&amp;Outline, i:usize) -&gt; bool {
   }
   o[j].level() == 1
 }</t>
-<t tx="vitalije.20210716203726.1">/// Node becomes previous sibling of its old parent.
-/// This operation is always valid.
-///
-fn move_node_up_1(o:&amp;mut Outline, i:usize) -&gt; String {
-  // what actually needs to be done is just swaping block of nodes
-  let pi = i - 1;
-  let pgnx = o[pi].ignx();
-  let sz = o.subtree_size(i);
-  let marks:Vec&lt;usize&gt; = o
-    .iter()
-    .enumerate()
-    .filter(|x|x.1.ignx() == pgnx)
-    .map(|x|x.0)
-    .collect();
-  let data:Outline = marks
-    .iter()
-    .flat_map(|x| {
-      let a = o
-        .iter()
-        .skip(*x + 1)
-        .map(|n|{let mut m:u64=*n+0; m.dec(); m})
-        .take(sz);
-      let b = o.iter().skip(*x).take(1).map(|x|*x);
-      a.chain(b)
-    })
-    .collect();
-  let mut buf = String::new();
-  encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
-  set_nodes(o, &amp;marks, &amp;data);
-  buf
-}</t>
-<t tx="vitalije.20210716204035.1">/// moving up, this node won't change its parent. This operation is
-/// always valid.
-///
-fn move_node_up_2(o:&amp;mut Outline, i:usize, j:usize) -&gt; String {
-  let sz = o.subtree_size(i);
-  let sz2 = i-j;
-  let pi = o.parent_index(j);
-  let delta = j - pi;
-  let pgnx = o[pi].ignx();
-  let marks:Vec&lt;usize&gt; = o
-    .iter()
-    .enumerate()
-    .filter(|x|x.1.ignx() == pgnx)
-    .map(|x|x.0 + delta)
-    .collect();
-  let data:Outline = marks
-    .iter()
-    .flat_map(|x| {
-      let a = o.iter().skip(*x+sz2).take(sz);
-      let b = o.iter().skip(*x).take(sz2);
-      a.chain(b)
-    })
-    .map(|x|*x)
-    .collect();
-  let mut buf = String::new();
-  encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
-  set_nodes(o, &amp;marks, &amp;data);
-  buf
-}</t>
-<t tx="vitalije.20210716204038.1">/// moving up, this node will also move right and change its parent.
-/// This operation might result in invalid outline.
-///
-fn move_node_up_3(o:&amp;mut Outline, i:usize, j:usize) -&gt; Option&lt;String&gt; {
-  // this node[i] should become following sibling of node[j]
-  let pj = o.parent_index(j);
-  let gpj = o.parent_index(pj); // this must be also the parent of i
-  let gpgnx = o[gpj].ignx();
-  let gpdelta = pj-gpj;
-  let npgnx = o[pj].ignx();
-  let dlev:i8 = o[j].level() as i8 - o[i].level() as i8;
-  let dest = o.subtree_size(pj) + pj; // this is where node[i] should end
-  let delta = dest - pj;
-  let sz_a = i - dest;
-  let sz_b = o.subtree_size(i);
-
-  // all_marks: all indexes where npgnx appears in the outline
-  // for each index there is a bool telling wether we need to allocate new positions
-  // for that block or just to copy old positions
-  let all_marks:Vec&lt;(usize, bool)&gt; = o
-    .iter()
-    .enumerate()
-    .filter(|x|x.1.ignx() == npgnx)
-    .map(|(i, _)| {
-      (i, i &gt; gpdelta &amp;&amp; o[i-gpdelta].ignx() != gpgnx)
-    })
-    .collect();
-  let marks_1:Vec&lt;usize&gt; = all_marks
-    .iter()
-    .filter(|x|x.1)
-    .map(|x|x.0 + delta + sz_a)
-    .collect();
-  let marks_2:Vec&lt;usize&gt; = all_marks
-    .iter()
-    .filter(|x|!x.1)
-    .map(|x|x.0 + delta + sz_a)
-    .collect();
-
-  let mut buf = String::new();
-  encode_shift_blocks(o, &amp;marks_2, sz_b, dlev, &amp;mut buf);
-  shift_blocks(o, &amp;marks_2, sz_b, dlev);
-  if marks_1.len() == 0 { return Some(buf); }
-  buf.push('\n');
-  let zlev = o[i].level() as i8;
-  let tch:Vec&lt;u64&gt; = o
-    .iter()
-    .skip(i)
-    .take(sz_b)
-    .map(|x|{let mut z = *x + 0;z.shift(-zlev); z})
-    .collect();
-  let mut data_1:Vec&lt;u64&gt; = marks_1
-    .iter()
-    .map(|i|o[*i-delta-sz_a].level()+1)
-    .flat_map(|zlev| {
-      tch.iter().map(move |x|
-        LevGnx::make(zlev+x.level(), x.ignx(), 0)
-      )
-    })
-    .collect();
-  let label = o[0].label()+1;
-  for (l, x) in data_1.iter_mut().enumerate() {
-    x.set_label(l as u32 + label);
-  }
-  encode_insert_parts(o, &amp;marks_1, &amp;data_1, &amp;mut buf);
-  o[0].set_label(label - 1 + data_1.len() as u32);
-  insert_parts(o, &amp;marks_1, &amp;data_1);
-  Some(buf)
-}</t>
+<t tx="vitalije.20210716204038.1"></t>
 <t tx="vitalije.20210716205921.1"></t>
 <t tx="vitalije.20210716210738.1">fn encode_set_nodes(o:&amp;Outline, marks:&amp;Vec&lt;usize&gt;, data:&amp;Outline, buf:&amp;mut String) {
   let sz = data.len() / marks.len();
@@ -4310,56 +4252,31 @@ fn move_node_up_3(o:&amp;mut Outline, i:usize, j:usize) -&gt; Option&lt;String&g
 }</t>
 <t tx="vitalije.20210718114938.1">def test_up():
     t = get_outline('demo-000/demo.leo')
-    for p in [171, 173, 174, 183, 193, 205]:
+    for p in [287, 289, 295, 300]:
         u = ML.expand_node(t, p)
         assert u, f'u:{u}, p:{p}'
     A = ML.debug_str(t)
-    u = ML.move_node_up(t, 211)
-    assert u is not None, f'{A}\np:{p}\nu:{u}'
-    B = ML.debug_str(t)
-    try:
+    def one(i):
+        A = ML.debug_str(t)
+        u = ML.move_node_up(t, 0x132)
+        B = ML.debug_str(t)
+        try:
+            check(t)
+        except:
+            dump(A, B)
+            raise
+        ML.undo(t, u)
         check(t)
-    except:
-        dump(A,B)
-        print("position:%X"%p)
-        raise
-    ML.undo(t, u)
-    check(t)
+        compare_debugs(A, ML.debug_str(t))
+        ML.redo(t, u)
+        check(t)
+        compare_debugs(B, ML.debug_str(t))
+        return u, B
+    undo = [one(i) for i in range(15)]
+    for u, _ in undo[::-1]:
+        ML.undo(t, u)
+        check(t)
     compare_debugs(A, ML.debug_str(t))
-    ML.redo(t, u)
-    check(t)
-    compare_debugs(B, ML.debug_str(t))
-    ML.undo(t, u)
-    ML.collapse_node(t, 205)
-    A = ML.debug_str(t)
-    u = ML.move_node_up(t, 211)
-    check(t)
-    assert u, f'{A}\np:{p}\nu:{u}'
-    B = ML.debug_str(t)
-    u2 = ML.move_node_up(t, 211)
-    check(t)
-    ML.undo(t, u2)
-    check(t)
-    compare_debugs(B, ML.debug_str(t))
-    ML.undo(t, u)
-    check(t)
-    compare_debugs(A, ML.debug_str(t))
-    vpar = ML.node_at(t, 202)[1]
-    vch = ML.node_at(t, 205)[1]
-    undo = []
-    undo.append(ML.create_link(t, vpar, 2, vch))
-    B = ML.debug_str(t)
-    check(t)
-    ML.expand_node(t, 205)
-    B1 = ML.debug_str(t)
-    undo.append(ML.move_node_up(t, 211))
-    C = ML.debug_str(t)
-    check(t)
-    ML.undo(t, undo[-1])
-    check(t)
-    compare_debugs(B1, ML.debug_str(t))
-    ML.redo(t, undo[-1])
-    compare_debugs(C, ML.debug_str(t))
     print("test_up went ok")</t>
 <t tx="vitalije.20210718121623.1">#[pyfn(m)]
 #[pyo3(name="expand_node", text_signature="(tid, p)")]
@@ -4421,7 +4338,7 @@ fn collapse_node(_py: Python, tid:usize, label:u32) -&gt; Option&lt;String&gt; {
 // this node becomes next sibling of its parent
 // this is the same as moving node right
 // this is always valid move
-return move_node_right(o, i);</t>
+return move_node_left(o, i);</t>
 <t tx="vitalije.20210718201112.1">// case 2:
 // this node becomes first child of the following sibling node
 // sometimes this move is not valid
@@ -4518,39 +4435,186 @@ set_nodes(o, &amp;marks, &amp;data);
 return Some(buf);</t>
 <t tx="vitalije.20210719104019.1">def test_down():
     t = get_outline('demo-000/demo.leo')
-    for p in [171, 173, 174, 183, 193, 205]:
+    for p in [295, 300]:
         u = ML.expand_node(t, p)
         assert u, f'u:{u}, p:{p}'
-    v199 = ML.node_at(t, 199)[1]
-    v202 = ML.node_at(t, 202)[1]
-    v205 = ML.node_at(t, 205)[1]
-    ML.create_link(t, v199, 2, v205)
-    ML.create_link(t, v202, 1, v205)
     check(t)
     A = ML.debug_str(t)
-    u = ML.move_node_down(t, 201)
-    B = ML.debug_str(t)
-    #dump(A, B)
-    check(t)
-    ML.undo(t, u)
-    check(t)
+    def one(i):
+        A = ML.debug_str(t)
+        u = ML.move_node_down(t, 298)
+        check(t)
+        B = ML.debug_str(t)
+        ML.undo(t, u)
+        compare_debugs(A, ML.debug_str(t))
+        check(t)
+        ML.redo(t, u)
+        compare_debugs(B, ML.debug_str(t))
+        return u, B
+    undo = [one(i) for i in range(9)]
+    for u, _ in undo[::-1]:
+        ML.undo(t, u)
+        check(t)
     compare_debugs(A, ML.debug_str(t))
-    ML.redo(t, u)
-    compare_debugs(B, ML.debug_str(t))
-    check(t)
-    u2 = ML.move_node_down(t, 201)
-    check(t)
-    C = ML.debug_str(t)
-    ML.undo(t, u2)
-    compare_debugs(B, ML.debug_str(t))
-    check(t)
-    ML.redo(t, u2)
-    compare_debugs(C, ML.debug_str(t))
-    check(t)
-    ML.undo(t, u2)
-    ML.undo(t, u)
-    compare_debugs(A, ML.debug_str(t))
-    check(t)
+    ML.drop_tree(t)
     print("test_down went ok")</t>
+<t tx="vitalije.20210719122601.1">let n = e.local_name();
+if n == b"v" {
+  last_gnx.clear();
+  last_gnx.push_str(&amp;getattr(b"t", e.attributes(), &amp;reader));
+  if let Some(ignx) = gnx2i.get(last_gnx.as_str()) {
+    outline.add_node(lev+1, *ignx as u32).unwrap();
+  }
+}
+</t>
+<t tx="vitalije.20210719143857.1">// moving up, this node becomes previous sibling to its old parent
+// Node becomes previous sibling of its old parent.
+// This operation is always valid.
+//
+// what actually needs to be done is just swaping block of nodes
+let pi = i - 1;
+let pgnx = o[pi].ignx();
+let sz = o.subtree_size(i);
+let marks:Vec&lt;usize&gt; = o
+  .iter()
+  .enumerate()
+  .filter(|x|x.1.ignx() == pgnx)
+  .map(|x|x.0)
+  .collect();
+let data:Outline = marks
+  .iter()
+  .flat_map(|x| {
+    let a = o
+      .iter()
+      .skip(*x + 1)
+      .map(|n|n - LEVEL_ONE)
+      .take(sz);
+    let b = o.iter().skip(*x).take(1).map(|x|*x);
+    a.chain(b)
+  })
+  .collect();
+let mut buf = String::new();
+encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+set_nodes(o, &amp;marks, &amp;data);
+Some(buf)</t>
+<t tx="vitalije.20210719144020.1">// this node has previous sibling
+// moving up, this node won't change its parent. This operation is
+// always valid.
+let sz_a = o.subtree_size(i);
+let sz_b = i-j;
+let pi = o.parent_index(j);
+let delta = j - pi;
+let pgnx = o[pi].ignx();
+let marks:Vec&lt;usize&gt; = o
+  .iter()
+  .enumerate()
+  .filter(|x|x.1.ignx() == pgnx)
+  .map(|x|x.0 + delta)
+  .collect();
+let data:Outline = marks
+  .iter()
+  .flat_map(|x| {
+    let a = o.iter().skip(*x+sz_b).take(sz_a);
+    let b = o.iter().skip(*x).take(sz_b);
+    a.chain(b)
+  })
+  .map(|x|*x)
+  .collect();
+let mut buf = String::new();
+encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+set_nodes(o, &amp;marks, &amp;data);
+Some(buf)</t>
+<t tx="vitalije.20210719144033.1">// moving up, this node will also move right and change its parent.
+// This operation might result in invalid outline.
+//
+// this node[i] should become following sibling of node[j]
+// outline items won't move, they just need to be shifted
+// if new parent is clonned then later this node should be
+// appended to other clones
+let pj = o.parent_index(j);
+let gpj = o.parent_index(pj);
+let npgnx = o[pj].ignx();
+let gpgnx = o[gpj].ignx();
+let gpdelta = pj - gpj;
+let dlev:i8 = o[j].level() as i8 - o[i].level() as i8;
+let delta = i - pj;
+let sz_b = o.subtree_size(i);
+
+// all_marks: all indexes where npgnx appears in the outline
+// for each index there is a bool telling wether we need to allocate new positions
+// for that block or just to copy old positions
+let all_marks:Vec&lt;(usize, bool)&gt; = o
+  .iter()
+  .enumerate()
+  .filter(|x|x.1.ignx() == npgnx)
+  .map(|(i, _)| {
+    (i, i &gt;= gpdelta &amp;&amp; o[i-gpdelta].ignx() == gpgnx)
+  })
+  .collect();
+// marks_1: indices of blocks to be shifted
+let marks_1:Vec&lt;usize&gt; = all_marks
+  .iter()
+  .filter(|x|x.1)
+  .map(|x|x.0 + delta)
+  .collect();
+// marks_2: indices of other clones where clones of node[i] must be appended
+let marks_2:Vec&lt;usize&gt; = all_marks
+  .iter()
+  .filter(|x|!x.1)
+  .map(|x|x.0 + delta)
+  .collect();
+
+let mut buf = String::new();
+encode_shift_blocks(o, &amp;marks_1, sz_b, dlev, &amp;mut buf);
+shift_blocks(o, &amp;marks_1, sz_b, dlev);
+if marks_2.len() == 0 {
+  // there are no other clones
+  // we are finished here
+  return Some(buf);
+}
+// there are other clones, so we need to insert copies of node[i]
+buf.push('\n');
+let zlev = o[i].level() as u64 * LEVEL_ONE;
+
+// tch contains node[i] subtree at level 0
+let tch:Vec&lt;u64&gt; = o
+  .iter()
+  .skip(i)
+  .take(sz_b)
+  .map(|x|*x - zlev)
+  .collect();
+
+let mut data_2:Vec&lt;u64&gt; = marks_2
+  .iter()
+  .map(|i|o[*i-delta].level() as u64 * LEVEL_ONE + LEVEL_ONE)
+  .flat_map(|zlev| tch.iter().map(move |x| x + zlev))
+  .collect();
+
+let mut label = o[0].label();
+for x in data_2.iter_mut() {
+  label += 1;
+  x.set_label(label);
+}
+encode_insert_parts(o, &amp;marks_2, &amp;data_2, &amp;mut buf);
+o[0].set_label(label);
+insert_parts(o, &amp;marks_2, &amp;data_2);
+Some(buf)</t>
+<t tx="vitalije.20210719152258.1">i:289, j:288, pj:287, gpj:0, gpdelta:287
+all_marks:[(172, false), (285, false), (287, false)]
+</t>
+<t tx="vitalije.20210719170944.1">encode_shift_blocks(o, &amp;marks, sz_a, -1, &amp;mut buf);
+shift_blocks(o, &amp;marks, sz_a, -1);</t>
+<t tx="vitalije.20210719171056.1">encode_shift_blocks(o, &amp;marks, sz_a, -1, &amp;mut buf);
+shift_blocks(o, &amp;marks, sz_a, -1);
+buf.push('\n');
+encode_delete_blocks(o, &amp;marks_2, sz_a, &amp;mut buf);
+delete_blocks(o, &amp;marks_2, sz_a);</t>
+<t tx="vitalije.20210719171147.1">encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+set_nodes(o, &amp;marks, &amp;data);</t>
+<t tx="vitalije.20210719171154.1">encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
+set_nodes(o, &amp;marks, &amp;data);
+buf.push('\n');
+encode_delete_blocks(o, &amp;marks_2, sz_a, &amp;mut buf);
+delete_blocks(o, &amp;marks_2, sz_a);</t>
 </tnodes>
 </leo_file>

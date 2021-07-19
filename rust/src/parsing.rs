@@ -612,6 +612,16 @@ pub fn from_leo_content(buf:&str) -> (Outline, Vec<VData>) {
         }
         txt.clear();
       },
+      Ok(Event::Empty(ref e)) => {
+        let n = e.local_name();
+        if n == b"v" {
+          last_gnx.clear();
+          last_gnx.push_str(&getattr(b"t", e.attributes(), &reader));
+          if let Some(ignx) = gnx2i.get(last_gnx.as_str()) {
+            outline.add_node(lev+1, *ignx as u32).unwrap();
+          }
+        }
+      },
       Ok(Event::Text(e)) => txt.push_str(&e.unescape_and_decode(&reader).unwrap()),
       Ok(Event::End(ref e)) => {
         let n = e.local_name();

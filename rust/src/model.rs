@@ -281,6 +281,7 @@ impl OutlineOps for Outline {
         label += 1;
         self.push(z);
       }
+      self[0].set_label(label);
       Ok(true)
     }
   }
@@ -702,7 +703,7 @@ pub fn check_levels(o:&Outline) -> Option<usize> {
    .find(|_|true)
 }
 
-pub fn check_clones(o:&Outline, n:&Vec<VData>) -> Option<u32> {
+pub fn check_clones(o:&Outline, n:&Vec<VData>) -> Option<(u32, usize)> {
   let clones = clonned_nodes(o, n);
   for cignx in clones.iter() {
     let t1 = o.subtree(*cignx);
@@ -715,7 +716,7 @@ pub fn check_clones(o:&Outline, n:&Vec<VData>) -> Option<u32> {
       for (j, y) in t1.iter().enumerate() {
         let z = o[i + j];
         if y.ignx() != z.ignx() || y.level() + zlev != z.level() {
-          return Some(*cignx)
+          return Some((*cignx, i+j))
         }
       }
     }
@@ -891,35 +892,227 @@ pub fn move_node_right(o:&mut Outline, i:usize) -> Option<String> {
 pub fn move_node_left(o:&mut Outline, i:usize) -> Option<String> {
   if i >= o.len() { return None }
   if o[i].level() < 2 { return None }
+  // there are four different cases
+  // case 1: the simplest one
+  //    curent parent of this node is not cloned and this node is
+  //    last child. In this case it is enough just to shift all
+  //    occurrencies of this node
+  // case 2:
+  //    parent is clonned and this node is last child
+  //    in this case we need to shift some occurrencies of this node
+  //    and delete this node from other clones.
+  // case 3:
+  //    parent is not clonned but this node has following siblings
+  //    we just need to move this node to the last child position
+  //    and shift it left
+  // case 4:
+  //    parent is cloned and this node has following siblings
+  //    in this case we need to move node to last child position
+  //    and shift it left, and we need to delete this node from
+  //    other clones.
   let pi1 = o.parent_index(i);
+  let sz_a = o.subtree_size(i);
+  let psz = o.subtree_size(pi1);
+  let is_last_child = psz + pi1 == i + sz_a;
+
   let pi2 = o.parent_index(pi1);
   let pgnx = o[pi2].ignx();
-  let delta = i - pi2;
-  let marks:Vec<usize> = o.iter()
+  let gnx = o[pi1].ignx();
+  let delta = i - pi1;
+  let pdelta = pi1 - pi2;
+
+  let all_marks:Vec<(usize, bool)> = o.iter()
     .enumerate()
-    .filter(|x|x.1.ignx() == pgnx)
-    .map(|x|x.0 + delta)
+    .filter(|x|x.1.ignx() == gnx)
+    .map(|x|(x.0 + delta, x.0 >= pdelta && o[x.0-pdelta].ignx() == pgnx))
     .collect();
-  let sz = o.subtree_size(i);
+
+  // marks: indices of blocks to be shifted/moved
+  let marks:Vec<usize> = all_marks
+    .iter()
+    .filter(|x|x.1)
+    .map(|x|x.0)
+    .collect();
+  // marks_2: indices of blocks to be deleted
+  let marks_2:Vec<usize> = all_marks
+    .iter()
+    .filter(|x|!x.1)
+    .map(|x|x.0)
+    .collect();
+  let parent_has_clones = marks_2.len() > 0;
   let mut buf = String::new();
-  encode_shift_blocks(o, &marks, sz, -1, &mut buf);
-  shift_blocks(o, &marks, sz, -1);
+  if is_last_child {
+    if !parent_has_clones {
+      encode_shift_blocks(o, &marks, sz_a, -1, &mut buf);
+      shift_blocks(o, &marks, sz_a, -1);
+    } else {
+      encode_shift_blocks(o, &marks, sz_a, -1, &mut buf);
+      shift_blocks(o, &marks, sz_a, -1);
+      buf.push('\n');
+      encode_delete_blocks(o, &marks_2, sz_a, &mut buf);
+      delete_blocks(o, &marks_2, sz_a);
+    }
+  } else {
+    let sz_b = psz + pi1 - i - sz_a;
+    let data:Vec<u64> = marks
+      .iter()
+      .flat_map(|i|{
+        let a = o.iter().skip(*i).take(sz_a).map(|x|*x - LEVEL_ONE);
+        let b = o.iter().skip(*i+sz_a).take(sz_b).map(|x|*x);
+        b.chain(a)
+      }).collect();
+    if !parent_has_clones {
+      encode_set_nodes(o, &marks, &data, &mut buf);
+      set_nodes(o, &marks, &data);
+    } else {
+      encode_set_nodes(o, &marks, &data, &mut buf);
+      set_nodes(o, &marks, &data);
+      buf.push('\n');
+      encode_delete_blocks(o, &marks_2, sz_a, &mut buf);
+      delete_blocks(o, &marks_2, sz_a);
+    }
+  }
   Some(buf)
 }
 pub fn move_node_up(o:&mut Outline, i:usize) -> Option<String> {
   if i < 2 {return None}
   if o[i-1].level() + 1 == o[i].level() {
     // moving up, this node becomes previous sibling to its old parent
-    Some(move_node_up_1(o, i))
+    // Node becomes previous sibling of its old parent.
+    // This operation is always valid.
+    //
+    // what actually needs to be done is just swaping block of nodes
+    let pi = i - 1;
+    let pgnx = o[pi].ignx();
+    let sz = o.subtree_size(i);
+    let marks:Vec<usize> = o
+      .iter()
+      .enumerate()
+      .filter(|x|x.1.ignx() == pgnx)
+      .map(|x|x.0)
+      .collect();
+    let data:Outline = marks
+      .iter()
+      .flat_map(|x| {
+        let a = o
+          .iter()
+          .skip(*x + 1)
+          .map(|n|n - LEVEL_ONE)
+          .take(sz);
+        let b = o.iter().skip(*x).take(1).map(|x|*x);
+        a.chain(b)
+      })
+      .collect();
+    let mut buf = String::new();
+    encode_set_nodes(o, &marks, &data, &mut buf);
+    set_nodes(o, &marks, &data);
+    Some(buf)
   } else {
-    // this node has previous sibling
     let j = visible_parent(o, i-1);
     if o[j].level() == o[i].level() {
-      // moving up, this node won't change its parent
-      Some(move_node_up_2(o, i, j))
+      // this node has previous sibling
+      // moving up, this node won't change its parent. This operation is
+      // always valid.
+      let sz_a = o.subtree_size(i);
+      let sz_b = i-j;
+      let pi = o.parent_index(j);
+      let delta = j - pi;
+      let pgnx = o[pi].ignx();
+      let marks:Vec<usize> = o
+        .iter()
+        .enumerate()
+        .filter(|x|x.1.ignx() == pgnx)
+        .map(|x|x.0 + delta)
+        .collect();
+      let data:Outline = marks
+        .iter()
+        .flat_map(|x| {
+          let a = o.iter().skip(*x+sz_b).take(sz_a);
+          let b = o.iter().skip(*x).take(sz_b);
+          a.chain(b)
+        })
+        .map(|x|*x)
+        .collect();
+      let mut buf = String::new();
+      encode_set_nodes(o, &marks, &data, &mut buf);
+      set_nodes(o, &marks, &data);
+      Some(buf)
     } else {
-      // moving up, this node will also move right and change its parent
-      move_node_up_3(o, i, j)
+      // moving up, this node will also move right and change its parent.
+      // This operation might result in invalid outline.
+      //
+      // this node[i] should become following sibling of node[j]
+      // outline items won't move, they just need to be shifted
+      // if new parent is clonned then later this node should be
+      // appended to other clones
+      let pj = o.parent_index(j);
+      let gpj = o.parent_index(pj);
+      let npgnx = o[pj].ignx();
+      let gpgnx = o[gpj].ignx();
+      let gpdelta = pj - gpj;
+      let dlev:i8 = o[j].level() as i8 - o[i].level() as i8;
+      let delta = i - pj;
+      let sz_b = o.subtree_size(i);
+
+      // all_marks: all indexes where npgnx appears in the outline
+      // for each index there is a bool telling wether we need to allocate new positions
+      // for that block or just to copy old positions
+      let all_marks:Vec<(usize, bool)> = o
+        .iter()
+        .enumerate()
+        .filter(|x|x.1.ignx() == npgnx)
+        .map(|(i, _)| {
+          (i, i >= gpdelta && o[i-gpdelta].ignx() == gpgnx)
+        })
+        .collect();
+      // marks_1: indices of blocks to be shifted
+      let marks_1:Vec<usize> = all_marks
+        .iter()
+        .filter(|x|x.1)
+        .map(|x|x.0 + delta)
+        .collect();
+      // marks_2: indices of other clones where clones of node[i] must be appended
+      let marks_2:Vec<usize> = all_marks
+        .iter()
+        .filter(|x|!x.1)
+        .map(|x|x.0 + delta)
+        .collect();
+
+      let mut buf = String::new();
+      encode_shift_blocks(o, &marks_1, sz_b, dlev, &mut buf);
+      shift_blocks(o, &marks_1, sz_b, dlev);
+      if marks_2.len() == 0 {
+        // there are no other clones
+        // we are finished here
+        return Some(buf);
+      }
+      // there are other clones, so we need to insert copies of node[i]
+      buf.push('\n');
+      let zlev = o[i].level() as u64 * LEVEL_ONE;
+
+      // tch contains node[i] subtree at level 0
+      let tch:Vec<u64> = o
+        .iter()
+        .skip(i)
+        .take(sz_b)
+        .map(|x|*x - zlev)
+        .collect();
+
+      let mut data_2:Vec<u64> = marks_2
+        .iter()
+        .map(|i|o[*i-delta].level() as u64 * LEVEL_ONE + LEVEL_ONE)
+        .flat_map(|zlev| tch.iter().map(move |x| x + zlev))
+        .collect();
+
+      let mut label = o[0].label();
+      for x in data_2.iter_mut() {
+        label += 1;
+        x.set_label(label);
+      }
+      encode_insert_parts(o, &marks_2, &data_2, &mut buf);
+      o[0].set_label(label);
+      insert_parts(o, &marks_2, &data_2);
+      Some(buf)
     }
   }
 }
@@ -943,134 +1136,6 @@ fn is_visible(o:&Outline, i:usize) -> bool {
   }
   o[j].level() == 1
 }
-/// Node becomes previous sibling of its old parent.
-/// This operation is always valid.
-///
-fn move_node_up_1(o:&mut Outline, i:usize) -> String {
-  // what actually needs to be done is just swaping block of nodes
-  let pi = i - 1;
-  let pgnx = o[pi].ignx();
-  let sz = o.subtree_size(i);
-  let marks:Vec<usize> = o
-    .iter()
-    .enumerate()
-    .filter(|x|x.1.ignx() == pgnx)
-    .map(|x|x.0)
-    .collect();
-  let data:Outline = marks
-    .iter()
-    .flat_map(|x| {
-      let a = o
-        .iter()
-        .skip(*x + 1)
-        .map(|n|{let mut m:u64=*n+0; m.dec(); m})
-        .take(sz);
-      let b = o.iter().skip(*x).take(1).map(|x|*x);
-      a.chain(b)
-    })
-    .collect();
-  let mut buf = String::new();
-  encode_set_nodes(o, &marks, &data, &mut buf);
-  set_nodes(o, &marks, &data);
-  buf
-}
-/// moving up, this node won't change its parent. This operation is
-/// always valid.
-///
-fn move_node_up_2(o:&mut Outline, i:usize, j:usize) -> String {
-  let sz = o.subtree_size(i);
-  let sz2 = i-j;
-  let pi = o.parent_index(j);
-  let delta = j - pi;
-  let pgnx = o[pi].ignx();
-  let marks:Vec<usize> = o
-    .iter()
-    .enumerate()
-    .filter(|x|x.1.ignx() == pgnx)
-    .map(|x|x.0 + delta)
-    .collect();
-  let data:Outline = marks
-    .iter()
-    .flat_map(|x| {
-      let a = o.iter().skip(*x+sz2).take(sz);
-      let b = o.iter().skip(*x).take(sz2);
-      a.chain(b)
-    })
-    .map(|x|*x)
-    .collect();
-  let mut buf = String::new();
-  encode_set_nodes(o, &marks, &data, &mut buf);
-  set_nodes(o, &marks, &data);
-  buf
-}
-/// moving up, this node will also move right and change its parent.
-/// This operation might result in invalid outline.
-///
-fn move_node_up_3(o:&mut Outline, i:usize, j:usize) -> Option<String> {
-  // this node[i] should become following sibling of node[j]
-  let pj = o.parent_index(j);
-  let gpj = o.parent_index(pj); // this must be also the parent of i
-  let gpgnx = o[gpj].ignx();
-  let gpdelta = pj-gpj;
-  let npgnx = o[pj].ignx();
-  let dlev:i8 = o[j].level() as i8 - o[i].level() as i8;
-  let dest = o.subtree_size(pj) + pj; // this is where node[i] should end
-  let delta = dest - pj;
-  let sz_a = i - dest;
-  let sz_b = o.subtree_size(i);
-
-  // all_marks: all indexes where npgnx appears in the outline
-  // for each index there is a bool telling wether we need to allocate new positions
-  // for that block or just to copy old positions
-  let all_marks:Vec<(usize, bool)> = o
-    .iter()
-    .enumerate()
-    .filter(|x|x.1.ignx() == npgnx)
-    .map(|(i, _)| {
-      (i, i > gpdelta && o[i-gpdelta].ignx() != gpgnx)
-    })
-    .collect();
-  let marks_1:Vec<usize> = all_marks
-    .iter()
-    .filter(|x|x.1)
-    .map(|x|x.0 + delta + sz_a)
-    .collect();
-  let marks_2:Vec<usize> = all_marks
-    .iter()
-    .filter(|x|!x.1)
-    .map(|x|x.0 + delta + sz_a)
-    .collect();
-
-  let mut buf = String::new();
-  encode_shift_blocks(o, &marks_2, sz_b, dlev, &mut buf);
-  shift_blocks(o, &marks_2, sz_b, dlev);
-  if marks_1.len() == 0 { return Some(buf); }
-  buf.push('\n');
-  let zlev = o[i].level() as i8;
-  let tch:Vec<u64> = o
-    .iter()
-    .skip(i)
-    .take(sz_b)
-    .map(|x|{let mut z = *x + 0;z.shift(-zlev); z})
-    .collect();
-  let mut data_1:Vec<u64> = marks_1
-    .iter()
-    .map(|i|o[*i-delta-sz_a].level()+1)
-    .flat_map(|zlev| {
-      tch.iter().map(move |x|
-        LevGnx::make(zlev+x.level(), x.ignx(), 0)
-      )
-    })
-    .collect();
-  let label = o[0].label()+1;
-  for (l, x) in data_1.iter_mut().enumerate() {
-    x.set_label(l as u32 + label);
-  }
-  encode_insert_parts(o, &marks_1, &data_1, &mut buf);
-  o[0].set_label(label - 1 + data_1.len() as u32);
-  insert_parts(o, &marks_1, &data_1);
-  Some(buf)
-}
 pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
   // case 1:
   //    if this node is last sibling, then this node becomes
@@ -1093,7 +1158,7 @@ pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
     // this node becomes next sibling of its parent
     // this is the same as moving node right
     // this is always valid move
-    return move_node_right(o, i);
+    return move_node_left(o, i);
   } else if i+sz_a+1 < o.len()
       && o[i+sz_a].is_expanded()
       && o[i+sz_a+1].level() > ilev {
@@ -1389,8 +1454,7 @@ fn decode_shift_blocks(enc:&str) -> (usize, Vec<usize>, i8) {
   let s2 = partition(&s2, "(").2;
   let marks:Vec<usize> =
     s2.split(',')
-     .enumerate()
-     .map(|x|b64int(x.1) as usize - size*x.0)
+     .map(|x|b64int(x) as usize)
      .collect();
   (size, marks, d)
 }

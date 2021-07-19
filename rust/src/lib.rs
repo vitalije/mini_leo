@@ -109,9 +109,9 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
         let msg = format!("Level validation failed at index:{}", i);
         return Some(PyValueError::new_err(msg));
       }
-      if let Some(ignx) = check_clones(&t.outline, &t.nodes) {
+      if let Some((ignx, i)) = check_clones(&t.outline, &t.nodes) {
         let v = &t.nodes[ignx as usize];
-        let msg = format!("Clones of {}[{}] are different", v.h, v.gnx);
+        let msg = format!("Clones of {}[0x{:03X}] are different at index:{}", v.h, v.ignx, i);
         return Some(PyValueError::new_err(msg));
       }
       if let Some(i) = check_labels(&t.outline) {
@@ -186,7 +186,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
         let mut res = String::new();
         for (i, x) in t.outline.iter().enumerate() {
           let e = if x.is_expanded() { "+" } else { "-" };
-          let row = format!("{:3}{}[0x{:X}/0x{:X}]{}{}\n", i, e, x.ignx(), x.label()
+          let row = format!("{:3}{}[0x{:03X}/0x{:03X}]{}{}\n", i, e, x.ignx(), x.label()
                            , &INDENT[..x.level() as usize]
                            , t.nodes[x.ignx() as usize].h);
           res.push_str(&row);
