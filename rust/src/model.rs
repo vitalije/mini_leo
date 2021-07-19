@@ -1126,14 +1126,16 @@ pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
       .filter(|x|x.1)
       .map(|x|x.0+1)
       .collect();
+
     let data:Vec<u64> = marks_1
       .iter()
       .flat_map(|m|{
-        let a = o.iter().skip(*m).take(sz_a);
-        let b = o.iter().skip(*m+sz_a).take(1);
+        let a = o.iter().skip(*m).take(sz_a).map(|x|*x + LEVEL_ONE);
+        let b = o.iter().skip(*m+sz_a).take(1).map(|x|*x);
         b.chain(a)
-      }).map(|x|*x)
+      })
       .collect();
+
     let mut buf = String::new();
     encode_set_nodes(o, &marks_1, &data, &mut buf);
     if marks_2.len() == 0 {

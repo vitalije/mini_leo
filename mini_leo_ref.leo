@@ -279,6 +279,7 @@
 <v t="vitalije.20210716122616.1"><vh>test_right</vh></v>
 <v t="vitalije.20210716122705.1"><vh>test_left</vh></v>
 <v t="vitalije.20210718114938.1"><vh>test_up</vh></v>
+<v t="vitalije.20210719104019.1"><vh>test_down</vh></v>
 </v>
 <v t="vitalije.20180822205209.1"><vh>@clean build.rs</vh></v>
 <v t="vitalije.20180822204947.1"><vh>@clean Cargo.toml</vh></v>
@@ -3262,9 +3263,10 @@ fn check_tree(_py: Python, tid:usize) -&gt; PyResult&lt;()&gt; {
 </t>
 <t tx="vitalije.20210715094411.1">import zipfile
 import _minileo as ML
-import pprint
+import pprint; assert pprint
 @others
 if __name__ == '__main__':
+    test_down()
     test_up()
     test_some()
     test_right()
@@ -4308,8 +4310,6 @@ fn move_node_up_3(o:&amp;mut Outline, i:usize, j:usize) -&gt; Option&lt;String&g
 }</t>
 <t tx="vitalije.20210718114938.1">def test_up():
     t = get_outline('demo-000/demo.leo')
-    cps = [p for lev, exp, p, v in ML.iternodes(t)][1:]
-
     for p in [171, 173, 174, 183, 193, 205]:
         u = ML.expand_node(t, p)
         assert u, f'u:{u}, p:{p}'
@@ -4346,7 +4346,6 @@ fn move_node_up_3(o:&amp;mut Outline, i:usize, j:usize) -&gt; Option&lt;String&g
     compare_debugs(A, ML.debug_str(t))
     vpar = ML.node_at(t, 202)[1]
     vch = ML.node_at(t, 205)[1]
-    vch2 = ML.node_at(t, 199)[1]
     undo = []
     undo.append(ML.create_link(t, vpar, 2, vch))
     B = ML.debug_str(t)
@@ -4452,14 +4451,16 @@ let marks_2:Vec&lt;usize&gt; = all_marks
   .filter(|x|x.1)
   .map(|x|x.0+1)
   .collect();
+
 let data:Vec&lt;u64&gt; = marks_1
   .iter()
   .flat_map(|m|{
-    let a = o.iter().skip(*m).take(sz_a);
-    let b = o.iter().skip(*m+sz_a).take(1);
+    let a = o.iter().skip(*m).take(sz_a).map(|x|*x + LEVEL_ONE);
+    let b = o.iter().skip(*m+sz_a).take(1).map(|x|*x);
     b.chain(a)
-  }).map(|x|*x)
+  })
   .collect();
+
 let mut buf = String::new();
 encode_set_nodes(o, &amp;marks_1, &amp;data, &amp;mut buf);
 if marks_2.len() == 0 {
@@ -4515,5 +4516,41 @@ let mut buf = String::new();
 encode_set_nodes(o, &amp;marks, &amp;data, &amp;mut buf);
 set_nodes(o, &amp;marks, &amp;data);
 return Some(buf);</t>
+<t tx="vitalije.20210719104019.1">def test_down():
+    t = get_outline('demo-000/demo.leo')
+    for p in [171, 173, 174, 183, 193, 205]:
+        u = ML.expand_node(t, p)
+        assert u, f'u:{u}, p:{p}'
+    v199 = ML.node_at(t, 199)[1]
+    v202 = ML.node_at(t, 202)[1]
+    v205 = ML.node_at(t, 205)[1]
+    ML.create_link(t, v199, 2, v205)
+    ML.create_link(t, v202, 1, v205)
+    check(t)
+    A = ML.debug_str(t)
+    u = ML.move_node_down(t, 201)
+    B = ML.debug_str(t)
+    #dump(A, B)
+    check(t)
+    ML.undo(t, u)
+    check(t)
+    compare_debugs(A, ML.debug_str(t))
+    ML.redo(t, u)
+    compare_debugs(B, ML.debug_str(t))
+    check(t)
+    u2 = ML.move_node_down(t, 201)
+    check(t)
+    C = ML.debug_str(t)
+    ML.undo(t, u2)
+    compare_debugs(B, ML.debug_str(t))
+    check(t)
+    ML.redo(t, u2)
+    compare_debugs(C, ML.debug_str(t))
+    check(t)
+    ML.undo(t, u2)
+    ML.undo(t, u)
+    compare_debugs(A, ML.debug_str(t))
+    check(t)
+    print("test_down went ok")</t>
 </tnodes>
 </leo_file>
