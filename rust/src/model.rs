@@ -217,41 +217,15 @@ pub trait OutlineOps {
 
   /// returns list of children ignxes
   fn children(&self, i:usize) -> Vec<u32>;
+
+  /// returns indices of all visible nodes
+  fn visible_indices(&self) -> Vec<usize>;
+
+  /// returns index of node with given position
+  fn label_index(&self, label:u32) -> Option<usize>;
+
 }
 impl OutlineOps for Outline {
-  /// returns true if this outline conains a node with given ignx
-  fn has(&self, ignx:u32) -> bool { self.find(ignx).is_some()}
-  /// returns the index of the first node with the given ignx
-  /// if the node can't be found returns None
-  fn find(&self, ignx:u32) -> Option<usize> {
-    let mut i = 0usize;
-    for x in self {
-      if x.ignx() == ignx {return Some(i)}
-      i += 1;
-    }
-    None
-  }
-  /// returns suboutline of the node with the given ignx
-  /// if such a node dosen't exist returns an empty outline
-  fn subtree(&self, ignx:u32) -> Outline {
-    let mut res:Outline = Vec::new();
-    if let Some(j) = self.find(ignx) {
-      let mut i = j;
-      let z = self[i];
-      let zlev:u8 = z.level();
-      let delta:i8 = -(zlev as i8);
-      res.push(z & !LEVEL_MASK);
-      let n = self.len();
-      while i + 1 < n {
-        i += 1;
-        let mut z = self[i];
-        if z.level() <= zlev { break };
-        z.shift(delta);
-        res.push(z);
-      }
-    }
-    res
-  }
   /// appends a node with the given ignx at the given level.
   /// Returns true if the node is clone and its subtree has been added too;
   /// otherwise returns false.
@@ -285,6 +259,43 @@ impl OutlineOps for Outline {
       Ok(true)
     }
   }
+  /// Given the node located at the given outline index i
+  /// this method returns the child index that this node
+  /// has in its parent's list of children
+  fn child_index(&self, i:usize) -> usize {
+    let pi = self.parent_index(i);
+    let mut n:usize = 0;
+    let lev = self[i].level();
+    for z in &self[pi..i] {
+      if z.level() == lev {n += 1}
+    }
+    n
+  }
+  /// returns list of children ignxes
+  fn children(&self, i:usize) -> Vec<u32> {
+    let plev = self[i].level();
+    self[i+1..].iter()
+      .take_while(|x|x.level() > plev)
+      .filter(|x|x.level() == plev + 1)
+      .map(|x|x.ignx())
+      .collect()
+  }
+  /// returns the index of the first node with the given ignx
+  /// if the node can't be found returns None
+  fn find(&self, ignx:u32) -> Option<usize> {
+    let mut i = 0usize;
+    for x in self {
+      if x.ignx() == ignx {return Some(i)}
+      i += 1;
+    }
+    None
+  }
+  /// returns true if this outline conains a node with given ignx
+  fn has(&self, ignx:u32) -> bool { self.find(ignx).is_some()}
+  /// returns index of node with given position or None
+  fn label_index(&self, label:u32) -> Option<usize> {
+    self.iter().skip(1).position(|x|x.label() == label).map(|x|x+1)
+  }
   /// returns the index of the parent node
   fn parent_index(&self, i: usize) -> usize {
     return match self.get(i) {
@@ -314,6 +325,27 @@ impl OutlineOps for Outline {
     }
     res
   }
+  /// returns suboutline of the node with the given ignx
+  /// if such a node dosen't exist returns an empty outline
+  fn subtree(&self, ignx:u32) -> Outline {
+    let mut res:Outline = Vec::new();
+    if let Some(j) = self.find(ignx) {
+      let mut i = j;
+      let z = self[i];
+      let zlev:u8 = z.level();
+      let delta:i8 = -(zlev as i8);
+      res.push(z & !LEVEL_MASK);
+      let n = self.len();
+      while i + 1 < n {
+        i += 1;
+        let mut z = self[i];
+        if z.level() <= zlev { break };
+        z.shift(delta);
+        res.push(z);
+      }
+    }
+    res
+  }
   /// returns the size of the subtree starting at given index
   fn subtree_size(&self, i:usize) -> usize {
     let z = self[i].level();
@@ -323,26 +355,19 @@ impl OutlineOps for Outline {
       .take_while(|x|x.level() > z)
       .count()+1
   }
-  /// Given the node located at the given outline index i
-  /// this method returns the child index that this node
-  /// has in its parent's list of children
-  fn child_index(&self, i:usize) -> usize {
-    let pi = self.parent_index(i);
-    let mut n:usize = 0;
-    let lev = self[i].level();
-    for z in &self[pi..i] {
-      if z.level() == lev {n += 1}
+  /// returns indices of all visible nodes
+  fn visible_indices(&self) -> Vec<usize> {
+    let mut res = Vec::new();
+    let mut i = 1;
+    let n = self.len();
+    let mut skip_level = 255u8;
+    while i < n {
+      if self[i].level() > skip_level { i+=1;continue}
+      skip_level = if self[i].is_expanded() { 255u8 } else {self[i].level()};
+      res.push(i);
+      i += 1;
     }
-    n
-  }
-  /// returns list of children ignxes
-  fn children(&self, i:usize) -> Vec<u32> {
-    let plev = self[i].level();
-    self[i+1..].iter()
-      .take_while(|x|x.level() > plev)
-      .filter(|x|x.level() == plev + 1)
-      .map(|x|x.ignx())
-      .collect()
+    res
   }
 }
 /// returns a map of ignx -> gnx
@@ -396,6 +421,76 @@ impl VData {
   pub fn section_ref(&self) -> Option<&str> {
     extract_section_ref(self.h.as_str())
   }
+  pub fn write_to(&self, buf:&mut String) {
+    let z = 0 as char;
+    let u:u64 = (self.ignx as u64) | ((self.flags as u64) << 32);
+    b64write(u, buf);
+    buf.push(z);
+    buf.push_str(&self.gnx);
+    buf.push(z);
+    buf.push_str(&self.h);
+    buf.push(z);
+    for c in self.b.escape_debug() { buf.push(c) }
+  }
+  pub fn from_str(s:&str) -> VData {
+    let mut it = s.split(0 as char);
+    let u = b64int(it.next().unwrap());
+    let ignx = (u & 0xFFFF_FFFF) as u32;
+    let flags = ((u >> 32) & 0xFFFF) as u16;
+    let gnx = it.next().unwrap();
+    let h = it.next().unwrap();
+    let mut a = [0 as char];
+    let b:String = it
+      .next()
+      .unwrap()
+      .chars()
+      .map(|x|{
+        if a[0] != '\\' {
+          a[0]=x;
+          if x == '\\' {
+            0 as char
+          } else {
+            x
+          }
+        } else {
+          a[0] = 1 as char;
+          match x {
+            'r' => '\r',
+            'n' => '\n',
+            't' => '\t',
+            y => y
+          }
+        }
+      })
+      .filter(|x| *x != (0 as char))
+      .collect();
+
+    VData {
+      gnx: gnx.to_string(),
+      h: h.to_string(),
+      b: b,
+      flags: flags,
+      ignx: ignx,
+    }
+  }
+}
+#[test]
+fn test_vdata_from_str() {
+  let v = VData {
+    gnx: "proba".to_string(),
+    ignx: 1,
+    h: "naslov 1".to_string(),
+    b: "ovo je prva linija\na ovo je druga linija".to_string(),
+    flags:2321,
+  };
+  let mut buf = String::new();
+  v.write_to(&mut buf);
+  let v2 = VData::from_str(buf.as_str());
+  assert_eq!(v.gnx, v2.gnx, "gnx not ok");
+  assert_eq!(v.h, v2.h, "h not ok");
+  assert_eq!(v.b, v2.b, "b not ok");
+  assert_eq!(v.ignx, v2.ignx, "ignx not ok");
+  assert_eq!(v.flags, v2.flags, "flags not ok");
 }
 pub fn find_any_file_nodes(
     folder:&Path,
@@ -459,16 +554,6 @@ pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>)
     let (o, n) = x;
     for y in o.iter() {
       let ignx = y.ignx() as usize;
-      if ignx > n.len() {
-        println!("{:x} nepostojeci index: ignx={:x}", y, ignx);
-        for v in n.iter() {
-          println!("{}:{}", v.ignx, v.h);
-        }
-        println!("{}", INDENT);
-        for v in o.iter() {
-          println!("{}:{:08x}:{:08x} {:016x}",&INDENT[0..v.level() as usize], v.label(), v.ignx(), v);
-        }
-      }
       let gnx = n[ignx].gnx.as_str();
       catalog.insert(gnx, (i, ignx));
     }
@@ -528,6 +613,14 @@ pub fn combine_trees(trees:&Vec<(Outline, Vec<VData>)>) -> (Outline, Vec<VData>)
     }
   }
   outline.drain(1..real_start);
+  let n = outline.len();
+  for (i, x) in outline.iter_mut().enumerate() {
+    if i == 0 {
+      x.set_label(n as u32);
+    } else {
+      x.set_label(i as u32);
+    }
+  }
   (outline, vnodes)
 }
 pub const INDENT:&str="...........................................................................................................................................................................................................................................................................................................................................";
@@ -660,6 +753,64 @@ impl<'a> Iterator for Tree<'a> {
     }
   }
 }
+/// returns list of outline modification names which
+/// can be applied to given node and result would be
+/// valid outline.
+pub fn valid_operations(o:&Outline, i:usize) -> String {
+  let mut buf = String::new();
+  if let Some(z) = o.get(i) {
+    let lev = z.level();
+    let prev_sibling = o
+      .iter()
+      .skip(i)
+      .rev()
+      .skip(1)
+      .take_while(|x|x.level() >= lev)
+      .position(|x| x.level() == lev);
+    let sz_a = o.subtree_size(i);
+    if lev > 2 {
+      buf.push_str("left,");
+    }
+    if let Some(pgnx) = prev_sibling.map(|j|o[j].ignx()) {
+      // pgnx is previous sibling
+      if o.iter()
+        .skip(i+1).take(sz_a)
+        .all(|x|x.ignx() != pgnx) {
+        // previous sibling is not in our descendents
+        // so move right is possible
+        buf.push_str("right,");
+      }
+    }
+    let valid_up = i > 1 &&
+      (  o[i-1].level()+1 == lev // first child
+      || prev_sibling.map(|j|!o[j].is_expanded()).unwrap_or(false)
+      || { let pgnx = o[o.parent_index(visible_parent(o, i-1))].ignx();
+           o.iter()
+            .skip(i)
+            .take(sz_a)
+            .all(|x|x.ignx() != pgnx)
+         }
+      );
+    if valid_up {
+      buf.push_str("up,");
+    }
+    let valid_down = i+sz_a < o.len() &&
+      (  o[i+sz_a].level() < lev // last child
+      || !o[i+sz_a].is_expanded()
+      || { let pgnx = o[i+sz_a].ignx();
+           o.iter()
+            .skip(i)
+            .take(sz_a)
+            .all(|x|x.ignx() != pgnx)
+         }
+      );
+    if valid_down {
+      buf.push_str("down,");
+    }
+  }
+  if buf.len() > 0 { buf.pop();}
+  buf
+}
 #[allow(dead_code)]
 pub fn all_parents(o: &Outline, n:&Vec<VData>) -> Vec<HashSet<u64>> {
   let mut res:Vec<HashSet<u64>> = n.iter().map(|_|HashSet::new()).collect();
@@ -670,7 +821,7 @@ pub fn all_parents(o: &Outline, n:&Vec<VData>) -> Vec<HashSet<u64>> {
     let pignx = (stack[lev-1] >> 32) as u64;
     let pind = (stack[lev-1] & 0xFFFF_FFFF) as u64;
     stack.truncate(lev);
-    stack.push(((ignx << 32) | (i as u64)) as u64);
+    stack.push((ignx << 32) | (i as u64));
     res[ignx as usize].insert((pignx << 32) | (i as u64 - pind));
   }
   res
@@ -723,14 +874,13 @@ pub fn check_clones(o:&Outline, n:&Vec<VData>) -> Option<(u32, usize)> {
   }
   None
 }
-pub fn create_link(o:&mut Outline, pignx:usize, child_index:usize, cignx:usize) -> Option<String> {
-  let mut tch = o.subtree(cignx as u32);
+pub fn create_link(o:&mut Outline, pignx:u32, child_index:usize, cignx:u32) -> Option<String> {
+  let mut tch = o.subtree(cignx);
   if tch.len() == 0 {return None}
-  let pu32 = pignx as u32;
   for x in tch.iter() {
-    if x.ignx() == pu32 { return None }
+    if x.ignx() == pignx { return None }
   }
-  let mut tp = o.subtree(pu32);
+  let mut tp = o.subtree(pignx);
   tp.push(LevGnx::make(1, 0, 0));
   if tp.len() == 0 {return None}
   if let Some((j, _)) = tp.iter()
@@ -743,7 +893,7 @@ pub fn create_link(o:&mut Outline, pignx:usize, child_index:usize, cignx:usize) 
       o.iter()
        .enumerate()
        .skip(1)
-       .filter(|x|x.1.ignx() == pu32)
+       .filter(|x|x.1.ignx() == pignx)
        .map(|(i,_)|i+j)
        .collect();
     let sz = tch.len();
@@ -1258,6 +1408,44 @@ pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
     set_nodes(o, &marks, &data);
     return Some(buf);
   }
+}
+pub fn insert_new_node(o:&mut Outline, nodes:&mut Vec<VData>, i:usize, gnx:&str) -> (u32, String) {
+  let ignx = nodes.len() as u32;
+  let (pignx, ci, j) =
+    if  o[i].level() + 1 == o[i+1].level()
+     && o[i].is_expanded() {
+      ( o[i].ignx(), 0 , i+1)
+    } else {
+      let pi = o.parent_index(i);
+      let zlev = o[i].level();
+      let ci = o
+        .iter()
+        .skip(pi+1)
+        .take(i - pi - 1)
+        .filter(|x|x.level() == zlev)
+        .count() + 1;
+      ( o[pi].ignx(), ci, i + o.subtree_size(i) )
+    };
+  nodes.push(VData::new(gnx));
+  nodes[ignx as usize].ignx = ignx;
+  let mut u = format!("addv:{}\n", gnx);
+  let u1 = create_link(o, pignx, ci, ignx).unwrap(); // this will always succeed
+  u.push_str(&u1);
+  (o[j].label(), u)
+}
+pub fn redo_insert_new_node(nodes:&mut Vec<VData>, u:&str) {
+  let v = VData::new(&u[5..]);
+  nodes.push(v);
+}
+pub fn undo_update_node(nodes:&mut Vec<VData>, x:&str) {
+  let v = VData::from_str(partition(&x[5..], "\t").0);
+  let i = v.ignx as usize;
+  nodes[i] = v;
+}
+pub fn redo_update_node(nodes:&mut Vec<VData>, x:&str) {
+  let v = VData::from_str(partition(x, "\t").2);
+  let i = v.ignx as usize;
+  nodes[i] = v;
 }
 fn encode_insert_parts(o:&Outline, marks:&Vec<usize>, data:&Vec<u64>, mut buf:&mut String) {
     // TODO: check if it is necessary to have o[0].label() after parts have been

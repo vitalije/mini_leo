@@ -13,7 +13,7 @@ pub use parsing::{ldf_parse,from_derived_file_content, from_derived_file,
                   /*from_zip_archive,*/
                   };
 pub use atclean::{atclean_to_string, update_atclean_tree};
-pub use utils::{b64int, b64str, b64write};
+pub use utils::{b64int, b64str, b64write, partition};
 pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 find_derived_files, find_edit_files,
                 find_auto_files, find_clean_files,
@@ -22,7 +22,10 @@ pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 break_link, undo_delete_blocks, redo_delete_blocks,
                 undo_shift_blocks, redo_shift_blocks,
                 undo_set_nodes, redo_set_nodes,
+                insert_new_node, redo_insert_new_node,
+                undo_update_node, redo_update_node,
                 move_node_right, move_node_left, move_node_up, move_node_down,
+                valid_operations,
                 extract_subtree, INDENT};
 use pyo3::prelude::*;
 use pyo3::PyIterProtocol;
@@ -151,7 +154,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="collapse_node", text_signature="(tid, p)")]
   /// Collapses node at position p in the outline
-  /// idetified by tid.
+  /// identified by tid.
   /// 
   /// Returns None if the tid outline is missing or there isn't a node at 
   /// the given position p, or node was already collapsed
@@ -198,6 +201,15 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
     }
   }
   #[pyfn(m)]
+  #[pyo3(name="debug_str2", text_signature="(tid, s)")]
+  /// Returns debug representation of the given string s
+  ///
+  fn to_debug_str2(_py: Python, s:&str) -> String {
+    let mut b = s.escape_debug().to_string();
+    b.push(0 as char);
+    b
+  }
+  #[pyfn(m)]
   #[pyo3(name="drop_tree")]
   fn drop_tree(_py:Python, tid:usize) -> PyResult<bool> {
     Ok(TREES.lock().unwrap().remove(&tid).is_some())
@@ -215,7 +227,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="expand_node", text_signature="(tid, p)")]
   /// Expands node at position p in the outline
-  /// idetified by tid.
+  /// identified by tid.
   /// 
   /// Returns None if the tid outline is missing or there isn't a node at 
   /// the given position p, or node was already expanded
@@ -255,7 +267,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="gnx_index", text_signature="(tid)")]
   /// Returns a map of gnx->ignx in the outline
-  /// idetified by tid.
+  /// identified by tid.
   /// 
   /// Returns None if the tid outline is missing
   fn gnx_index(_py: Python, tid:usize) -> PyResult<Option<HashMap<String, u32>>> {
@@ -267,6 +279,26 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
       m
     });
     Ok(res)
+  }
+  #[pyfn(m)]
+  #[pyo3(name="insert_new_node", text_signature="(tid, p, gnx)")]
+  /// Inserts new node in the outline identified by tid, right after p
+  /// if p has no children or if it is collapsed. Otherwise inserts new
+  /// node as a first child of p. New node will have given gnx.
+  /// Returns tuple (newp, undo_info) if successful.
+  /// 
+  /// Returns None if the tid outline is missing or there isn't a node at 
+  /// the given position p
+  fn pyinsert_new_node(_py: Python, tid:usize, p:u32, gnx:&str) -> Option<(u32, String)> {
+    TREES
+      .lock()
+      .unwrap()
+      .get_mut(&tid)
+      .and_then(|t|{
+        let i = t.outline.label_index(p).unwrap_or(0);
+        if i == 0 {return None}
+        Some(insert_new_node(&mut t.outline, &mut t.nodes, i, gnx))
+      })
   }
   #[pyfn(m)]
   #[pyo3(name="iternodes")]
@@ -299,8 +331,8 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   }
   #[pyfn(m)]
   #[pyo3(name="move_node_right", text_signature="(tid, label)")]
-  /// Moves node right idetified by given label in the outline
-  /// idetified by tid. If the movement would result in the
+  /// Moves node right identified by given label in the outline
+  /// identified by tid. If the movement would result in the
   /// invalid outline, returns None, without making any change.
   /// 
   /// Returns string representation of the performed changes, that
@@ -325,8 +357,8 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   }
   #[pyfn(m)]
   #[pyo3(name="move_node_left", text_signature="(tid, label)")]
-  /// Moves node left idetified by given label in the outline
-  /// idetified by tid. If the movement would result in the
+  /// Moves node left identified by given label in the outline
+  /// identified by tid. If the movement would result in the
   /// invalid outline, returns None, without making any change.
   /// 
   /// Returns string representation of the performed changes, that
@@ -352,8 +384,8 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   }
   #[pyfn(m)]
   #[pyo3(name="move_node_up", text_signature="(tid, label)")]
-  /// Moves node up idetified by given label in the outline
-  /// idetified by tid. If the movement would result in the
+  /// Moves node up identified by given label in the outline
+  /// identified by tid. If the movement would result in the
   /// invalid outline, returns None, without making any change.
   /// 
   /// Returns string representation of the performed changes, that
@@ -378,8 +410,8 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   }
   #[pyfn(m)]
   #[pyo3(name="move_node_down", text_signature="(tid, label)")]
-  /// Moves node down idetified by given label in the outline
-  /// idetified by tid. If the movement would result in the
+  /// Moves node down identified by given label in the outline
+  /// identified by tid. If the movement would result in the
   /// invalid outline, returns None, without making any change.
   /// 
   /// Returns string representation of the performed changes, that
@@ -405,7 +437,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="node_at", text_signature="(tid, i)")]
   /// Returns a copy of node located on the given index i inside the outline
-  /// idetified by tid.
+  /// identified by tid.
   /// 
   /// Returns None if the tid outline is missing or there isn't a node at 
   /// the given index i
@@ -494,6 +526,21 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   }
   */
   #[pyfn(m)]
+  #[pyo3(name="p_index", text_signature="(tid, p)")]
+  /// Returns a index of node with given position p in outline
+  /// identified by tid.
+  /// 
+  /// Returns None if the tid outline is missing, or it doesn't
+  /// contain position p
+  ///
+  fn p_index(_py: Python, tid:usize, p:u32) -> Option<usize> {
+    TREES
+      .lock()
+      .unwrap()
+      .get(&tid)
+      .and_then(|t| t.outline.label_index(p))
+  }
+  #[pyfn(m)]
   #[pyo3(name="parent_index")]
   fn parent_index(_py:Python, tid:usize, ni:usize) -> PyResult<usize> {
     match TREES.lock().unwrap().get(&tid).map(|t|{
@@ -504,14 +551,16 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
     }
   }
   #[pyfn(m)]
-  #[pyo3(name="parents_indexes")]
-  fn parents_indexes(_py:Python, tid:usize, ni:usize) -> PyResult<Vec<usize>> {
-    match TREES.lock().unwrap().get(&tid).map(|t|{
-      t.outline.parents_indexes(ni)
-    }){
-      Some(x) => Ok(x),
-      None => Err(PyValueError::new_err("unknown tree id"))
-    }
+  #[pyo3(name="parents_indexes", text_signature="(tid, i)")]
+  /// returns list of all parent indexes for the child node at index i
+  /// returns None if there is no such tree
+  ///
+  fn parents_indexes(_py:Python, tid:usize, ni:usize) -> Option<Vec<usize>> {
+    TREES
+      .lock()
+      .unwrap()
+      .get(&tid)
+      .map(|t|t.outline.parents_indexes(ni))
   }
   #[pyfn(m)]
   #[pyo3(name="atclean_to_str", text_signature="(tid, ni)")]
@@ -536,7 +585,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="break_link", text_signature="(tid, parent, childIndex)")]
   /// Removes child at the index childIndex from parent in the outline
-  /// idetified by tid. If the parent is not present in the outline, or
+  /// identified by tid. If the parent is not present in the outline, or
   /// if it doesn't have child with the childIndex, returns None
   /// else returns string description of the changes made.
   ///
@@ -551,7 +600,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="create_link", text_signature="(tid, parent, childIndex, child)")]
   /// Links child node at the childIndex to parent in the outline
-  /// idetified by tid. If the link was created, returns string
+  /// identified by tid. If the link was created, returns string
   /// which can be used to undo/redo operation.
   /// 
   /// Returns None if the tid outline is missing or parent and child
@@ -560,9 +609,9 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   fn pycreate_link(_py: Python, tid:usize, v1:&VData, ci:usize, v2:&VData) -> Option<String> {
     TREES.lock().unwrap().get_mut(&tid).and_then(|t|{
       return create_link( &mut t.outline
-                        , v1.ignx as usize
+                        , v1.ignx
                         , ci
-                        , v2.ignx as usize
+                        , v2.ignx
                         )
     })
   }
@@ -582,6 +631,10 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
           redo_shift_blocks(&mut t.outline, x);
         } else if x.starts_with("sn:") {
           redo_set_nodes(&mut t.outline, x);
+        } else if x.starts_with("addv:") {
+          redo_insert_new_node(&mut t.nodes, x);
+        } else if x.starts_with("vupd:") {
+          redo_update_node(&mut t.nodes, x);
         }
       }
     });
@@ -602,6 +655,10 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
           undo_shift_blocks(&mut t.outline, x);
         } else if x.starts_with("sn:") {
           undo_set_nodes(&mut t.outline, x);
+        } else if x.starts_with("addv:") {
+          t.nodes.pop();
+        } else if x.starts_with("vupd:") {
+          undo_update_node(&mut t.nodes, x);
         }
       }
     });
@@ -629,7 +686,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="tree_len", text_signature="(tid)")]
   /// Returns the number of different positions in the
-  /// outline idetified by tid.
+  /// outline identified by tid.
   ///
   /// Raises ValueError if there is no outline (tid).
   ///
@@ -645,23 +702,89 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
   #[pyfn(m)]
   #[pyo3(name="update_node", text_signature="(tid, vnode)")]
   /// Updates h, b and flags in the outline
-  /// idetified by tid.
+  /// identified by tid. Returns undo_info if it succeeds.
   /// 
-  /// Returns None if the tid outline is missing or there isn't a node at 
-  /// the given index i
-  fn update_node(_py: Python, tid:usize, v:&VData) -> PyResult<bool> {
-    let res = TREES.lock().unwrap().get_mut(&tid).map(|t|{
-      if let Some(mut v0) = t.nodes.get_mut(v.ignx as usize) {
-        if v0.gnx == v.gnx {
-          v0.h.replace_range(.., &v.h);
-          v0.b.replace_range(.., &v.b);
-          v0.flags = v.flags;
-          return true;
-        }
-      }
-      false
-    });
-    Ok(res.unwrap_or(false))
+  /// Returns None if the tid outline is missing or it doesn't
+  /// contain given vnode (* when (ignx, gnx) pair doesn't match
+  /// this outline)
+  ///
+  fn update_node(_py: Python, tid:usize, v:&VData) -> Option<String> {
+    TREES
+      .lock()
+      .unwrap()
+      .get_mut(&tid)
+      .and_then(|t|{
+        let i = v.ignx as usize;
+        if i >= t.nodes.len() { return None }
+        let v0 = &mut t.nodes[i];
+        if v0.gnx != v.gnx { return None }
+        let mut buf = "vupd:".to_string();
+        v0.write_to(&mut buf);
+        buf.push('\t');
+        v.write_to(&mut buf);
+        v0.h.replace_range(.., &v.h);
+        v0.b.replace_range(.., &v.b);
+        v0.flags = v.flags;
+        Some(buf)
+      })
+  }
+  #[pyfn(m)]
+  #[pyo3(name="valid_operations", text_signature="(tid, p)")]
+  /// Returns list of all operations that can be performed on
+  /// given position in the outline identified by tid.
+  ///
+  fn pyvalid_operations(_py: Python, tid:usize, label:u32) -> String {
+    TREES
+      .lock()
+      .unwrap()
+      .get(&tid)
+      .and_then(|t|{
+        let i = t.outline
+         .iter()
+         .skip(1)
+         .position(|x|x.label() == label)
+         .unwrap_or(0);
+        if i == 0 {return None}
+        Some(valid_operations(&t.outline, i))
+      }).unwrap_or("".to_string())
+  }
+  #[pyfn(m)]
+  #[pyo3(name="visible_nodes", text_signature="(tid)")]
+  /// Returns list of tuples for all visible positions in the outline
+  /// identified by tid. Each tuple contains (level, p, v)
+  /// 
+  fn visible_nodes(_py: Python, tid:usize) -> Option<Vec<(u8, u32,VData)>> {
+    TREES
+      .lock()
+      .unwrap()
+      .get(&tid)
+      .map(|t|{
+        let inds = t.outline.visible_indices();
+        let res:Vec<(u8, u32, VData)> = inds
+          .iter()
+          .map(|x|{let z = t.outline[*x];(z.level(), z.label(), t.nodes[z.ignx() as usize].clone())})
+          .collect();
+        res
+      })
+  }
+  #[pyfn(m)]
+  #[pyo3(name="visible_positions", text_signature="(tid)")]
+  /// Returns list of tuples for all visible positions in the outline
+  /// identified by tid. Each tuple contains (level, p, ignx)
+  /// 
+  fn visible_positions(_py: Python, tid:usize) -> Option<Vec<(u8, u32, u32)>> {
+    TREES
+      .lock()
+      .unwrap()
+      .get(&tid)
+      .map(|t|{
+        let inds = t.outline.visible_indices();
+        let res:Vec<(u8, u32, u32)> = inds
+          .iter()
+          .map(|x|{let z = t.outline[*x];(z.level(), z.label(), z.ignx())})
+          .collect();
+        res
+      })
   }
   //m.add_wrapped(wrap_pyfunction!(a_function_from_rust))?;
   m.add("VData", _py.get_type::<VData>())?;
