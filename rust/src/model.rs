@@ -263,13 +263,14 @@ impl OutlineOps for Outline {
   /// this method returns the child index that this node
   /// has in its parent's list of children
   fn child_index(&self, i:usize) -> usize {
-    let pi = self.parent_index(i);
-    let mut n:usize = 0;
     let lev = self[i].level();
-    for z in &self[pi..i] {
-      if z.level() == lev {n += 1}
-    }
-    n
+    self
+      .iter()
+      .take(i)
+      .rev()
+      .take_while(|x|x.level() >= lev)
+      .filter(|x|x.level() == lev)
+      .count()
   }
   /// returns list of children ignxes
   fn children(&self, i:usize) -> Vec<u32> {
@@ -759,22 +760,31 @@ impl<'a> Iterator for Tree<'a> {
 pub fn valid_operations(o:&Outline, i:usize) -> String {
   let mut buf = String::new();
   if let Some(z) = o.get(i) {
+    buf.push_str("insert,clone,");
     let lev = z.level();
     let prev_sibling = o
       .iter()
-      .skip(i)
+      .enumerate()
+      .take(i)
       .rev()
-      .skip(1)
-      .take_while(|x|x.level() >= lev)
-      .position(|x| x.level() == lev);
+      .take_while(|x|x.1.level() >= lev)
+      .filter(|x| x.1.level() == lev)
+      .map(|x|x.0)
+      .nth(0);
     let sz_a = o.subtree_size(i);
+    if sz_a > 1 {
+      buf.push_str(if z.is_expanded() { "collapse," } else { "expand," });
+    }
+    if i > 1 || o.len() > sz_a + 1 {
+      buf.push_str("delete,");
+    }
     if lev > 2 {
       buf.push_str("left,");
     }
     if let Some(pgnx) = prev_sibling.map(|j|o[j].ignx()) {
       // pgnx is previous sibling
       if o.iter()
-        .skip(i+1).take(sz_a)
+        .skip(i).take(sz_a)
         .all(|x|x.ignx() != pgnx) {
         // previous sibling is not in our descendents
         // so move right is possible
@@ -808,7 +818,7 @@ pub fn valid_operations(o:&Outline, i:usize) -> String {
       buf.push_str("down,");
     }
   }
-  if buf.len() > 0 { buf.pop();}
+  buf.pop();
   buf
 }
 #[allow(dead_code)]
@@ -881,8 +891,8 @@ pub fn create_link(o:&mut Outline, pignx:u32, child_index:usize, cignx:u32) -> O
     if x.ignx() == pignx { return None }
   }
   let mut tp = o.subtree(pignx);
-  tp.push(LevGnx::make(1, 0, 0));
   if tp.len() == 0 {return None}
+  tp.push(LevGnx::make(1, 0, 0));
   if let Some((j, _)) = tp.iter()
                           .enumerate()
                           .filter(|x|x.1.level()==1)
@@ -892,7 +902,6 @@ pub fn create_link(o:&mut Outline, pignx:u32, child_index:usize, cignx:u32) -> O
     let marks:Vec<usize> = 
       o.iter()
        .enumerate()
-       .skip(1)
        .filter(|x|x.1.ignx() == pignx)
        .map(|(i,_)|i+j)
        .collect();
@@ -934,13 +943,15 @@ pub fn break_link(o:&mut Outline, pignx:u32, child_index:usize) -> Option<String
       // now parent is at index pi, and child starts at the index ci
       let sz = o.subtree_size(ci);
       let delta = ci-pi;
-      let mut marks:Vec<usize> =
-        o.iter()
-         .enumerate()
-         .skip(ci+sz)
-         .filter(|x|x.1.ignx() == pignx)
-         .map(|x|x.0+delta)
-         .collect();
+      let mut marks:Vec<usize> = if pi == 0 { vec![] }
+        else {
+          o.iter()
+           .enumerate()
+           .skip(ci+sz)
+           .filter(|x|x.1.ignx() == pignx)
+           .map(|x|x.0+delta)
+           .collect()
+        };
       marks.insert(0, ci);
       let mut buf = String::new();
       encode_delete_blocks(o, &marks, sz, &mut buf);
@@ -950,14 +961,33 @@ pub fn break_link(o:&mut Outline, pignx:u32, child_index:usize) -> Option<String
   };
   None
 }
+pub fn clone_node(o:&mut Outline, i:usize) -> (u32, String) {
+  let pi = o.parent_index(i);
+  let pgnx = o[pi].ignx();
+  let ignx = o[i].ignx();
+  let ci = o.child_index(i);
+  let sz = o.subtree_size(i);
+  let s = create_link(o, pgnx, ci+1, ignx).unwrap();
+  (o[i+sz].label(), s)
+}
+pub fn delete_node(o:&mut Outline, i:usize) -> Option<String> {
+  if o.len() < 3 { return None } // can't delete last top level node
+  let pi = o.parent_index(i);
+  let pgnx = o[pi].ignx();
+  let ci = o.child_index(i);
+  break_link(o, pgnx, ci)
+}
 pub fn move_node_right(o:&mut Outline, i:usize) -> Option<String> {
   if i < 2 {return None}
   let ilev = o[i].level();
   if  ilev == o[i-1].level() + 1 {return None}
-  let j = i - 1 - o[..i-1]
+  let j = o[..i-1]
     .iter()
+    .enumerate()
     .rev()
-    .position(|x|x.level() == ilev)
+    .filter(|x|x.1.level() == ilev)
+    .map(|x|x.0)
+    .nth(0)
     .unwrap(); // there must be a previous sibling, so its safe
   let oldpi = o.parent_index(j);
   let oldpignx = o[oldpi].ignx();
@@ -1328,7 +1358,7 @@ pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
       .enumerate()
       .filter(|x|x.1.ignx() == fignx)
       .map(|x|
-        (x.0, x.0 <= delta_back || o[x.0-delta_back].ignx() != pignx)
+        (x.0, x.0 < delta_back || o[x.0-delta_back].ignx() != pignx)
       ).collect();
     let marks_1:Vec<usize> = all_marks
       .iter()
@@ -1341,7 +1371,6 @@ pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
       .filter(|x|x.1)
       .map(|x|x.0+1)
       .collect();
-
     let data:Vec<u64> = marks_1
       .iter()
       .flat_map(|m|{
@@ -1411,27 +1440,45 @@ pub fn move_node_down(o:&mut Outline, i:usize) -> Option<String> {
 }
 pub fn insert_new_node(o:&mut Outline, nodes:&mut Vec<VData>, i:usize, gnx:&str) -> (u32, String) {
   let ignx = nodes.len() as u32;
-  let (pignx, ci, j) =
+  let (pi, j) =
     if  o[i].level() + 1 == o[i+1].level()
      && o[i].is_expanded() {
-      ( o[i].ignx(), 0 , i+1)
+      ( i, i+1)
     } else {
-      let pi = o.parent_index(i);
-      let zlev = o[i].level();
-      let ci = o
-        .iter()
-        .skip(pi+1)
-        .take(i - pi - 1)
-        .filter(|x|x.level() == zlev)
-        .count() + 1;
-      ( o[pi].ignx(), ci, i + o.subtree_size(i) )
+      ( o.parent_index(i), i + o.subtree_size(i) )
     };
+  let mut u = format!("addv:{}\n", gnx);
   nodes.push(VData::new(gnx));
   nodes[ignx as usize].ignx = ignx;
-  let mut u = format!("addv:{}\n", gnx);
-  let u1 = create_link(o, pignx, ci, ignx).unwrap(); // this will always succeed
-  u.push_str(&u1);
-  (o[j].label(), u)
+  if pi == 0 {
+    let marks:Vec<usize> = vec![j];
+    let data:Vec<u64> = vec![LevGnx::make(o[pi].level()+1, ignx, o[0].label() + 1)];
+    encode_insert_parts(o, &marks, &data, &mut u);
+    insert_parts(o, &marks, &data);
+    o[0].set_label(data[0].label());
+    return (data[0].label(), u);
+  }
+  let pignx = o[pi].ignx();
+  let delta = j - pi;
+  let marks:Vec<usize> = o
+    .iter()
+    .enumerate()
+    .filter(|x| x.1.ignx() == pignx)
+    .map(|x|x.0 + delta)
+    .collect();
+  let mut data:Vec<u64> = vec![];
+  let mut label = o[0].label();
+  let mut rlabel:u32 = 0;
+  for m in marks.iter() {
+    let zlev = o[*m-delta].level() + 1;
+    label += 1;
+    if *m == j {rlabel = label}
+    data.push(LevGnx::make(zlev, ignx, label));
+  }
+  encode_insert_parts(o, &marks, &data, &mut u);
+  o[0].set_label(label);
+  insert_parts(o, &marks, &data);
+  (rlabel, u)
 }
 pub fn redo_insert_new_node(nodes:&mut Vec<VData>, u:&str) {
   let v = VData::new(&u[5..]);

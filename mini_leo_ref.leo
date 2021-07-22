@@ -72,7 +72,6 @@
 <v t="vitalije.20210718121623.1"><vh>expand_node</vh></v>
 <v t="vitalije.20200324130742.1"><vh>extract_subtree</vh></v>
 <v t="vitalije.20210714190540.1"><vh>gnx_index</vh></v>
-<v t="vitalije.20210721175419.1"><vh>pyinsert_new_node</vh></v>
 <v t="vitalije.20191215164117.1"><vh>iternodes</vh></v>
 <v t="vitalije.20191229172150.1"><vh>load_leo</vh></v>
 <v t="vitalije.20210716090049.1"><vh>moving nodes</vh>
@@ -92,7 +91,10 @@
 <v t="vitalije.20200325085029.1"><vh>parents_indexes</vh></v>
 <v t="vitalije.20200324094558.1"><vh>pyatclean_to_str</vh></v>
 <v t="vitalije.20210715154702.1"><vh>pybreak_link</vh></v>
+<v t="vitalije.20210722101220.1"><vh>pyclone_node</vh></v>
 <v t="vitalije.20210715105215.1"><vh>pycreate_link</vh></v>
+<v t="vitalije.20210722101821.1"><vh>pydelete_node</vh></v>
+<v t="vitalije.20210721175419.1"><vh>pyinsert_new_node</vh></v>
 <v t="vitalije.20210715145536.1"><vh>pyredo</vh></v>
 <v t="vitalije.20210715141414.1"><vh>pyundo</vh></v>
 <v t="vitalije.20200324130524.1"><vh>pyupdate_atclean</vh></v>
@@ -149,6 +151,8 @@
 </v>
 <v t="vitalije.20210716071616.1"><vh>geting info</vh>
 <v t="vitalije.20210719210802.1"><vh>valid_operations</vh>
+<v t="vitalije.20210722114710.1"><vh>check expand</vh></v>
+<v t="vitalije.20210722113218.1"><vh>check delete node</vh></v>
 <v t="vitalije.20210719211246.1"><vh>check move left valid</vh></v>
 <v t="vitalije.20210720115025.1"><vh>check move right valid</vh></v>
 <v t="vitalije.20210720120256.1"><vh>check move up valid</vh></v>
@@ -167,6 +171,8 @@
 <v t="vitalije.20210715101954.1"><vh>create_link</vh></v>
 <v t="vitalije.20210715153300.1"><vh>break_link</vh></v>
 </v>
+<v t="vitalije.20210722095213.1"><vh>clone_node</vh></v>
+<v t="vitalije.20210722101002.1"><vh>delete_node</vh></v>
 <v t="vitalije.20210716071711.1"><vh>move_node_right</vh>
 <v t="vitalije.20210716120732.1"><vh>&lt;&lt;move right optimize&gt;&gt;</vh></v>
 </v>
@@ -309,6 +315,10 @@
 <v t="vitalije.20210718114938.1"><vh>test_up</vh></v>
 <v t="vitalije.20210719104019.1"><vh>test_down</vh></v>
 <v t="vitalije.20210721210914.1"><vh>test_update_node</vh></v>
+<v t="vitalije.20210722115009.1"><vh>test_valid_operations</vh>
+<v t="vitalije.20210722115946.1"><vh>newgnx</vh></v>
+<v t="vitalije.20210722120743.1"><vh>check_op</vh></v>
+</v>
 </v>
 <v t="vitalije.20210719152258.1"><vh>тест дата</vh></v>
 <v t="vitalije.20210720160919.1"><vh>nodes per level</vh></v>
@@ -774,6 +784,7 @@ pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 insert_new_node, redo_insert_new_node,
                 undo_update_node, redo_update_node,
                 move_node_right, move_node_left, move_node_up, move_node_down,
+                clone_node, delete_node,
                 valid_operations,
                 extract_subtree, INDENT};
 use pyo3::prelude::*;
@@ -1156,13 +1167,14 @@ fn subtree_size(&amp;self, i:usize) -&gt; usize {
 /// this method returns the child index that this node
 /// has in its parent's list of children
 fn child_index(&amp;self, i:usize) -&gt; usize {
-  let pi = self.parent_index(i);
-  let mut n:usize = 0;
   let lev = self[i].level();
-  for z in &amp;self[pi..i] {
-    if z.level() == lev {n += 1}
-  }
-  n
+  self
+    .iter()
+    .take(i)
+    .rev()
+    .take_while(|x|x.level() &gt;= lev)
+    .filter(|x|x.level() == lev)
+    .count()
 }
 </t>
 <t tx="vitalije.20190625161035.1">#[pyclass]
@@ -3390,6 +3402,12 @@ import _minileo as ML
 import pprint; assert pprint
 @others
 if __name__ == '__main__':
+    #t = get_outline('demo-000/demo.leo')
+    #for lev, p, gnx in ML.visible_positions(t):
+    #    ML.expand_node(t, p)
+    #print(ML.move_node_down(t, 126))
+    #assert False
+    test_valid_operations()
     test_update_node()
     test_down()
     test_up()
@@ -3405,8 +3423,8 @@ if __name__ == '__main__':
     if x.ignx() == pignx { return None }
   }
   let mut tp = o.subtree(pignx);
-  tp.push(LevGnx::make(1, 0, 0));
   if tp.len() == 0 {return None}
+  tp.push(LevGnx::make(1, 0, 0));
   if let Some((j, _)) = tp.iter()
                           .enumerate()
                           .filter(|x|x.1.level()==1)
@@ -3416,7 +3434,6 @@ if __name__ == '__main__':
     let marks:Vec&lt;usize&gt; = 
       o.iter()
        .enumerate()
-       .skip(1)
        .filter(|x|x.1.ignx() == pignx)
        .map(|(i,_)|i+j)
        .collect();
@@ -3602,6 +3619,12 @@ fn pyundo(_py: Python, tid:usize, data:&amp;str) {
         t.nodes.pop();
       } else if x.starts_with("vupd:") {
         undo_update_node(&amp;mut t.nodes, x);
+      } else if x.starts_with("collapse:") {
+        let i = b64int(&amp;x[9..]) as usize;
+        t.outline[i].expand();
+      } else if x.starts_with("expand:") {
+        let i = b64int(&amp;x[7..]) as usize;
+        t.outline[i].collapse();
       }
     }
   });
@@ -3627,6 +3650,12 @@ fn pyredo(_py: Python, tid:usize, data:&amp;str) {
         redo_insert_new_node(&amp;mut t.nodes, x);
       } else if x.starts_with("vupd:") {
         redo_update_node(&amp;mut t.nodes, x);
+      } else if x.starts_with("collapse:") {
+        let i = b64int(&amp;x[9..]) as usize;
+        t.outline[i].collapse();
+      } else if x.starts_with("expand:") {
+        let i = b64int(&amp;x[7..]) as usize;
+        t.outline[i].expand();
       }
     }
   });
@@ -3688,13 +3717,15 @@ pub fn break_link(o:&amp;mut Outline, pignx:u32, child_index:usize) -&gt; Option
       // now parent is at index pi, and child starts at the index ci
       let sz = o.subtree_size(ci);
       let delta = ci-pi;
-      let mut marks:Vec&lt;usize&gt; =
-        o.iter()
-         .enumerate()
-         .skip(ci+sz)
-         .filter(|x|x.1.ignx() == pignx)
-         .map(|x|x.0+delta)
-         .collect();
+      let mut marks:Vec&lt;usize&gt; = if pi == 0 { vec![] }
+        else {
+          o.iter()
+           .enumerate()
+           .skip(ci+sz)
+           .filter(|x|x.1.ignx() == pignx)
+           .map(|x|x.0+delta)
+           .collect()
+        };
       marks.insert(0, ci);
       let mut buf = String::new();
       encode_delete_blocks(o, &amp;marks, sz, &amp;mut buf);
@@ -3804,10 +3835,13 @@ fn pybreak_link(_py: Python, tid:usize, v1:&amp;VData, ci:usize) -&gt; Option&lt
   if i &lt; 2 {return None}
   let ilev = o[i].level();
   if  ilev == o[i-1].level() + 1 {return None}
-  let j = i - 1 - o[..i-1]
+  let j = o[..i-1]
     .iter()
+    .enumerate()
     .rev()
-    .position(|x|x.level() == ilev)
+    .filter(|x|x.1.level() == ilev)
+    .map(|x|x.0)
+    .nth(0)
     .unwrap(); // there must be a previous sibling, so its safe
   let oldpi = o.parent_index(j);
   let oldpignx = o[oldpi].ignx();
@@ -4474,7 +4508,7 @@ let all_marks:Vec&lt;(usize, bool)&gt; = o
   .enumerate()
   .filter(|x|x.1.ignx() == fignx)
   .map(|x|
-    (x.0, x.0 &lt;= delta_back || o[x.0-delta_back].ignx() != pignx)
+    (x.0, x.0 &lt; delta_back || o[x.0-delta_back].ignx() != pignx)
   ).collect();
 let marks_1:Vec&lt;usize&gt; = all_marks
   .iter()
@@ -4487,7 +4521,6 @@ let marks_2:Vec&lt;usize&gt; = all_marks
   .filter(|x|x.1)
   .map(|x|x.0+1)
   .collect();
-
 let data:Vec&lt;u64&gt; = marks_1
   .iter()
   .flat_map(|m|{
@@ -4790,18 +4823,21 @@ fn visible_positions(_py: Python, tid:usize) -&gt; Option&lt;Vec&lt;(u8, u32, u3
 pub fn valid_operations(o:&amp;Outline, i:usize) -&gt; String {
   let mut buf = String::new();
   if let Some(z) = o.get(i) {
+    buf.push_str("insert,clone,");
     let lev = z.level();
     let prev_sibling = o
       .iter()
-      .skip(i)
+      .enumerate()
+      .take(i)
       .rev()
-      .skip(1)
-      .take_while(|x|x.level() &gt;= lev)
-      .position(|x| x.level() == lev);
+      .take_while(|x|x.1.level() &gt;= lev)
+      .filter(|x| x.1.level() == lev)
+      .map(|x|x.0)
+      .nth(0);
     let sz_a = o.subtree_size(i);
     @others
   }
-  if buf.len() &gt; 0 { buf.pop();}
+  buf.pop();
   buf
 }</t>
 <t tx="vitalije.20210719211246.1">if lev &gt; 2 {
@@ -4824,14 +4860,14 @@ fn pyvalid_operations(_py: Python, tid:usize, label:u32) -&gt; String {
        .position(|x|x.label() == label)
        .unwrap_or(0);
       if i == 0 {return None}
-      Some(valid_operations(&amp;t.outline, i))
+      Some(valid_operations(&amp;t.outline, i+1))
     }).unwrap_or("".to_string())
 }
 </t>
 <t tx="vitalije.20210720115025.1">if let Some(pgnx) = prev_sibling.map(|j|o[j].ignx()) {
   // pgnx is previous sibling
   if o.iter()
-    .skip(i+1).take(sz_a)
+    .skip(i).take(sz_a)
     .all(|x|x.ignx() != pgnx) {
     // previous sibling is not in our descendents
     // so move right is possible
@@ -4966,27 +5002,45 @@ fn to_debug_str2(_py: Python, s:&amp;str) -&gt; String {
 </t>
 <t tx="vitalije.20210721212805.1">pub fn insert_new_node(o:&amp;mut Outline, nodes:&amp;mut Vec&lt;VData&gt;, i:usize, gnx:&amp;str) -&gt; (u32, String) {
   let ignx = nodes.len() as u32;
-  let (pignx, ci, j) =
+  let (pi, j) =
     if  o[i].level() + 1 == o[i+1].level()
      &amp;&amp; o[i].is_expanded() {
-      ( o[i].ignx(), 0 , i+1)
+      ( i, i+1)
     } else {
-      let pi = o.parent_index(i);
-      let zlev = o[i].level();
-      let ci = o
-        .iter()
-        .skip(pi+1)
-        .take(i - pi - 1)
-        .filter(|x|x.level() == zlev)
-        .count() + 1;
-      ( o[pi].ignx(), ci, i + o.subtree_size(i) )
+      ( o.parent_index(i), i + o.subtree_size(i) )
     };
+  let mut u = format!("addv:{}\n", gnx);
   nodes.push(VData::new(gnx));
   nodes[ignx as usize].ignx = ignx;
-  let mut u = format!("addv:{}\n", gnx);
-  let u1 = create_link(o, pignx, ci, ignx).unwrap(); // this will always succeed
-  u.push_str(&amp;u1);
-  (o[j].label(), u)
+  if pi == 0 {
+    let marks:Vec&lt;usize&gt; = vec![j];
+    let data:Vec&lt;u64&gt; = vec![LevGnx::make(o[pi].level()+1, ignx, o[0].label() + 1)];
+    encode_insert_parts(o, &amp;marks, &amp;data, &amp;mut u);
+    insert_parts(o, &amp;marks, &amp;data);
+    o[0].set_label(data[0].label());
+    return (data[0].label(), u);
+  }
+  let pignx = o[pi].ignx();
+  let delta = j - pi;
+  let marks:Vec&lt;usize&gt; = o
+    .iter()
+    .enumerate()
+    .filter(|x| x.1.ignx() == pignx)
+    .map(|x|x.0 + delta)
+    .collect();
+  let mut data:Vec&lt;u64&gt; = vec![];
+  let mut label = o[0].label();
+  let mut rlabel:u32 = 0;
+  for m in marks.iter() {
+    let zlev = o[*m-delta].level() + 1;
+    label += 1;
+    if *m == j {rlabel = label}
+    data.push(LevGnx::make(zlev, ignx, label));
+  }
+  encode_insert_parts(o, &amp;marks, &amp;data, &amp;mut u);
+  o[0].set_label(label);
+  insert_parts(o, &amp;marks, &amp;data);
+  (rlabel, u)
 }</t>
 <t tx="vitalije.20210721213656.1">pub fn redo_insert_new_node(nodes:&amp;mut Vec&lt;VData&gt;, u:&amp;str) {
   let v = VData::new(&amp;u[5..]);
@@ -5003,5 +5057,121 @@ fn to_debug_str2(_py: Python, s:&amp;str) -&gt; String {
   nodes[i] = v;
 }</t>
 <t tx="vitalije.20210721214100.1"></t>
+<t tx="vitalije.20210722095213.1">pub fn clone_node(o:&amp;mut Outline, i:usize) -&gt; (u32, String) {
+  let pi = o.parent_index(i);
+  let pgnx = o[pi].ignx();
+  let ignx = o[i].ignx();
+  let ci = o.child_index(i);
+  let sz = o.subtree_size(i);
+  let s = create_link(o, pgnx, ci+1, ignx).unwrap();
+  (o[i+sz].label(), s)
+}</t>
+<t tx="vitalije.20210722101002.1">pub fn delete_node(o:&amp;mut Outline, i:usize) -&gt; Option&lt;String&gt; {
+  if o.len() &lt; 3 { return None } // can't delete last top level node
+  let pi = o.parent_index(i);
+  let pgnx = o[pi].ignx();
+  let ci = o.child_index(i);
+  break_link(o, pgnx, ci)
+}</t>
+<t tx="vitalije.20210722101220.1">#[pyfn(m)]
+#[pyo3(name="clone_node", text_signature="(tid, p)")]
+/// Inserts new clone of p in the outline identified by tid, right after p
+/// Returns tuple (newp, undo_info) if successful.
+/// 
+/// Returns None if the tid outline is missing or there isn't a node at 
+/// the given position p
+fn pyclone_node(_py: Python, tid:usize, p:u32) -&gt; Option&lt;(u32, String)&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      let i = t.outline.label_index(p).unwrap_or(0);
+      if i == 0 {return None}
+      Some(clone_node(&amp;mut t.outline, i))
+    })
+}</t>
+<t tx="vitalije.20210722101821.1">#[pyfn(m)]
+#[pyo3(name="delete_node", text_signature="(tid, p)")]
+/// Removes node p from the outline identified by tid
+/// 
+/// Returns None if the tid outline is missing or there isn't a node at 
+/// the given position p
+fn pydelete_node(_py: Python, tid:usize, p:u32) -&gt; Option&lt;String&gt; {
+  TREES
+    .lock()
+    .unwrap()
+    .get_mut(&amp;tid)
+    .and_then(|t|{
+      let i = t.outline.label_index(p).unwrap_or(0);
+      if i == 0 {return None}
+      delete_node(&amp;mut t.outline, i)
+    })
+}</t>
+<t tx="vitalije.20210722113218.1">if i &gt; 1 || o.len() &gt; sz_a + 1 {
+  buf.push_str("delete,");
+}</t>
+<t tx="vitalije.20210722114710.1">if sz_a &gt; 1 {
+  buf.push_str(if z.is_expanded() { "collapse," } else { "expand," });
+}</t>
+<t tx="vitalije.20210722115009.1">def test_valid_operations():
+    t = get_outline('demo-000/demo.leo')
+    maxignx = [-1]
+    for lev, p, ignx in ML.visible_positions(t):
+        maxignx[0] = max(maxignx[0], ignx)
+        if 'expand' in ML.valid_operations(t, p).split(','):
+            u = ML.expand_node(t, p)
+            assert u, repr(u)
+    @others
+    for lev, p, ignx in ML.visible_positions(t):
+        for op in ML.valid_operations(t, p).split(','):
+            check_op(op, p)
+    print("test_valid_operations went ok")
+</t>
+<t tx="vitalije.20210722115946.1">def newgnx():
+    maxignx[0] += 1
+    return f'g{maxignx[0]:04d}'</t>
+<t tx="vitalije.20210722120743.1">def check_op(op, p):
+    A = ML.debug_str(t)
+    if op == 'expand':
+        u = ML.expand_node(t, p)
+    elif op == 'collapse':
+        u = ML.collapse_node(t, p)
+    elif op == 'up':
+        u = ML.move_node_up(t, p)
+    elif op == 'down':
+        try:
+            u = ML.move_node_down(t, p)
+        except:
+            print(f'op:"{op}", p:{p:X}')
+            raise
+    elif op == 'right':
+        u = ML.move_node_right(t, p)
+    elif op == 'left':
+        u = ML.move_node_left(t, p)
+    elif op == 'clone':
+        u = ML.clone_node(t, p)[1]
+    elif op == 'insert':
+        u = ML.insert_new_node(t, p, newgnx())[1]
+    elif op == 'delete':
+        u = ML.delete_node(t, p)
+    else:
+        assert op == '', f'unknown operation:{op:r}'
+        return
+    check(t)
+    assert u, f'\n\n{A}\nu:{u} op:"{op}", p:{p:X}'
+    B = ML.debug_str(t)
+    ML.undo(t, u)
+    try:
+        compare_debugs(A, ML.debug_str(t))
+    except:
+        print("op", op, "p", p, "u", repr(u))
+        raise
+    check(t)
+    ML.redo(t, u)
+    compare_debugs(B, ML.debug_str(t))
+    check(t)
+    ML.undo(t, u)
+    compare_debugs(A, ML.debug_str(t))</t>
 </tnodes>
 </leo_file>

@@ -25,6 +25,7 @@ pub use model::{VData, Outline, OutlineOps, LevGnx, LevGnxOps, gnx_index,
                 insert_new_node, redo_insert_new_node,
                 undo_update_node, redo_update_node,
                 move_node_right, move_node_left, move_node_up, move_node_down,
+                clone_node, delete_node,
                 valid_operations,
                 extract_subtree, INDENT};
 use pyo3::prelude::*;
@@ -279,26 +280,6 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
       m
     });
     Ok(res)
-  }
-  #[pyfn(m)]
-  #[pyo3(name="insert_new_node", text_signature="(tid, p, gnx)")]
-  /// Inserts new node in the outline identified by tid, right after p
-  /// if p has no children or if it is collapsed. Otherwise inserts new
-  /// node as a first child of p. New node will have given gnx.
-  /// Returns tuple (newp, undo_info) if successful.
-  /// 
-  /// Returns None if the tid outline is missing or there isn't a node at 
-  /// the given position p
-  fn pyinsert_new_node(_py: Python, tid:usize, p:u32, gnx:&str) -> Option<(u32, String)> {
-    TREES
-      .lock()
-      .unwrap()
-      .get_mut(&tid)
-      .and_then(|t|{
-        let i = t.outline.label_index(p).unwrap_or(0);
-        if i == 0 {return None}
-        Some(insert_new_node(&mut t.outline, &mut t.nodes, i, gnx))
-      })
   }
   #[pyfn(m)]
   #[pyo3(name="iternodes")]
@@ -598,6 +579,24 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
     })
   }
   #[pyfn(m)]
+  #[pyo3(name="clone_node", text_signature="(tid, p)")]
+  /// Inserts new clone of p in the outline identified by tid, right after p
+  /// Returns tuple (newp, undo_info) if successful.
+  /// 
+  /// Returns None if the tid outline is missing or there isn't a node at 
+  /// the given position p
+  fn pyclone_node(_py: Python, tid:usize, p:u32) -> Option<(u32, String)> {
+    TREES
+      .lock()
+      .unwrap()
+      .get_mut(&tid)
+      .and_then(|t|{
+        let i = t.outline.label_index(p).unwrap_or(0);
+        if i == 0 {return None}
+        Some(clone_node(&mut t.outline, i))
+      })
+  }
+  #[pyfn(m)]
   #[pyo3(name="create_link", text_signature="(tid, parent, childIndex, child)")]
   /// Links child node at the childIndex to parent in the outline
   /// identified by tid. If the link was created, returns string
@@ -614,6 +613,43 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
                         , v2.ignx
                         )
     })
+  }
+  #[pyfn(m)]
+  #[pyo3(name="delete_node", text_signature="(tid, p)")]
+  /// Removes node p from the outline identified by tid
+  /// 
+  /// Returns None if the tid outline is missing or there isn't a node at 
+  /// the given position p
+  fn pydelete_node(_py: Python, tid:usize, p:u32) -> Option<String> {
+    TREES
+      .lock()
+      .unwrap()
+      .get_mut(&tid)
+      .and_then(|t|{
+        let i = t.outline.label_index(p).unwrap_or(0);
+        if i == 0 {return None}
+        delete_node(&mut t.outline, i)
+      })
+  }
+  #[pyfn(m)]
+  #[pyo3(name="insert_new_node", text_signature="(tid, p, gnx)")]
+  /// Inserts new node in the outline identified by tid, right after p
+  /// if p has no children or if it is collapsed. Otherwise inserts new
+  /// node as a first child of p. New node will have given gnx.
+  /// Returns tuple (newp, undo_info) if successful.
+  /// 
+  /// Returns None if the tid outline is missing or there isn't a node at 
+  /// the given position p
+  fn pyinsert_new_node(_py: Python, tid:usize, p:u32, gnx:&str) -> Option<(u32, String)> {
+    TREES
+      .lock()
+      .unwrap()
+      .get_mut(&tid)
+      .and_then(|t|{
+        let i = t.outline.label_index(p).unwrap_or(0);
+        if i == 0 {return None}
+        Some(insert_new_node(&mut t.outline, &mut t.nodes, i, gnx))
+      })
   }
   #[pyfn(m)]
   #[pyo3(name="redo", text_signature="(tid, data)")]
@@ -635,6 +671,12 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
           redo_insert_new_node(&mut t.nodes, x);
         } else if x.starts_with("vupd:") {
           redo_update_node(&mut t.nodes, x);
+        } else if x.starts_with("collapse:") {
+          let i = b64int(&x[9..]) as usize;
+          t.outline[i].collapse();
+        } else if x.starts_with("expand:") {
+          let i = b64int(&x[7..]) as usize;
+          t.outline[i].expand();
         }
       }
     });
@@ -659,6 +701,12 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
           t.nodes.pop();
         } else if x.starts_with("vupd:") {
           undo_update_node(&mut t.nodes, x);
+        } else if x.starts_with("collapse:") {
+          let i = b64int(&x[9..]) as usize;
+          t.outline[i].expand();
+        } else if x.starts_with("expand:") {
+          let i = b64int(&x[7..]) as usize;
+          t.outline[i].collapse();
         }
       }
     });
@@ -745,7 +793,7 @@ fn _minileo(_py: Python, m:&PyModule) -> PyResult<()> {
          .position(|x|x.label() == label)
          .unwrap_or(0);
         if i == 0 {return None}
-        Some(valid_operations(&t.outline, i))
+        Some(valid_operations(&t.outline, i+1))
       }).unwrap_or("".to_string())
   }
   #[pyfn(m)]
