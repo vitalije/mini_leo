@@ -25,4 +25,5 @@ src_root = ""
 console_scripts = ["mini_leo=mini_leo.cli:main"]
 
 [build-system]
-requires = ["pytoml>=0.1", "enscons"]
+requires = ["pytoml>=0.1", "enscons>=0.11", "wheel"]
+build-backend = "enscons.api"
